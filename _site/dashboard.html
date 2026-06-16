@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>dashboard – Appalachian A.I. Corps</title>
+<title>Teacher Dashboard – Appalachian A.I. Corps</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -46,9 +46,183 @@ ul.task-list li input[type="checkbox"] {
 <body>
 
 
+<header id="title-block-header">
+<h1 class="title">Teacher Dashboard</h1>
+
+</header>
 
 
+<div id="dashboard-content" style="display:none;">
 
+  <!-- Header -->
+  <div class="dashboard-header">
+    <div>
+      <h2>👋 Welcome, <span id="teacher-name"></span></h2>
+      <p style="color:#666;">Manage your students and classes below.</p>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary btn-sm" onclick="handleLogout()">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <div id="dashboard-status" class="status-message"></div>
+
+  <!-- Groups Section -->
+  <div class="dashboard-section">
+    <h3>📁 Groups / Classes</h3>
+    <div id="groups-list"></div>
+    <form onsubmit="handleCreateGroup(event)" style="margin-top:1rem; display:flex; gap:0.5rem;">
+      <input type="text" id="new-group-name" placeholder="New group name" style="flex:1; padding:0.4rem 0.8rem; border:1px solid #ccc; border-radius:6px;">
+      <button type="submit" class="btn btn-primary btn-sm">Add Group</button>
+    </form>
+    <div id="group-status" class="status-message"></div>
+  </div>
+
+  <!-- Add Students Section -->
+  <div class="dashboard-section">
+    <h3>➕ Add Students</h3>
+
+    <!-- Mode A: Single Student -->
+    <div class="creation-mode">
+      <div class="creation-mode-header" onclick="toggleMode('single')">
+        👤 Add a Single Student
+      </div>
+      <div id="mode-single" class="creation-mode-body">
+        <form onsubmit="handleAddSingleStudent(event)">
+          <div class="form-group">
+            <label for="single-username">Username</label>
+            <input type="text" id="single-username" placeholder="e.g., john_doe" required="">
+          </div>
+          <div class="form-group">
+            <label for="single-group-select">Group</label>
+            <select id="single-group-select" class="group-select">
+              <option value="Default">Default</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Student</button>
+          <div id="single-status" class="status-message"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Mode B: Multiple Students -->
+    <div class="creation-mode">
+      <div class="creation-mode-header" onclick="toggleMode('bulk')">
+        👥 Add Multiple Students
+      </div>
+      <div id="mode-bulk" class="creation-mode-body">
+        <form onsubmit="handleAddMultipleStudents(event)">
+          <div class="form-group">
+            <label for="bulk-prefix">Username Prefix</label>
+            <input type="text" id="bulk-prefix" placeholder="e.g., &quot;Student&quot;" required="">
+          </div>
+          <div class="form-group">
+            <label for="bulk-count">Number of Accounts</label>
+            <input type="number" id="bulk-count" min="1" max="100" placeholder="e.g., 25" required="">
+          </div>
+          <div class="form-group">
+            <label for="bulk-group-select">Group</label>
+            <select id="bulk-group-select" class="group-select">
+              <option value="Default">Default</option>
+            </select>
+          </div>
+          <p style="font-size:0.85rem; color:#888;">
+            Creates Student1, Student2, Student3, etc. with one shared password.
+          </p>
+          <button type="submit" class="btn btn-primary">Create Students</button>
+          <div id="bulk-status" class="status-message"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Mode C: Import from File -->
+    <div class="creation-mode">
+      <div class="creation-mode-header" onclick="toggleMode('import')">
+        📄 Import Students from File
+      </div>
+      <div id="mode-import" class="creation-mode-body">
+        <div class="form-group">
+          <label for="file-upload">Upload .txt file (one username per line)</label>
+          <input type="file" id="file-upload" accept=".txt">
+        </div>
+        <div class="form-group">
+          <label for="import-group-select">Group</label>
+          <select id="import-group-select" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary" onclick="handleFileUpload()">
+          Upload &amp; Preview
+        </button>
+        <div id="import-preview" style="display:none; margin-top:1rem;"></div>
+        <div id="import-status" class="status-message"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student List -->
+  <div class="dashboard-section">
+    <h3>📋 Your Students (<span id="student-count">0</span>)</h3>
+    <div id="students-list"></div>
+  </div>
+
+  <!-- Danger Zone -->
+  <div class="dashboard-section" style="border-color: #d32f2f;">
+    <h3 style="color: #d32f2f;">⚠️ Danger Zone</h3>
+    <p>Deleting your account will remove <strong>all</strong> student accounts and data permanently.</p>
+    <button class="btn-danger-custom" onclick="handleDeleteTeacherAccount()">
+      Delete My Account &amp; All Students
+    </button>
+  </div>
+
+</div>
+
+<!-- Loading / auth check -->
+<div id="auth-loading" style="text-align:center; padding:3rem;">
+  <p>Checking authentication...</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/students.js"></script>
+<script>
+  // Toggle creation mode accordion
+  function toggleMode(mode) {
+    const body = document.getElementById('mode-' + mode);
+    body.classList.toggle('active');
+  }
+
+  // Protect this page — teacher only
+  _supabase.auth.onAuthStateChange(async (event, session) => {
+    if (!session) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
+      const { data: profile } = await _supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (!profile || profile.role !== 'teacher') {
+        document.getElementById('auth-loading').innerHTML =
+          '<p style="color:#d32f2f;">Access denied. This page is for teachers only.</p>';
+        return;
+      }
+
+      document.getElementById('auth-loading').style.display = 'none';
+      document.getElementById('dashboard-content').style.display = 'block';
+      await loadDashboard();
+    }
+  });
+</script>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
