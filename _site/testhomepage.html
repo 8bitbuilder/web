@@ -63,7 +63,11 @@ Appalachian A.I. Corps
 ☰
 </button>
 <nav class="navbar-links" id="navbarLinks">
-<a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a> | <span id="dashboard-link" style="display:none;">| <a href="dashboard">Dashboard</a></span> | <span id="auth-button"> <a href="get-started" class="btn btn-light btn-sm">Get Started</a> </span>
+<p><a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a></p>
+<!-- Dashboard link (hidden until logged in) -->
+<p><span id="dashboard-link" style="display:none;"> | <a href="dashboard">Dashboard</a> </span></p>
+<!-- Auth button (Get Started OR Welcome Back dropdown) -->
+<span id="auth-button"> | <a href="get-started" class="btn btn-light btn-sm">Get Started</a> </span>
 </nav>
 </div>
 <script>
@@ -111,11 +115,16 @@ Knoxville, TN</p>
 </div>
 </div>
 <!-- ========================= -->
-<!-- LOGIN LOGIC               -->
+<!-- SUPABASE + AUTH SCRIPTS   -->
 <!-- ========================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<p><!-- your existing auth file --></p>
+<!-- ========================= -->
+<!-- NAVBAR LOGIN / DROPDOWN   -->
+<!-- ========================= -->
 <script>
 (async () => {
   const session = await getSession();
@@ -128,22 +137,22 @@ Knoxville, TN</p>
       .single();
 
     if (profile) {
-      const authButton = document.getElementById("auth-button");
-
-      authButton.innerHTML = `
-        <div class="dropdown">
-          <button class="btn btn-light btn-sm dropdown-toggle" onclick="toggleUserMenu()">
-            Welcome back, ${profile.username}
-          </button>
-          <div id="user-menu" class="dropdown-menu">
-            <a href="dashboard">Dashboard</a>
-            <a href="#" onclick="handleLogout()">Log Out</a>
-          </div>
-        </div>
-      `;
-
-      // Show dashboard link in navbar too (optional)
+      // Show dashboard link
       document.getElementById("dashboard-link").style.display = "inline";
+
+      // Replace Get Started with dropdown
+      const authButton = document.getElementById("auth-button");
+      authButton.innerHTML = `
+        | <div class="dropdown">
+            <button class="btn btn-light btn-sm dropdown-toggle" onclick="toggleUserMenu()">
+              Welcome back, ${profile.username}
+            </button>
+            <div id="user-menu" class="dropdown-menu">
+              <a href="dashboard">Dashboard</a>
+              <a href="#" onclick="handleLogout()">Log Out</a>
+            </div>
+          </div>
+      `;
     }
   }
 })();

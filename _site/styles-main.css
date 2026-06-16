@@ -91,12 +91,25 @@ body {
 .navbar-links a {
   color: var(--globe);
   text-decoration: none;
-  margin: 0 1.5rem;
+  margin: 0 0.75rem;
   font-weight: 600;
 }
 
 .navbar-links a:hover {
   color: var(--torch);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.navbar-links span {
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Navbar toggle button - hidden by default */
