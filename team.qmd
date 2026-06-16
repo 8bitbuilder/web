@@ -14,7 +14,7 @@ format:
 </div>
 <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
 <nav class="navbar-links" id="navbarLinks">
-  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact)
+  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact) | [Dashboard](dashboard) | [<span class='btn btn-light btn-sm'>Get Started</span>](get-started)
 </nav>
 :::
 
