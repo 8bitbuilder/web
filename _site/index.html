@@ -49,6 +49,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<!-- ========================= -->
+<!-- NAVBAR WITH LOGIN LOGIC   -->
+<!-- ========================= -->
 <div class="custom-navbar">
 <div class="navbar-brand">
 <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
@@ -60,7 +63,11 @@ Appalachian A.I. Corps
 ☰
 </button>
 <nav class="navbar-links" id="navbarLinks">
-<a href=".">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a> | <a href="dashboard">Dashboard</a> | <a href="get-started"><span class="btn btn-light btn-sm">Get Started</span></a>
+<p><a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a></p>
+<!-- Dashboard link (hidden until logged in) -->
+<p><span id="dashboard-link" style="display:none;"> | <a href="dashboard">Dashboard</a> </span></p>
+<!-- Auth button (Get Started OR Welcome Back dropdown) -->
+<span id="auth-button"> | <a href="get-started" class="btn btn-light btn-sm">Get Started</a> </span>
 </nav>
 </div>
 <script>
@@ -69,6 +76,9 @@ function toggleMenu() {
   nav.classList.toggle('show');
 }
 </script>
+<!-- ========================= -->
+<!-- HERO SECTION              -->
+<!-- ========================= -->
 <div class="hero">
 <div class="hero-content">
 <p><img src="assets/logo_white.png" class="hero-image img-fluid" alt="Appalachian A.I. Corps logo"></p>
@@ -78,11 +88,17 @@ function toggleMenu() {
 <p><a href="modules" class="btn">Explore Our Modules</a></p>
 </div>
 </div>
+<!-- ========================= -->
+<!-- PARTNER LOGOS             -->
+<!-- ========================= -->
 <div class="logo-section">
 <div class="logo-grid">
 <p><img src="assets/tpte_logo.png" class="partner-logo-tpte img-fluid" alt="University of Tennessee, Knoxville: Department of Theory &amp; Practice in Teacher Education logo"> <img src="assets/aitn_logo.png" class="partner-logo-aitn img-fluid" alt="AI Tennessee logo"> <img src="assets/eecs_logo.jpg" class="partner-logo-eecs img-fluid" alt="University of Tennessee, Knoxville: Min H. Kao Department of Electrical Engineering &amp; Computer Science logo"></p>
 </div>
 </div>
+<!-- ========================= -->
+<!-- FOOTER                    -->
+<!-- ========================= -->
 <div class="footer">
 <div class="footer-columns">
 <div class="footer-left">
@@ -98,6 +114,54 @@ Knoxville, TN</p>
 </div>
 </div>
 </div>
+<!-- ========================= -->
+<!-- SUPABASE + AUTH SCRIPTS   -->
+<!-- ========================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<p><!-- your existing auth file --></p>
+<!-- ========================= -->
+<!-- NAVBAR LOGIN / DROPDOWN   -->
+<!-- ========================= -->
+<script>
+(async () => {
+  const session = await getSession();
+
+  if (session) {
+    const { data: profile } = await _supabase
+      .from("profiles")
+      .select("username, role")
+      .eq("id", session.user.id)
+      .single();
+
+    if (profile) {
+      // Show dashboard link
+      document.getElementById("dashboard-link").style.display = "inline";
+
+      // Replace Get Started with dropdown
+      const authButton = document.getElementById("auth-button");
+      authButton.innerHTML = `
+        | <div class="dropdown">
+            <button class="btn btn-light btn-sm dropdown-toggle" onclick="toggleUserMenu()">
+              Welcome back, ${profile.username}
+            </button>
+            <div id="user-menu" class="dropdown-menu">
+              <a href="dashboard">Dashboard</a>
+              <a href="#" onclick="handleLogout()">Log Out</a>
+            </div>
+          </div>
+      `;
+    }
+  }
+})();
+
+function toggleUserMenu() {
+  const menu = document.getElementById("user-menu");
+  menu.classList.toggle("show");
+}
+</script>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
