@@ -57,7 +57,7 @@ ul.task-list li input[type="checkbox"] {
   <!-- Header -->
   <div class="dashboard-header">
     <div>
-      <h2>👋 Welcome, <span id="teacher-name"></span></h2>
+      <h2>Welcome, <span id="teacher-name"></span></h2>
       <p style="color:#666;">Manage your students and classes below.</p>
     </div>
     <div>
@@ -71,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
 
   <!-- Groups Section -->
   <div class="dashboard-section">
-    <h3>📁 Groups / Classes</h3>
+    <h3>Groups / Classes</h3>
     <div id="groups-list"></div>
     <form onsubmit="handleCreateGroup(event)" style="margin-top:1rem; display:flex; gap:0.5rem;">
       <input type="text" id="new-group-name" placeholder="New group name" style="flex:1; padding:0.4rem 0.8rem; border:1px solid #ccc; border-radius:6px;">
@@ -82,12 +82,12 @@ ul.task-list li input[type="checkbox"] {
 
   <!-- Add Students Section -->
   <div class="dashboard-section">
-    <h3>➕ Add Students</h3>
+    <h3>+ Add Students</h3>
 
     <!-- Mode A: Single Student -->
     <div class="creation-mode">
       <div class="creation-mode-header" onclick="toggleMode('single')">
-        👤 Add a Single Student
+        + Add a Single Student
       </div>
       <div id="mode-single" class="creation-mode-body">
         <form onsubmit="handleAddSingleStudent(event)">
@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <!-- Mode B: Multiple Students -->
     <div class="creation-mode">
       <div class="creation-mode-header" onclick="toggleMode('bulk')">
-        👥 Add Multiple Students
+        + Add Multiple Students
       </div>
       <div id="mode-bulk" class="creation-mode-body">
         <form onsubmit="handleAddMultipleStudents(event)">
@@ -140,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
     <!-- Mode C: Import from File -->
     <div class="creation-mode">
       <div class="creation-mode-header" onclick="toggleMode('import')">
-        📄 Import Students from File
+        + Import Students from File
       </div>
       <div id="mode-import" class="creation-mode-body">
         <div class="form-group">
@@ -164,13 +164,13 @@ ul.task-list li input[type="checkbox"] {
 
   <!-- Student List -->
   <div class="dashboard-section">
-    <h3>📋 Your Students (<span id="student-count">0</span>)</h3>
+    <h3>Your Students (<span id="student-count">0</span>)</h3>
     <div id="students-list"></div>
   </div>
 
   <!-- Danger Zone -->
   <div class="dashboard-section" style="border-color: #d32f2f;">
-    <h3 style="color: #d32f2f;">⚠️ Danger Zone</h3>
+    <h3 style="color: #d32f2f;">Delete Class Account</h3>
     <p>Deleting your account will remove <strong>all</strong> student accounts and data permanently.</p>
     <button class="btn-danger-custom" onclick="handleDeleteTeacherAccount()">
       Delete My Account &amp; All Students
