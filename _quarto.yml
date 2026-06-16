@@ -4,6 +4,7 @@ project:
   render:
     - "*.qmd"
     - "!modules/**"
+    - "js/**"
 
 website:
   title: "Appalachian A.I. Corps"
