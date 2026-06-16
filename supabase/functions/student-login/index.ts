@@ -44,3 +44,85 @@ export default {
     --data '{"name":"Functions"}'
 
 */
+
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { corsHeaders } from "../_shared/cors.ts";
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
+  try {
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+
+    const adminClient = createClient(supabaseUrl, serviceRoleKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const { username, password } = await req.json();
+
+    if (!username || !password) {
+      return new Response(
+        JSON.stringify({ error: "Username and password are required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Look up the username in profiles
+    const { data: profile, error: profileError } = await adminClient
+      .from("profiles")
+      .select("id, username, role")
+      .eq("username", username)
+      .eq("role", "student")
+      .single();
+
+    if (profileError || !profile) {
+      return new Response(
+        JSON.stringify({ error: "Invalid username or password" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Construct synthetic email
+    const syntheticEmail = `${username.toLowerCase()}@students.noemail.invalid`;
+
+    // Sign in using the admin client to get the session
+    // We use a temporary client for this sign-in
+    const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    const signInClient = createClient(supabaseUrl, anonKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const { data: signInData, error: signInError } =
+      await signInClient.auth.signInWithPassword({
+        email: syntheticEmail,
+        password: password,
+      });
+
+    if (signInError) {
+      return new Response(
+        JSON.stringify({ error: "Invalid username or password" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Return the session to the client
+    return new Response(
+      JSON.stringify({
+        session: signInData.session,
+        user: signInData.user,
+      }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+});
