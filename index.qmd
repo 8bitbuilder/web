@@ -2,39 +2,48 @@
 title: ""
 format:
   html:
-    css: styles-main.css
+    css:
+      - styles-main.css
+      - styles-auth.css
     toc: false
     theme: none
 ---
-
-<!-- ========================= -->
-<!-- NAVBAR WITH LOGIN LOGIC   -->
-<!-- ========================= -->
 
 ::: {.custom-navbar}
 <div class="navbar-brand">
   <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
   <h1>Appalachian A.I. Corps</h1>
 </div>
-
 <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-
 <nav class="navbar-links" id="navbarLinks">
-  <a href="/">Home</a> |
-  <a href="modules">Modules</a> |
-  <a href="team">Team</a> |
-  <a href="contact">Contact</a>
-
-  <!-- Dashboard link (hidden until logged in) -->
-  <span id="dashboard-link" style="display:none;">
-    | <a href="dashboard">Dashboard</a>
-  </span>
-
-  <!-- Auth button (Get Started OR Welcome Back dropdown) -->
-  <span id="auth-button">
-    | <a href="get-started" class="btn btn-light btn-sm">Get Started</a>
-  </span>
+  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact)
 </nav>
+<div class="navbar-auth" id="navbarAuth">
+  <!-- Logged-out state: shows "Log In" with dropdown for Student / Teacher -->
+  <div class="auth-dropdown" id="authDropdownLoggedOut">
+    <button class="auth-pill" id="loginPill" onclick="toggleAuthDropdown('loggedOut')">
+      <img src="assets/profile-default.png" alt="" class="auth-pill-avatar">
+      <span class="auth-pill-text">Log In</span>
+      <span class="auth-pill-chevron" id="chevronOut">&#9662;</span>
+    </button>
+    <div class="auth-dropdown-menu" id="dropdownMenuOut">
+      <a href="login-student.html" class="auth-dropdown-item">Student</a>
+      <a href="login-teacher.html" class="auth-dropdown-item">Teacher</a>
+    </div>
+  </div>
+  <!-- Logged-in state: shows username with dropdown for Dashboard / Log Out -->
+  <div class="auth-dropdown hidden" id="authDropdownLoggedIn">
+    <button class="auth-pill logged-in" id="userPill" onclick="toggleAuthDropdown('loggedIn')">
+      <img src="assets/profile-default.png" alt="" class="auth-pill-avatar">
+      <span class="auth-pill-text" id="navUsername">Username</span>
+      <span class="auth-pill-chevron" id="chevronIn">&#9662;</span>
+    </button>
+    <div class="auth-dropdown-menu" id="dropdownMenuIn">
+      <a href="dashboard.html" class="auth-dropdown-item" id="navDashboardLink">Teacher Dashboard</a>
+      <a href="#" class="auth-dropdown-item" onclick="handleNavLogout(event)">Log Out</a>
+    </div>
+  </div>
+</div>
 :::
 
 <script>
@@ -42,29 +51,50 @@ function toggleMenu() {
   const nav = document.getElementById('navbarLinks');
   nav.classList.toggle('show');
 }
+
+function toggleAuthDropdown(which) {
+  if (which === 'loggedOut') {
+    document.getElementById('dropdownMenuOut').classList.toggle('show');
+    document.getElementById('chevronOut').classList.toggle('open');
+  } else {
+    document.getElementById('dropdownMenuIn').classList.toggle('show');
+    document.getElementById('chevronIn').classList.toggle('open');
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.auth-dropdown')) {
+    document.querySelectorAll('.auth-dropdown-menu').forEach(m => m.classList.remove('show'));
+    document.querySelectorAll('.auth-pill-chevron').forEach(c => c.classList.remove('open'));
+  }
+});
 </script>
 
-<!-- ========================= -->
-<!-- HERO SECTION              -->
-<!-- ========================= -->
+<!-- Supabase JS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+
 
 ::: {.hero}
 ::: {.hero-content}
 ![](assets/logo_white.png){.hero-image fig-alt="Appalachian A.I. Corps logo"}
 
-## Empowering Appalachia Through Artificial&nbsp;Intelligence
+
+## Empowering Appalachia Through Artificial Intelligence
+
 
 The Appalachian A.I. Corps is an initiative dedicated to empowering Appalachian communities to harness artificial intelligence technologies to support their region, communities, and families.
 
+
 We believe that the power of AI should be accessible to all. Through education, collaboration, and practical application, we're building a future where Appalachian communities lead in the intelligent use of technology.
+
 
 [Explore Our Modules](modules){.btn}
 :::
 :::
 
-<!-- ========================= -->
-<!-- PARTNER LOGOS             -->
-<!-- ========================= -->
 
 ::: {.logo-section}
 ::: {.logo-grid}
@@ -74,18 +104,17 @@ We believe that the power of AI should be accessible to all. Through education, 
 :::
 :::
 
-<!-- ========================= -->
-<!-- FOOTER                    -->
-<!-- ========================= -->
 
 ::: {.footer}
 ::: {.footer-columns}
 ::: {.footer-left}
 ![](assets/logo_white.png){.footer-logo fig-alt="AAIC logo"}
 
+
 **Appalachian A.I. Corps**  
 Empowering Appalachia Through Artificial Intelligence
 :::
+
 
 ::: {.footer-right}
 Department of Theory & Practice in Teacher Education  
@@ -95,54 +124,3 @@ Knoxville, TN
 :::
 :::
 :::
-
-<!-- ========================= -->
-<!-- SUPABASE + AUTH SCRIPTS   -->
-<!-- ========================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/auth.js"></script> <!-- your existing auth file -->
-
-<!-- ========================= -->
-<!-- NAVBAR LOGIN / DROPDOWN   -->
-<!-- ========================= -->
-
-<script>
-(async () => {
-  const session = await getSession();
-
-  if (session) {
-    const { data: profile } = await _supabase
-      .from("profiles")
-      .select("username, role")
-      .eq("id", session.user.id)
-      .single();
-
-    if (profile) {
-      // Show dashboard link
-      document.getElementById("dashboard-link").style.display = "inline";
-
-      // Replace Get Started with dropdown
-      const authButton = document.getElementById("auth-button");
-      authButton.innerHTML = `
-        | <div class="dropdown">
-            <button class="btn btn-light btn-sm dropdown-toggle" onclick="toggleUserMenu()">
-              Welcome back, ${profile.username}
-            </button>
-            <div id="user-menu" class="dropdown-menu">
-              <a href="dashboard">Dashboard</a>
-              <a href="#" onclick="handleLogout()">Log Out</a>
-            </div>
-          </div>
-      `;
-    }
-  }
-})();
-
-function toggleUserMenu() {
-  const menu = document.getElementById("user-menu");
-  menu.classList.toggle("show");
-}
-</script>
