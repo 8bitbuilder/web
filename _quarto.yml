@@ -5,6 +5,9 @@ project:
     - "*.qmd"
     - "!modules/**"
     - "js/**"
+  resources:
+    - "js/**"
+    - "assets/**"
 
 website:
   title: "Appalachian A.I. Corps"
