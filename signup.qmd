@@ -71,7 +71,7 @@ document.getElementById('signupForm').addEventListener('submit', async () => {
     if (existing) throw new Error('That username is already taken. Please choose another.');
 
     // Sign up via Supabase Auth
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await _supabase.auth.signUp({
       email,
       password,
       options: {
@@ -92,7 +92,7 @@ document.getElementById('signupForm').addEventListener('submit', async () => {
     if (profileErr) throw profileErr;
 
     // Sign out immediately (they need to verify email first)
-    await supabase.auth.signOut();
+    await _supabase.auth.signOut();
 
     // Show success popup
     document.getElementById('popupEmail').textContent = email;
