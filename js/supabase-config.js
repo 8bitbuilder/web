@@ -10,4 +10,4 @@ const SUPABASE_ANON_KEY = "sb_publishable_YrLGqHh4sAmgUeu2XFOV5w_Qnydq1y1";
 const EDGE_FUNCTION_URL = 'https://uuzuhrgvqurwlbcermii.supabase.co/functions/v1';
 
 // Initialize the Supabase client from the CDN-loaded global
-const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
