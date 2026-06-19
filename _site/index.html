@@ -41,6 +41,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles-main.css">
+<link rel="stylesheet" href="styles-auth.css">
 </head>
 
 <body>
@@ -49,9 +50,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<!-- ========================= -->
-<!-- NAVBAR WITH LOGIN LOGIC   -->
-<!-- ========================= -->
 <div class="custom-navbar">
 <div class="navbar-brand">
 <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
@@ -63,42 +61,77 @@ Appalachian A.I. Corps
 ☰
 </button>
 <nav class="navbar-links" id="navbarLinks">
-<p><a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a></p>
-<!-- Dashboard link (hidden until logged in) -->
-<p><span id="dashboard-link" style="display:none;"> | <a href="dashboard">Dashboard</a> </span></p>
-<!-- Auth button (Get Started OR Welcome Back dropdown) -->
-<span id="auth-button"> | <a href="get-started" class="btn btn-light btn-sm">Get Started</a> </span>
+<a href=".">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a>
 </nav>
+<div id="navbarAuth" class="navbar-auth">
+<!-- Logged-out state: shows "Log In" with dropdown for Student / Teacher -->
+<div id="authDropdownLoggedOut" class="auth-dropdown">
+<pre><code>&lt;button class="auth-pill" id="loginPill" onclick="toggleAuthDropdown('loggedOut')"&gt;
+  &lt;img src="assets/profile-default.png" alt="" class="auth-pill-avatar"&gt;
+  &lt;span class="auth-pill-text"&gt;Log In&lt;/span&gt;
+  &lt;span class="auth-pill-chevron" id="chevronOut"&gt;&amp;#9662;&lt;/span&gt;
+&lt;/button&gt;
+&lt;div class="auth-dropdown-menu" id="dropdownMenuOut"&gt;
+  &lt;a href="login-student.html" class="auth-dropdown-item"&gt;Student&lt;/a&gt;
+  &lt;a href="login-teacher.html" class="auth-dropdown-item"&gt;Teacher&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<!-- Logged-in state: shows username with dropdown for Dashboard / Log Out -->
+<div id="authDropdownLoggedIn" class="auth-dropdown hidden">
+<pre><code>&lt;button class="auth-pill logged-in" id="userPill" onclick="toggleAuthDropdown('loggedIn')"&gt;
+  &lt;img src="assets/profile-default.png" alt="" class="auth-pill-avatar"&gt;
+  &lt;span class="auth-pill-text" id="navUsername"&gt;Username&lt;/span&gt;
+  &lt;span class="auth-pill-chevron" id="chevronIn"&gt;&amp;#9662;&lt;/span&gt;
+&lt;/button&gt;
+&lt;div class="auth-dropdown-menu" id="dropdownMenuIn"&gt;
+  &lt;a href="dashboard.html" class="auth-dropdown-item" id="navDashboardLink"&gt;Teacher Dashboard&lt;/a&gt;
+  &lt;a href="#" class="auth-dropdown-item" onclick="handleNavLogout(event)"&gt;Log Out&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
 </div>
 <script>
 function toggleMenu() {
   const nav = document.getElementById('navbarLinks');
   nav.classList.toggle('show');
 }
+
+function toggleAuthDropdown(which) {
+  if (which === 'loggedOut') {
+    document.getElementById('dropdownMenuOut').classList.toggle('show');
+    document.getElementById('chevronOut').classList.toggle('open');
+  } else {
+    document.getElementById('dropdownMenuIn').classList.toggle('show');
+    document.getElementById('chevronIn').classList.toggle('open');
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.auth-dropdown')) {
+    document.querySelectorAll('.auth-dropdown-menu').forEach(m => m.classList.remove('show'));
+    document.querySelectorAll('.auth-pill-chevron').forEach(c => c.classList.remove('open'));
+  }
+});
 </script>
-<!-- ========================= -->
-<!-- HERO SECTION              -->
-<!-- ========================= -->
+<!-- Supabase JS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
 <div class="hero">
 <div class="hero-content">
 <p><img src="assets/logo_white.png" class="hero-image img-fluid" alt="Appalachian A.I. Corps logo"></p>
-<h2 id="empowering-appalachia-through-artificial-intelligence">Empowering Appalachia Through Artificial&nbsp;Intelligence</h2>
+<h2 id="empowering-appalachia-through-artificial-intelligence">Empowering Appalachia Through Artificial Intelligence</h2>
 <p>The Appalachian A.I. Corps is an initiative dedicated to empowering Appalachian communities to harness artificial intelligence technologies to support their region, communities, and families.</p>
 <p>We believe that the power of AI should be accessible to all. Through education, collaboration, and practical application, we’re building a future where Appalachian communities lead in the intelligent use of technology.</p>
 <p><a href="modules" class="btn">Explore Our Modules</a></p>
 </div>
 </div>
-<!-- ========================= -->
-<!-- PARTNER LOGOS             -->
-<!-- ========================= -->
 <div class="logo-section">
 <div class="logo-grid">
 <p><img src="assets/tpte_logo.png" class="partner-logo-tpte img-fluid" alt="University of Tennessee, Knoxville: Department of Theory &amp; Practice in Teacher Education logo"> <img src="assets/aitn_logo.png" class="partner-logo-aitn img-fluid" alt="AI Tennessee logo"> <img src="assets/eecs_logo.jpg" class="partner-logo-eecs img-fluid" alt="University of Tennessee, Knoxville: Min H. Kao Department of Electrical Engineering &amp; Computer Science logo"></p>
 </div>
 </div>
-<!-- ========================= -->
-<!-- FOOTER                    -->
-<!-- ========================= -->
 <div class="footer">
 <div class="footer-columns">
 <div class="footer-left">
@@ -114,54 +147,6 @@ Knoxville, TN</p>
 </div>
 </div>
 </div>
-<!-- ========================= -->
-<!-- SUPABASE + AUTH SCRIPTS   -->
-<!-- ========================= -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/auth.js"></script>
-<p><!-- your existing auth file --></p>
-<!-- ========================= -->
-<!-- NAVBAR LOGIN / DROPDOWN   -->
-<!-- ========================= -->
-<script>
-(async () => {
-  const session = await getSession();
-
-  if (session) {
-    const { data: profile } = await _supabase
-      .from("profiles")
-      .select("username, role")
-      .eq("id", session.user.id)
-      .single();
-
-    if (profile) {
-      // Show dashboard link
-      document.getElementById("dashboard-link").style.display = "inline";
-
-      // Replace Get Started with dropdown
-      const authButton = document.getElementById("auth-button");
-      authButton.innerHTML = `
-        | <div class="dropdown">
-            <button class="btn btn-light btn-sm dropdown-toggle" onclick="toggleUserMenu()">
-              Welcome back, ${profile.username}
-            </button>
-            <div id="user-menu" class="dropdown-menu">
-              <a href="dashboard">Dashboard</a>
-              <a href="#" onclick="handleLogout()">Log Out</a>
-            </div>
-          </div>
-      `;
-    }
-  }
-})();
-
-function toggleUserMenu() {
-  const menu = document.getElementById("user-menu");
-  menu.classList.toggle("show");
-}
-</script>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

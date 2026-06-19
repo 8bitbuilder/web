@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sign Up – Appalachian A.I. Corps</title>
+<title>signup – Appalachian A.I. Corps</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -41,59 +41,111 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles-main.css">
+<link rel="stylesheet" href="styles-auth.css">
 </head>
 
 <body>
 
 
-<header id="title-block-header">
-<h1 class="title">Sign Up</h1>
-
-</header>
 
 
-<div class="auth-card">
-  <h2>Create Your Account</h2>
 
-  <form id="signup-form" onsubmit="handleTeacherSignup(event)">
-    <div class="form-group">
-      <label for="signup-username">Username</label>
-      <input type="text" id="signup-username" placeholder="Choose a username" required="">
-    </div>
-
-    <div class="form-group">
-      <label for="signup-email">Email</label>
-      <input type="email" id="signup-email" placeholder="your@email.com" required="">
-    </div>
-
-    <div class="form-group">
-      <label>I am a...</label>
-      <div class="role-selection">
-        <label>
-          <input type="radio" name="signup-role" value="teacher" required="">
-          Teacher
-        </label>
-        <label>
-          <input type="radio" name="signup-role" value="student">
-          Student
-        </label>
-      </div>
-    </div>
-
-    <button type="submit" class="btn-primary-custom">Create Account</button>
-    <div id="signup-status" class="status-message"></div>
-  </form>
-
-  <div class="auth-link">
-    <a href="login.html">Already have an account? Log in</a>
-  </div>
+<div class="custom-navbar">
+<div class="navbar-brand">
+<pre><code>&lt;a href="/"&gt;&lt;img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"&gt;&lt;/a&gt;
+&lt;h1&gt;Appalachian A.I. Corps&lt;/h1&gt;</code></pre>
 </div>
+<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
+<nav class="navbar-links" id="navbarLinks">
+<a href="./">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+</nav>
+<div id="navbarAuth" class="navbar-auth">
+<pre><code>&lt;div class="auth-dropdown" id="authDropdownLoggedOut"&gt;
+  &lt;button class="auth-pill" id="loginPill" onclick="toggleAuthDropdown('loggedOut')"&gt;
+    &lt;img src="assets/profile-default.png" alt="" class="auth-pill-avatar"&gt;
+    &lt;span class="auth-pill-text"&gt;Log In&lt;/span&gt;
+    &lt;span class="auth-pill-chevron" id="chevronOut"&gt;&amp;#9662;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="auth-dropdown-menu" id="dropdownMenuOut"&gt;
+    &lt;a href="login-student.html" class="auth-dropdown-item"&gt;Student&lt;/a&gt;
+    &lt;a href="login-teacher.html" class="auth-dropdown-item"&gt;Teacher&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="auth-dropdown hidden" id="authDropdownLoggedIn"&gt;
+  &lt;button class="auth-pill logged-in" id="userPill" onclick="toggleAuthDropdown('loggedIn')"&gt;
+    &lt;img src="assets/profile-default.png" alt="" class="auth-pill-avatar"&gt;
+    &lt;span class="auth-pill-text" id="navUsername"&gt;Username&lt;/span&gt;
+    &lt;span class="auth-pill-chevron" id="chevronIn"&gt;&amp;#9662;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="auth-dropdown-menu" id="dropdownMenuIn"&gt;
+    &lt;a href="dashboard.html" class="auth-dropdown-item" id="navDashboardLink"&gt;Teacher Dashboard&lt;/a&gt;
+    &lt;a href="#" class="auth-dropdown-item" onclick="handleNavLogout(event)"&gt;Log Out&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+<script>
+function toggleMenu() {
+  var nav = document.getElementById('navbarLinks');
+  nav.classList.toggle('show');
+}
+function toggleAuthDropdown(which) {
+  if (which === 'loggedOut') {
+    document.getElementById('dropdownMenuOut').classList.toggle('show');
+    document.getElementById('chevronOut').classList.toggle('open');
+  } else {
+    document.getElementById('dropdownMenuIn').classList.toggle('show');
+    document.getElementById('chevronIn').classList.toggle('open');
+  }
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.auth-dropdown')) {
+    document.querySelectorAll('.auth-dropdown-menu').forEach(function(m) { m.classList.remove('show'); });
+    document.querySelectorAll('.auth-pill-chevron').forEach(function(c) { c.classList.remove('open'); });
+  }
+});
+</script>
+<div class="auth-page-bg">
+<div class="auth-page-content">
+<div class="auth-card">
+<img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
+<h2>
+Create Account
+</h2>
+<p class="auth-subtitle">
+Sign up for a teacher account
+</p>
+<div id="signupMessage" class="auth-message">
 
+</div>
+<form onsubmit="handleTeacherSignup(event)">
+<div class="auth-field">
+<pre><code>  &lt;label for="signupUsername"&gt;Username&lt;/label&gt;
+  &lt;input type="text" id="signupUsername" placeholder="Choose a username" required&gt;
+&lt;/div&gt;
+&lt;div class="auth-field"&gt;
+  &lt;label for="signupEmail"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="signupEmail" placeholder="Enter your email" required&gt;
+&lt;/div&gt;
+&lt;div class="auth-field"&gt;
+  &lt;label for="signupPassword"&gt;Password&lt;/label&gt;
+  &lt;input type="password" id="signupPassword" placeholder="Create a password (min 8 characters)" required minlength="8"&gt;
+&lt;/div&gt;
+&lt;button type="submit" class="auth-btn"&gt;Sign Up&lt;/button&gt;</code></pre>
+
+<div class="auth-links">
+<pre><code>Already have an account? &lt;a href="login-teacher.html"&gt;Log In&lt;/a&gt;</code></pre>
+</div>
+</div></form>
+<p>:::</p>
+<p>:::</p>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
-<script src="js/utils.js"></script>
 <script src="js/auth.js"></script>
 
+</div>
+</div>
+</div>
 
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
