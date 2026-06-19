@@ -51,11 +51,11 @@ document.getElementById('teacherLoginForm').addEventListener('submit', async () 
   errorMsg.style.display = 'none';
 
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
 
     // Verify this is a teacher account
-    const { data: profile, error: profileErr } = await supabase
+    const { data: profile, error: profileErr } = await _supabase
       .from('profiles')
       .select('role')
       .eq('id', data.user.id)
@@ -63,7 +63,7 @@ document.getElementById('teacherLoginForm').addEventListener('submit', async () 
 
     if (profileErr) throw profileErr;
     if (profile.role !== 'teacher') {
-      await supabase.auth.signOut();
+      await _supabase.auth.signOut();
       throw new Error('This login page is for teachers only.');
     }
 
