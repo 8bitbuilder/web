@@ -9,41 +9,106 @@ format:
     theme: none
 ---
 
-{{< include _navbar.html >}}
-
-::: {.auth-page-bg}
-::: {.auth-page-content}
-
-<div class="auth-card">
-  <img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
-  <h2>Teacher Login</h2>
-  <p class="auth-subtitle">Sign in to manage your classroom</p>
-
-  <div class="auth-message" id="loginMessage"></div>
-
-  <form onsubmit="handleTeacherLogin(event)">
-    <div class="auth-field">
-      <label for="loginEmail">Email</label>
-      <input type="email" id="loginEmail" placeholder="Enter your email" required>
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<div class="custom-navbar">
+  <div class="navbar-brand">
+    <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
+  </div>
+  <button class="navbar-toggle" onclick="toggleMenu()">&#9776;</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="/">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a>
+  </nav>
+  <div class="nav-auth-wrapper">
+    <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
+      <img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar" id="authAvatar">
+      <span id="authLabel">Log In</span>
+      <span class="nav-auth-chevron" id="authChevron">&#9662;</span>
     </div>
-    <div class="auth-field">
-      <label for="loginPassword">Password</label>
-      <input type="password" id="loginPassword" placeholder="Enter your password" required>
+    <div class="nav-auth-dropdown" id="authDropdown">
+      <div id="loggedOutMenu">
+        <a href="login-student">Student</a>
+        <a href="login-teacher">Teacher</a>
+      </div>
+      <div id="loggedInMenu" style="display:none;">
+        <a href="#" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="#" onclick="logOut()">Log Out</a>
+      </div>
     </div>
-    <div class="auth-forgot">
-      <a href="reset-password.html">Forgot your password?</a>
-    </div>
-    <button type="submit" class="auth-btn">Log In</button>
-  </form>
-
-  <div class="auth-links">
-    Don't have an account? <a href="signup.html">Sign Up</a>
   </div>
 </div>
 
-:::
-:::
+<!-- ── Page content ───────────────────────────────────────── -->
+<div class="auth-page">
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Teacher Log In</h2>
+    <p class="auth-subtitle">Sign in to manage your classroom</p>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+
+    <form id="teacherLoginForm" onsubmit="return false;">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+
+      <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
+    </form>
+
+    <div class="auth-links">
+      <a href="reset-password">Forgot your password?</a>
+    </div>
+    <div class="auth-links">
+      Don't have an account? <a href="signup">Sign Up</a>
+    </div>
+  </div>
+</div>
+
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
+<script>
+document.getElementById('teacherLoginForm').addEventListener('submit', async () => {
+  const btn = document.getElementById('loginBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+  errorMsg.style.display = 'none';
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+
+    // Verify this is a teacher account
+    const { data: profile, error: profileErr } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', data.user.id)
+      .single();
+
+    if (profileErr) throw profileErr;
+    if (profile.role !== 'teacher') {
+      await supabase.auth.signOut();
+      throw new Error('This login page is for teachers only.');
+    }
+
+    window.location.href = 'dashboard';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Log In';
+  }
+});
+</script>
+<script>
+function toggleMenu() {
+  document.getElementById('navbarLinks').classList.toggle('show');
+}
+</script>
