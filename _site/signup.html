@@ -173,6 +173,7 @@ document.getElementById('signupForm').addEventListener('submit', async function 
     if (existCheck.data) throw new Error('That username is already taken. Please choose another.');
 
     // Sign up via Supabase Auth
+    // The database trigger automatically creates the profile row
     var signUpResult = await _supabase.auth.signUp({
       email: email,
       password: password,
@@ -181,17 +182,6 @@ document.getElementById('signupForm').addEventListener('submit', async function 
       }
     });
     if (signUpResult.error) throw signUpResult.error;
-
-    // Create profile row
-    var profileResult = await _supabase
-      .from('profiles')
-      .insert({
-        id: signUpResult.data.user.id,
-        username: username,
-        role: 'teacher',
-        teacher_id: null
-      });
-    if (profileResult.error) throw profileResult.error;
 
     // Sign out immediately (they need to verify email first)
     await _supabase.auth.signOut();
