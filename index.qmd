@@ -9,7 +9,6 @@ format:
     theme: none
 ---
 
-```{=html}
 ::: {.custom-navbar}
 <div class="navbar-brand">
   <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
@@ -76,7 +75,7 @@ document.addEventListener('click', function(e) {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
-```
+
 
 ::: {.hero}
 ::: {.hero-content}
