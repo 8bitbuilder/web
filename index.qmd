@@ -9,72 +9,45 @@ format:
     theme: none
 ---
 
-::: {.custom-navbar}
-<div class="navbar-brand">
-  <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-  <h1>Appalachian A.I. Corps</h1>
-</div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact)
-</nav>
-<div class="navbar-auth" id="navbarAuth">
-  <!-- Logged-out state: shows "Log In" with dropdown for Student / Teacher -->
-  <div class="auth-dropdown" id="authDropdownLoggedOut">
-    <button class="auth-pill" id="loginPill" onclick="toggleAuthDropdown('loggedOut')">
-      <img src="assets/profile-default.png" alt="" class="auth-pill-avatar">
-      <span class="auth-pill-text">Log In</span>
-      <span class="auth-pill-chevron" id="chevronOut">&#9662;</span>
-    </button>
-    <div class="auth-dropdown-menu" id="dropdownMenuOut">
-      <a href="login-student.html" class="auth-dropdown-item">Student</a>
-      <a href="login-teacher.html" class="auth-dropdown-item">Teacher</a>
-    </div>
+```{=html}
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<div class="custom-navbar">
+  <div class="navbar-brand">
+    <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
   </div>
-  <!-- Logged-in state: shows username with dropdown for Dashboard / Log Out -->
-  <div class="auth-dropdown hidden" id="authDropdownLoggedIn">
-    <button class="auth-pill logged-in" id="userPill" onclick="toggleAuthDropdown('loggedIn')">
-      <img src="assets/profile-default.png" alt="" class="auth-pill-avatar">
-      <span class="auth-pill-text" id="navUsername">Username</span>
-      <span class="auth-pill-chevron" id="chevronIn">&#9662;</span>
-    </button>
-    <div class="auth-dropdown-menu" id="dropdownMenuIn">
-      <a href="dashboard.html" class="auth-dropdown-item" id="navDashboardLink">Teacher Dashboard</a>
-      <a href="#" class="auth-dropdown-item" onclick="handleNavLogout(event)">Log Out</a>
+  <button class="navbar-toggle" onclick="toggleMenu()">&#9776;</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="/">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav-auth-wrapper">
+    <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
+      <img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar" id="authAvatar">
+      <span id="authLabel">Log In</span>
+      <span class="nav-auth-chevron" id="authChevron">&#9662;</span>
+    </div>
+    <div class="nav-auth-dropdown" id="authDropdown">
+      <div id="loggedOutMenu">
+        <a href="login-student.html">Student</a>
+        <a href="login-teacher.html">Teacher</a>
+      </div>
+      <div id="loggedInMenu" style="display:none;">
+        <a href="dashboard.html" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="#" onclick="logOut()">Log Out</a>
+      </div>
     </div>
   </div>
 </div>
-:::
 
-<script>
-function toggleMenu() {
-  const nav = document.getElementById('navbarLinks');
-  nav.classList.toggle('show');
-}
-
-function toggleAuthDropdown(which) {
-  if (which === 'loggedOut') {
-    document.getElementById('dropdownMenuOut').classList.toggle('show');
-    document.getElementById('chevronOut').classList.toggle('open');
-  } else {
-    document.getElementById('dropdownMenuIn').classList.toggle('show');
-    document.getElementById('chevronIn').classList.toggle('open');
-  }
-}
-
-// Close dropdowns when clicking outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.auth-dropdown')) {
-    document.querySelectorAll('.auth-dropdown-menu').forEach(m => m.classList.remove('show'));
-    document.querySelectorAll('.auth-pill-chevron').forEach(c => c.classList.remove('open'));
-  }
-});
-</script>
-
-<!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
+<script>
+function toggleMenu() {
+  document.getElementById('navbarLinks').classList.toggle('show');
+}
+</script>
+```
 
 
 ::: {.hero}
@@ -82,7 +55,7 @@ document.addEventListener('click', function(e) {
 ![](assets/logo_white.png){.hero-image fig-alt="Appalachian A.I. Corps logo"}
 
 
-## Empowering Appalachia Through Artificial Intelligence
+## Empowering Appalachia Through Artificial&nbsp;Intelligence
 
 
 The Appalachian A.I. Corps is an initiative dedicated to empowering Appalachian communities to harness artificial intelligence technologies to support their region, communities, and families.
@@ -91,7 +64,7 @@ The Appalachian A.I. Corps is an initiative dedicated to empowering Appalachian 
 We believe that the power of AI should be accessible to all. Through education, collaboration, and practical application, we're building a future where Appalachian communities lead in the intelligent use of technology.
 
 
-[Explore Our Modules](modules){.btn}
+[Explore Our Modules](modules.html){.btn}
 :::
 :::
 
