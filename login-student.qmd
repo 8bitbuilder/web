@@ -18,7 +18,7 @@ format:
   </div>
   <button class="navbar-toggle" onclick="toggleMenu()">&#9776;</button>
   <nav class="navbar-links" id="navbarLinks">
-    <a href="/">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a>
+    <a href="/">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
     <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
@@ -28,11 +28,11 @@ format:
     </div>
     <div class="nav-auth-dropdown" id="authDropdown">
       <div id="loggedOutMenu">
-        <a href="login-student">Student</a>
-        <a href="login-teacher">Teacher</a>
+        <a href="login-student.html">Student</a>
+        <a href="login-teacher.html">Teacher</a>
       </div>
       <div id="loggedInMenu" style="display:none;">
-        <a href="#" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="dashboard.html" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
         <a href="#" onclick="logOut()">Log Out</a>
       </div>
     </div>
@@ -54,6 +54,7 @@ format:
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
 <script>
@@ -83,7 +84,7 @@ document.getElementById('studentLoginForm').addEventListener('submit', async () 
     });
     if (error) throw error;
 
-    window.location.href = 'student-hub';
+    window.location.href = 'student-hub.html';
   } catch (err) {
     errorMsg.textContent = err.message;
     errorMsg.style.display = 'block';
