@@ -9,8 +9,8 @@
     <a href="/">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
-    <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
-      <img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar" id="authAvatar">
+    <div class="nav-auth-btn" id="authBtn">
+      <img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar" id="authAvatar">
       <span id="authLabel">Log In</span>
       <span class="nav-auth-chevron" id="authChevron">&#9662;</span>
     </div>
@@ -21,17 +21,44 @@
       </div>
       <div id="loggedInMenu" style="display:none;">
         <a href="dashboard.html" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
-        <a href="#" onclick="logOut()">Log Out</a>
+        <a href="#" id="logOutLink">Log Out</a>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/auth.js"></script>
+<!-- ── Dropdown toggle script (no dependencies) ──────────── -->
 <script>
+// Hamburger menu toggle
 function toggleMenu() {
   document.getElementById('navbarLinks').classList.toggle('show');
 }
+
+// Auth pill dropdown toggle
+(function() {
+  var authBtn = document.getElementById('authBtn');
+  var authDropdown = document.getElementById('authDropdown');
+  var authChevron = document.getElementById('authChevron');
+
+  if (authBtn) {
+    authBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      authDropdown.classList.toggle('show');
+      authChevron.classList.toggle('open');
+    });
+  }
+
+  // Close dropdown when clicking anywhere else on the page
+  document.addEventListener('click', function(e) {
+    if (authDropdown && !authDropdown.contains(e.target) && !authBtn.contains(e.target)) {
+      authDropdown.classList.remove('show');
+      authChevron.classList.remove('open');
+    }
+  });
+})();
 </script>
+
+<!-- ── Supabase + Auth (loads after dropdown is already working) ── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
