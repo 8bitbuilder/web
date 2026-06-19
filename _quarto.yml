@@ -25,10 +25,6 @@ website:
         href: contact
       - text: "Team"
         href: team
-      - text: "Dashboard"
-        href: dashboard
-      - text: "<span class='btn btn-light btn-sm'>Get Started</span>"
-        href: get-started
 
 format:
   html:
