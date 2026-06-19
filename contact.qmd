@@ -7,16 +7,34 @@ format:
     theme: none
 ---
 
-::: {.custom-navbar}
-<div class="navbar-brand">
-  <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-  <h1>Appalachian A.I. Corps</h1>
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<div class="custom-navbar">
+  <div class="navbar-brand">
+    <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
+  </div>
+  <button class="navbar-toggle" onclick="toggleMenu()">&#9776;</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="/">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav-auth-wrapper">
+    <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
+      <img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar" id="authAvatar">
+      <span id="authLabel">Log In</span>
+      <span class="nav-auth-chevron" id="authChevron">&#9662;</span>
+    </div>
+    <div class="nav-auth-dropdown" id="authDropdown">
+      <div id="loggedOutMenu">
+        <a href="login-student.html">Student</a>
+        <a href="login-teacher.html">Teacher</a>
+      </div>
+      <div id="loggedInMenu" style="display:none;">
+        <a href="dashboard.html" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="#" onclick="logOut()">Log Out</a>
+      </div>
+    </div>
+  </div>
 </div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact) | [Dashboard](dashboard) | [<span class='btn btn-light btn-sm'>Get Started</span>](get-started)
-</nav>
-:::
 
 <script>
 function toggleMenu() {
