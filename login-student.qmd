@@ -1,0 +1,38 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+{{< include _navbar.html >}}
+
+::: {.auth-page-bg}
+::: {.auth-page-content}
+
+<div class="auth-card">
+  <img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
+  <h2>Student Login</h2>
+  <p class="auth-subtitle">Enter your username to continue</p>
+
+  <div class="auth-message" id="loginMessage"></div>
+
+  <form onsubmit="handleStudentLogin(event)">
+    <div class="auth-field">
+      <label for="loginUsername">Username</label>
+      <input type="text" id="loginUsername" placeholder="Enter your username" required>
+    </div>
+    <button type="submit" class="auth-btn">Log In</button>
+  </form>
+</div>
+
+:::
+:::
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
