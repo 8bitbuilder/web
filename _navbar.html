@@ -1,0 +1,59 @@
+<div class="custom-navbar">
+  <div class="navbar-brand">
+    <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
+  </div>
+  <button class="navbar-toggle" onclick="toggleMenu()">&#9776;</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="/">Home</a> |
+    <a href="modules.html">Modules</a> |
+    <a href="team.html">Team</a> |
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="navbar-auth" id="navbarAuth">
+    <div class="auth-dropdown" id="authDropdownLoggedOut">
+      <button class="auth-pill" id="loginPill" onclick="toggleAuthDropdown('loggedOut')">
+        <img src="assets/profile-default.png" alt="" class="auth-pill-avatar">
+        <span class="auth-pill-text">Log In</span>
+        <span class="auth-pill-chevron" id="chevronOut">&#9662;</span>
+      </button>
+      <div class="auth-dropdown-menu" id="dropdownMenuOut">
+        <a href="login-student.html" class="auth-dropdown-item">Student</a>
+        <a href="login-teacher.html" class="auth-dropdown-item">Teacher</a>
+      </div>
+    </div>
+    <div class="auth-dropdown hidden" id="authDropdownLoggedIn">
+      <button class="auth-pill logged-in" id="userPill" onclick="toggleAuthDropdown('loggedIn')">
+        <img src="assets/profile-default.png" alt="" class="auth-pill-avatar">
+        <span class="auth-pill-text" id="navUsername">Username</span>
+        <span class="auth-pill-chevron" id="chevronIn">&#9662;</span>
+      </button>
+      <div class="auth-dropdown-menu" id="dropdownMenuIn">
+        <a href="dashboard.html" class="auth-dropdown-item" id="navDashboardLink">Teacher Dashboard</a>
+        <a href="#" class="auth-dropdown-item" onclick="handleNavLogout(event)">Log Out</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleMenu() {
+  var nav = document.getElementById('navbarLinks');
+  nav.classList.toggle('show');
+}
+function toggleAuthDropdown(which) {
+  if (which === 'loggedOut') {
+    document.getElementById('dropdownMenuOut').classList.toggle('show');
+    document.getElementById('chevronOut').classList.toggle('open');
+  } else {
+    document.getElementById('dropdownMenuIn').classList.toggle('show');
+    document.getElementById('chevronIn').classList.toggle('open');
+  }
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.auth-dropdown')) {
+    document.querySelectorAll('.auth-dropdown-menu').forEach(function(m) { m.classList.remove('show'); });
+    document.querySelectorAll('.auth-pill-chevron').forEach(function(c) { c.classList.remove('open'); });
+  }
+});
+</script>
