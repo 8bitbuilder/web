@@ -1,357 +1,436 @@
+// js/auth.js
 // ============================================================
-// Authentication Logic
-// Handles teacher signup, teacher login, student login,
-// and password reset initiation.
+// AUTH LOGIC — handles navbar state, login, signup, logout
 // ============================================================
 
-// --- Teacher Signup ---
-async function handleTeacherSignup(e) {
-  e.preventDefault();
+// ------ Navbar Auth State ------
 
-  const username = document.getElementById("signup-username").value.trim();
-  const email = document.getElementById("signup-email").value.trim();
-  const role = document.querySelector('input[name="signup-role"]:checked')?.value;
+document.addEventListener('DOMContentLoaded', async function () {
+  await updateNavbarAuth();
+});
 
-  if (!username || !email || !role) {
-    showStatus("signup-status", "Please fill in all fields.", true);
+async function updateNavbarAuth() {
+  var loggedOutEl = document.getElementById('authDropdownLoggedOut');
+  var loggedInEl = document.getElementById('authDropdownLoggedIn');
+  var navUsername = document.getElementById('navUsername');
+  var navDashboardLink = document.getElementById('navDashboardLink');
+
+  if (!loggedOutEl || !loggedInEl) return; // navbar not on this page
+
+  try {
+    var result = await _supabase.auth.getSession();
+    var session = result.data.session;
+
+    if (session && session.user) {
+      // User is logged in — get their profile
+      var profileResult = await _supabase
+        .from('profiles')
+        .select('username, role')
+        .eq('id', session.user.id)
+        .single();
+
+      var profile = profileResult.data;
+
+      if (profile) {
+        loggedOutEl.classList.add('hidden');
+        loggedInEl.classList.remove('hidden');
+        navUsername.textContent = profile.username;
+
+        // Show "Teacher Dashboard" link only for teachers
+        if (navDashboardLink) {
+          if (profile.role === 'teacher') {
+            navDashboardLink.style.display = 'block';
+          } else {
+            navDashboardLink.style.display = 'none';
+          }
+        }
+      }
+    } else {
+      loggedOutEl.classList.remove('hidden');
+      loggedInEl.classList.add('hidden');
+    }
+  } catch (err) {
+    console.error('Error checking auth state:', err);
+  }
+}
+
+// ------ Logout (called from navbar) ------
+
+async function handleNavLogout(event) {
+  if (event) event.preventDefault();
+  await _supabase.auth.signOut();
+  window.location.href = '/';
+}
+
+// ------ Teacher Signup ------
+
+async function handleTeacherSignup(event) {
+  event.preventDefault();
+  var msgEl = document.getElementById('signupMessage');
+  var btn = event.target.querySelector('button[type="submit"]');
+
+  var username = document.getElementById('signupUsername').value.trim();
+  var email = document.getElementById('signupEmail').value.trim();
+  var password = document.getElementById('signupPassword').value;
+
+  // Clear previous messages
+  msgEl.className = 'auth-message';
+  msgEl.style.display = 'none';
+
+  if (!username || !email || !password) {
+    showAuthMessage(msgEl, 'Please fill in all fields.', 'error');
     return;
   }
 
-  if (role === "student") {
-    showPopup(
-      "Student Accounts",
-      "Ask your teacher to create an account for you. Students cannot self-register."
-    );
+  if (password.length < 8) {
+    showAuthMessage(msgEl, 'Password must be at least 8 characters.', 'error');
     return;
   }
 
-  // Check username availability
-  const { data: isAvailable, error: checkError } = await _supabase.rpc(
-    "check_username_available",
-    { p_username: username }
-  );
+  // Check if username is already taken
+  var existCheck = await _supabase
+    .from('profiles')
+    .select('username')
+    .eq('username', username)
+    .single();
 
-  if (checkError) {
-    showStatus("signup-status", "Error checking username: " + checkError.message, true);
+  if (existCheck.data) {
+    showAuthMessage(msgEl, 'That username is already taken. Please choose another.', 'error');
     return;
   }
 
-  if (!isAvailable) {
-    showStatus("signup-status", "Username is already taken. Please choose another.", true);
-    return;
-  }
+  btn.disabled = true;
+  btn.textContent = 'Creating account...';
 
-  // Generate a password for the teacher
-  const password = generatePassword(14);
-
-  // Sign up via Supabase Auth
-  const { data, error } = await _supabase.auth.signUp({
+  var result = await _supabase.auth.signUp({
     email: email,
     password: password,
     options: {
       data: {
         username: username,
-        role: "teacher",
+        role: 'teacher',
       },
     },
   });
 
-  if (error) {
-    showStatus("signup-status", "Signup failed: " + error.message, true);
+  btn.disabled = false;
+  btn.textContent = 'Sign Up';
+
+  if (result.error) {
+    showAuthMessage(msgEl, result.error.message, 'error');
     return;
   }
 
-  // Show popup with the generated password
+  // Show success popup
   showPopup(
-    "Account Created!",
-    `
-    <p>Your account has been created. <strong>Please save your password now</strong> — you won't see it again.</p>
-    <div style="background:#f5f5f5; padding:1rem; border-radius:8px; margin:1rem 0; font-family:monospace;">
-      <p><strong>Username:</strong> ${username}</p>
-      <p><strong>Password:</strong> ${password}</p>
-    </div>
-    <p style="color:#d32f2f; font-weight:bold;">
-      📧 Check your email (${email}) and click the verification link before logging in.
-    </p>
-    `,
-    () => {
-      window.location.href = "login.html";
+    'Account Created',
+    '<p>Your teacher account has been created.</p>' +
+    '<div class="credential-box"><strong>Username:</strong> ' + username + '<br><strong>Email:</strong> ' + email + '</div>' +
+    '<p>Please check your email and click the verification link before logging in.</p>',
+    function () {
+      window.location.href = 'login-teacher.html';
     }
   );
 }
 
-// --- Teacher Login ---
-async function handleTeacherLogin(e) {
-  e.preventDefault();
+// ------ Teacher Login ------
 
-  const username = document.getElementById("login-username").value.trim();
-  const password = document.getElementById("login-password").value;
+async function handleTeacherLogin(event) {
+  event.preventDefault();
+  var msgEl = document.getElementById('loginMessage');
+  var btn = event.target.querySelector('button[type="submit"]');
 
-  if (!username || !password) {
-    showStatus("login-status", "Please enter both username and password.", true);
+  var email = document.getElementById('loginEmail').value.trim();
+  var password = document.getElementById('loginPassword').value;
+
+  msgEl.className = 'auth-message';
+  msgEl.style.display = 'none';
+
+  if (!email || !password) {
+    showAuthMessage(msgEl, 'Please fill in all fields.', 'error');
     return;
   }
 
-  // Look up the teacher's email by username
-  // We query profiles to find the email associated with this username
-  // For teachers, the email is in auth.users — we need to find it
-  // Option: Use the teacher's email directly. But the login form asks for username.
-  // So we look up the profile to find the user ID, then get the email.
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
 
-  // Actually, for teachers, we stored email in auth.users during signup.
-  // We need to look up the username in profiles to get the user ID,
-  // then we need the email. But profiles doesn't store email.
-  // The synthetic email pattern only applies to students.
-  // For teachers, we need their actual email.
+  var result = await _supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
 
-  // Solution: We'll look up the profile to confirm it's a teacher,
-  // then use an RPC or alternative approach.
-  // Simplest approach: query profiles for the username, get the user_id,
-  // then use the admin API... but we can't do that client-side.
+  btn.disabled = false;
+  btn.textContent = 'Log In';
 
-  // Best approach: Have teachers log in with email + password,
-  // OR store email in profiles for teachers.
-  // Let's add a lookup: try to find the teacher profile by username,
-  // and since teachers signed up with email, we need to look up
-  // their email somehow.
-
-  // Pragmatic solution: Look up username in profiles.
-  // If role is teacher, we need their email.
-  // We'll store the email in user_metadata during signup (which we already do).
-  // But we can't access user_metadata without being logged in.
-
-  // REVISED APPROACH: For teacher login, accept EITHER username or email.
-  // If input contains '@', treat as email login.
-  // If not, use the same Edge Function pattern as students but for teachers.
-
-  // For simplicity and security, let's have teachers log in with their
-  // email + password (since they have an email), but also support username
-  // via an Edge Function.
-
-  // Let's try email first (if it looks like an email)
-  if (username.includes("@")) {
-    // Direct email login
-    const { data, error } = await _supabase.auth.signInWithPassword({
-      email: username,
-      password: password,
-    });
-
-    if (error) {
-      showStatus("login-status", "Invalid email or password. Have you verified your email?", true);
-      return;
-    }
-
-    // Check role
-    const { data: profile } = await _supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", data.user.id)
-      .single();
-
-    if (profile?.role !== "teacher") {
-      await _supabase.auth.signOut();
-      showStatus("login-status", "This is not a teacher account. Students: use the Student Login.", true);
-      return;
-    }
-
-    window.location.href = "dashboard.html";
-    return;
-  }
-
-  // Username-based login for teachers: look up via profiles
-  // We need to find the teacher's email from their username
-  // This requires an RPC function since profiles is RLS-protected
-
-  // Use an approach similar to student login but checking for teacher role
-  try {
-    // We'll call the student-login function but it only handles students.
-    // For teachers, we need a different approach.
-    // Let's create a simple lookup: teachers signed up with email,
-    // so we look up username → user_id → auth.users.email.
-    // This must be done server-side.
-
-    // For now, we'll use a workaround: try signing in with synthetic email
-    // pattern first (which won't work for teachers), then fall back.
-
-    // BEST FIX: Ask teachers to log in with email.
-    // The UI can say "Enter your email" for teacher login.
-    // But the spec says "username + password" for teachers too.
-
-    // We'll solve this by using the profiles table.
-    // Since anon has SELECT on profiles, we can query by username
-    // to find if a teacher exists (but not their email).
-
-    // Ultimate solution: Create an RPC that returns email for a given
-    // teacher username. This is OK because teacher emails aren't secret
-    // (they signed up with them).
-
-    // Let's use a simpler approach: store the email in the profiles table
-    // for teachers only. But we didn't set that up.
-
-    // PRAGMATIC SOLUTION for this tutorial:
-    // Add teacher email to profiles via a migration, or use an Edge Function.
-    // For simplicity, we'll call the student-login function but extend it.
-
-    // Actually the cleanest solution: call a generic "login-by-username"
-    // edge function that handles both roles.
-
-    // For this tutorial, let's use a direct approach:
-    // The teacher login form will have an email field (as it already needs
-    // email for password reset). The "username" here can be the email.
-
-    showStatus(
-      "login-status",
-      "Teacher login requires your email address, not your username. Please enter the email you signed up with.",
-      true
-    );
-  } catch (err) {
-    showStatus("login-status", "Login failed: " + err.message, true);
-  }
-}
-
-// --- Student Login ---
-async function handleStudentLogin(e) {
-  e.preventDefault();
-
-  const username = document.getElementById("student-login-username").value.trim();
-  const password = document.getElementById("student-login-password").value;
-
-  if (!username || !password) {
-    showStatus("student-login-status", "Please enter both username and password.", true);
-    return;
-  }
-
-  try {
-    showStatus("student-login-status", "Logging in...", false);
-
-    const data = await callEdgeFunction("student-login", {
-      username,
-      password,
-    });
-
-    if (data.session) {
-      // Set the session in the client
-      await _supabase.auth.setSession({
-        access_token: data.session.access_token,
-        refresh_token: data.session.refresh_token,
-      });
-
-      showStatus("student-login-status", "Login successful! Redirecting...", false);
-      // Redirect students to their content page
-      window.location.href = "index.html";
+  if (result.error) {
+    if (result.error.message.includes('Email not confirmed')) {
+      showAuthMessage(msgEl, 'Please verify your email before logging in. Check your inbox for a confirmation link.', 'error');
     } else {
-      showStatus("student-login-status", "Login failed. Check your credentials.", true);
+      showAuthMessage(msgEl, 'Invalid email or password. Please try again.', 'error');
+    }
+    return;
+  }
+
+  // Verify this is a teacher account
+  var profileResult = await _supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', result.data.user.id)
+    .single();
+
+  if (!profileResult.data || profileResult.data.role !== 'teacher') {
+    await _supabase.auth.signOut();
+    showAuthMessage(msgEl, 'This login page is for teachers only. Students should use the Student Login page.', 'error');
+    return;
+  }
+
+  window.location.href = 'dashboard.html';
+}
+
+// ------ Student Login (username only, no password) ------
+
+async function handleStudentLogin(event) {
+  event.preventDefault();
+  var msgEl = document.getElementById('loginMessage');
+  var btn = event.target.querySelector('button[type="submit"]');
+
+  var username = document.getElementById('loginUsername').value.trim();
+
+  msgEl.className = 'auth-message';
+  msgEl.style.display = 'none';
+
+  if (!username) {
+    showAuthMessage(msgEl, 'Please enter your username.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+
+  try {
+    var response = await _supabase.functions.invoke('student-login', {
+      body: { username: username },
+    });
+
+    btn.disabled = false;
+    btn.textContent = 'Log In';
+
+    if (response.error || (response.data && response.data.error)) {
+      var errorMsg = (response.data && response.data.error) || 'Login failed. Please try again.';
+      showAuthMessage(msgEl, errorMsg, 'error');
+      return;
+    }
+
+    // Set the session from the Edge Function response
+    if (response.data && response.data.session) {
+      await _supabase.auth.setSession({
+        access_token: response.data.session.access_token,
+        refresh_token: response.data.session.refresh_token,
+      });
+      window.location.href = 'student-hub.html';
+    } else {
+      showAuthMessage(msgEl, 'Login failed. Please try again.', 'error');
     }
   } catch (err) {
-    showStatus("student-login-status", "Invalid username or password.", true);
+    btn.disabled = false;
+    btn.textContent = 'Log In';
+    showAuthMessage(msgEl, 'An error occurred. Please try again.', 'error');
   }
 }
 
-// --- Teacher Password Reset (Email-Based) ---
-async function handleTeacherPasswordReset(e) {
-  e.preventDefault();
+// ------ Password Reset Request (Teacher) ------
 
-  const email = document.getElementById("reset-email").value.trim();
+async function handlePasswordResetRequest(event) {
+  event.preventDefault();
+  var msgEl = document.getElementById('resetMessage');
+  var btn = event.target.querySelector('button[type="submit"]');
+  var email = document.getElementById('resetEmail').value.trim();
+
+  msgEl.className = 'auth-message';
+  msgEl.style.display = 'none';
 
   if (!email) {
-    showStatus("reset-status", "Please enter your email address.", true);
+    showAuthMessage(msgEl, 'Please enter your email address.', 'error');
     return;
   }
 
-  const { error } = await _supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin + "/reset-password.html",
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  var result = await _supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/reset-password.html',
   });
 
-  if (error) {
-    showStatus("reset-status", "Error: " + error.message, true);
-    return;
-  }
+  btn.disabled = false;
+  btn.textContent = 'Send Reset Link';
 
-  showPopup(
-    "Reset Email Sent",
-    `<p>If an account exists with <strong>${email}</strong>, you'll receive a password reset link. Check your inbox.</p>`
-  );
+  if (result.error) {
+    showAuthMessage(msgEl, result.error.message, 'error');
+  } else {
+    showAuthMessage(msgEl, 'If an account exists with that email, a reset link has been sent. Check your inbox.', 'success');
+  }
 }
 
-// --- Handle Password Recovery (on the reset-password page) ---
-async function handleNewPassword(e) {
-  e.preventDefault();
+// ------ Password Update (from reset link) ------
 
-  const newPassword = document.getElementById("new-password").value;
-  const confirmPassword = document.getElementById("confirm-password").value;
+async function handlePasswordUpdate(event) {
+  event.preventDefault();
+  var msgEl = document.getElementById('resetMessage');
+  var btn = event.target.querySelector('button[type="submit"]');
 
-  if (newPassword !== confirmPassword) {
-    showStatus("new-password-status", "Passwords do not match.", true);
+  var password = document.getElementById('newPassword').value;
+  var confirm = document.getElementById('confirmPassword').value;
+
+  msgEl.className = 'auth-message';
+  msgEl.style.display = 'none';
+
+  if (!password || !confirm) {
+    showAuthMessage(msgEl, 'Please fill in both fields.', 'error');
     return;
   }
 
-  if (newPassword.length < 8) {
-    showStatus("new-password-status", "Password must be at least 8 characters.", true);
+  if (password.length < 8) {
+    showAuthMessage(msgEl, 'Password must be at least 8 characters.', 'error');
     return;
   }
 
-  const { error } = await _supabase.auth.updateUser({
-    password: newPassword,
-  });
-
-  if (error) {
-    showStatus("new-password-status", "Error: " + error.message, true);
+  if (password !== confirm) {
+    showAuthMessage(msgEl, 'Passwords do not match.', 'error');
     return;
   }
 
-  showPopup("Password Updated", "Your password has been updated. You can now log in with your new password.", () => {
-    window.location.href = "login.html";
-  });
-}
+  btn.disabled = true;
+  btn.textContent = 'Updating...';
 
-// --- Auth State Listener ---
-// Use this on protected pages to redirect unauthenticated users
-function requireAuth(allowedRoles = ["teacher", "student"]) {
-  _supabase.auth.onAuthStateChange(async (event, session) => {
-    if (event === "SIGNED_OUT" || !session) {
-      window.location.href = "login.html";
-      return;
-    }
+  var result = await _supabase.auth.updateUser({ password: password });
 
-    if (event === "PASSWORD_RECOVERY") {
-      // User arrived via password reset link — show the reset form
-      const resetForm = document.getElementById("reset-password-form");
-      if (resetForm) {
-        resetForm.style.display = "block";
+  btn.disabled = false;
+  btn.textContent = 'Update Password';
+
+  if (result.error) {
+    showAuthMessage(msgEl, result.error.message, 'error');
+  } else {
+    showPopup(
+      'Password Updated',
+      '<p>Your password has been updated successfully. You can now log in with your new password.</p>',
+      function () {
+        window.location.href = 'login-teacher.html';
       }
-      return;
-    }
+    );
+  }
+}
 
-    if (event === "SIGNED_IN" || event === "INITIAL_SESSION") {
-      if (session) {
-        // Check role
-        const { data: profile } = await _supabase
-          .from("profiles")
-          .select("role, username")
-          .eq("id", session.user.id)
-          .single();
+// ------ Utility: Show Message ------
 
-        if (profile && !allowedRoles.includes(profile.role)) {
-          showStatus(
-            "page-status",
-            "You do not have permission to view this page.",
-            true
-          );
-          return;
-        }
+function showAuthMessage(el, text, type) {
+  el.textContent = text;
+  el.className = 'auth-message ' + type;
+  el.style.display = 'block';
+}
 
-        // Set username display if element exists
-        const usernameEl = document.getElementById("display-username");
-        if (usernameEl && profile) {
-          usernameEl.textContent = profile.username;
-        }
-      }
-    }
+// ------ Utility: Show Popup ------
+
+function showPopup(title, bodyHTML, onClose) {
+  // Remove any existing popup
+  var existing = document.getElementById('authPopupOverlay');
+  if (existing) existing.remove();
+
+  var overlay = document.createElement('div');
+  overlay.id = 'authPopupOverlay';
+  overlay.className = 'auth-popup-overlay';
+
+  overlay.innerHTML =
+    '<div class="auth-popup">' +
+      '<h3>' + title + '</h3>' +
+      bodyHTML +
+      '<button class="auth-popup-btn" id="popupCloseBtn">OK</button>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('popupCloseBtn').addEventListener('click', function () {
+    overlay.remove();
+    if (onClose) onClose();
   });
 }
 
-// --- Logout ---
-async function handleLogout() {
-  await _supabase.auth.signOut();
-  window.location.href = "login.html";
+// ------ Utility: Show Confirmation Popup ------
+
+function showConfirmPopup(title, bodyHTML, onConfirm, onCancel) {
+  var existing = document.getElementById('authPopupOverlay');
+  if (existing) existing.remove();
+
+  var overlay = document.createElement('div');
+  overlay.id = 'authPopupOverlay';
+  overlay.className = 'auth-popup-overlay';
+
+  overlay.innerHTML =
+    '<div class="auth-popup">' +
+      '<h3>' + title + '</h3>' +
+      bodyHTML +
+      '<div style="margin-top: 1rem;">' +
+        '<button class="auth-popup-btn danger" id="popupConfirmBtn">Yes, Delete</button>' +
+        '<button class="auth-popup-btn cancel" id="popupCancelBtn">Cancel</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('popupConfirmBtn').addEventListener('click', function () {
+    overlay.remove();
+    if (onConfirm) onConfirm();
+  });
+
+  document.getElementById('popupCancelBtn').addEventListener('click', function () {
+    overlay.remove();
+    if (onCancel) onCancel();
+  });
+}
+
+// ------ Page Protection ------
+
+async function requireTeacher() {
+  var result = await _supabase.auth.getSession();
+  var session = result.data.session;
+
+  if (!session) {
+    window.location.href = 'login-teacher.html';
+    return null;
+  }
+
+  var profileResult = await _supabase
+    .from('profiles')
+    .select('username, role')
+    .eq('id', session.user.id)
+    .single();
+
+  if (!profileResult.data || profileResult.data.role !== 'teacher') {
+    window.location.href = '/';
+    return null;
+  }
+
+  return { session: session, profile: profileResult.data };
+}
+
+async function requireStudent() {
+  var result = await _supabase.auth.getSession();
+  var session = result.data.session;
+
+  if (!session) {
+    window.location.href = 'login-student.html';
+    return null;
+  }
+
+  var profileResult = await _supabase
+    .from('profiles')
+    .select('username, role, group_name')
+    .eq('id', session.user.id)
+    .single();
+
+  if (!profileResult.data || profileResult.data.role !== 'student') {
+    window.location.href = '/';
+    return null;
+  }
+
+  return { session: session, profile: profileResult.data };
 }
