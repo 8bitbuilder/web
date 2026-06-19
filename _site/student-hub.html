@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Student Management – Appalachian A.I. Corps</title>
+<title>student-hub – Appalachian A.I. Corps</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -47,23 +47,91 @@ ul.task-list li input[type="checkbox"] {
 <body>
 
 
-<header id="title-block-header">
-<h1 class="title">Student Management</h1>
-
-</header>
 
 
-<p>Student management is integrated into the <a href="dashboard.html">Teacher Dashboard</a>.</p>
-<p>From the dashboard, you can:</p>
-<ul>
-  <li>Add individual students</li>
-  <li>Bulk create student accounts</li>
-  <li>Import students from a .txt file</li>
-  <li>Reset student passwords</li>
-  <li>Delete student accounts</li>
-  <li>Organize students into groups</li>
-</ul>
-<a href="dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<div class="custom-navbar">
+<div class="navbar-brand">
+<pre><code>&lt;a href="/"&gt;&lt;img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"&gt;&lt;/a&gt;
+&lt;h1&gt;Appalachian A.I. Corps&lt;/h1&gt;</code></pre>
+</div>
+<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
+<nav class="navbar-links" id="navbarLinks">
+<a href="./">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+</nav>
+<div class="nav-auth-wrapper">
+<pre><code>&lt;div class="nav-auth-btn" id="authBtn"&gt;
+  &lt;img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar" id="authAvatar"&gt;
+  &lt;span id="authLabel"&gt;Log In&lt;/span&gt;
+  &lt;span class="nav-auth-chevron" id="authChevron"&gt;&amp;#9662;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="nav-auth-dropdown" id="authDropdown"&gt;
+  &lt;div id="loggedOutMenu"&gt;
+    &lt;a href="login-student.html"&gt;Student&lt;/a&gt;
+    &lt;a href="login-teacher.html"&gt;Teacher&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div id="loggedInMenu" style="display:none;"&gt;
+    &lt;a href="dashboard.html" id="dashboardLink" style="display:none;"&gt;Teacher Dashboard&lt;/a&gt;
+    &lt;a href="#" id="logOutLink"&gt;Log Out&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+<!-- ── Dropdown toggle script (no dependencies) ──────────── -->
+<script>
+// Hamburger menu toggle
+function toggleMenu() {
+  document.getElementById('navbarLinks').classList.toggle('show');
+}
+
+// Auth pill dropdown toggle
+(function() {
+  var authBtn = document.getElementById('authBtn');
+  var authDropdown = document.getElementById('authDropdown');
+  var authChevron = document.getElementById('authChevron');
+
+  if (authBtn) {
+    authBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      authDropdown.classList.toggle('show');
+      authChevron.classList.toggle('open');
+    });
+  }
+
+  // Close dropdown when clicking anywhere else on the page
+  document.addEventListener('click', function(e) {
+    if (authDropdown && !authDropdown.contains(e.target) && !authBtn.contains(e.target)) {
+      authDropdown.classList.remove('show');
+      authChevron.classList.remove('open');
+    }
+  });
+})();
+</script>
+<!-- ── Supabase + Auth (loads after dropdown is already working) ── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+<div class="student-hub-bg">
+<div class="student-hub-content">
+<div class="student-hub-card">
+<img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
+<h2 id="studentWelcome">
+Welcome
+</h2>
+<p id="studentGroup">
+</p>
+<p>
+You are now logged in. Explore the modules and activities available to you.
+</p>
+<p><br> <a href="modules.html" class="auth-btn" style="display:inline-block; text-decoration:none; padding:0.75rem 2rem;">Explore Modules</a></p>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/students.js"></script>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

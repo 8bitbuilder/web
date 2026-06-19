@@ -1,0 +1,32 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+{{< include _navbar.html >}}
+
+::: {.student-hub-bg}
+::: {.student-hub-content}
+
+<div class="student-hub-card">
+  <img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
+  <h2 id="studentWelcome">Welcome</h2>
+  <p id="studentGroup"></p>
+  <p>You are now logged in. Explore the modules and activities available to you.</p>
+  <br>
+  <a href="modules.html" class="auth-btn" style="display:inline-block; text-decoration:none; padding:0.75rem 2rem;">Explore Modules</a>
+</div>
+
+:::
+:::
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/students.js"></script>
