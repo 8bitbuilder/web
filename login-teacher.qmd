@@ -9,6 +9,7 @@ format:
     theme: none
 ---
 
+```{=html}
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -44,19 +45,14 @@ format:
     <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
     <h2>Teacher Log In</h2>
     <p class="auth-subtitle">Sign in to manage your classroom</p>
-
     <div id="errorMsg" class="auth-error" style="display:none;"></div>
-
     <form id="teacherLoginForm" onsubmit="return false;">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="Enter your email" required>
-
       <label for="password">Password</label>
       <input type="password" id="password" placeholder="Enter your password" required>
-
       <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
     </form>
-
     <div class="auth-links">
       <a href="reset-password">Forgot your password?</a>
     </div>
@@ -112,3 +108,4 @@ function toggleMenu() {
   document.getElementById('navbarLinks').classList.toggle('show');
 }
 </script>
+```
