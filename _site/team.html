@@ -52,32 +52,33 @@ ul.task-list li input[type="checkbox"] {
 
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
-<div class="navbar-brand">
-<pre><code>&lt;a href="/"&gt;&lt;img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"&gt;&lt;/a&gt;
-&lt;h1&gt;Appalachian A.I. Corps&lt;/h1&gt;</code></pre>
+  <div class="navbar-brand">
+    <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
+  </div>
+  <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="./">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav-auth-wrapper">
+    <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
+      <img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar" id="authAvatar">
+      <span id="authLabel">Log In</span>
+      <span class="nav-auth-chevron" id="authChevron">▾</span>
+    </div>
+    <div class="nav-auth-dropdown" id="authDropdown">
+      <div id="loggedOutMenu">
+        <a href="login-student.html">Student</a>
+        <a href="login-teacher.html">Teacher</a>
+      </div>
+      <div id="loggedInMenu" style="display:none;">
+        <a href="dashboard.html" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="#" onclick="logOut()">Log Out</a>
+      </div>
+    </div>
+  </div>
 </div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-<a href="./">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
-</nav>
-<div class="nav-auth-wrapper">
-<pre><code>&lt;div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)"&gt;
-  &lt;img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar" id="authAvatar"&gt;
-  &lt;span id="authLabel"&gt;Log In&lt;/span&gt;
-  &lt;span class="nav-auth-chevron" id="authChevron"&gt;&amp;#9662;&lt;/span&gt;
-&lt;/div&gt;
-&lt;div class="nav-auth-dropdown" id="authDropdown"&gt;
-  &lt;div id="loggedOutMenu"&gt;
-    &lt;a href="login-student.html"&gt;Student&lt;/a&gt;
-    &lt;a href="login-teacher.html"&gt;Teacher&lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div id="loggedInMenu" style="display:none;"&gt;
-    &lt;a href="dashboard.html" id="dashboardLink" style="display:none;"&gt;Teacher Dashboard&lt;/a&gt;
-    &lt;a href="#" onclick="logOut()"&gt;Log Out&lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-</div>
-</div>
+
 <script>
 function toggleMenu() {
   const nav = document.getElementById('navbarLinks');
