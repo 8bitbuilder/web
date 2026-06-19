@@ -154,7 +154,7 @@ document.getElementById('studentLoginForm').addEventListener('submit', async () 
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Login failed');
 
-    const { error } = await supabase.auth.setSession({
+    const { error } = await _supabase.auth.setSession({
       access_token: data.session.access_token,
       refresh_token: data.session.refresh_token
     });
