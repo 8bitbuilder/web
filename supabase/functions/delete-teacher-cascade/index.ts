@@ -1,139 +1,77 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
+// supabase/functions/delete-teacher-cascade/index.ts
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-// Setup type definitions for built-in Supabase Runtime APIs
-import "@supabase/functions-js/edge-runtime.d.ts";
-import { withSupabase } from "@supabase/server";
-
-console.log("Hello from Functions!");
-
-// This endpoint uses 'publishable' | 'secret' access, apiKey is required.
-// Use publishable for Client-facing, key-validated endpoints
-// Use secret for Server-to-server, internal calls
-export default {
-  fetch: withSupabase({ auth: ["publishable", "secret"] }, async (req, ctx) => {
-    // Called by another service with a secret key
-    // ctx.supabaseAdmin bypasses RLS — use for privileged operations
-    /*
-    if (ctx.authMode === "secret") {
-      const { user_id } = await req.json();
-      const { data } = await ctx.supabaseAdmin.auth.admin.getUserById(user_id);
-
-      return Response.json({
-        email: data?.user?.email,
-      });
-    }
-    */
-
-    const { name } = await req.json();
-
-    return Response.json({
-      message: `Hello ${name}!`,
-    });
-  }),
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-/* To invoke locally:
-
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
-
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/delete-teacher-cascade' \
-    --header 'apiKey: sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' \
-    --data '{"name":"Functions"}'
-
-*/
-
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { corsHeaders } from "../_shared/cors.ts";
-
-Deno.serve(async (req) => {
+serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   try {
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
     const authHeader = req.headers.get("Authorization")!;
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-
-    const userClient = createClient(supabaseUrl, anonKey, {
-      global: { headers: { Authorization: authHeader } },
-    });
-
-    const adminClient = createClient(supabaseUrl, serviceRoleKey, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
-
-    const {
-      data: { user },
-    } = await userClient.auth.getUser();
-    if (!user) {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    const token = authHeader.replace("Bearer ", "");
+    const { data: { user: caller } } = await supabaseAdmin.auth.getUser(token);
+    if (!caller) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
-    // Verify caller is a teacher
-    const { data: teacherProfile } = await adminClient
+    // Confirm caller is a teacher
+    const { data: callerProfile } = await supabaseAdmin
       .from("profiles")
       .select("role")
-      .eq("id", user.id)
+      .eq("id", caller.id)
       .single();
 
-    if (teacherProfile?.role !== "teacher") {
-      return new Response(
-        JSON.stringify({ error: "Only teachers can delete their account" }),
-        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    if (!callerProfile || callerProfile.role !== "teacher") {
+      return new Response(JSON.stringify({ error: "Only teachers can delete their class" }), {
+        status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
-    // Get all students belonging to this teacher
-    const { data: students } = await adminClient
+    // Get all student IDs belonging to this teacher
+    const { data: students } = await supabaseAdmin
       .from("profiles")
       .select("id")
-      .eq("teacher_id", user.id)
+      .eq("teacher_id", caller.id)
       .eq("role", "student");
 
-    // Delete each student's auth user
-    // (profiles will cascade-delete because of ON DELETE CASCADE)
+    // Delete each student auth user
     if (students && students.length > 0) {
       for (const student of students) {
-        await adminClient.auth.admin.deleteUser(student.id);
+        await supabaseAdmin.auth.admin.deleteUser(student.id);
       }
     }
 
-    // Delete teacher's groups (CASCADE will handle this too, but be explicit)
-    await adminClient.from("groups").delete().eq("teacher_id", user.id);
+    // Delete the teacher's groups (handled by CASCADE, but explicit for safety)
+    await supabaseAdmin.from("groups").delete().eq("teacher_id", caller.id);
 
-    // Delete teacher's profile
-    await adminClient.from("profiles").delete().eq("id", user.id);
-
-    // Delete the teacher's auth user
-    const { error: deleteError } =
-      await adminClient.auth.admin.deleteUser(user.id);
-
+    // Delete the teacher auth user (profile deleted by CASCADE)
+    const { error: deleteError } = await supabaseAdmin.auth.admin.deleteUser(caller.id);
     if (deleteError) {
-      return new Response(
-        JSON.stringify({ error: deleteError.message }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: deleteError.message }), {
+        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+
   } catch (err) {
-    return new Response(
-      JSON.stringify({ error: err.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
