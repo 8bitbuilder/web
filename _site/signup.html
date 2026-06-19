@@ -51,7 +51,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- ── Navbar ─────────────────────────────────────────────── -->
-<!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
     <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
@@ -124,7 +123,6 @@ function toggleMenu() {
     <h2>Teacher Sign Up</h2>
     <p class="auth-subtitle">Create your teacher account</p>
     <div id="errorMsg" class="auth-error" style="display:none;"></div>
-    <div id="successMsg" class="auth-success" style="display:none;"></div>
     <form id="signupForm" onsubmit="return false;">
       <label for="username">Username</label>
       <input type="text" id="username" placeholder="Choose a username" required="">
@@ -151,12 +149,12 @@ function toggleMenu() {
 </div>
 
 <script>
-document.getElementById('signupForm').addEventListener('submit', async () => {
-  const btn = document.getElementById('signupBtn');
-  const errorMsg = document.getElementById('errorMsg');
-  const username = document.getElementById('username').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
+document.getElementById('signupForm').addEventListener('submit', async function () {
+  var btn = document.getElementById('signupBtn');
+  var errorMsg = document.getElementById('errorMsg');
+  var username = document.getElementById('username').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var password = document.getElementById('password').value;
 
   if (!username || !email || !password) return;
 
@@ -166,37 +164,37 @@ document.getElementById('signupForm').addEventListener('submit', async () => {
 
   try {
     // Check if username is already taken
-    const { data: existing } = await supabase
+    var existCheck = await _supabase
       .from('profiles')
       .select('id')
       .eq('username', username)
       .maybeSingle();
 
-    if (existing) throw new Error('That username is already taken. Please choose another.');
+    if (existCheck.data) throw new Error('That username is already taken. Please choose another.');
 
     // Sign up via Supabase Auth
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+    var signUpResult = await _supabase.auth.signUp({
+      email: email,
+      password: password,
       options: {
-        data: { username, role: 'teacher' }
+        data: { username: username, role: 'teacher' }
       }
     });
-    if (error) throw error;
+    if (signUpResult.error) throw signUpResult.error;
 
     // Create profile row
-    const { error: profileErr } = await supabase
+    var profileResult = await _supabase
       .from('profiles')
       .insert({
-        id: data.user.id,
-        username,
+        id: signUpResult.data.user.id,
+        username: username,
         role: 'teacher',
         teacher_id: null
       });
-    if (profileErr) throw profileErr;
+    if (profileResult.error) throw profileResult.error;
 
     // Sign out immediately (they need to verify email first)
-    await supabase.auth.signOut();
+    await _supabase.auth.signOut();
 
     // Show success popup
     document.getElementById('popupEmail').textContent = email;
@@ -209,11 +207,6 @@ document.getElementById('signupForm').addEventListener('submit', async () => {
     btn.textContent = 'Sign Up';
   }
 });
-</script>
-<script>
-function toggleMenu() {
-  document.getElementById('navbarLinks').classList.toggle('show');
-}
 </script>
 
 
