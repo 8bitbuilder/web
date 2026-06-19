@@ -50,6 +50,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
 <div class="navbar-brand">
 <pre><code>&lt;a href="/"&gt;&lt;img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"&gt;&lt;/a&gt;
@@ -57,94 +58,100 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
 <nav class="navbar-links" id="navbarLinks">
-<a href="./">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+<a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a>
 </nav>
-<div id="navbarAuth" class="navbar-auth">
-<pre><code>&lt;div class="auth-dropdown" id="authDropdownLoggedOut"&gt;
-  &lt;button class="auth-pill" id="loginPill" onclick="toggleAuthDropdown('loggedOut')"&gt;
-    &lt;img src="assets/profile-default.png" alt="" class="auth-pill-avatar"&gt;
-    &lt;span class="auth-pill-text"&gt;Log In&lt;/span&gt;
-    &lt;span class="auth-pill-chevron" id="chevronOut"&gt;&amp;#9662;&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;div class="auth-dropdown-menu" id="dropdownMenuOut"&gt;
-    &lt;a href="login-student.html" class="auth-dropdown-item"&gt;Student&lt;/a&gt;
-    &lt;a href="login-teacher.html" class="auth-dropdown-item"&gt;Teacher&lt;/a&gt;
-  &lt;/div&gt;
+<div class="nav-auth-wrapper">
+<pre><code>&lt;div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)"&gt;
+  &lt;img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar" id="authAvatar"&gt;
+  &lt;span id="authLabel"&gt;Log In&lt;/span&gt;
+  &lt;span class="nav-auth-chevron" id="authChevron"&gt;&amp;#9662;&lt;/span&gt;
 &lt;/div&gt;
-&lt;div class="auth-dropdown hidden" id="authDropdownLoggedIn"&gt;
-  &lt;button class="auth-pill logged-in" id="userPill" onclick="toggleAuthDropdown('loggedIn')"&gt;
-    &lt;img src="assets/profile-default.png" alt="" class="auth-pill-avatar"&gt;
-    &lt;span class="auth-pill-text" id="navUsername"&gt;Username&lt;/span&gt;
-    &lt;span class="auth-pill-chevron" id="chevronIn"&gt;&amp;#9662;&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;div class="auth-dropdown-menu" id="dropdownMenuIn"&gt;
-    &lt;a href="dashboard.html" class="auth-dropdown-item" id="navDashboardLink"&gt;Teacher Dashboard&lt;/a&gt;
-    &lt;a href="#" class="auth-dropdown-item" onclick="handleNavLogout(event)"&gt;Log Out&lt;/a&gt;
+&lt;div class="nav-auth-dropdown" id="authDropdown"&gt;
+  &lt;div id="loggedOutMenu"&gt;
+    &lt;a href="login-student"&gt;Student&lt;/a&gt;
+    &lt;a href="login-teacher"&gt;Teacher&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div id="loggedInMenu" style="display:none;"&gt;
+    &lt;a href="#" id="dashboardLink" style="display:none;"&gt;Teacher Dashboard&lt;/a&gt;
+    &lt;a href="#" onclick="logOut()"&gt;Log Out&lt;/a&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 </div>
 </div>
+<!-- ── Page content ───────────────────────────────────────── -->
+<div class="auth-page">
+<div class="auth-card">
+<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
+&lt;h2&gt;Teacher Log In&lt;/h2&gt;
+&lt;p class="auth-subtitle"&gt;Sign in to manage your classroom&lt;/p&gt;
+
+&lt;div id="errorMsg" class="auth-error" style="display:none;"&gt;&lt;/div&gt;
+
+&lt;form id="teacherLoginForm" onsubmit="return false;"&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email" placeholder="Enter your email" required&gt;
+
+  &lt;label for="password"&gt;Password&lt;/label&gt;
+  &lt;input type="password" id="password" placeholder="Enter your password" required&gt;
+
+  &lt;button type="submit" class="auth-btn" id="loginBtn"&gt;Log In&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;div class="auth-links"&gt;
+  &lt;a href="reset-password"&gt;Forgot your password?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="auth-links"&gt;
+  Don't have an account? &lt;a href="signup"&gt;Sign Up&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
 <script>
-function toggleMenu() {
-  var nav = document.getElementById('navbarLinks');
-  nav.classList.toggle('show');
-}
-function toggleAuthDropdown(which) {
-  if (which === 'loggedOut') {
-    document.getElementById('dropdownMenuOut').classList.toggle('show');
-    document.getElementById('chevronOut').classList.toggle('open');
-  } else {
-    document.getElementById('dropdownMenuIn').classList.toggle('show');
-    document.getElementById('chevronIn').classList.toggle('open');
-  }
-}
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.auth-dropdown')) {
-    document.querySelectorAll('.auth-dropdown-menu').forEach(function(m) { m.classList.remove('show'); });
-    document.querySelectorAll('.auth-pill-chevron').forEach(function(c) { c.classList.remove('open'); });
+document.getElementById('teacherLoginForm').addEventListener('submit', async () => {
+  const btn = document.getElementById('loginBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+  errorMsg.style.display = 'none';
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+
+    // Verify this is a teacher account
+    const { data: profile, error: profileErr } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', data.user.id)
+      .single();
+
+    if (profileErr) throw profileErr;
+    if (profile.role !== 'teacher') {
+      await supabase.auth.signOut();
+      throw new Error('This login page is for teachers only.');
+    }
+
+    window.location.href = 'dashboard';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Log In';
   }
 });
 </script>
-<div class="auth-page-bg">
-<div class="auth-page-content">
-<div class="auth-card">
-<img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
-<h2>
-Teacher Login
-</h2>
-<p class="auth-subtitle">
-Sign in to manage your classroom
-</p>
-<div id="loginMessage" class="auth-message">
+<script>
+function toggleMenu() {
+  document.getElementById('navbarLinks').classList.toggle('show');
+}
+</script>
 
-</div>
-<form onsubmit="handleTeacherLogin(event)">
-<div class="auth-field">
-<pre><code>  &lt;label for="loginEmail"&gt;Email&lt;/label&gt;
-  &lt;input type="email" id="loginEmail" placeholder="Enter your email" required&gt;
-&lt;/div&gt;
-&lt;div class="auth-field"&gt;
-  &lt;label for="loginPassword"&gt;Password&lt;/label&gt;
-  &lt;input type="password" id="loginPassword" placeholder="Enter your password" required&gt;
-&lt;/div&gt;
-&lt;div class="auth-forgot"&gt;
-  &lt;a href="reset-password.html"&gt;Forgot your password?&lt;/a&gt;
-&lt;/div&gt;
-&lt;button type="submit" class="auth-btn"&gt;Log In&lt;/button&gt;</code></pre>
-
-<div class="auth-links">
-<pre><code>Don't have an account? &lt;a href="signup.html"&gt;Sign Up&lt;/a&gt;</code></pre>
-</div>
-</div></form>
-<p>:::</p>
-<p>:::</p>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/auth.js"></script>
-
-</div>
-</div>
-</div>
 
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
