@@ -7,6 +7,7 @@ format:
     theme: none
 ---
 
+```{=html}
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -42,6 +43,7 @@ function toggleMenu() {
   nav.classList.toggle('show');
 }
 </script>
+```
 
 ::: {.hero .hero-small}
 ::: {.hero-content}
