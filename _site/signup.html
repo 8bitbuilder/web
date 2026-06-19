@@ -52,69 +52,66 @@ ul.task-list li input[type="checkbox"] {
 
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
-<div class="navbar-brand">
-<pre><code>&lt;a href="/"&gt;&lt;img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"&gt;&lt;/a&gt;
-&lt;h1&gt;Appalachian A.I. Corps&lt;/h1&gt;</code></pre>
+  <div class="navbar-brand">
+    <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
+  </div>
+  <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a>
+  </nav>
+  <div class="nav-auth-wrapper">
+    <div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)">
+      <img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar" id="authAvatar">
+      <span id="authLabel">Log In</span>
+      <span class="nav-auth-chevron" id="authChevron">▾</span>
+    </div>
+    <div class="nav-auth-dropdown" id="authDropdown">
+      <div id="loggedOutMenu">
+        <a href="login-student">Student</a>
+        <a href="login-teacher">Teacher</a>
+      </div>
+      <div id="loggedInMenu" style="display:none;">
+        <a href="#" id="dashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="#" onclick="logOut()">Log Out</a>
+      </div>
+    </div>
+  </div>
 </div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-<a href="./">Home</a> | <a href="modules">Modules</a> | <a href="team">Team</a> | <a href="contact">Contact</a>
-</nav>
-<div class="nav-auth-wrapper">
-<pre><code>&lt;div class="nav-auth-btn" id="authBtn" onclick="toggleAuthDropdown(event)"&gt;
-  &lt;img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar" id="authAvatar"&gt;
-  &lt;span id="authLabel"&gt;Log In&lt;/span&gt;
-  &lt;span class="nav-auth-chevron" id="authChevron"&gt;&amp;#9662;&lt;/span&gt;
-&lt;/div&gt;
-&lt;div class="nav-auth-dropdown" id="authDropdown"&gt;
-  &lt;div id="loggedOutMenu"&gt;
-    &lt;a href="login-student"&gt;Student&lt;/a&gt;
-    &lt;a href="login-teacher"&gt;Teacher&lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div id="loggedInMenu" style="display:none;"&gt;
-    &lt;a href="#" id="dashboardLink" style="display:none;"&gt;Teacher Dashboard&lt;/a&gt;
-    &lt;a href="#" onclick="logOut()"&gt;Log Out&lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-</div>
-</div>
+
 <!-- ── Page content ───────────────────────────────────────── -->
 <div class="auth-page">
-<div class="auth-card">
-<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
-&lt;h2&gt;Teacher Sign Up&lt;/h2&gt;
-&lt;p class="auth-subtitle"&gt;Create your teacher account&lt;/p&gt;
-
-&lt;div id="errorMsg" class="auth-error" style="display:none;"&gt;&lt;/div&gt;
-&lt;div id="successMsg" class="auth-success" style="display:none;"&gt;&lt;/div&gt;
-
-&lt;form id="signupForm" onsubmit="return false;"&gt;
-  &lt;label for="username"&gt;Username&lt;/label&gt;
-  &lt;input type="text" id="username" placeholder="Choose a username" required&gt;
-
-  &lt;label for="email"&gt;Email&lt;/label&gt;
-  &lt;input type="email" id="email" placeholder="Enter your email" required&gt;
-
-  &lt;label for="password"&gt;Password&lt;/label&gt;
-  &lt;input type="password" id="password" placeholder="Create a password (min 6 characters)" required minlength="6"&gt;
-
-  &lt;button type="submit" class="auth-btn" id="signupBtn"&gt;Sign Up&lt;/button&gt;
-&lt;/form&gt;
-
-&lt;div class="auth-links"&gt;
-  Already have an account? &lt;a href="login-teacher"&gt;Log In&lt;/a&gt;
-&lt;/div&gt;</code></pre>
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Teacher Sign Up</h2>
+    <p class="auth-subtitle">Create your teacher account</p>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+    <div id="successMsg" class="auth-success" style="display:none;"></div>
+    <form id="signupForm" onsubmit="return false;">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Choose a username" required="">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required="">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Create a password (min 6 characters)" required="" minlength="6">
+      <button type="submit" class="auth-btn" id="signupBtn">Sign Up</button>
+    </form>
+    <div class="auth-links">
+      Already have an account? <a href="login-teacher">Log In</a>
+    </div>
+  </div>
 </div>
-</div>
+
 <!-- ── Popup overlay for success ──────────────────────────── -->
 <div id="signupPopup" class="popup-overlay" style="display:none;">
-<div class="popup-card">
-<pre><code>&lt;h3&gt;Account Created&lt;/h3&gt;
-&lt;p&gt;A verification email has been sent to &lt;strong id="popupEmail"&gt;&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Please check your inbox and click the verification link before logging in.&lt;/p&gt;
-&lt;button class="auth-btn" onclick="document.getElementById('signupPopup').style.display='none'; window.location.href='login-teacher';"&gt;Got it&lt;/button&gt;</code></pre>
+  <div class="popup-card">
+    <h3>Account Created</h3>
+    <p>A verification email has been sent to <strong id="popupEmail"></strong>.</p>
+    <p>Please check your inbox and click the verification link before logging in.</p>
+    <button class="auth-btn" onclick="document.getElementById('signupPopup').style.display='none'; window.location.href='login-teacher';">Got it</button>
+  </div>
 </div>
-</div>
+
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
 <script>
