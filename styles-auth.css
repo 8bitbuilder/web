@@ -4,136 +4,8 @@
            popup overlays, form elements
    ============================================================ */
 
-/* ── Navbar Auth Pill Button ─────────────────────────────── */
-.nav-auth-wrapper {
-  position: relative;
-  margin-left: 1.5rem;
-  flex-shrink: 0;
-}
-
-.nav-auth-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1rem 0.4rem 0.4rem;
-  border: 2px solid var(--globe);
-  border-radius: 50px;
-  background: var(--white);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  user-select: none;
-  white-space: nowrap;
-}
-
-.nav-auth-btn:hover {
-  background: var(--globe);
-  border-color: var(--globe);
-  box-shadow: 0 0 12px rgba(0, 108, 147, 0.4);
-}
-
-.nav-auth-btn:hover #authLabel {
-  color: var(--white);
-}
-
-.nav-auth-btn:hover .nav-auth-chevron {
-  color: var(--white);
-}
-
-.nav-auth-btn:hover .nav-auth-avatar {
-  border-color: var(--white);
-}
-
-.nav-auth-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--globe);
-  transition: border-color 0.3s ease;
-}
-
-#authLabel {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--globe);
-  transition: color 0.3s ease;
-}
-
-.nav-auth-chevron {
-  font-size: 0.7rem;
-  color: var(--globe);
-  transition: transform 0.3s ease, color 0.3s ease;
-  display: inline-block;
-}
-
-.nav-auth-chevron.open {
-  transform: rotate(180deg);
-}
-
-/* ── Navbar Auth Dropdown Menu ───────────────────────────── */
-.nav-auth-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
-  background: var(--white);
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  min-width: 160px;
-  z-index: 1000;
-  overflow: hidden;
-}
-
-.nav-auth-dropdown.show {
-  display: block;
-}
-
-.nav-auth-dropdown a {
-  display: block;
-  padding: 0.75rem 1.25rem;
-  color: var(--smokey);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.nav-auth-dropdown a:hover {
-  background: var(--globe);
-  color: var(--white);
-}
-
-/* ── Logged-in state pill ────────────────────────────────── */
-.nav-auth-btn.logged-in {
-  border-color: var(--valley);
-}
-
-.nav-auth-btn.logged-in #authLabel {
-  color: var(--valley);
-}
-
-.nav-auth-btn.logged-in .nav-auth-chevron {
-  color: var(--valley);
-}
-
-.nav-auth-btn.logged-in .nav-auth-avatar {
-  border-color: var(--valley);
-}
-
-.nav-auth-btn.logged-in:hover {
-  background: var(--valley);
-  border-color: var(--valley);
-  box-shadow: 0 0 12px rgba(0, 116, 111, 0.4);
-}
-
-.nav-auth-btn.logged-in:hover #authLabel,
-.nav-auth-btn.logged-in:hover .nav-auth-chevron {
-  color: var(--white);
-}
-
-.nav-auth-btn.logged-in:hover .nav-auth-avatar {
-  border-color: var(--white);
-}
+/* ── Utility ─────────────────────────────────────────────── */
+.hidden { display: none !important; }
 
 /* ── Auth Page Background ────────────────────────────────── */
 .auth-page {
@@ -291,6 +163,29 @@
   text-align: left;
 }
 
+.auth-message {
+  display: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.auth-message.error {
+  display: block;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.auth-message.success {
+  display: block;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
 /* ── Popup Overlay ───────────────────────────────────────── */
 .popup-overlay {
   position: fixed;
@@ -329,6 +224,90 @@
 .popup-card .auth-btn {
   max-width: 200px;
   margin: 1.5rem auto 0;
+}
+
+/* ── Auth Popup (JS-generated) ───────────────────────────── */
+.auth-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.auth-popup {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.auth-popup h3 {
+  font-size: 1.5rem;
+  color: var(--smokey);
+  margin: 0 0 1rem;
+}
+
+.auth-popup p {
+  color: var(--smokey);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.credential-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  text-align: left;
+  font-size: 0.95rem;
+  color: var(--smokey);
+  word-break: break-word;
+}
+
+.auth-popup-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  margin: 0.5rem 0.3rem 0;
+  background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.auth-popup-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.auth-popup-btn.danger {
+  background: var(--torch);
+}
+
+.auth-popup-btn.danger:hover {
+  background: #c0392b;
+}
+
+.auth-popup-btn.cancel {
+  background: #e0e0e0;
+  color: var(--smokey);
+}
+
+.auth-popup-btn.cancel:hover {
+  background: #d0d0d0;
 }
 
 /* ── Dashboard ───────────────────────────────────────────── */
@@ -400,185 +379,314 @@
 }
 
 .danger-btn {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
+  display: inline-block;
+  padding: 0.75rem 2rem;
   background: var(--torch);
   color: var(--white);
   border: none;
   border-radius: 10px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .danger-btn:hover {
-  opacity: 0.85;
+  background: #c0392b;
+  transform: translateY(-1px);
 }
 
-/* ── Student List in Dashboard ───────────────────────────── */
-.student-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.student-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.student-list li:last-child {
-  border-bottom: none;
-}
-
-.student-username {
-  font-weight: 600;
-  color: var(--smokey);
-}
-
-.student-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.student-actions button {
-  padding: 0.3rem 0.75rem;
-  font-size: 0.8rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+/* ── Dashboard Buttons ───────────────────────────────────── */
+.dash-btn {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
+  color: var(--white);
+  font-size: 0.95rem;
   font-weight: 600;
   font-family: inherit;
-  transition: opacity 0.2s ease;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
 }
 
-.student-actions .reset-btn {
+.dash-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.dash-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dash-btn.full {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.dash-btn.small {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+
+.dash-btn.small.danger {
+  background: var(--torch);
+}
+
+.dash-btn.small.danger:hover {
+  background: #c0392b;
+}
+
+/* ── Group Tabs ──────────────────────────────────────────── */
+.group-tab-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.group-tab {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--smokey);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.3rem;
+}
+
+.group-tab:hover {
+  border-color: var(--globe);
+  color: var(--globe);
+}
+
+.group-tab.active {
   background: var(--globe);
   color: var(--white);
-}
-
-.student-actions .delete-btn {
-  background: var(--torch);
-  color: var(--white);
-}
-
-.student-actions button:hover {
-  opacity: 0.8;
-}
-
-/* ── Credentials Display ─────────────────────────────────── */
-.credentials-box {
-  background: #f8fafc;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
-  text-align: left;
-  font-size: 0.9rem;
-}
-
-.credentials-box code {
-  background: var(--limestone);
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-}
-
-/* ── File Upload ─────────────────────────────────────────── */
-.file-upload-area {
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  padding: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-  margin-top: 0.5rem;
-}
-
-.file-upload-area:hover {
   border-color: var(--globe);
 }
 
-.file-upload-area p {
-  color: var(--rock);
-  margin: 0;
-  font-size: 0.9rem;
+.group-delete-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: var(--torch);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: -0.2rem;
+  margin-right: 0.3rem;
+  transition: background 0.2s ease;
+  line-height: 1;
+  padding: 0;
 }
 
-/* ── Preview Table ───────────────────────────────────────── */
-.preview-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  font-size: 0.9rem;
+.group-delete-x:hover {
+  background: #c0392b;
 }
 
-.preview-table th {
+/* ── Method Tabs (Single / Multiple / Import) ────────────── */
+.method-tab {
+  padding: 0.5rem 1.25rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--smokey);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.method-tab:hover {
+  border-color: var(--globe);
+  color: var(--globe);
+}
+
+.method-tab.active {
   background: var(--globe);
   color: var(--white);
-  padding: 0.6rem 1rem;
-  text-align: left;
-  font-weight: 600;
+  border-color: var(--globe);
 }
 
-.preview-table td {
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid #e0e0e0;
-  color: var(--smokey);
+.method-panel {
+  display: none;
+}
+
+.method-panel.active {
+  display: block;
 }
 
 /* ── Student Hub ─────────────────────────────────────────── */
-.student-hub-page {
+.student-hub-bg {
   min-height: calc(100vh - 60px);
   background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
 }
 
-.student-hub-header {
-  text-align: center;
-  color: var(--white);
-  margin-bottom: 2rem;
-}
-
-.student-hub-header h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--white);
-  margin: 0 0 0.25rem;
-}
-
-.student-hub-header p {
-  color: var(--limestone);
-  font-size: 1rem;
-}
-
 .student-hub-content {
-  max-width: 800px;
-  margin: 0 auto;
   background: var(--white);
   border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 
-/* ── Hidden utility ──────────────────────────────────────── */
-.hidden {
-  display: none !important;
+/* ── Navbar Auth Pill ────────────────────────────────────── */
+.nav-auth-wrapper {
+  position: relative;
+  margin-left: 1.5rem;
+  flex-shrink: 0;
+}
+
+.nav-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
+  border: 2px solid var(--globe);
+  border-radius: 50px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.nav-auth-btn:hover {
+  background: var(--globe);
+  border-color: var(--globe);
+  box-shadow: 0 0 12px rgba(0, 108, 147, 0.4);
+}
+
+.nav-auth-btn:hover .nav-auth-label {
+  color: var(--white);
+}
+
+.nav-auth-btn:hover .nav-auth-chevron {
+  color: var(--white);
+}
+
+.nav-auth-btn:hover .nav-auth-avatar {
+  border-color: var(--white);
+}
+
+.nav-auth-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--globe);
+  transition: border-color 0.3s ease;
+}
+
+.nav-auth-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--globe);
+  transition: color 0.3s ease;
+}
+
+.nav-auth-chevron {
+  font-size: 0.7rem;
+  color: var(--globe);
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.nav-auth-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ── Navbar Auth Dropdown Menu ───────────────────────────── */
+.nav-auth-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.nav-auth-dropdown.show {
+  display: block;
+}
+
+.nav-auth-dropdown a {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  color: var(--smokey);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-auth-dropdown a:hover {
+  background: var(--globe);
+  color: var(--white);
+}
+
+/* ── Logged-in pill state ────────────────────────────────── */
+.nav-auth-btn.logged-in {
+  border-color: var(--valley);
+}
+
+.nav-auth-btn.logged-in .nav-auth-label {
+  color: var(--valley);
+}
+
+.nav-auth-btn.logged-in .nav-auth-chevron {
+  color: var(--valley);
+}
+
+.nav-auth-btn.logged-in .nav-auth-avatar {
+  border-color: var(--valley);
+}
+
+.nav-auth-btn.logged-in:hover {
+  background: var(--valley);
+  border-color: var(--valley);
+  box-shadow: 0 0 12px rgba(0, 116, 111, 0.4);
+}
+
+.nav-auth-btn.logged-in:hover .nav-auth-label,
+.nav-auth-btn.logged-in:hover .nav-auth-chevron {
+  color: var(--white);
+}
+
+.nav-auth-btn.logged-in:hover .nav-auth-avatar {
+  border-color: var(--white);
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .nav-auth-wrapper {
-    margin-left: 0;
-    margin-top: 0.5rem;
-  }
-
   .auth-card {
     padding: 2rem 1.5rem;
   }
@@ -587,7 +695,11 @@
     grid-template-columns: 1fr;
   }
 
-  .dashboard-header h2 {
-    font-size: 1.5rem;
+  .dashboard-card {
+    padding: 1.5rem;
+  }
+
+  .nav-auth-wrapper {
+    margin-left: 0.5rem;
   }
 }
