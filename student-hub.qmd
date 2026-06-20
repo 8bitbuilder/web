@@ -12,21 +12,15 @@ format:
 ```{=html}
 {{< include _navbar.html >}}
 
-::: {.student-hub-bg}
-::: {.student-hub-content}
-
-<div class="student-hub-card">
-  <img src="assets/logo.png" alt="AAIC Logo" class="auth-card-logo">
-  <h2 id="studentWelcome">Welcome</h2>
-  <p id="studentGroup"></p>
-  <p>You are now logged in. Explore the modules and activities available to you.</p>
-  <br>
-  <a href="modules.html" class="auth-btn" style="display:inline-block; text-decoration:none; padding:0.75rem 2rem;">Explore Modules</a>
+<!-- ── Student Hub ────────────────────────────────────────── -->
+<div class="auth-page">
+  <div class="auth-card" style="max-width:600px;">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2 id="studentWelcome">Welcome</h2>
+    <p class="auth-subtitle" id="studentGroup">You are now logged in. Explore the modules and activities available to you.</p>
+    <a href="modules.html" class="auth-btn" style="text-align:center; text-decoration:none; display:block;">Explore Modules</a>
+  </div>
 </div>
-
-:::
-:::
-
 
 <script src="js/students.js"></script>
 ```
