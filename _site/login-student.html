@@ -134,10 +134,10 @@ function toggleMenu() {
 
 
 <script>
-document.getElementById('studentLoginForm').addEventListener('submit', async () => {
-  const btn = document.getElementById('loginBtn');
-  const errorMsg = document.getElementById('errorMsg');
-  const username = document.getElementById('username').value.trim();
+document.getElementById('studentLoginForm').addEventListener('submit', async function () {
+  var btn = document.getElementById('loginBtn');
+  var errorMsg = document.getElementById('errorMsg');
+  var username = document.getElementById('username').value.trim();
 
   if (!username) return;
 
@@ -146,19 +146,21 @@ document.getElementById('studentLoginForm').addEventListener('submit', async () 
   errorMsg.style.display = 'none';
 
   try {
-    const res = await fetch(EDGE_FUNCTION_URL + '/student-login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
-      body: JSON.stringify({ username })
+    var response = await _supabase.functions.invoke('student-login', {
+      body: { username: username }
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Login failed');
 
-    const { error } = await _supabase.auth.setSession({
-      access_token: data.session.access_token,
-      refresh_token: data.session.refresh_token
+    if (response.error) throw new Error(response.error.message || 'Login failed');
+    if (response.data && response.data.error) throw new Error(response.data.error);
+
+    var session = response.data.session;
+    if (!session) throw new Error('Login failed. Please try again.');
+
+    var setResult = await _supabase.auth.setSession({
+      access_token: session.access_token,
+      refresh_token: session.refresh_token
     });
-    if (error) throw error;
+    if (setResult.error) throw setResult.error;
 
     window.location.href = 'student-hub.html';
   } catch (err) {
@@ -169,6 +171,7 @@ document.getElementById('studentLoginForm').addEventListener('submit', async () 
   }
 });
 </script>
+
 <script>
 function toggleMenu() {
   document.getElementById('navbarLinks').classList.toggle('show');
