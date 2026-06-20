@@ -3,12 +3,13 @@
 // Supabase Client — safe to load multiple times
 // ============================================================
 
-// Guard: if already initialized, skip everything
-if (typeof _supabase === 'undefined') {
+// These must be outside the guard so they're always available
+var SUPABASE_URL = 'https://uuzuhrgvqurwlbcermii.supabase.co';
+var SUPABASE_ANON_KEY = 'sb_publishable_YrLGqHh4sAmgUeu2XFOV5w_Qnydq1y1';
+var EDGE_FUNCTION_URL = 'https://uuzuhrgvqurwlbcermii.supabase.co/functions/v1';
 
-  var SUPABASE_URL = 'https://uuzuhrgvqurwlbcermii.supabase.co';
-  var SUPABASE_ANON_KEY = 'sb_publishable_YrLGqHh4sAmgUeu2XFOV5w_Qnydq1y1';
-  var EDGE_FUNCTION_URL = 'https://uuzuhrgvqurwlbcermii.supabase.co/functions/v1';
+// Guard: only create the client once
+if (typeof _supabase === 'undefined') {
 
   var _supabase = null;
 
