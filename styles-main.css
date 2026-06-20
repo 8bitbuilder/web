@@ -155,7 +155,7 @@ body {
 
 .nav-auth-btn:hover .nav-auth-label,
 .nav-auth-btn:hover .nav-auth-chevron {
-  color: var(--white);
+  color: var(--white) !important;
 }
 
 .nav-auth-btn:hover .nav-auth-avatar {
