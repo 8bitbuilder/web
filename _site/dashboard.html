@@ -53,6 +53,10 @@ ul.task-list li input[type="checkbox"] {
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <style>
 .hidden { display: none !important; }
+.nav-auth-dropdown a:hover {
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  color: #fff !important;
+}
 </style>
 
 <div class="custom-navbar">
@@ -228,16 +232,404 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
-<!-- ── Loading / auth check ──────────────────────────────── -->
-<div id="authLoading" class="auth-page" style="min-height:50vh;">
-  <div class="auth-card" style="max-width:400px;">
-    <p style="text-align:center; color:#888;">Checking authentication...</p>
+<!-- ══════════════════════════════════════════════════════════
+     DASHBOARD STYLES — inline so they always load
+     ══════════════════════════════════════════════════════════ -->
+<style>
+/* ── Dashboard Layout ─────────────────────────────────────── */
+.dashboard-page {
+  min-height: calc(100vh - 60px);
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  padding: 2rem;
+}
+.dashboard-header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.dashboard-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+.dashboard-header p {
+  color: #F0EDE3;
+  font-size: 1rem;
+  margin: 0;
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.dashboard-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.dashboard-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #006C93;
+  margin: 0 0 0.25rem;
+}
+.dashboard-card .card-subtitle {
+  font-size: 0.85rem;
+  color: #A7A9AC;
+  margin: 0 0 1.25rem;
+}
+.dashboard-card hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 1.25rem 0;
+}
+.dashboard-card.danger {
+  border: 2px solid #E05933;
+}
+.dashboard-card.danger h3 {
+  color: #E05933;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.5rem;
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+.dash-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.dash-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+.dash-btn.full {
+  display: flex;
+  width: 100%;
+}
+.dash-btn.small {
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+.dash-btn.small.danger {
+  background: #E05933;
+}
+.dash-btn.small.danger:hover {
+  background: #c0392b;
+}
+.danger-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2rem;
+  background: #E05933;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.danger-btn:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
+}
+
+/* ── Group Tabs ───────────────────────────────────────────── */
+.group-tab-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin: 0 0.25rem 0.5rem 0;
+}
+.group-tab {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  background: #fff;
+  color: #58595B;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.group-tab:hover {
+  border-color: #006C93;
+  color: #006C93;
+}
+.group-tab.active {
+  background: #006C93;
+  border-color: #006C93;
+  color: #fff;
+}
+.group-delete-x {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #E05933;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+.group-delete-x:hover {
+  background: #c0392b;
+}
+
+/* ── Method Tabs ──────────────────────────────────────────── */
+.method-tab {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  background: #fff;
+  color: #58595B;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 0.25rem 0.5rem 0;
+}
+.method-tab:hover {
+  border-color: #006C93;
+  color: #006C93;
+}
+.method-tab.active {
+  background: #006C93;
+  border-color: #006C93;
+  color: #fff;
+}
+.method-panel {
+  display: none;
+}
+.method-panel.active {
+  display: block;
+}
+
+/* ── File Preview Table ───────────────────────────────────── */
+#filePreview {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+#filePreview table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+#filePreview th {
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+  color: #006C93;
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+#filePreview td {
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* ── Popup Overlay ────────────────────────────────────────── */
+.auth-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+.auth-popup {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+.auth-popup h3 {
+  font-size: 1.5rem;
+  color: #58595B;
+  margin: 0 0 1rem;
+}
+.auth-popup p {
+  color: #58595B;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+.credential-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #58595B;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.auth-popup-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  margin: 0.5rem 0.3rem 0;
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+.auth-popup-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.auth-popup-btn.danger {
+  background: #E05933;
+}
+.auth-popup-btn.danger:hover {
+  background: #c0392b;
+}
+.auth-popup-btn.cancel {
+  background: #e0e0e0;
+  color: #58595B;
+}
+.auth-popup-btn.cancel:hover {
+  background: #d0d0d0;
+}
+
+/* ── Auth Messages ────────────────────────────────────────── */
+.auth-message {
+  display: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+.auth-message.error {
+  display: block;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+.auth-message.success {
+  display: block;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* ── Form Inputs (dashboard) ─────────────────────────────── */
+.dashboard-card label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #58595B;
+  margin-bottom: 0.4rem;
+}
+.dashboard-card input[type="text"],
+.dashboard-card input[type="number"],
+.dashboard-card input[type="file"],
+.dashboard-card select {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.3s ease;
+}
+.dashboard-card input:focus,
+.dashboard-card select:focus {
+  outline: none;
+  border-color: #006C93;
+}
+
+/* ── Student Table ────────────────────────────────────────── */
+.dashboard-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dashboard-card thead th {
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  color: #006C93;
+  font-weight: 700;
+  border-bottom: 2px solid #e0e0e0;
+}
+.dashboard-card tbody td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #58595B;
+}
+.dashboard-card tbody td:last-child {
+  text-align: right;
+}
+
+/* ── Utility ──────────────────────────────────────────────── */
+.hidden { display: none !important; }
+</style>
+
+<!-- ══════════════════════════════════════════════════════════
+     LOADING / AUTH CHECK
+     ══════════════════════════════════════════════════════════ -->
+<div id="authLoading" style="min-height:50vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#00746F 0%,#006C93 100%);">
+  <div style="background:#fff; border-radius:16px; padding:3rem; max-width:400px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+    <p style="color:#888;">Checking authentication...</p>
   </div>
 </div>
 
-<!-- ── Dashboard content (hidden until auth verified) ────── -->
+<!-- ══════════════════════════════════════════════════════════
+     DASHBOARD CONTENT (hidden until auth verified)
+     ══════════════════════════════════════════════════════════ -->
 <div id="dashboardContent" style="display:none;">
-
   <div class="dashboard-page">
     <div class="dashboard-header">
       <h2 id="dashboardWelcome">Welcome</h2>
@@ -246,27 +638,27 @@ ul.task-list li input[type="checkbox"] {
 
     <div class="dashboard-grid">
 
-      <!-- ── Groups / Classes Card ────────────────────── -->
+      <!-- ── Groups / Classes ───────────────────────────── -->
       <div class="dashboard-card">
         <h3>Groups / Classes</h3>
         <p class="card-subtitle">Organize your students into groups</p>
         <hr>
         <div id="groupTabs" style="margin-bottom:1rem;"></div>
-        <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem;">
-          <input type="text" id="newGroupName" placeholder="New group name" style="flex:1; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; font-size:0.9rem;">
-          <button type="submit" class="dash-btn">Add</button>
+        <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem; align-items:center;">
+          <input type="text" id="newGroupName" placeholder="New group name" style="flex:1; margin-bottom:0;">
+          <button type="submit" class="dash-btn" style="margin-bottom:0;">Add</button>
         </form>
         <div id="groupMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
       </div>
 
-      <!-- ── Add Students Card ────────────────────────── -->
+      <!-- ── Add Students ───────────────────────────────── -->
       <div class="dashboard-card">
         <h3>Add Students</h3>
         <p class="card-subtitle">Create student accounts</p>
         <hr>
 
         <!-- Method tabs -->
-        <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
+        <div style="margin-bottom:1rem;">
           <button class="method-tab active" data-target="panelSingle">Single</button>
           <button class="method-tab" data-target="panelMultiple">Multiple</button>
           <button class="method-tab" data-target="panelImport">Import File</button>
@@ -275,10 +667,10 @@ ul.task-list li input[type="checkbox"] {
         <!-- Panel: Single Student -->
         <div id="panelSingle" class="method-panel active">
           <form onsubmit="handleAddSingle(event)">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Username</label>
-            <input type="text" id="singleUsername" placeholder="e.g. john_doe" required="" style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Group</label>
-            <select id="singleGroup" class="group-select" style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
+            <label>Username</label>
+            <input type="text" id="singleUsername" placeholder="e.g. john_doe" required="">
+            <label>Group</label>
+            <select id="singleGroup" class="group-select">
               <option value="Default">Default</option>
             </select>
             <button type="submit" class="dash-btn full">Create Student</button>
@@ -289,15 +681,15 @@ ul.task-list li input[type="checkbox"] {
         <!-- Panel: Multiple Students -->
         <div id="panelMultiple" class="method-panel">
           <form onsubmit="handleAddMultiple(event)">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Username Prefix</label>
-            <input type="text" id="multiPrefix" placeholder="e.g. &quot;Student&quot;" required="" style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Number of Accounts</label>
-            <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25" required="" style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Group</label>
-            <select id="multiGroup" class="group-select" style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
+            <label>Username Prefix</label>
+            <input type="text" id="multiPrefix" placeholder="e.g. &quot;Student&quot;" required="">
+            <label>Number of Accounts</label>
+            <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25" required="">
+            <label>Group</label>
+            <select id="multiGroup" class="group-select">
               <option value="Default">Default</option>
             </select>
-            <p style="font-size:0.85rem; color:#888; margin:0.5rem 0;">Creates Student1, Student2, Student3, etc.</p>
+            <p style="font-size:0.85rem; color:#888; margin:0.25rem 0 0.75rem;">Creates Student1, Student2, Student3, etc.</p>
             <button type="submit" class="dash-btn full">Create Students</button>
             <div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
           </form>
@@ -306,20 +698,19 @@ ul.task-list li input[type="checkbox"] {
         <!-- Panel: Import from File -->
         <div id="panelImport" class="method-panel">
           <form onsubmit="handleImportSubmit(event)">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Upload .txt or .csv file</label>
-            <input type="file" id="importFile" accept=".txt,.csv" onchange="handleFileSelect(this)" style="width:100%; padding:0.6rem; margin-bottom:0.75rem; box-sizing:border-box;">
-            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Group</label>
-            <select id="importGroup" class="group-select" style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
+            <label>Upload .txt or .csv file</label>
+            <input type="file" id="importFile" accept=".txt,.csv" onchange="handleFileSelect(this)">
+            <label>Group</label>
+            <select id="importGroup" class="group-select">
               <option value="Default">Default</option>
             </select>
-            <!-- File preview table -->
-            <div id="filePreview" style="display:none; margin:0.5rem 0; max-height:200px; overflow-y:auto; border:1px solid #e0e0e0; border-radius:8px;">
+            <div id="filePreview" class="hidden" style="margin:0.5rem 0;">
               
-<table class="caption-top" style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+<table class="caption-top">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: left; padding: 0.4rem 0.5rem; border-bottom: 2px solid #e0e0e0; color: #006C93;">#</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; padding: 0.4rem 0.5rem; border-bottom: 2px solid #e0e0e0; color: #006C93;">Username</th>
+<th data-quarto-table-cell-role="th">#</th>
+<th data-quarto-table-cell-role="th">Username</th>
 </tr>
 </thead>
 <tbody id="filePreviewBody">
@@ -333,25 +724,25 @@ ul.task-list li input[type="checkbox"] {
         </div>
       </div>
 
-      <!-- ── Student List Card ────────────────────────── -->
+      <!-- ── Student List ───────────────────────────────── -->
       <div class="dashboard-card" style="grid-column: 1 / -1;">
         <h3>Your Students</h3>
         <p class="card-subtitle" id="studentCount2"></p>
         <hr>
         <div style="overflow-x:auto;">
           
-<table class="caption-top" style="width:100%; border-collapse:collapse;">
+<table class="caption-top">
 <thead>
-<tr class="header" style="border-bottom:2px solid #e0e0e0;">
-<th data-quarto-table-cell-role="th" style="text-align: left; padding: 0.75rem 0.5rem; color: #006C93;">Username</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; padding: 0.75rem 0.5rem; color: #006C93;">Group</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; padding: 0.75rem 0.5rem; color: #006C93;">Created</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; padding: 0.75rem 0.5rem; color: #006C93;">Actions</th>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Username</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Group</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Created</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Actions</th>
 </tr>
 </thead>
 <tbody id="studentTableBody">
 <tr class="odd">
-<td colspan="4" style="text-align: center; color: #888; padding: 2rem;">Loading students...</td>
+<td colspan="4" style="text-align: center; color: #888; padding: 2rem;">Loading...</td>
 </tr>
 </tbody>
 </table>
@@ -359,28 +750,44 @@ ul.task-list li input[type="checkbox"] {
         </div>
       </div>
 
-      <!-- ── Delete Class Account Card ────────────────── -->
+      <!-- ── Delete Class Account ───────────────────────── -->
       <div class="dashboard-card danger" style="grid-column: 1 / -1;">
         <h3>Delete Class Account</h3>
         <p class="card-subtitle">Permanently delete your account and all student data</p>
         <hr>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
+        <p style="margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
         <button class="danger-btn" onclick="handleDeleteTeacher()">Delete My Account and All Students</button>
       </div>
 
     </div>
   </div>
-
 </div>
 
-<!-- ── Dashboard scripts ──────────────────────────────────── -->
+<!-- ── Scripts ────────────────────────────────────────────── -->
 <script src="js/admin.js"></script>
 
 <script>
+// ── Method tab switching ─────────────────────────────────
 (function() {
-  function initDashboardAuth() {
+  var tabs = document.querySelectorAll('.method-tab');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      // Deactivate all tabs and panels
+      document.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.method-panel').forEach(function(p) { p.classList.remove('active'); });
+      // Activate clicked tab and its panel
+      tab.classList.add('active');
+      var target = document.getElementById(tab.getAttribute('data-target'));
+      if (target) target.classList.add('active');
+    });
+  });
+})();
+
+// ── Auth check — wait for _supabase ──────────────────────
+(function() {
+  function checkAuth() {
     if (typeof _supabase === 'undefined' || !_supabase) {
-      setTimeout(initDashboardAuth, 200);
+      setTimeout(checkAuth, 200);
       return;
     }
 
@@ -392,31 +799,27 @@ ul.task-list li input[type="checkbox"] {
         return;
       }
 
-      _supabase
-        .from('profiles')
+      _supabase.from('profiles')
         .select('username, role')
         .eq('id', session.user.id)
         .single()
         .then(function(profileResult) {
-          var profile = profileResult.data;
-
-          if (!profile || profile.role !== 'teacher') {
+          if (!profileResult.data || profileResult.data.role !== 'teacher') {
             window.location.href = '/';
             return;
           }
 
+          // Auth passed — show dashboard
           document.getElementById('authLoading').style.display = 'none';
           document.getElementById('dashboardContent').style.display = 'block';
-          initDashboard(session, profile);
+
+          // Initialize dashboard
+          initDashboard(session, profileResult.data);
         });
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDashboardAuth);
-  } else {
-    initDashboardAuth();
-  }
+  checkAuth();
 })();
 </script>
 
