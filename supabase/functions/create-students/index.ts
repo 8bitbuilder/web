@@ -71,34 +71,24 @@ serve(async (req) => {
 
     for (const username of usernames) {
       const syntheticEmail = `${username.toLowerCase()}@students.noemail.invalid`;
-      // Generate a random internal password the student will never see or use
       const internalPassword = crypto.randomUUID() + crypto.randomUUID();
 
+      // The database trigger (handle_new_user) automatically creates the
+      // profile row using the metadata passed here — no manual insert needed.
       const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
         email: syntheticEmail,
         password: internalPassword,
         email_confirm: true,
-        user_metadata: { username, role: "student" },
+        user_metadata: {
+          username,
+          role: "student",
+          teacher_id: caller.id,
+          group_name: group_name || "Default",
+        },
       });
 
       if (createError) {
         errors.push({ username, message: createError.message });
-        continue;
-      }
-
-      // Insert profile
-      const { error: profileError } = await supabaseAdmin.from("profiles").insert({
-        id: newUser.user.id,
-        username,
-        role: "student",
-        teacher_id: caller.id,
-        group_name: group_name || "Default",
-      });
-
-      if (profileError) {
-        errors.push({ username, message: profileError.message });
-        // Clean up the auth user if profile insert fails
-        await supabaseAdmin.auth.admin.deleteUser(newUser.user.id);
         continue;
       }
 
