@@ -30,7 +30,7 @@ format:
 
     <div class="dashboard-grid">
 
-      <!-- ── Create Group Card ─────────────────────────── -->
+      <!-- ── Groups / Classes Card ────────────────────── -->
       <div class="dashboard-card">
         <h3>Groups / Classes</h3>
         <p class="card-subtitle">Organize your students into groups</p>
@@ -39,12 +39,12 @@ format:
         <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem;">
           <input type="text" id="newGroupName" placeholder="New group name"
                  style="flex:1; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; font-size:0.9rem;">
-          <button type="submit" class="auth-btn" style="width:auto; margin-top:0; padding:0.6rem 1.2rem;">Add</button>
+          <button type="submit" class="dash-btn">Add</button>
         </form>
         <div id="groupMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
       </div>
 
-      <!-- ── Add Students Card ─────────────────────────── -->
+      <!-- ── Add Students Card ────────────────────────── -->
       <div class="dashboard-card">
         <h3>Add Students</h3>
         <p class="card-subtitle">Create student accounts</p>
@@ -60,15 +60,15 @@ format:
         <!-- Panel: Single Student -->
         <div id="panelSingle" class="method-panel active">
           <form onsubmit="handleAddSingle(event)">
-            <label>Username</label>
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Username</label>
             <input type="text" id="singleUsername" placeholder="e.g. john_doe" required
-                   style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
-            <label>Group</label>
+                   style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Group</label>
             <select id="singleGroup" class="group-select"
-                    style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+                    style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
               <option value="Default">Default</option>
             </select>
-            <button type="submit" class="auth-btn">Create Student</button>
+            <button type="submit" class="dash-btn full">Create Student</button>
             <div id="addSingleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
           </form>
         </div>
@@ -76,19 +76,19 @@ format:
         <!-- Panel: Multiple Students -->
         <div id="panelMultiple" class="method-panel">
           <form onsubmit="handleAddMultiple(event)">
-            <label>Username Prefix</label>
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Username Prefix</label>
             <input type="text" id="multiPrefix" placeholder='e.g. "Student"' required
-                   style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
-            <label>Number of Accounts</label>
+                   style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Number of Accounts</label>
             <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25" required
-                   style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
-            <label>Group</label>
+                   style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Group</label>
             <select id="multiGroup" class="group-select"
-                    style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+                    style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
               <option value="Default">Default</option>
             </select>
             <p style="font-size:0.85rem; color:#888; margin:0.5rem 0;">Creates Student1, Student2, Student3, etc.</p>
-            <button type="submit" class="auth-btn">Create Students</button>
+            <button type="submit" class="dash-btn full">Create Students</button>
             <div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
           </form>
         </div>
@@ -96,31 +96,34 @@ format:
         <!-- Panel: Import from File -->
         <div id="panelImport" class="method-panel">
           <form onsubmit="handleImportSubmit(event)">
-            <label>Upload .txt file (one username per line)</label>
-            <input type="file" id="importFile" accept=".txt" onchange="handleFileSelect(this)"
-                   style="width:100%; padding:0.6rem; margin-bottom:0.5rem; box-sizing:border-box;">
-            <label>Group</label>
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Upload .txt or .csv file</label>
+            <input type="file" id="importFile" accept=".txt,.csv" onchange="handleFileSelect(this)"
+                   style="width:100%; padding:0.6rem; margin-bottom:0.75rem; box-sizing:border-box;">
+            <label style="display:block; font-weight:600; font-size:0.9rem; color:#58595B; margin-bottom:0.4rem;">Group</label>
             <select id="importGroup" class="group-select"
-                    style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+                    style="width:100%; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.75rem; box-sizing:border-box; font-size:0.9rem;">
               <option value="Default">Default</option>
             </select>
             <!-- File preview table -->
-            <div id="filePreview" class="hidden" style="margin:0.5rem 0; max-height:200px; overflow-y:auto;">
+            <div id="filePreview" style="display:none; margin:0.5rem 0; max-height:200px; overflow-y:auto; border:1px solid #e0e0e0; border-radius:8px;">
               <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
-                <thead><tr><th style="text-align:left; padding:0.3rem; border-bottom:1px solid #e0e0e0;">#</th><th style="text-align:left; padding:0.3rem; border-bottom:1px solid #e0e0e0;">Username</th></tr></thead>
+                <thead><tr>
+                  <th style="text-align:left; padding:0.4rem 0.5rem; border-bottom:2px solid #e0e0e0; color:#006C93;">#</th>
+                  <th style="text-align:left; padding:0.4rem 0.5rem; border-bottom:2px solid #e0e0e0; color:#006C93;">Username</th>
+                </tr></thead>
                 <tbody id="filePreviewBody"></tbody>
               </table>
             </div>
-            <button type="submit" class="auth-btn">Import Students</button>
+            <button type="submit" class="dash-btn full">Import Students</button>
             <div id="importMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
           </form>
         </div>
       </div>
 
-      <!-- ── Student List Card ─────────────────────────── -->
+      <!-- ── Student List Card ────────────────────────── -->
       <div class="dashboard-card" style="grid-column: 1 / -1;">
         <h3>Your Students</h3>
-        <p class="card-subtitle" id="studentCount2">Loading...</p>
+        <p class="card-subtitle" id="studentCount2"></p>
         <hr>
         <div style="overflow-x:auto;">
           <table style="width:100%; border-collapse:collapse;">
@@ -139,9 +142,9 @@ format:
         </div>
       </div>
 
-      <!-- ── Danger Zone Card ──────────────────────────── -->
+      <!-- ── Delete Class Account Card ────────────────── -->
       <div class="dashboard-card danger" style="grid-column: 1 / -1;">
-        <h3>Danger Zone</h3>
+        <h3>Delete Class Account</h3>
         <p class="card-subtitle">Permanently delete your account and all student data</p>
         <hr>
         <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
@@ -153,12 +156,14 @@ format:
 
 </div>
 
-<!-- ── Dashboard auth check + init ────────────────────────── -->
+<!-- ── Dashboard scripts ──────────────────────────────────── -->
+<script src="js/admin.js"></script>
+
 <script>
 (function() {
-  function initDashboard() {
+  function initDashboardAuth() {
     if (typeof _supabase === 'undefined' || !_supabase) {
-      setTimeout(initDashboard, 200);
+      setTimeout(initDashboardAuth, 200);
       return;
     }
 
@@ -183,28 +188,18 @@ format:
             return;
           }
 
-          // Show dashboard
           document.getElementById('authLoading').style.display = 'none';
           document.getElementById('dashboardContent').style.display = 'block';
-
-          // Set welcome message
-          var welcomeEl = document.getElementById('dashboardWelcome');
-          if (welcomeEl) welcomeEl.textContent = 'Welcome, ' + profile.username;
-
-          // Store teacher data for admin.js
-          currentTeacher = { session: session, profile: profile };
-
-          // Load data
-          loadGroups();
-          loadStudents();
-          initMethodTabs();
+          initDashboard(session, profile);
         });
     });
   }
 
-  initDashboard();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDashboardAuth);
+  } else {
+    initDashboardAuth();
+  }
 })();
 </script>
-
-<script src="js/admin.js"></script>
 ```
