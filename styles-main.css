@@ -776,3 +776,123 @@ body {
     display: flex;
   }
 }
+
+/* ── Navbar Auth Pill Button ─────────────────────────────── */
+.nav-auth-wrapper {
+  position: relative;
+  margin-left: 1.5rem;
+}
+
+.auth-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem;
+  border: 2px solid #006C93;
+  border-radius: 50px;
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #006C93;
+  transition: all 0.3s ease;
+}
+
+.auth-pill:hover {
+  border-color: #006C93;
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  color: #fff;
+}
+
+.auth-pill:hover .auth-pill-text,
+.auth-pill:hover .auth-pill-chevron {
+  color: #fff;
+}
+
+.auth-pill:hover .auth-pill-avatar {
+  border-color: #fff;
+}
+
+.auth-pill-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #006C93;
+  object-fit: cover;
+  transition: border-color 0.3s ease;
+}
+
+.auth-pill-text {
+  color: #006C93;
+  transition: color 0.3s ease;
+}
+
+.auth-pill-chevron {
+  font-size: 0.7rem;
+  color: #006C93;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.auth-pill-chevron.open {
+  transform: rotate(180deg);
+}
+
+.auth-pill.logged-in {
+  border-color: #00746F;
+}
+
+/* ── Auth Dropdown Menu ──────────────────────────────────── */
+.nav-auth-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 160px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.nav-auth-dropdown.show {
+  display: block;
+}
+
+.nav-auth-dropdown a {
+  display: block;
+  padding: 0.7rem 1.2rem;
+  color: #58595B;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.nav-auth-dropdown a:hover {
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  color: #fff !important;
+}
+
+/* ── Hidden utility ──────────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ── Mobile: auth pill ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-auth-wrapper {
+    margin-left: 0.5rem;
+  }
+
+  .auth-pill-text {
+    display: none;
+  }
+
+  .auth-pill {
+    padding: 0.4rem 0.6rem;
+  }
+}
