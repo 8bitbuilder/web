@@ -1,6 +1,8 @@
 // js/admin.js
 // ============================================================
-// DASHBOARD LOGIC — student management, groups, account deletion
+// DASHBOARD LOGIC v2 — student management, groups, deletion
+// Depends on: _supabase (from supabase-config.js)
+//             showPopup, showConfirmPopup, showAuthMessage (from auth.js)
 // ============================================================
 
 var currentTeacher = null;
@@ -8,55 +10,75 @@ var allStudents = [];
 var allGroups = [];
 var activeGroup = 'All';
 
-document.addEventListener('DOMContentLoaded', async function () {
-  var authData = await requireTeacher();
-  if (!authData) return;
+// Called from dashboard.qmd after auth check passes
+function initDashboard(session, profile) {
+  currentTeacher = { session: session, profile: profile };
 
-  currentTeacher = authData;
-
-  // Set welcome message
   var welcomeEl = document.getElementById('dashboardWelcome');
-  if (welcomeEl) {
-    welcomeEl.textContent = 'Welcome, ' + authData.profile.username;
-  }
+  if (welcomeEl) welcomeEl.textContent = 'Welcome, ' + profile.username;
 
-  await loadGroups();
-  await loadStudents();
+  loadGroups();
+  loadStudents();
   initMethodTabs();
-});
+}
 
-// ------ Load Groups ------
+// ================================================================
+//  GROUPS
+// ================================================================
 
-async function loadGroups() {
-  var result = await _supabase
+function loadGroups() {
+  _supabase
     .from('groups')
     .select('*')
     .eq('teacher_id', currentTeacher.session.user.id)
-    .order('name');
-
-  allGroups = result.data || [];
-  renderGroupTabs();
-  renderGroupSelect();
+    .order('name')
+    .then(function (result) {
+      allGroups = result.data || [];
+      renderGroupTabs();
+      renderGroupSelects();
+    });
 }
 
 function renderGroupTabs() {
   var container = document.getElementById('groupTabs');
   if (!container) return;
 
-  var html = '<button class="group-tab active" onclick="filterByGroup(\'All\')">All</button>';
+  var html =
+    '<button class="group-tab' +
+    (activeGroup === 'All' ? ' active' : '') +
+    '" onclick="filterByGroup(\'All\')">All</button>';
+
   allGroups.forEach(function (g) {
-    html += '<button class="group-tab" onclick="filterByGroup(\'' +
-      g.name.replace(/'/g, "\\'") + '\')">' + g.name + '</button>';
+    var esc = g.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    html +=
+      '<span class="group-tab-wrapper">' +
+      '<button class="group-tab' +
+      (activeGroup === g.name ? ' active' : '') +
+      '" onclick="filterByGroup(\'' + esc + '\')">' +
+      g.name +
+      '</button>' +
+      '<button class="group-delete-x" onclick="event.stopPropagation(); handleDeleteGroup(\'' +
+      esc +
+      '\')" title="Delete group">&times;</button>' +
+      '</span>';
   });
   container.innerHTML = html;
 }
 
-function renderGroupSelect() {
+function renderGroupSelects() {
   var selects = document.querySelectorAll('.group-select');
   selects.forEach(function (sel) {
+    var cur = sel.value;
     var html = '<option value="Default">Default</option>';
     allGroups.forEach(function (g) {
-      html += '<option value="' + g.name + '">' + g.name + '</option>';
+      html +=
+        '<option value="' +
+        g.name +
+        '"' +
+        (g.name === cur ? ' selected' : '') +
+        '>' +
+        g.name +
+        '</option>';
     });
     sel.innerHTML = html;
   });
@@ -64,19 +86,11 @@ function renderGroupSelect() {
 
 function filterByGroup(groupName) {
   activeGroup = groupName;
-
-  // Update tab styles
-  document.querySelectorAll('.group-tab').forEach(function (tab) {
-    tab.classList.remove('active');
-    if (tab.textContent === groupName) tab.classList.add('active');
-  });
-
+  renderGroupTabs();
   renderStudentTable();
 }
 
-// ------ Create Group ------
-
-async function handleCreateGroup(event) {
+function handleCreateGroup(event) {
   if (event) event.preventDefault();
   var input = document.getElementById('newGroupName');
   var name = input.value.trim();
@@ -84,39 +98,82 @@ async function handleCreateGroup(event) {
 
   if (!name) return;
 
-  var result = await _supabase.from('groups').insert({
-    teacher_id: currentTeacher.session.user.id,
-    name: name,
-  });
-
-  if (result.error) {
-    if (result.error.message.includes('duplicate')) {
-      showAuthMessage(msgEl, 'A group with that name already exists.', 'error');
-    } else {
-      showAuthMessage(msgEl, result.error.message, 'error');
-    }
-    return;
-  }
-
-  input.value = '';
-  msgEl.className = 'auth-message';
-  msgEl.style.display = 'none';
-  await loadGroups();
-  await loadStudents();
+  _supabase
+    .from('groups')
+    .insert({ teacher_id: currentTeacher.session.user.id, name: name })
+    .then(function (result) {
+      if (result.error) {
+        if (result.error.message.includes('duplicate')) {
+          showAuthMessage(msgEl, 'A group with that name already exists.', 'error');
+        } else {
+          showAuthMessage(msgEl, result.error.message, 'error');
+        }
+        return;
+      }
+      input.value = '';
+      if (msgEl) {
+        msgEl.className = 'auth-message';
+        msgEl.style.display = 'none';
+      }
+      loadGroups();
+      loadStudents();
+    });
 }
 
-// ------ Load Students ------
+function handleDeleteGroup(groupName) {
+  showConfirmPopup(
+    'Delete Group',
+    '<p>Are you sure you want to delete the group <strong>' +
+      groupName +
+      '</strong>?</p>' +
+      '<p>Students in this group will be moved to the Default group.</p>',
+    function () {
+      // Move students to Default first
+      _supabase
+        .from('profiles')
+        .update({ group_name: 'Default' })
+        .eq('teacher_id', currentTeacher.session.user.id)
+        .eq('group_name', groupName)
+        .then(function () {
+          // Then delete the group
+          _supabase
+            .from('groups')
+            .delete()
+            .eq('teacher_id', currentTeacher.session.user.id)
+            .eq('name', groupName)
+            .then(function () {
+              if (activeGroup === groupName) activeGroup = 'All';
+              loadGroups();
+              loadStudents();
+            });
+        });
+    },
+    null
+  );
+}
 
-async function loadStudents() {
-  var result = await _supabase
+// ================================================================
+//  STUDENTS — Load & Render
+// ================================================================
+
+function loadStudents() {
+  _supabase
     .from('profiles')
     .select('id, username, group_name, created_at')
     .eq('teacher_id', currentTeacher.session.user.id)
     .eq('role', 'student')
-    .order('username');
+    .order('username')
+    .then(function (result) {
+      allStudents = result.data || [];
+      renderStudentTable();
 
-  allStudents = result.data || [];
-  renderStudentTable();
+      var total = allStudents.length;
+      var label = total + ' student' + (total !== 1 ? 's' : '') + ' total';
+      var c1 = document.getElementById('studentCount');
+      if (c1) c1.textContent = label;
+      var c2 = document.getElementById('studentCount2');
+      if (c2) c2.textContent = label;
+    });
 }
 
 function renderStudentTable() {
@@ -125,62 +182,67 @@ function renderStudentTable() {
 
   var filtered = allStudents;
   if (activeGroup !== 'All') {
-    filtered = allStudents.filter(function (s) { return s.group_name === activeGroup; });
+    filtered = allStudents.filter(function (s) {
+      return s.group_name === activeGroup;
+    });
   }
 
   if (filtered.length === 0) {
-    container.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#888; padding:2rem;">No students found in this group.</td></tr>';
+    container.innerHTML =
+      '<tr><td colspan="4" style="text-align:center; color:#888; padding:2rem;">No students found.</td></tr>';
     return;
   }
 
   var html = '';
   filtered.forEach(function (s) {
     var date = new Date(s.created_at).toLocaleDateString();
-    html += '<tr>' +
-      '<td>' + s.username + '</td>' +
-      '<td>' + (s.group_name || 'Default') + '</td>' +
-      '<td>' + date + '</td>' +
-      '<td class="actions">' +
-        '<button class="dash-btn small danger" onclick="deleteStudent(\'' + s.id + '\', \'' + s.username.replace(/'/g, "\\'") + '\')">Delete</button>' +
-      '</td>' +
-    '</tr>';
+    var escName = s.username.replace(/'/g, "\\'");
+    html +=
+      '<tr>' +
+      '<td style="padding:0.75rem 0.5rem;">' + s.username + '</td>' +
+      '<td style="padding:0.75rem 0.5rem;">' + (s.group_name || 'Default') + '</td>' +
+      '<td style="padding:0.75rem 0.5rem;">' + date + '</td>' +
+      '<td style="padding:0.75rem 0.5rem; text-align:right;">' +
+      '<button class="dash-btn small danger" onclick="deleteStudent(\'' +
+      s.id + "', '" + escName +
+      "')\">Delete</button></td>" +
+      '</tr>';
   });
   container.innerHTML = html;
-
-  // Update count
-  var countEl = document.getElementById('studentCount');
-  if (countEl) {
-    countEl.textContent = allStudents.length + ' student' + (allStudents.length !== 1 ? 's' : '') + ' total';
-  }
 }
 
-// ------ Method Tabs (Add Single / Add Multiple / Import File) ------
+// ================================================================
+//  METHOD TABS  (Single / Multiple / Import)
+// ================================================================
 
 function initMethodTabs() {
   var tabs = document.querySelectorAll('.method-tab');
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
-      // Deactivate all
-      document.querySelectorAll('.method-tab').forEach(function (t) { t.classList.remove('active'); });
-      document.querySelectorAll('.method-panel').forEach(function (p) { p.classList.remove('active'); });
-      // Activate clicked
+      document.querySelectorAll('.method-tab').forEach(function (t) {
+        t.classList.remove('active');
+      });
+      document.querySelectorAll('.method-panel').forEach(function (p) {
+        p.classList.remove('active');
+      });
       tab.classList.add('active');
-      var target = document.getElementById(tab.dataset.target);
+      var target = document.getElementById(tab.getAttribute('data-target'));
       if (target) target.classList.add('active');
     });
   });
 }
 
-// ------ Add Single Student ------
+// ================================================================
+//  ADD SINGLE STUDENT
+// ================================================================
 
-async function handleAddSingle(event) {
+function handleAddSingle(event) {
   event.preventDefault();
   var msgEl = document.getElementById('addSingleMessage');
   var username = document.getElementById('singleUsername').value.trim();
   var group = document.getElementById('singleGroup').value;
 
-  msgEl.className = 'auth-message';
-  msgEl.style.display = 'none';
+  if (msgEl) { msgEl.className = 'auth-message'; msgEl.style.display = 'none'; }
 
   if (!username) {
     showAuthMessage(msgEl, 'Please enter a username.', 'error');
@@ -191,114 +253,126 @@ async function handleAddSingle(event) {
   btn.disabled = true;
   btn.textContent = 'Creating...';
 
-  var response = await _supabase.functions.invoke('create-students', {
-    body: {
-      usernames: [username],
-      group_name: group,
-    },
-  });
+  _supabase.functions
+    .invoke('create-students', {
+      body: { usernames: [username], group_name: group },
+    })
+    .then(function (response) {
+      btn.disabled = false;
+      btn.textContent = 'Create Student';
 
-  btn.disabled = false;
-  btn.textContent = 'Create Student';
+      if (response.error || (response.data && response.data.error)) {
+        var errMsg = (response.data && response.data.error) || 'Failed to create student.';
+        if (response.data && response.data.conflicts) {
+          errMsg = 'Username already exists: ' + response.data.conflicts.join(', ');
+        }
+        showAuthMessage(msgEl, errMsg, 'error');
+        return;
+      }
 
-  if (response.error || (response.data && response.data.error)) {
-    var errorMsg = (response.data && response.data.error) || 'Failed to create student.';
-    if (response.data && response.data.conflicts) {
-      errorMsg = 'Username already exists: ' + response.data.conflicts.join(', ');
-    }
-    showAuthMessage(msgEl, errorMsg, 'error');
-    return;
-  }
+      if (response.data && response.data.created && response.data.created.length > 0) {
+        showPopup(
+          'Student Created',
+          '<p>The following student account has been created successfully:</p>' +
+            '<div class="credential-box">' +
+            response.data.created.join('<br>') +
+            '</div>' +
+            '<p>The student can now log in using their username.</p>',
+          null
+        );
+        document.getElementById('singleUsername').value = '';
+        loadStudents();
+      }
 
-  if (response.data && response.data.created && response.data.created.length > 0) {
-    showPopup(
-      'Student Created',
-      '<p>The student account has been created successfully.</p>' +
-      '<div class="credential-box"><strong>Username:</strong> ' + username + '</div>' +
-      '<p>The student can now log in using their username.</p>',
-      null
-    );
-    document.getElementById('singleUsername').value = '';
-    await loadStudents();
-  }
-
-  if (response.data && response.data.errors && response.data.errors.length > 0) {
-    var errList = response.data.errors.map(function (e) { return e.username + ': ' + e.message; }).join('<br>');
-    showAuthMessage(msgEl, errList, 'error');
-  }
+      if (response.data && response.data.errors && response.data.errors.length > 0) {
+        var errList = response.data.errors
+          .map(function (e) { return e.username + ': ' + e.message; })
+          .join('<br>');
+        showAuthMessage(msgEl, errList, 'error');
+      }
+    });
 }
 
-// ------ Add Multiple Students ------
+// ================================================================
+//  ADD MULTIPLE STUDENTS
+// ================================================================
 
-async function handleAddMultiple(event) {
+function handleAddMultiple(event) {
   event.preventDefault();
   var msgEl = document.getElementById('addMultipleMessage');
   var prefix = document.getElementById('multiPrefix').value.trim();
   var count = parseInt(document.getElementById('multiCount').value, 10);
   var group = document.getElementById('multiGroup').value;
 
-  msgEl.className = 'auth-message';
-  msgEl.style.display = 'none';
+  if (msgEl) { msgEl.className = 'auth-message'; msgEl.style.display = 'none'; }
 
   if (!prefix || !count || count < 1) {
     showAuthMessage(msgEl, 'Please enter a prefix and a valid number.', 'error');
     return;
   }
-
   if (count > 100) {
     showAuthMessage(msgEl, 'Maximum 100 students at once.', 'error');
     return;
   }
 
   var usernames = [];
-  for (var i = 1; i <= count; i++) {
-    usernames.push(prefix + i);
-  }
+  for (var i = 1; i <= count; i++) usernames.push(prefix + i);
 
   var btn = event.target.querySelector('button[type="submit"]');
   btn.disabled = true;
   btn.textContent = 'Creating ' + count + ' accounts...';
 
-  var response = await _supabase.functions.invoke('create-students', {
-    body: {
-      usernames: usernames,
-      group_name: group,
-    },
-  });
+  _supabase.functions
+    .invoke('create-students', {
+      body: { usernames: usernames, group_name: group },
+    })
+    .then(function (response) {
+      btn.disabled = false;
+      btn.textContent = 'Create Students';
 
-  btn.disabled = false;
-  btn.textContent = 'Create Students';
+      if (response.data && response.data.conflicts && response.data.conflicts.length > 0) {
+        showPopup(
+          'Username Conflicts',
+          '<p>The following usernames already exist and were not created:</p>' +
+            '<div class="credential-box">' +
+            response.data.conflicts.join('<br>') +
+            '</div>',
+          null
+        );
+        return;
+      }
 
-  if (response.data && response.data.conflicts && response.data.conflicts.length > 0) {
-    showPopup(
-      'Username Conflicts',
-      '<p>The following usernames already exist and were not created:</p>' +
-      '<div class="credential-box">' + response.data.conflicts.join('<br>') + '</div>',
-      null
-    );
-    return;
-  }
+      if (response.error || (response.data && response.data.error)) {
+        showAuthMessage(
+          msgEl,
+          (response.data && response.data.error) || 'Failed to create students.',
+          'error'
+        );
+        return;
+      }
 
-  if (response.error || (response.data && response.data.error)) {
-    showAuthMessage(msgEl, (response.data && response.data.error) || 'Failed to create students.', 'error');
-    return;
-  }
-
-  if (response.data && response.data.created && response.data.created.length > 0) {
-    showPopup(
-      'Students Created',
-      '<p>' + response.data.created.length + ' student accounts have been created successfully.</p>' +
-      '<div class="credential-box">' + response.data.created.join('<br>') + '</div>' +
-      '<p>Students can now log in using their usernames.</p>',
-      null
-    );
-    document.getElementById('multiPrefix').value = '';
-    document.getElementById('multiCount').value = '';
-    await loadStudents();
-  }
+      if (response.data && response.data.created && response.data.created.length > 0) {
+        showPopup(
+          'Students Created',
+          '<p>' +
+            response.data.created.length +
+            ' student accounts have been created successfully:</p>' +
+            '<div class="credential-box" style="max-height:200px; overflow-y:auto;">' +
+            response.data.created.join('<br>') +
+            '</div>' +
+            '<p>Students can now log in using their usernames.</p>',
+          null
+        );
+        document.getElementById('multiPrefix').value = '';
+        document.getElementById('multiCount').value = '';
+        loadStudents();
+      }
+    });
 }
 
-// ------ Import Students from File ------
+// ================================================================
+//  IMPORT STUDENTS FROM FILE (.txt or .csv)
+// ================================================================
 
 function handleFileSelect(input) {
   var file = input.files[0];
@@ -307,38 +381,64 @@ function handleFileSelect(input) {
   var reader = new FileReader();
   reader.onload = function (e) {
     var text = e.target.result;
-    var lines = text.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(function (l) { return l.length > 0; });
+    var lines = [];
 
-    // Show preview
+    if (file.name.toLowerCase().endsWith('.csv')) {
+      // CSV: take first column of each row, skip header if detected
+      var rows = text
+        .split(/\r?\n/)
+        .map(function (l) { return l.trim(); })
+        .filter(function (l) { return l.length > 0; });
+
+      rows.forEach(function (row, i) {
+        // Split on comma, strip quotes
+        var cols = row.split(',').map(function (c) {
+          return c.trim().replace(/^["']|["']$/g, '');
+        });
+        var val = cols[0];
+        // Skip header row if it looks like one
+        if (i === 0 && /^(username|name|student|id|user)$/i.test(val)) return;
+        if (val) lines.push(val);
+      });
+    } else {
+      // TXT: one username per line
+      lines = text
+        .split(/\r?\n/)
+        .map(function (l) { return l.trim(); })
+        .filter(function (l) { return l.length > 0; });
+    }
+
     var preview = document.getElementById('filePreview');
     var previewBody = document.getElementById('filePreviewBody');
 
     if (lines.length === 0) {
-      preview.classList.add('hidden');
+      if (preview) preview.style.display = 'none';
       return;
     }
 
     var html = '';
     lines.forEach(function (name, i) {
-      html += '<tr><td>' + (i + 1) + '</td><td>' + name + '</td></tr>';
+      html +=
+        '<tr>' +
+        '<td style="padding:0.4rem 0.5rem; border-bottom:1px solid #e0e0e0;">' + (i + 1) + '</td>' +
+        '<td style="padding:0.4rem 0.5rem; border-bottom:1px solid #e0e0e0;">' + name + '</td>' +
+        '</tr>';
     });
-    previewBody.innerHTML = html;
-    preview.classList.remove('hidden');
+    if (previewBody) previewBody.innerHTML = html;
+    if (preview) preview.style.display = 'block';
 
-    // Store for submission
     window._importUsernames = lines;
   };
   reader.readAsText(file);
 }
 
-async function handleImportSubmit(event) {
+function handleImportSubmit(event) {
   event.preventDefault();
   var msgEl = document.getElementById('importMessage');
   var group = document.getElementById('importGroup').value;
   var usernames = window._importUsernames;
 
-  msgEl.className = 'auth-message';
-  msgEl.style.display = 'none';
+  if (msgEl) { msgEl.className = 'auth-message'; msgEl.style.display = 'none'; }
 
   if (!usernames || usernames.length === 0) {
     showAuthMessage(msgEl, 'Please select a file first.', 'error');
@@ -349,91 +449,118 @@ async function handleImportSubmit(event) {
   btn.disabled = true;
   btn.textContent = 'Creating ' + usernames.length + ' accounts...';
 
-  var response = await _supabase.functions.invoke('create-students', {
-    body: {
-      usernames: usernames,
-      group_name: group,
-    },
-  });
+  _supabase.functions
+    .invoke('create-students', {
+      body: { usernames: usernames, group_name: group },
+    })
+    .then(function (response) {
+      btn.disabled = false;
+      btn.textContent = 'Import Students';
 
-  btn.disabled = false;
-  btn.textContent = 'Import Students';
-
-  if (response.data && response.data.conflicts && response.data.conflicts.length > 0) {
-    showPopup(
-      'Username Conflicts',
-      '<p>The following usernames already exist and were not created:</p>' +
-      '<div class="credential-box">' + response.data.conflicts.join('<br>') + '</div>',
-      null
-    );
-    return;
-  }
-
-  if (response.error || (response.data && response.data.error)) {
-    showAuthMessage(msgEl, (response.data && response.data.error) || 'Failed to import students.', 'error');
-    return;
-  }
-
-  if (response.data && response.data.created && response.data.created.length > 0) {
-    showPopup(
-      'Students Imported',
-      '<p>' + response.data.created.length + ' student accounts have been created successfully.</p>' +
-      '<p>Students can now log in using their usernames.</p>',
-      null
-    );
-    document.getElementById('filePreview').classList.add('hidden');
-    window._importUsernames = null;
-    await loadStudents();
-  }
-}
-
-// ------ Delete Student ------
-
-async function deleteStudent(studentId, username) {
-  showConfirmPopup(
-    'Delete Student Account',
-    '<p>Are you sure you want to delete <strong>' + username + '</strong> and all of their work? This cannot be undone.</p>',
-    async function () {
-      var response = await _supabase.functions.invoke('delete-student', {
-        body: { student_id: studentId },
-      });
+      if (response.data && response.data.conflicts && response.data.conflicts.length > 0) {
+        showPopup(
+          'Username Conflicts',
+          '<p>The following usernames already exist and were not created:</p>' +
+            '<div class="credential-box">' +
+            response.data.conflicts.join('<br>') +
+            '</div>',
+          null
+        );
+        return;
+      }
 
       if (response.error || (response.data && response.data.error)) {
-        showPopup('Error', '<p>' + ((response.data && response.data.error) || 'Failed to delete student.') + '</p>', null);
-      } else {
-        showPopup('Student Deleted', '<p><strong>' + username + '</strong> has been deleted.</p>', null);
-        await loadStudents();
+        showAuthMessage(
+          msgEl,
+          (response.data && response.data.error) || 'Failed to import students.',
+          'error'
+        );
+        return;
       }
+
+      if (response.data && response.data.created && response.data.created.length > 0) {
+        showPopup(
+          'Students Imported',
+          '<p>' +
+            response.data.created.length +
+            ' student accounts have been created successfully:</p>' +
+            '<div class="credential-box" style="max-height:200px; overflow-y:auto;">' +
+            response.data.created.join('<br>') +
+            '</div>' +
+            '<p>Students can now log in using their usernames.</p>',
+          null
+        );
+        var preview = document.getElementById('filePreview');
+        if (preview) preview.style.display = 'none';
+        window._importUsernames = null;
+        loadStudents();
+      }
+    });
+}
+
+// ================================================================
+//  DELETE STUDENT
+// ================================================================
+
+function deleteStudent(studentId, username) {
+  showConfirmPopup(
+    'Delete Student Account',
+    '<p>Are you sure you want to delete <strong>' +
+      username +
+      '</strong> and all of their work? This cannot be undone.</p>',
+    function () {
+      _supabase.functions
+        .invoke('delete-student', { body: { student_id: studentId } })
+        .then(function (response) {
+          if (response.error || (response.data && response.data.error)) {
+            showPopup(
+              'Error',
+              '<p>' +
+                ((response.data && response.data.error) || 'Failed to delete student.') +
+                '</p>',
+              null
+            );
+          } else {
+            showPopup(
+              'Student Deleted',
+              '<p><strong>' + username + '</strong> has been deleted.</p>',
+              null
+            );
+            loadStudents();
+          }
+        });
     },
     null
   );
 }
 
-// ------ Delete Teacher Account (Cascade) ------
+// ================================================================
+//  DELETE TEACHER ACCOUNT (CASCADE)
+// ================================================================
 
-async function handleDeleteTeacher() {
+function handleDeleteTeacher() {
   showConfirmPopup(
     'Delete Your Account and All Students',
     '<p>Are you sure? This will delete your teacher account and all associated student accounts. This cannot be undone.</p>',
-    async function () {
-      var response = await _supabase.functions.invoke('delete-teacher-cascade', {
-        body: {},
-      });
-
-      if (response.error || (response.data && response.data.error)) {
-        showPopup('Error', '<p>' + ((response.data && response.data.error) || 'Failed to delete account.') + '</p>', null);
-      } else {
-        await _supabase.auth.signOut();
-        window.location.href = '/';
-      }
+    function () {
+      _supabase.functions
+        .invoke('delete-teacher-cascade', { body: {} })
+        .then(function (response) {
+          if (response.error || (response.data && response.data.error)) {
+            showPopup(
+              'Error',
+              '<p>' +
+                ((response.data && response.data.error) || 'Failed to delete account.') +
+                '</p>',
+              null
+            );
+          } else {
+            _supabase.auth.signOut().then(function () {
+              window.location.href = '/';
+            });
+          }
+        });
     },
     null
   );
-}
-
-// ------ Logout from Dashboard ------
-
-async function handleDashboardLogout() {
-  await _supabase.auth.signOut();
-  window.location.href = '/';
 }
