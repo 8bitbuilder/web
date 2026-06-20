@@ -17,7 +17,7 @@
     <!-- Logged-out state -->
     <div id="authDropdownLoggedOut">
       <div class="nav-auth-btn" id="authBtnOut">
-        <img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar">
+        <img src="assets/profile-placeholder.jpg" alt="Profile" class="nav-auth-avatar">
         <span class="nav-auth-label">Log In</span>
         <span class="nav-auth-chevron" id="chevronOut">&#9662;</span>
       </div>
@@ -117,3 +117,60 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
+
+<!-- ── Auth state check (runs after Supabase is loaded) ────────── -->
+<script>
+(function() {
+  function checkAuthState() {
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      console.log('[navbar] Supabase not ready, retrying...');
+      setTimeout(checkAuthState, 200);
+      return;
+    }
+
+    _supabase.auth.getSession().then(function(result) {
+      var session = result.data.session;
+      var loggedOutEl = document.getElementById('authDropdownLoggedOut');
+      var loggedInEl = document.getElementById('authDropdownLoggedIn');
+      var navUsername = document.getElementById('navUsername');
+      var navDashboardLink = document.getElementById('navDashboardLink');
+
+      console.log('[navbar] Session check:', session ? 'logged in' : 'logged out');
+
+      if (!loggedOutEl || !loggedInEl) {
+        console.log('[navbar] Navbar elements not found');
+        return;
+      }
+
+      if (session && session.user) {
+        _supabase
+          .from('profiles')
+          .select('username, role')
+          .eq('id', session.user.id)
+          .single()
+          .then(function(profileResult) {
+            var profile = profileResult.data;
+            console.log('[navbar] Profile:', profile);
+
+            if (profile) {
+              loggedOutEl.classList.add('hidden');
+              loggedInEl.classList.remove('hidden');
+              if (navUsername) navUsername.textContent = profile.username;
+
+              if (navDashboardLink) {
+                navDashboardLink.style.display = (profile.role === 'teacher') ? 'block' : 'none';
+              }
+            }
+          });
+      } else {
+        loggedOutEl.classList.remove('hidden');
+        loggedInEl.classList.add('hidden');
+      }
+    });
+  }
+
+  // Run immediately and also on DOMContentLoaded
+  checkAuthState();
+  document.addEventListener('DOMContentLoaded', checkAuthState);
+})();
+</script>
