@@ -233,7 +233,7 @@ format:
   font-size: 0.85rem;
 }
 #filePreview th {
-  text-align: left;
+  text-align: center;
   padding: 0.4rem 0.5rem;
   border-bottom: 2px solid #e0e0e0;
   color: #006C93;
@@ -242,6 +242,7 @@ format:
   background: #fff;
 }
 #filePreview td {
+  text-align: center;
   padding: 0.3rem 0.5rem;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -376,173 +377,171 @@ format:
 .dashboard-card table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 .dashboard-card thead th {
-  text-align: left;
+  text-align: center;
+  vertical-align: middle;
   padding: 0.75rem 0.5rem;
   color: #006C93;
   font-weight: 700;
   border-bottom: 2px solid #e0e0e0;
 }
 .dashboard-card tbody td {
+  text-align: center;
+  vertical-align: middle;
   padding: 0.75rem 0.5rem;
   border-bottom: 1px solid #f0f0f0;
   color: #58595B;
 }
-.dashboard-card tbody td:last-child {
-  text-align: right;
-}
 
-/* ── Utility ──────────────────────────────────────────────── */
+/* ── Hidden utility ───────────────────────────────────────── */
 .hidden { display: none !important; }
 </style>
 
 <!-- ══════════════════════════════════════════════════════════
-     LOADING / AUTH CHECK
+     DASHBOARD HTML
      ══════════════════════════════════════════════════════════ -->
-<div id="authLoading" style="min-height:50vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#00746F 0%,#006C93 100%);">
-  <div style="background:#fff; border-radius:16px; padding:3rem; max-width:400px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
-    <p style="color:#888;">Checking authentication...</p>
-  </div>
-</div>
+<div class="dashboard-page" id="dashboardPage" style="display:none;">
 
-<!-- ══════════════════════════════════════════════════════════
-     DASHBOARD CONTENT (hidden until auth verified)
-     ══════════════════════════════════════════════════════════ -->
-<div id="dashboardContent" style="display:none;">
-  <div class="dashboard-page">
-    <div class="dashboard-header">
-      <h2 id="dashboardWelcome">Welcome</h2>
-      <p id="studentCount"></p>
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <div class="dashboard-header">
+    <h2 id="dashboardWelcome">Welcome</h2>
+    <p id="studentCount">Loading...</p>
+  </div>
+
+  <!-- ── Top Row: Groups + Add Students ─────────────────── -->
+  <div class="dashboard-grid">
+
+    <!-- Groups / Classes -->
+    <div class="dashboard-card">
+      <h3>Groups / Classes</h3>
+      <p class="card-subtitle">Organize your students into groups</p>
+      <hr>
+      <div id="groupTabs" style="margin-bottom:1rem;"></div>
+      <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem; align-items:center;">
+        <input type="text" id="newGroupName" placeholder="New group name" style="flex:1; margin-bottom:0;">
+        <button type="submit" class="dash-btn">Add</button>
+      </form>
+      <div id="groupMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
     </div>
 
-    <div class="dashboard-grid">
+    <!-- Add Students -->
+    <div class="dashboard-card">
+      <h3>Add Students</h3>
+      <p class="card-subtitle">Create student accounts</p>
+      <hr>
 
-      <!-- ── Groups / Classes ───────────────────────────── -->
-      <div class="dashboard-card">
-        <h3>Groups / Classes</h3>
-        <p class="card-subtitle">Organize your students into groups</p>
-        <hr>
-        <div id="groupTabs" style="margin-bottom:1rem;"></div>
-        <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem; align-items:center;">
-          <input type="text" id="newGroupName" placeholder="New group name"
-                 style="flex:1; margin-bottom:0;">
-          <button type="submit" class="dash-btn" style="margin-bottom:0;">Add</button>
+      <!-- Method Tabs -->
+      <div style="margin-bottom:1rem;">
+        <button class="method-tab active" data-target="panelSingle">Single</button>
+        <button class="method-tab" data-target="panelMultiple">Multiple</button>
+        <button class="method-tab" data-target="panelImport">Import File</button>
+      </div>
+
+      <!-- Panel: Single Student -->
+      <div class="method-panel active" id="panelSingle">
+        <form onsubmit="handleAddSingle(event)">
+          <label for="singleUsername">Username</label>
+          <input type="text" id="singleUsername" placeholder="e.g. john_doe">
+          <label for="singleGroup">Group</label>
+          <select id="singleGroup" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+          <button type="submit" class="dash-btn full">Create Student</button>
+          <div id="addSingleMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
         </form>
-        <div id="groupMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
       </div>
 
-      <!-- ── Add Students ───────────────────────────────── -->
-      <div class="dashboard-card">
-        <h3>Add Students</h3>
-        <p class="card-subtitle">Create student accounts</p>
-        <hr>
-
-        <!-- Method tabs -->
-        <div style="margin-bottom:1rem;">
-          <button class="method-tab active" data-target="panelSingle">Single</button>
-          <button class="method-tab" data-target="panelMultiple">Multiple</button>
-          <button class="method-tab" data-target="panelImport">Import File</button>
-        </div>
-
-        <!-- Panel: Single Student -->
-        <div id="panelSingle" class="method-panel active">
-          <form onsubmit="handleAddSingle(event)">
-            <label>Username</label>
-            <input type="text" id="singleUsername" placeholder="e.g. john_doe" required>
-            <label>Group</label>
-            <select id="singleGroup" class="group-select">
-              <option value="Default">Default</option>
-            </select>
-            <button type="submit" class="dash-btn full">Create Student</button>
-            <div id="addSingleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
-          </form>
-        </div>
-
-        <!-- Panel: Multiple Students -->
-        <div id="panelMultiple" class="method-panel">
-          <form onsubmit="handleAddMultiple(event)">
-            <label>Username Prefix</label>
-            <input type="text" id="multiPrefix" placeholder='e.g. "Student"' required>
-            <label>Number of Accounts</label>
-            <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25" required>
-            <label>Group</label>
-            <select id="multiGroup" class="group-select">
-              <option value="Default">Default</option>
-            </select>
-            <p style="font-size:0.85rem; color:#888; margin:0.25rem 0 0.75rem;">Creates Student1, Student2, Student3, etc.</p>
-            <button type="submit" class="dash-btn full">Create Students</button>
-            <div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
-          </form>
-        </div>
-
-        <!-- Panel: Import from File -->
-        <div id="panelImport" class="method-panel">
-          <form onsubmit="handleImportSubmit(event)">
-            <label>Upload .txt or .csv file</label>
-            <input type="file" id="importFile" accept=".txt,.csv" onchange="handleFileSelect(this)">
-            <label>Group</label>
-            <select id="importGroup" class="group-select">
-              <option value="Default">Default</option>
-            </select>
-            <div id="filePreview" class="hidden" style="margin:0.5rem 0;">
-              <table>
-                <thead><tr><th>#</th><th>Username</th></tr></thead>
-                <tbody id="filePreviewBody"></tbody>
-              </table>
-            </div>
-            <button type="submit" class="dash-btn full">Import Students</button>
-            <div id="importMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
-          </form>
-        </div>
+      <!-- Panel: Multiple Students -->
+      <div class="method-panel" id="panelMultiple">
+        <form onsubmit="handleAddMultiple(event)">
+          <label for="multiPrefix">Username Prefix</label>
+          <input type="text" id="multiPrefix" placeholder='e.g. "Student"'>
+          <label for="multiCount">Number of Accounts</label>
+          <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25">
+          <label for="multiGroup">Group</label>
+          <select id="multiGroup" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+          <p style="font-size:0.8rem; color:#888; margin-bottom:0.75rem;">Creates Student1, Student2, Student3, etc.</p>
+          <button type="submit" class="dash-btn full">Create Students</button>
+          <div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
+        </form>
       </div>
 
-      <!-- ── Student List ───────────────────────────────── -->
-      <div class="dashboard-card" style="grid-column: 1 / -1;">
-        <h3>Your Students</h3>
-        <p class="card-subtitle" id="studentCount2"></p>
-        <hr>
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>Group</th>
-                <th>Created</th>
-                <th style="text-align:right;">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="studentTableBody">
-              <tr><td colspan="4" style="text-align:center; color:#888; padding:2rem;">Loading...</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Panel: Import from File -->
+      <div class="method-panel" id="panelImport">
+        <form onsubmit="handleImportSubmit(event)">
+          <label>Upload .txt or .csv file</label>
+          <input type="file" accept=".txt,.csv" onchange="handleFileSelect(this)">
+          <div id="filePreview" style="display:none; margin:0.75rem 0;">
+            <table>
+              <thead><tr><th>#</th><th>Username</th></tr></thead>
+              <tbody id="filePreviewBody"></tbody>
+            </table>
+          </div>
+          <label for="importGroup">Group</label>
+          <select id="importGroup" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+          <button type="submit" class="dash-btn full">Import Students</button>
+          <div id="importMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
+        </form>
       </div>
-
-      <!-- ── Delete Class Account ───────────────────────── -->
-      <div class="dashboard-card danger" style="grid-column: 1 / -1;">
-        <h3>Delete Class Account</h3>
-        <p class="card-subtitle">Permanently delete your account and all student data</p>
-        <hr>
-        <p style="margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
-        <button class="danger-btn" onclick="handleDeleteTeacher()">Delete My Account and All Students</button>
-      </div>
-
     </div>
   </div>
+
+  <!-- ── Your Students (full width) ─────────────────────── -->
+  <div style="max-width:1100px; margin:1.5rem auto 0;">
+    <div class="dashboard-card">
+      <h3>Your Students</h3>
+      <p class="card-subtitle" id="studentCount2">Loading...</p>
+      <hr>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Group</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody">
+          <tr><td colspan="4" style="text-align:center; color:#888; padding:2rem;">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Delete Class Account ───────────────────────────── -->
+  <div style="max-width:1100px; margin:1.5rem auto 0;">
+    <div class="dashboard-card danger">
+      <h3>Delete Class Account</h3>
+      <p class="card-subtitle">Permanently delete your account and all student data</p>
+      <hr>
+      <p style="margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
+      <button class="danger-btn" onclick="handleDeleteTeacher()">Delete My Account and All Students</button>
+    </div>
+  </div>
+
 </div>
 
-<!-- ── Scripts ────────────────────────────────────────────── -->
-<script src="js/admin.js"></script>
+<!-- ── Loading / Auth Check ───────────────────────────────── -->
+<div id="dashboardLoading" style="text-align:center; padding:4rem; color:#006C93;">
+  <p>Loading dashboard...</p>
+</div>
 
+<!-- ── Dashboard Scripts ──────────────────────────────────── -->
+<script src="js/admin.js"></script>
 <script>
-// ── Method tab switching ─────────────────────────────────
 (function() {
-  var tabs = document.querySelectorAll('.method-tab');
-  tabs.forEach(function(tab) {
+  // Method tab switching
+  var methodTabs = document.querySelectorAll('.method-tab');
+  methodTabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
       // Deactivate all tabs and panels
-      document.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
+      methodTabs.forEach(function(t) { t.classList.remove('active'); });
       document.querySelectorAll('.method-panel').forEach(function(p) { p.classList.remove('active'); });
       // Activate clicked tab and its panel
       tab.classList.add('active');
@@ -550,13 +549,11 @@ format:
       if (target) target.classList.add('active');
     });
   });
-})();
 
-// ── Auth check — wait for _supabase ──────────────────────
-(function() {
-  function checkAuth() {
+  // Auth check — wait for _supabase to be ready
+  function checkDashboardAuth() {
     if (typeof _supabase === 'undefined' || !_supabase) {
-      setTimeout(checkAuth, 200);
+      setTimeout(checkDashboardAuth, 200);
       return;
     }
 
@@ -568,27 +565,30 @@ format:
         return;
       }
 
-      _supabase.from('profiles')
+      _supabase
+        .from('profiles')
         .select('username, role')
         .eq('id', session.user.id)
         .single()
         .then(function(profileResult) {
-          if (!profileResult.data || profileResult.data.role !== 'teacher') {
+          var profile = profileResult.data;
+
+          if (!profile || profile.role !== 'teacher') {
             window.location.href = '/';
             return;
           }
 
           // Auth passed — show dashboard
-          document.getElementById('authLoading').style.display = 'none';
-          document.getElementById('dashboardContent').style.display = 'block';
+          document.getElementById('dashboardLoading').style.display = 'none';
+          document.getElementById('dashboardPage').style.display = 'block';
 
           // Initialize dashboard
-          initDashboard(session, profileResult.data);
+          initDashboard(session, profile);
         });
     });
   }
 
-  checkAuth();
+  checkDashboardAuth();
 })();
 </script>
 ```
