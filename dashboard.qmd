@@ -1,176 +1,210 @@
 ---
-title: "Teacher Dashboard"
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
 ---
+
 ```{=html}
-<div id="dashboard-content" style="display:none;">
+{{< include _navbar.html >}}
 
-  <!-- Header -->
-  <div class="dashboard-header">
-    <div>
-      <h2>Welcome, <span id="teacher-name"></span></h2>
-      <p style="color:#666;">Manage your students and classes below.</p>
-    </div>
-    <div>
-      <button class="btn btn-outline-secondary btn-sm" onclick="handleLogout()">
-        Log Out
-      </button>
-    </div>
+<!-- ── Loading / auth check ──────────────────────────────── -->
+<div id="authLoading" class="auth-page" style="min-height:50vh;">
+  <div class="auth-card" style="max-width:400px;">
+    <p style="text-align:center; color:#888;">Checking authentication...</p>
   </div>
+</div>
 
-  <div id="dashboard-status" class="status-message"></div>
+<!-- ── Dashboard content (hidden until auth verified) ────── -->
+<div id="dashboardContent" style="display:none;">
 
-  <!-- Groups Section -->
-  <div class="dashboard-section">
-    <h3>Groups / Classes</h3>
-    <div id="groups-list"></div>
-    <form onsubmit="handleCreateGroup(event)" style="margin-top:1rem; display:flex; gap:0.5rem;">
-      <input type="text" id="new-group-name" placeholder="New group name" style="flex:1; padding:0.4rem 0.8rem; border:1px solid #ccc; border-radius:6px;" />
-      <button type="submit" class="btn btn-primary btn-sm">Add Group</button>
-    </form>
-    <div id="group-status" class="status-message"></div>
-  </div>
+  <div class="dashboard-page">
+    <div class="dashboard-header">
+      <h2 id="dashboardWelcome">Welcome</h2>
+      <p id="studentCount"></p>
+    </div>
 
-  <!-- Add Students Section -->
-  <div class="dashboard-section">
-    <h3>Add Students</h3>
+    <div class="dashboard-grid">
 
-    <!-- Mode A: Single Student -->
-    <div class="creation-mode">
-      <div class="creation-mode-header" onclick="toggleMode('single')">
-        + Add a Single Student
+      <!-- ── Create Group Card ─────────────────────────── -->
+      <div class="dashboard-card">
+        <h3>Groups / Classes</h3>
+        <p class="card-subtitle">Organize your students into groups</p>
+        <hr>
+        <div id="groupTabs" style="margin-bottom:1rem;"></div>
+        <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem;">
+          <input type="text" id="newGroupName" placeholder="New group name"
+                 style="flex:1; padding:0.6rem 0.8rem; border:2px solid #e0e0e0; border-radius:8px; font-size:0.9rem;">
+          <button type="submit" class="auth-btn" style="width:auto; margin-top:0; padding:0.6rem 1.2rem;">Add</button>
+        </form>
+        <div id="groupMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
       </div>
-      <div id="mode-single" class="creation-mode-body">
-        <form onsubmit="handleAddSingleStudent(event)">
-          <div class="form-group">
-            <label for="single-username">Username</label>
-            <input type="text" id="single-username" placeholder="e.g., john_doe" required />
-          </div>
-          <div class="form-group">
-            <label for="single-group-select">Group</label>
-            <select id="single-group-select" class="group-select">
+
+      <!-- ── Add Students Card ─────────────────────────── -->
+      <div class="dashboard-card">
+        <h3>Add Students</h3>
+        <p class="card-subtitle">Create student accounts</p>
+        <hr>
+
+        <!-- Method tabs -->
+        <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
+          <button class="method-tab active" data-target="panelSingle">Single</button>
+          <button class="method-tab" data-target="panelMultiple">Multiple</button>
+          <button class="method-tab" data-target="panelImport">Import File</button>
+        </div>
+
+        <!-- Panel: Single Student -->
+        <div id="panelSingle" class="method-panel active">
+          <form onsubmit="handleAddSingle(event)">
+            <label>Username</label>
+            <input type="text" id="singleUsername" placeholder="e.g. john_doe" required
+                   style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+            <label>Group</label>
+            <select id="singleGroup" class="group-select"
+                    style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
               <option value="Default">Default</option>
             </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Create Student</button>
-          <div id="single-status" class="status-message"></div>
-        </form>
-      </div>
-    </div>
+            <button type="submit" class="auth-btn">Create Student</button>
+            <div id="addSingleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
+          </form>
+        </div>
 
-    <!-- Mode B: Multiple Students -->
-    <div class="creation-mode">
-      <div class="creation-mode-header" onclick="toggleMode('bulk')">
-        + Add Multiple Students
-      </div>
-      <div id="mode-bulk" class="creation-mode-body">
-        <form onsubmit="handleAddMultipleStudents(event)">
-          <div class="form-group">
-            <label for="bulk-prefix">Username Prefix</label>
-            <input type="text" id="bulk-prefix" placeholder='e.g., "Student"' required />
-          </div>
-          <div class="form-group">
-            <label for="bulk-count">Number of Accounts</label>
-            <input type="number" id="bulk-count" min="1" max="100" placeholder="e.g., 25" required />
-          </div>
-          <div class="form-group">
-            <label for="bulk-group-select">Group</label>
-            <select id="bulk-group-select" class="group-select">
+        <!-- Panel: Multiple Students -->
+        <div id="panelMultiple" class="method-panel">
+          <form onsubmit="handleAddMultiple(event)">
+            <label>Username Prefix</label>
+            <input type="text" id="multiPrefix" placeholder='e.g. "Student"' required
+                   style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+            <label>Number of Accounts</label>
+            <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25" required
+                   style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+            <label>Group</label>
+            <select id="multiGroup" class="group-select"
+                    style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
               <option value="Default">Default</option>
             </select>
-          </div>
-          <p style="font-size:0.85rem; color:#888;">
-            Creates Student1, Student2, Student3, etc. with one shared password.
-          </p>
-          <button type="submit" class="btn btn-primary">Create Students</button>
-          <div id="bulk-status" class="status-message"></div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Mode C: Import from File -->
-    <div class="creation-mode">
-      <div class="creation-mode-header" onclick="toggleMode('import')">
-        + Import Students from File
-      </div>
-      <div id="mode-import" class="creation-mode-body">
-        <div class="form-group">
-          <label for="file-upload">Upload .txt file (one username per line)</label>
-          <input type="file" id="file-upload" accept=".txt" />
+            <p style="font-size:0.85rem; color:#888; margin:0.5rem 0;">Creates Student1, Student2, Student3, etc.</p>
+            <button type="submit" class="auth-btn">Create Students</button>
+            <div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="import-group-select">Group</label>
-          <select id="import-group-select" class="group-select">
-            <option value="Default">Default</option>
-          </select>
+
+        <!-- Panel: Import from File -->
+        <div id="panelImport" class="method-panel">
+          <form onsubmit="handleImportSubmit(event)">
+            <label>Upload .txt file (one username per line)</label>
+            <input type="file" id="importFile" accept=".txt" onchange="handleFileSelect(this)"
+                   style="width:100%; padding:0.6rem; margin-bottom:0.5rem; box-sizing:border-box;">
+            <label>Group</label>
+            <select id="importGroup" class="group-select"
+                    style="width:100%; padding:0.6rem; border:2px solid #e0e0e0; border-radius:8px; margin-bottom:0.5rem; box-sizing:border-box;">
+              <option value="Default">Default</option>
+            </select>
+            <!-- File preview table -->
+            <div id="filePreview" class="hidden" style="margin:0.5rem 0; max-height:200px; overflow-y:auto;">
+              <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+                <thead><tr><th style="text-align:left; padding:0.3rem; border-bottom:1px solid #e0e0e0;">#</th><th style="text-align:left; padding:0.3rem; border-bottom:1px solid #e0e0e0;">Username</th></tr></thead>
+                <tbody id="filePreviewBody"></tbody>
+              </table>
+            </div>
+            <button type="submit" class="auth-btn">Import Students</button>
+            <div id="importMessage" class="auth-message" style="display:none; margin-top:0.5rem;"></div>
+          </form>
         </div>
-        <button class="btn btn-secondary" onclick="handleFileUpload()">
-          Upload & Preview
-        </button>
-        <div id="import-preview" style="display:none; margin-top:1rem;"></div>
-        <div id="import-status" class="status-message"></div>
       </div>
+
+      <!-- ── Student List Card ─────────────────────────── -->
+      <div class="dashboard-card" style="grid-column: 1 / -1;">
+        <h3>Your Students</h3>
+        <p class="card-subtitle" id="studentCount2">Loading...</p>
+        <hr>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="border-bottom:2px solid #e0e0e0;">
+                <th style="text-align:left; padding:0.75rem 0.5rem; color:#006C93;">Username</th>
+                <th style="text-align:left; padding:0.75rem 0.5rem; color:#006C93;">Group</th>
+                <th style="text-align:left; padding:0.75rem 0.5rem; color:#006C93;">Created</th>
+                <th style="text-align:right; padding:0.75rem 0.5rem; color:#006C93;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <tr><td colspan="4" style="text-align:center; color:#888; padding:2rem;">Loading students...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Danger Zone Card ──────────────────────────── -->
+      <div class="dashboard-card danger" style="grid-column: 1 / -1;">
+        <h3>Danger Zone</h3>
+        <p class="card-subtitle">Permanently delete your account and all student data</p>
+        <hr>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
+        <button class="danger-btn" onclick="handleDeleteTeacher()">Delete My Account and All Students</button>
+      </div>
+
     </div>
-  </div>
-
-  <!-- Student List -->
-  <div class="dashboard-section">
-    <h3>Your Students (<span id="student-count">0</span>)</h3>
-    <div id="students-list"></div>
-  </div>
-
-  <!-- Danger Zone -->
-  <div class="dashboard-section" style="border-color: #d32f2f;">
-    <h3 style="color: #d32f2f;">Delete Class Account</h3>
-    <p>Deleting your account will remove <strong>all</strong> student accounts and data permanently.</p>
-    <button class="btn-danger-custom" onclick="handleDeleteTeacherAccount()">
-      Delete My Account & All Students
-    </button>
   </div>
 
 </div>
 
-<!-- Loading / auth check -->
-<div id="auth-loading" style="text-align:center; padding:3rem;">
-  <p>Checking authentication...</p>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/admin.js"></script>
-<script src="js/students.js"></script>
+<!-- ── Dashboard auth check + init ────────────────────────── -->
 <script>
-  // Toggle creation mode accordion
-  function toggleMode(mode) {
-    const body = document.getElementById('mode-' + mode);
-    body.classList.toggle('active');
-  }
-
-  // Protect this page — teacher only
-  _supabase.auth.onAuthStateChange(async (event, session) => {
-    if (!session) {
-      window.location.href = 'login.html';
+(function() {
+  function initDashboard() {
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      setTimeout(initDashboard, 200);
       return;
     }
 
-    if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
-      const { data: profile } = await _supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single();
+    _supabase.auth.getSession().then(function(result) {
+      var session = result.data.session;
 
-      if (!profile || profile.role !== 'teacher') {
-        document.getElementById('auth-loading').innerHTML =
-          '<p style="color:#d32f2f;">Access denied. This page is for teachers only.</p>';
+      if (!session) {
+        window.location.href = 'login-teacher.html';
         return;
       }
 
-      document.getElementById('auth-loading').style.display = 'none';
-      document.getElementById('dashboard-content').style.display = 'block';
-      await loadDashboard();
-    }
-  });
+      _supabase
+        .from('profiles')
+        .select('username, role')
+        .eq('id', session.user.id)
+        .single()
+        .then(function(profileResult) {
+          var profile = profileResult.data;
+
+          if (!profile || profile.role !== 'teacher') {
+            window.location.href = '/';
+            return;
+          }
+
+          // Show dashboard
+          document.getElementById('authLoading').style.display = 'none';
+          document.getElementById('dashboardContent').style.display = 'block';
+
+          // Set welcome message
+          var welcomeEl = document.getElementById('dashboardWelcome');
+          if (welcomeEl) welcomeEl.textContent = 'Welcome, ' + profile.username;
+
+          // Store teacher data for admin.js
+          currentTeacher = { session: session, profile: profile };
+
+          // Load data
+          loadGroups();
+          loadStudents();
+          initMethodTabs();
+        });
+    });
+  }
+
+  initDashboard();
+})();
 </script>
+
+<script src="js/admin.js"></script>
 ```
