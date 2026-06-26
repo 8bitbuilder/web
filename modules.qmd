@@ -8,8 +8,8 @@ format:
 ---
 
 ```{=html}
-{{< include _navbar.html >}}
 <script src="js/module-guard.js"></script>
+{{< include _navbar.html >}}
 
 <script>
 function toggleMenu() {
