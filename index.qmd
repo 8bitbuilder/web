@@ -69,3 +69,30 @@ Knoxville, TN
 :::
 :::
 :::
+
+<script>
+// If user is already logged in or in guest mode, make the button go directly to modules
+document.addEventListener('DOMContentLoaded', function() {
+  var isGuest = sessionStorage.getItem('guestMode') === 'true';
+  if (isGuest) {
+    var btn = document.querySelector('a.btn[href="choose-role.html"]');
+    if (btn) btn.href = 'modules.html';
+    return;
+  }
+
+  // Check Supabase session
+  function checkAndUpdateBtn() {
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      setTimeout(checkAndUpdateBtn, 200);
+      return;
+    }
+    _supabase.auth.getSession().then(function(result) {
+      if (result.data.session) {
+        var btn = document.querySelector('a.btn[href="choose-role.html"]');
+        if (btn) btn.href = 'modules.html';
+      }
+    });
+  }
+  checkAndUpdateBtn();
+});
+</script>
