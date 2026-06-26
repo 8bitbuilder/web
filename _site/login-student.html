@@ -59,7 +59,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
   <button class="navbar-toggle" id="navToggleBtn">☰</button>
   <nav class="navbar-links" id="navbarLinks">
-    <a href="./">Home</a> | <a href="modules.html">Modules</a> | <a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+  <a href="./">Home</a>
+  <span id="modulesSeparator" style="display:none;"> | </span>
+  <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a>
+  | <a href="team.html">Team</a>
+  | <a href="contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
 
@@ -152,9 +156,11 @@ ul.task-list li input[type="checkbox"] {
       e.preventDefault();
       if (typeof _supabase !== 'undefined' && _supabase) {
         _supabase.auth.signOut().then(function() {
-          window.location.href = '/';
+        sessionStorage.removeItem('guestMode');
+        window.location.href = '/';
         });
       } else {
+        sessionStorage.removeItem('guestMode');
         window.location.href = '/';
       }
     });
@@ -167,10 +173,22 @@ ul.task-list li input[type="checkbox"] {
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
 
-<!-- ── Auth state check (runs after Supabase is loaded) ────────── -->
+<!-- Auth state check (runs after Supabase is loaded) -->
 <script>
 (function() {
+  function showModulesLink() {
+    var link = document.getElementById('navModulesLink');
+    var sep = document.getElementById('modulesSeparator');
+    if (link) link.style.display = '';
+    if (sep) sep.style.display = '';
+  }
+
   function checkAuthState() {
+    // Check guest mode first (no Supabase needed)
+    if (sessionStorage.getItem('guestMode') === 'true') {
+      showModulesLink();
+    }
+
     if (typeof _supabase === 'undefined' || !_supabase) {
       console.log('[navbar] Supabase not ready, retrying...');
       setTimeout(checkAuthState, 200);
@@ -184,14 +202,12 @@ ul.task-list li input[type="checkbox"] {
       var navUsername = document.getElementById('navUsername');
       var navDashboardLink = document.getElementById('navDashboardLink');
 
-      console.log('[navbar] Session check:', session ? 'logged in' : 'logged out');
-
-      if (!loggedOutEl || !loggedInEl) {
-        console.log('[navbar] Navbar elements not found');
-        return;
-      }
+      if (!loggedOutEl || !loggedInEl) return;
 
       if (session && session.user) {
+        // User is logged in — show Modules link
+        showModulesLink();
+
         _supabase
           .from('profiles')
           .select('username, role')
@@ -199,7 +215,6 @@ ul.task-list li input[type="checkbox"] {
           .single()
           .then(function(profileResult) {
             var profile = profileResult.data;
-            console.log('[navbar] Profile:', profile);
 
             if (profile) {
               loggedOutEl.classList.add('hidden');
@@ -218,7 +233,6 @@ ul.task-list li input[type="checkbox"] {
     });
   }
 
-  // Run immediately and also on DOMContentLoaded
   checkAuthState();
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
