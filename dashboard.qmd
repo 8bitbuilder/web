@@ -395,7 +395,7 @@ format:
   color: #58595B;
 }
 
-/* ── File format help text ────────────────────────────────── */
+/* File format help text */
 .file-format-help {
   font-size: 0.85rem;
   color: #888;
