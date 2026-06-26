@@ -1,0 +1,52 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+```{=html}
+<!-- Navbar -->
+{{< include _navbar.html >}}
+
+<!-- Page content -->
+<div class="auth-page">
+  <div class="auth-card" style="max-width: 520px; text-align: center;">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2 style="color: #006C93;">Welcome, Guest</h2>
+    <p style="color: #58595B; font-size: 1.05rem; line-height: 1.7; margin: 1rem 0 1.5rem 0;">
+      Feel free to explore our modules, but please note that your progress will not be saved.
+    </p>
+    <a href="modules.html" class="role-btn role-btn-primary" style="display: inline-flex; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+      Explore Modules
+    </a>
+  </div>
+</div>
+
+<script>
+// If the user is not a guest and not logged in, redirect to choose-role
+(function() {
+  var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
+
+  function checkAccess() {
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      // Supabase not loaded yet -- if they're a guest, that's fine
+      if (isGuest) return;
+      setTimeout(checkAccess, 200);
+      return;
+    }
+    _supabase.auth.getSession().then(function(result) {
+      var session = result.data.session;
+      if (!session && !isGuest) {
+        window.location.href = 'choose-role.html';
+      }
+    });
+  }
+  checkAccess();
+})();
+</script>
+```

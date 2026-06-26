@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>choose-role – Appalachian A.I. Corps</title>
+<title>guest-hub – Appalachian A.I. Corps</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -241,36 +241,39 @@ ul.task-list li input[type="checkbox"] {
 
 <!-- Page content -->
 <div class="auth-page">
-  <div class="auth-card" style="max-width: 480px;">
+  <div class="auth-card" style="max-width: 520px; text-align: center;">
     <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
-    <h2>I am a...</h2>
-    <p class="auth-subtitle">Choose how you would like to continue</p>
-
-    <div class="role-buttons">
-      <a href="login-student.html" class="role-btn role-btn-primary">
-        <span class="role-btn-title">Registered Student</span>
-        <span class="role-btn-desc">Log in with your username</span>
-      </a>
-
-      <a href="login-teacher.html" class="role-btn role-btn-primary">
-        <span class="role-btn-title">Registered Teacher</span>
-        <span class="role-btn-desc">Log in with your email and password</span>
-      </a>
-
-      <a href="#" id="guestBtn" class="role-btn role-btn-guest">
-        <span class="role-btn-title">Continue as Guest</span>
-        <span class="role-btn-desc">Browse modules without an account</span>
-      </a>
-    </div>
+    <h2 style="color: #006C93;">Welcome, Guest</h2>
+    <p style="color: #58595B; font-size: 1.05rem; line-height: 1.7; margin: 1rem 0 1.5rem 0;">
+      Feel free to explore our modules, but please note that your progress will not be saved.
+    </p>
+    <a href="modules.html" class="role-btn role-btn-primary" style="display: inline-flex; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+      Explore Modules
+    </a>
   </div>
 </div>
 
 <script>
-document.getElementById('guestBtn').addEventListener('click', function(e) {
-  e.preventDefault();
-  sessionStorage.setItem('aaic_guest', 'true');
-  window.location.href = 'guest-hub.html';
-});
+// If the user is not a guest and not logged in, redirect to choose-role
+(function() {
+  var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
+
+  function checkAccess() {
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      // Supabase not loaded yet -- if they're a guest, that's fine
+      if (isGuest) return;
+      setTimeout(checkAccess, 200);
+      return;
+    }
+    _supabase.auth.getSession().then(function(result) {
+      var session = result.data.session;
+      if (!session && !isGuest) {
+        window.location.href = 'choose-role.html';
+      }
+    });
+  }
+  checkAccess();
+})();
 </script>
 
 
