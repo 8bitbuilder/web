@@ -51,6 +51,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- Navbar -->
+```html
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -59,36 +60,37 @@ ul.task-list li input[type="checkbox"] {
   </div>
   <button class="navbar-toggle" id="navToggleBtn">☰</button>
   <nav class="navbar-links" id="navbarLinks">
-  <a href="./">Home</a>
-  <span id="modulesSeparator" style="display:none;"> | </span>
-  <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a>
-  | <a href="team.html">Team</a>
-  | <a href="contact.html">Contact</a>
+    <a href="./">Home</a> |
+    <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a>
+    <span id="navModulesSeparator" style="display:none;">|</span>
+    <a href="team.html">Team</a> |
+    <a href="contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
 
     <!-- Logged-out state -->
     <div id="authDropdownLoggedOut">
       <div class="nav-auth-btn" id="authBtnOut">
-        <img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar">
+        <img src="assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
         <span class="nav-auth-label">Log In</span>
         <span class="nav-auth-chevron" id="chevronOut">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuOut">
         <a href="login-student.html">Student</a>
         <a href="login-teacher.html">Teacher</a>
+        <a href="#" id="navGuestLink">Guest</a>
       </div>
     </div>
 
     <!-- Logged-in state (hidden by default) -->
     <div id="authDropdownLoggedIn" class="hidden">
       <div class="nav-auth-btn logged-in" id="authBtnIn">
-        <img src="assets/profile-placeholder.png" alt="Profile" class="nav-auth-avatar">
+        <img src="assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
         <span class="nav-auth-label" id="navUsername">Username</span>
         <span class="nav-auth-chevron" id="chevronIn">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuIn">
-        <a href="dashboard.html" id="navDashboardLink">Teacher Dashboard</a>
+        <a href="dashboard.html" id="navDashboardLink" style="display:none;">Teacher Dashboard</a>
         <a href="#" id="navLogOutLink">Log Out</a>
       </div>
     </div>
@@ -115,10 +117,8 @@ ul.task-list li input[type="checkbox"] {
   if (authBtnOut) {
     authBtnOut.addEventListener('click', function(e) {
       e.stopPropagation();
-      // Close the other dropdown if open
       if (dropdownMenuIn) dropdownMenuIn.classList.remove('show');
       if (chevronIn) chevronIn.classList.remove('open');
-      // Toggle this one
       dropdownMenuOut.classList.toggle('show');
       chevronOut.classList.toggle('open');
     });
@@ -132,10 +132,8 @@ ul.task-list li input[type="checkbox"] {
   if (authBtnIn) {
     authBtnIn.addEventListener('click', function(e) {
       e.stopPropagation();
-      // Close the other dropdown if open
       if (dropdownMenuOut) dropdownMenuOut.classList.remove('show');
       if (chevronOut) chevronOut.classList.remove('open');
-      // Toggle this one
       dropdownMenuIn.classList.toggle('show');
       chevronIn.classList.toggle('open');
     });
@@ -149,18 +147,28 @@ ul.task-list li input[type="checkbox"] {
     if (chevronIn) chevronIn.classList.remove('open');
   });
 
+  // Guest link handler (in logged-out dropdown)
+  var navGuestLink = document.getElementById('navGuestLink');
+  if (navGuestLink) {
+    navGuestLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      sessionStorage.setItem('aaic_guest', 'true');
+      window.location.href = 'guest-hub.html';
+    });
+  }
+
   // Log Out handler
   var logOutLink = document.getElementById('navLogOutLink');
   if (logOutLink) {
     logOutLink.addEventListener('click', function(e) {
       e.preventDefault();
+      // Clear guest flag
+      sessionStorage.removeItem('aaic_guest');
       if (typeof _supabase !== 'undefined' && _supabase) {
         _supabase.auth.signOut().then(function() {
-        sessionStorage.removeItem('guestMode');
-        window.location.href = '/';
+          window.location.href = '/';
         });
       } else {
-        sessionStorage.removeItem('guestMode');
         window.location.href = '/';
       }
     });
@@ -173,41 +181,50 @@ ul.task-list li input[type="checkbox"] {
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
 
-<!-- Auth state check (runs after Supabase is loaded) -->
+<!-- ── Auth state check (runs after Supabase is loaded) ────────── -->
 <script>
 (function() {
   function showModulesLink() {
     var link = document.getElementById('navModulesLink');
-    var sep = document.getElementById('modulesSeparator');
+    var sep = document.getElementById('navModulesSeparator');
     if (link) link.style.display = '';
     if (sep) sep.style.display = '';
   }
 
+  function switchToLoggedIn(displayName, role) {
+    var loggedOutEl = document.getElementById('authDropdownLoggedOut');
+    var loggedInEl = document.getElementById('authDropdownLoggedIn');
+    var navUsername = document.getElementById('navUsername');
+    var navDashboardLink = document.getElementById('navDashboardLink');
+
+    if (loggedOutEl) loggedOutEl.classList.add('hidden');
+    if (loggedInEl) loggedInEl.classList.remove('hidden');
+    if (navUsername) navUsername.textContent = displayName;
+
+    if (navDashboardLink) {
+      navDashboardLink.style.display = (role === 'teacher') ? 'block' : 'none';
+    }
+
+    showModulesLink();
+  }
+
   function checkAuthState() {
-    // Check guest mode first (no Supabase needed)
-    if (sessionStorage.getItem('guestMode') === 'true') {
-      showModulesLink();
+    // Check guest mode first
+    var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
+    if (isGuest) {
+      switchToLoggedIn('Guest', 'guest');
+      return;
     }
 
     if (typeof _supabase === 'undefined' || !_supabase) {
-      console.log('[navbar] Supabase not ready, retrying...');
       setTimeout(checkAuthState, 200);
       return;
     }
 
     _supabase.auth.getSession().then(function(result) {
       var session = result.data.session;
-      var loggedOutEl = document.getElementById('authDropdownLoggedOut');
-      var loggedInEl = document.getElementById('authDropdownLoggedIn');
-      var navUsername = document.getElementById('navUsername');
-      var navDashboardLink = document.getElementById('navDashboardLink');
-
-      if (!loggedOutEl || !loggedInEl) return;
 
       if (session && session.user) {
-        // User is logged in — show Modules link
-        showModulesLink();
-
         _supabase
           .from('profiles')
           .select('username, role')
@@ -215,21 +232,12 @@ ul.task-list li input[type="checkbox"] {
           .single()
           .then(function(profileResult) {
             var profile = profileResult.data;
-
             if (profile) {
-              loggedOutEl.classList.add('hidden');
-              loggedInEl.classList.remove('hidden');
-              if (navUsername) navUsername.textContent = profile.username;
-
-              if (navDashboardLink) {
-                navDashboardLink.style.display = (profile.role === 'teacher') ? 'block' : 'none';
-              }
+              switchToLoggedIn(profile.username, profile.role);
             }
           });
-      } else {
-        loggedOutEl.classList.remove('hidden');
-        loggedInEl.classList.add('hidden');
       }
+      // If not logged in, leave in logged-out state (default)
     });
   }
 
@@ -237,22 +245,19 @@ ul.task-list li input[type="checkbox"] {
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
-
-
 <!-- Page content -->
 <div class="auth-page">
-  <div class="auth-card" style="max-width: 520px; text-align: center;">
-    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
-    <h2 style="color: #006C93;">Welcome, Guest</h2>
-    <p style="color: #58595B; font-size: 1.05rem; line-height: 1.7; margin: 1rem 0 1.5rem 0;">
-      Feel free to explore our modules, but please note that your progress will not be saved.
-    </p>
-    <a href="modules.html" class="role-btn role-btn-primary" style="display: inline-flex; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
-      Explore Modules
-    </a>
-  </div>
+<div class="auth-card" style="max-width: 520px; text-align: center;">
+<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
+&lt;h2 style="color: #006C93;"&gt;Welcome, Guest&lt;/h2&gt;
+&lt;p style="color: #58595B; font-size: 1.05rem; line-height: 1.7; margin: 1rem 0 1.5rem 0;"&gt;
+  Feel free to explore our modules, but please note that your progress will not be saved.
+&lt;/p&gt;
+&lt;a href="modules.html" class="role-btn role-btn-primary" style="display: inline-flex; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem;"&gt;
+  Explore Modules
+&lt;/a&gt;</code></pre>
 </div>
-
+</div>
 <script>
 // If the user is not a guest and not logged in, redirect to choose-role
 (function() {
@@ -275,6 +280,7 @@ ul.task-list li input[type="checkbox"] {
   checkAccess();
 })();
 </script>
+<p>```</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
