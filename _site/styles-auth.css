@@ -704,27 +704,68 @@
   }
 }
 
-/* ── Popup close X button ─────────────────────────────────── */
-.popup-close-x {
-  position: absolute;
-  top: 0.75rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.6rem;
-  color: #999;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  transition: color 0.2s ease;
-}
-.popup-close-x:hover {
-  color: #333;
+/* ── Forgot Username Popup ────────────────────────────────── */
+.forgot-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Make sure the popup container is position:relative so the X positions correctly */
-.auth-popup {
+.forgot-popup-card {
   position: relative;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.forgot-popup-card h3 {
+  color: #006C93;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.forgot-popup-card p {
+  color: #58595B;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.forgot-popup-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  background: none;
+  border: 2px solid #006C93;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  color: #006C93;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+
+.forgot-popup-close:hover {
+  background: linear-gradient(135deg, #00746F 0%, #006C93 100%);
+  color: #fff;
+  border-color: #00746F;
 }
 
 /* ── Role Selection Page ("I am a...") ────────────────────── */

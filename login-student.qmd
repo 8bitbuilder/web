@@ -26,17 +26,17 @@ format:
       <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
     </form>
 
-    <!-- NEW: Forgot username link -->
-    <div class="auth-links">
-      <a href="#" id="forgotUsernameLink">Forgot your username?</a>
+    <!-- Forgot username link -->
+    <div class="auth-links" style="margin-top: 1rem;">
+      <a href="#" id="forgotUsernameLink" style="color: #006C93; font-weight: 600;">Forgot your username?</a>
     </div>
   </div>
 </div>
 
-<!-- NEW: Forgot username popup -->
-<div id="forgotUsernamePopup" class="auth-popup-overlay" style="display:none;">
-  <div class="auth-popup">
-    <button class="popup-close-x" id="closeForgotPopup">&times;</button>
+<!-- Forgot username popup -->
+<div id="forgotUsernamePopup" class="forgot-popup-overlay" style="display:none;">
+  <div class="forgot-popup-card">
+    <button class="forgot-popup-close" id="closeForgotPopup">&times;</button>
     <h3>Forgot Your Username?</h3>
     <p>Ask your teacher for your credentials.</p>
   </div>
@@ -91,7 +91,7 @@ document.getElementById('closeForgotPopup').addEventListener('click', function()
   document.getElementById('forgotUsernamePopup').style.display = 'none';
 });
 
-// Also close popup when clicking the dark overlay background
+// Close popup when clicking the dark overlay background
 document.getElementById('forgotUsernamePopup').addEventListener('click', function(e) {
   if (e.target === this) {
     this.style.display = 'none';
