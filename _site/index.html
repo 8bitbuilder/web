@@ -51,7 +51,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- ── Navbar ─────────────────────────────────────────────── -->
-<!-- Navbar -->
+<!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
     <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
@@ -59,11 +59,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
   <button class="navbar-toggle" id="navToggleBtn">☰</button>
   <nav class="navbar-links" id="navbarLinks">
-    <a href="./">Home</a> |
-    <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a>
-    <span id="navModulesSeparator" style="display:none;">|</span>
-    <a href="team.html">Team</a> |
-    <a href="contact.html">Contact</a>
+    <a href="./">Home</a> | <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a><span id="navModulesSep" style="display:none;"> | </span><a href="team.html">Team</a> | <a href="contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
 
@@ -77,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="nav-auth-dropdown" id="dropdownMenuOut">
         <a href="login-student.html">Student</a>
         <a href="login-teacher.html">Teacher</a>
-        <a href="#" id="navGuestLink">Guest</a>
+        <a href="#" id="navGuestLoginLink">Guest</a>
       </div>
     </div>
 
@@ -89,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
         <span class="nav-auth-chevron" id="chevronIn">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuIn">
-        <a href="dashboard.html" id="navDashboardLink">Teacher Dashboard</a>
+        <a href="dashboard.html" id="navDashboardLink" style="display:none;">Teacher Dashboard</a>
         <a href="#" id="navLogOutLink">Log Out</a>
       </div>
     </div>
@@ -97,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </div>
 
-<!-- Dropdown toggle script (no dependencies) -->
+<!-- ── Dropdown toggle script (no dependencies) ──────────── -->
 <script>
 (function() {
   // Hamburger menu toggle
@@ -146,8 +142,8 @@ ul.task-list li input[type="checkbox"] {
     if (chevronIn) chevronIn.classList.remove('open');
   });
 
-  // Guest link handler (in the logged-out dropdown)
-  var navGuestLink = document.getElementById('navGuestLink');
+  // Guest login from navbar dropdown
+  var navGuestLink = document.getElementById('navGuestLoginLink');
   if (navGuestLink) {
     navGuestLink.addEventListener('click', function(e) {
       e.preventDefault();
@@ -156,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
     });
   }
 
-  // Log Out handler
+  // Log Out handler (works for both Supabase users and guests)
   var logOutLink = document.getElementById('navLogOutLink');
   if (logOutLink) {
     logOutLink.addEventListener('click', function(e) {
@@ -173,46 +169,56 @@ ul.task-list li input[type="checkbox"] {
       }
     });
   }
+})();
+</script>
 
-  // --- Show/hide Modules link helper ---
+<!-- ── Supabase + Auth (loads after dropdown is already working) ── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+
+<!-- ── Auth state check (handles Supabase users AND guests) ────── -->
+<script>
+(function() {
   function showModulesLink() {
     var modulesLink = document.getElementById('navModulesLink');
-    var modulesSep = document.getElementById('navModulesSeparator');
+    var modulesSep = document.getElementById('navModulesSep');
     if (modulesLink) modulesLink.style.display = '';
     if (modulesSep) modulesSep.style.display = '';
   }
 
-  // --- Switch navbar to "logged in" appearance ---
-  function switchToLoggedIn(username, role) {
+  function switchToLoggedIn(displayName, isTeacher) {
     var loggedOutEl = document.getElementById('authDropdownLoggedOut');
     var loggedInEl = document.getElementById('authDropdownLoggedIn');
-    var navUsernameEl = document.getElementById('navUsername');
-    var navDashLink = document.getElementById('navDashboardLink');
+    var navUsername = document.getElementById('navUsername');
+    var navDashboardLink = document.getElementById('navDashboardLink');
 
     if (loggedOutEl) loggedOutEl.classList.add('hidden');
     if (loggedInEl) loggedInEl.classList.remove('hidden');
-    if (navUsernameEl) navUsernameEl.textContent = username;
-    if (navDashLink) {
-      navDashLink.style.display = (role === 'teacher') ? 'block' : 'none';
+    if (navUsername) navUsername.textContent = displayName;
+    if (navDashboardLink) {
+      navDashboardLink.style.display = isTeacher ? 'block' : 'none';
     }
     showModulesLink();
   }
 
-  // --- Check guest status immediately ---
-  var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
-  if (isGuest) {
-    switchToLoggedIn('Guest', 'guest');
-  }
+  function checkAuthState() {
+    // 1. Check guest mode FIRST (no Supabase needed)
+    var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
+    if (isGuest) {
+      switchToLoggedIn('Guest', false);
+      return; // Done — no need to check Supabase
+    }
 
-  // --- Check Supabase auth status ---
-  function checkSupabaseAuth() {
+    // 2. Check Supabase auth (wait until it's ready)
     if (typeof _supabase === 'undefined' || !_supabase) {
-      setTimeout(checkSupabaseAuth, 200);
+      setTimeout(checkAuthState, 200);
       return;
     }
 
     _supabase.auth.getSession().then(function(result) {
       var session = result.data.session;
+
       if (session && session.user) {
         _supabase
           .from('profiles')
@@ -222,24 +228,19 @@ ul.task-list li input[type="checkbox"] {
           .then(function(profileResult) {
             var profile = profileResult.data;
             if (profile) {
-              switchToLoggedIn(profile.username, profile.role);
+              switchToLoggedIn(profile.username, profile.role === 'teacher');
             }
           });
       }
+      // If no session and not guest, stay in logged-out state (default)
     });
   }
 
-  // Only check Supabase if not already showing guest state
-  if (!isGuest) {
-    checkSupabaseAuth();
-  }
+  // Run the check
+  checkAuthState();
+  document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
-
-<!-- Supabase + Auth scripts -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/auth.js"></script>
 
 
 
