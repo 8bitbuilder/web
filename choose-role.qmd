@@ -1,0 +1,54 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+```{=html}
+<!-- Navbar -->
+{{< include _navbar.html >}}
+
+<!-- Role selection page -->
+<div class="auth-page">
+  <div class="auth-card" style="max-width: 440px;">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>I am a...</h2>
+    <p class="auth-subtitle">Choose how you would like to continue</p>
+
+    <div class="role-choices">
+      <a href="login-student.html" class="role-choice-btn">
+        <span class="role-choice-icon">&#x1F393;</span>
+        <span class="role-choice-label">Registered Student</span>
+      </a>
+
+      <a href="login-teacher.html" class="role-choice-btn">
+        <span class="role-choice-icon">&#x1F4CB;</span>
+        <span class="role-choice-label">Registered Teacher</span>
+      </a>
+
+      <div class="role-divider">
+        <span>or</span>
+      </div>
+
+      <a href="#" id="guestBtn" class="role-choice-btn guest">
+        <span class="role-choice-icon">&#x1F441;</span>
+        <span class="role-choice-label">Log in as Guest</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('guestBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  // Set guest mode in sessionStorage
+  sessionStorage.setItem('guestMode', 'true');
+  // Redirect to modules page
+  window.location.href = 'modules.html';
+});
+</script>
