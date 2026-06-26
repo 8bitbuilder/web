@@ -267,11 +267,11 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 <!-- Forgot username popup -->
-<div id="forgotUsernamePopup" class="forgot-popup-overlay" style="display:none;">
-  <div class="forgot-popup-card">
-    <button class="forgot-popup-close" id="closeForgotPopup">×</button>
-    <h3>Forgot Your Username?</h3>
-    <p>Ask your teacher for your credentials.</p>
+<div id="forgotUsernamePopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; align-items:center; justify-content:center;">
+  <div style="position:relative; background:#fff; border-radius:16px; padding:2.5rem 2rem 2rem 2rem; max-width:420px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center;">
+    <button id="closeForgotPopup" style="position:absolute; top:0.6rem; right:0.8rem; background:none; border:2px solid #006C93; border-radius:50%; width:32px; height:32px; font-size:1.2rem; color:#006C93; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; padding:0; transition:all 0.25s ease;" onmouseover="this.style.background='linear-gradient(135deg, #00746F 0%, #006C93 100%)'; this.style.color='#fff'; this.style.borderColor='#00746F';" onmouseout="this.style.background='none'; this.style.color='#006C93'; this.style.borderColor='#006C93';">×</button>
+    <h3 style="color:#006C93; font-size:1.3rem; margin:0 0 0.75rem 0;">Forgot Your Username?</h3>
+    <p style="color:#58595B; font-size:1rem; line-height:1.6; margin:0;">Ask your teacher for your credentials.</p>
   </div>
 </div>
 

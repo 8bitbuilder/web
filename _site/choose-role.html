@@ -247,33 +247,44 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- Page content -->
-<div class="auth-page">
-  <div class="auth-card" style="max-width: 480px;">
-    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
-    <h2>I am a...</h2>
-    <p class="auth-subtitle">Choose how you would like to continue</p>
+<div style="min-height:100vh; background:linear-gradient(135deg, #00746F 0%, #006C93 100%); display:flex; align-items:center; justify-content:center; padding:2rem;">
+  <div style="background:#fff; border-radius:20px; padding:3rem 2.5rem; max-width:480px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); text-align:center;">
 
-    <div class="role-buttons">
-      <a href="login-student.html" class="role-btn role-btn-primary">
-        <span class="role-btn-title">Registered Student</span>
-        <span class="role-btn-desc">Log in with your username</span>
-      </a>
+    <img src="assets/logo.png" alt="AAIC Logo" style="height:60px; margin-bottom:1.5rem;">
 
-      <a href="login-teacher.html" class="role-btn role-btn-primary">
-        <span class="role-btn-title">Registered Teacher</span>
-        <span class="role-btn-desc">Log in with your email and password</span>
-      </a>
+    <h2 style="color:#006C93; font-size:1.8rem; margin:0 0 0.5rem 0; font-weight:700;">I am a...</h2>
+    <p style="color:#A7A9AC; font-size:1rem; margin:0 0 2rem 0;">Choose how you would like to continue</p>
 
-      <a href="#" id="guestBtn" class="role-btn role-btn-guest">
-        <span class="role-btn-title">Continue as Guest</span>
-        <span class="role-btn-desc">Browse modules without an account</span>
-      </a>
+    <!-- Registered Student button -->
+    <a href="login-student.html" style="display:block; width:100%; padding:1rem; margin-bottom:1rem; background:linear-gradient(135deg, #00746F 0%, #006C93 100%); color:#fff; border:none; border-radius:50px; font-size:1.05rem; font-weight:600; text-decoration:none; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,108,147,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,108,147,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,108,147,0.3)';">
+      Registered Student
+      <span style="display:block; font-size:0.8rem; font-weight:400; opacity:0.85; margin-top:0.2rem;">Log in with your username</span>
+    </a>
+
+    <!-- Registered Teacher button -->
+    <a href="login-teacher.html" style="display:block; width:100%; padding:1rem; margin-bottom:1rem; background:linear-gradient(135deg, #00746F 0%, #006C93 100%); color:#fff; border:none; border-radius:50px; font-size:1.05rem; font-weight:600; text-decoration:none; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,108,147,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,108,147,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,108,147,0.3)';">
+      Registered Teacher
+      <span style="display:block; font-size:0.8rem; font-weight:400; opacity:0.85; margin-top:0.2rem;">Log in with your email and password</span>
+    </a>
+
+    <!-- Divider -->
+    <div style="display:flex; align-items:center; margin:1.5rem 0; gap:1rem;">
+      <div style="flex:1; height:1px; background:#e0e0e0;"></div>
+      <span style="color:#A7A9AC; font-size:0.85rem; font-weight:600;">OR</span>
+      <div style="flex:1; height:1px; background:#e0e0e0;"></div>
     </div>
+
+    <!-- Continue as Guest button -->
+    <a href="#" id="guestLoginBtn" style="display:block; width:100%; padding:1rem; background:#A7A9AC; color:#fff; border:none; border-radius:50px; font-size:1.05rem; font-weight:600; text-decoration:none; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.15)'; this.style.background='#8a8c8e';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)'; this.style.background='#A7A9AC';">
+      Continue as Guest
+      <span style="display:block; font-size:0.8rem; font-weight:400; opacity:0.85; margin-top:0.2rem;">Browse modules without an account</span>
+    </a>
+
   </div>
 </div>
 
 <script>
-document.getElementById('guestBtn').addEventListener('click', function(e) {
+document.getElementById('guestLoginBtn').addEventListener('click', function(e) {
   e.preventDefault();
   sessionStorage.setItem('aaic_guest', 'true');
   window.location.href = 'guest-hub.html';
