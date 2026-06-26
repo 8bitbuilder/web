@@ -703,3 +703,26 @@
     margin-left: 0.5rem;
   }
 }
+
+/* ── Popup close X button ─────────────────────────────────── */
+.popup-close-x {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+.popup-close-x:hover {
+  color: #333;
+}
+
+/* Make sure the popup container is position:relative so the X positions correctly */
+.auth-popup {
+  position: relative;
+}
