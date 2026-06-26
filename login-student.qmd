@@ -10,10 +10,10 @@ format:
 ---
 
 ```{=html}
-<!-- ── Navbar ─────────────────────────────────────────────── -->
+<!-- Navbar -->
 {{< include _navbar.html >}}
 
-<!-- ── Page content ───────────────────────────────────────── -->
+<!-- Page content -->
 <div class="auth-page">
   <div class="auth-card">
     <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
@@ -25,11 +25,25 @@ format:
       <input type="text" id="username" placeholder="Enter your username" required>
       <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
     </form>
+
+    <!-- NEW: Forgot username link -->
+    <div class="auth-links">
+      <a href="#" id="forgotUsernameLink">Forgot your username?</a>
+    </div>
   </div>
 </div>
 
+<!-- NEW: Forgot username popup -->
+<div id="forgotUsernamePopup" class="auth-popup-overlay" style="display:none;">
+  <div class="auth-popup">
+    <button class="popup-close-x" id="closeForgotPopup">&times;</button>
+    <h3>Forgot Your Username?</h3>
+    <p>Ask your teacher for your credentials.</p>
+  </div>
+</div>
 
 <script>
+// Student login handler
 document.getElementById('studentLoginForm').addEventListener('submit', async function () {
   var btn = document.getElementById('loginBtn');
   var errorMsg = document.getElementById('errorMsg');
@@ -66,11 +80,21 @@ document.getElementById('studentLoginForm').addEventListener('submit', async fun
     btn.textContent = 'Log In';
   }
 });
-</script>
 
-<script>
-function toggleMenu() {
-  document.getElementById('navbarLinks').classList.toggle('show');
-}
+// Forgot username popup handlers
+document.getElementById('forgotUsernameLink').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('forgotUsernamePopup').style.display = 'flex';
+});
+
+document.getElementById('closeForgotPopup').addEventListener('click', function() {
+  document.getElementById('forgotUsernamePopup').style.display = 'none';
+});
+
+// Also close popup when clicking the dark overlay background
+document.getElementById('forgotUsernamePopup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.style.display = 'none';
+  }
+});
 </script>
-```
