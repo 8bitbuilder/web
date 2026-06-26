@@ -51,7 +51,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- Navbar -->
-```html
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -245,33 +244,37 @@ ul.task-list li input[type="checkbox"] {
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
+
+
 <!-- Page content -->
 <div class="auth-page">
-<div class="auth-card">
-<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
-&lt;h2&gt;Student Log In&lt;/h2&gt;
-&lt;p class="auth-subtitle"&gt;Enter your username to continue&lt;/p&gt;
-&lt;div id="errorMsg" class="auth-error" style="display:none;"&gt;&lt;/div&gt;
-&lt;form id="studentLoginForm" onsubmit="return false;"&gt;
-  &lt;label for="username"&gt;Username&lt;/label&gt;
-  &lt;input type="text" id="username" placeholder="Enter your username" required&gt;
-  &lt;button type="submit" class="auth-btn" id="loginBtn"&gt;Log In&lt;/button&gt;
-&lt;/form&gt;
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Student Log In</h2>
+    <p class="auth-subtitle">Enter your username to continue</p>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+    <form id="studentLoginForm" onsubmit="return false;">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username" required="">
+      <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
+    </form>
 
-&lt;!-- Forgot username link --&gt;
-&lt;div class="auth-links" style="margin-top: 1rem;"&gt;
-  &lt;a href="#" id="forgotUsernameLink" style="color: #006C93; font-weight: 600;"&gt;Forgot your username?&lt;/a&gt;
-&lt;/div&gt;</code></pre>
+    <!-- Forgot username link -->
+    <div class="auth-links" style="margin-top: 1rem;">
+      <a href="#" id="forgotUsernameLink" style="color: #006C93; font-weight: 600;">Forgot your username?</a>
+    </div>
+  </div>
 </div>
-</div>
+
 <!-- Forgot username popup -->
 <div id="forgotUsernamePopup" class="forgot-popup-overlay" style="display:none;">
-<div class="forgot-popup-card">
-<pre><code>&lt;button class="forgot-popup-close" id="closeForgotPopup"&gt;&amp;times;&lt;/button&gt;
-&lt;h3&gt;Forgot Your Username?&lt;/h3&gt;
-&lt;p&gt;Ask your teacher for your credentials.&lt;/p&gt;</code></pre>
+  <div class="forgot-popup-card">
+    <button class="forgot-popup-close" id="closeForgotPopup">×</button>
+    <h3>Forgot Your Username?</h3>
+    <p>Ask your teacher for your credentials.</p>
+  </div>
 </div>
-</div>
+
 <script>
 // Student login handler
 document.getElementById('studentLoginForm').addEventListener('submit', async function () {
@@ -328,7 +331,6 @@ document.getElementById('forgotUsernamePopup').addEventListener('click', functio
   }
 });
 </script>
-<p>```</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

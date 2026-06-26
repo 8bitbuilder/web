@@ -51,7 +51,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- Navbar -->
-```html
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -245,19 +244,22 @@ ul.task-list li input[type="checkbox"] {
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
+
+
 <!-- Page content -->
 <div class="auth-page">
-<div class="auth-card" style="max-width: 520px; text-align: center;">
-<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
-&lt;h2 style="color: #006C93;"&gt;Welcome, Guest&lt;/h2&gt;
-&lt;p style="color: #58595B; font-size: 1.05rem; line-height: 1.7; margin: 1rem 0 1.5rem 0;"&gt;
-  Feel free to explore our modules, but please note that your progress will not be saved.
-&lt;/p&gt;
-&lt;a href="modules.html" class="role-btn role-btn-primary" style="display: inline-flex; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem;"&gt;
-  Explore Modules
-&lt;/a&gt;</code></pre>
+  <div class="auth-card" style="max-width: 520px; text-align: center;">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2 style="color: #006C93;">Welcome, Guest</h2>
+    <p style="color: #58595B; font-size: 1.05rem; line-height: 1.7; margin: 1rem 0 1.5rem 0;">
+      Feel free to explore our modules, but please note that your progress will not be saved.
+    </p>
+    <a href="modules.html" class="role-btn role-btn-primary" style="display: inline-flex; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+      Explore Modules
+    </a>
+  </div>
 </div>
-</div>
+
 <script>
 // If the user is not a guest and not logged in, redirect to choose-role
 (function() {
@@ -280,7 +282,6 @@ ul.task-list li input[type="checkbox"] {
   checkAccess();
 })();
 </script>
-<p>```</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

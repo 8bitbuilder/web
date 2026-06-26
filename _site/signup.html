@@ -50,7 +50,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-```html
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -244,36 +243,40 @@ ul.task-list li input[type="checkbox"] {
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
+
+
 <!-- ── Page content ───────────────────────────────────────── -->
 <div class="auth-page">
-<div class="auth-card">
-<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
-&lt;h2&gt;Teacher Sign Up&lt;/h2&gt;
-&lt;p class="auth-subtitle"&gt;Create your teacher account&lt;/p&gt;
-&lt;div id="errorMsg" class="auth-error" style="display:none;"&gt;&lt;/div&gt;
-&lt;form id="signupForm" onsubmit="return false;"&gt;
-  &lt;label for="username"&gt;Username&lt;/label&gt;
-  &lt;input type="text" id="username" placeholder="Choose a username" required&gt;
-  &lt;label for="email"&gt;Email&lt;/label&gt;
-  &lt;input type="email" id="email" placeholder="Enter your email" required&gt;
-  &lt;label for="password"&gt;Password&lt;/label&gt;
-  &lt;input type="password" id="password" placeholder="Create a password (min 6 characters)" required minlength="6"&gt;
-  &lt;button type="submit" class="auth-btn" id="signupBtn"&gt;Sign Up&lt;/button&gt;
-&lt;/form&gt;
-&lt;div class="auth-links"&gt;
-  Already have an account? &lt;a href="login-teacher.html"&gt;Log In&lt;/a&gt;
-&lt;/div&gt;</code></pre>
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Teacher Sign Up</h2>
+    <p class="auth-subtitle">Create your teacher account</p>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+    <form id="signupForm" onsubmit="return false;">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Choose a username" required="">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required="">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Create a password (min 6 characters)" required="" minlength="6">
+      <button type="submit" class="auth-btn" id="signupBtn">Sign Up</button>
+    </form>
+    <div class="auth-links">
+      Already have an account? <a href="login-teacher.html">Log In</a>
+    </div>
+  </div>
 </div>
-</div>
+
 <!-- ── Popup overlay for success ──────────────────────────── -->
 <div id="signupPopup" class="popup-overlay" style="display:none;">
-<div class="popup-card">
-<pre><code>&lt;h3&gt;Account Created&lt;/h3&gt;
-&lt;p&gt;A verification email has been sent to &lt;strong id="popupEmail"&gt;&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Please check your inbox and click the verification link before logging in.&lt;/p&gt;
-&lt;button class="auth-btn" onclick="document.getElementById('signupPopup').style.display='none'; window.location.href='login-teacher.html';"&gt;Got it&lt;/button&gt;</code></pre>
+  <div class="popup-card">
+    <h3>Account Created</h3>
+    <p>A verification email has been sent to <strong id="popupEmail"></strong>.</p>
+    <p>Please check your inbox and click the verification link before logging in.</p>
+    <button class="auth-btn" onclick="document.getElementById('signupPopup').style.display='none'; window.location.href='login-teacher.html';">Got it</button>
+  </div>
 </div>
-</div>
+
 <script>
 document.getElementById('signupForm').addEventListener('submit', async function () {
   var btn = document.getElementById('signupBtn');
@@ -324,7 +327,6 @@ document.getElementById('signupForm').addEventListener('submit', async function 
   }
 });
 </script>
-<p>```</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

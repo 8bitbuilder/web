@@ -51,7 +51,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <!-- Navbar -->
-```html
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -245,31 +244,34 @@ ul.task-list li input[type="checkbox"] {
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
+
+
 <!-- Page content -->
 <div class="auth-page">
-<div class="auth-card" style="max-width: 480px;">
-<pre><code>&lt;img src="assets/logo.png" alt="AAIC Logo" class="auth-logo"&gt;
-&lt;h2&gt;I am a...&lt;/h2&gt;
-&lt;p class="auth-subtitle"&gt;Choose how you would like to continue&lt;/p&gt;
+  <div class="auth-card" style="max-width: 480px;">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>I am a...</h2>
+    <p class="auth-subtitle">Choose how you would like to continue</p>
 
-&lt;div class="role-buttons"&gt;
-  &lt;a href="login-student.html" class="role-btn role-btn-primary"&gt;
-    &lt;span class="role-btn-title"&gt;Registered Student&lt;/span&gt;
-    &lt;span class="role-btn-desc"&gt;Log in with your username&lt;/span&gt;
-  &lt;/a&gt;
+    <div class="role-buttons">
+      <a href="login-student.html" class="role-btn role-btn-primary">
+        <span class="role-btn-title">Registered Student</span>
+        <span class="role-btn-desc">Log in with your username</span>
+      </a>
 
-  &lt;a href="login-teacher.html" class="role-btn role-btn-primary"&gt;
-    &lt;span class="role-btn-title"&gt;Registered Teacher&lt;/span&gt;
-    &lt;span class="role-btn-desc"&gt;Log in with your email and password&lt;/span&gt;
-  &lt;/a&gt;
+      <a href="login-teacher.html" class="role-btn role-btn-primary">
+        <span class="role-btn-title">Registered Teacher</span>
+        <span class="role-btn-desc">Log in with your email and password</span>
+      </a>
 
-  &lt;a href="#" id="guestBtn" class="role-btn role-btn-guest"&gt;
-    &lt;span class="role-btn-title"&gt;Continue as Guest&lt;/span&gt;
-    &lt;span class="role-btn-desc"&gt;Browse modules without an account&lt;/span&gt;
-  &lt;/a&gt;
-&lt;/div&gt;</code></pre>
+      <a href="#" id="guestBtn" class="role-btn role-btn-guest">
+        <span class="role-btn-title">Continue as Guest</span>
+        <span class="role-btn-desc">Browse modules without an account</span>
+      </a>
+    </div>
+  </div>
 </div>
-</div>
+
 <script>
 document.getElementById('guestBtn').addEventListener('click', function(e) {
   e.preventDefault();
@@ -277,7 +279,6 @@ document.getElementById('guestBtn').addEventListener('click', function(e) {
   window.location.href = 'guest-hub.html';
 });
 </script>
-<p>```</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

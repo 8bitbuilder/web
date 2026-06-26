@@ -50,7 +50,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-```html
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
@@ -244,6 +243,8 @@ ul.task-list li input[type="checkbox"] {
   document.addEventListener('DOMContentLoaded', checkAuthState);
 })();
 </script>
+
+
 <!-- ══════════════════════════════════════════════════════════
      DASHBOARD STYLES — inline so they always load
      ══════════════════════════════════════════════════════════ -->
@@ -640,135 +641,154 @@ ul.task-list li input[type="checkbox"] {
 /* ── Hidden utility ───────────────────────────────────────── */
 .hidden { display: none !important; }
 </style>
+
 <!-- ══════════════════════════════════════════════════════════
      DASHBOARD HTML
      ══════════════════════════════════════════════════════════ -->
-<div id="dashboardPage" class="dashboard-page" style="display:none;">
-<!-- ── Header ─────────────────────────────────────────── -->
-<div class="dashboard-header">
-<pre><code>&lt;h2 id="dashboardWelcome"&gt;Welcome&lt;/h2&gt;
-&lt;p id="studentCount"&gt;Loading...&lt;/p&gt;</code></pre>
-</div>
-<!-- ── Top Row: Groups + Add Students ─────────────────── -->
-<div class="dashboard-grid">
-<pre><code>&lt;!-- Groups / Classes --&gt;
-&lt;div class="dashboard-card"&gt;
-  &lt;h3&gt;Groups / Classes&lt;/h3&gt;
-  &lt;p class="card-subtitle"&gt;Organize your students into groups&lt;/p&gt;
-  &lt;hr&gt;
-  &lt;div id="groupTabs" style="margin-bottom:1rem;"&gt;&lt;/div&gt;
-  &lt;form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem; align-items:center;"&gt;
-    &lt;input type="text" id="newGroupName" placeholder="New group name" style="flex:1; margin-bottom:0;"&gt;
-    &lt;button type="submit" class="dash-btn"&gt;Add&lt;/button&gt;
-  &lt;/form&gt;
-  &lt;div id="groupMessage" class="auth-message" style="display:none; margin-top:0.75rem;"&gt;&lt;/div&gt;
-&lt;/div&gt;
+<div class="dashboard-page" id="dashboardPage" style="display:none;">
 
-&lt;!-- Add Students --&gt;
-&lt;div class="dashboard-card"&gt;
-  &lt;h3&gt;Add Students&lt;/h3&gt;
-  &lt;p class="card-subtitle"&gt;Create student accounts&lt;/p&gt;
-  &lt;hr&gt;
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <div class="dashboard-header">
+    <h2 id="dashboardWelcome">Welcome</h2>
+    <p id="studentCount">Loading...</p>
+  </div>
 
-  &lt;!-- Method Tabs --&gt;
-  &lt;div style="margin-bottom:1rem;"&gt;
-    &lt;button class="method-tab active" data-target="panelSingle"&gt;Single&lt;/button&gt;
-    &lt;button class="method-tab" data-target="panelMultiple"&gt;Multiple&lt;/button&gt;
-    &lt;button class="method-tab" data-target="panelImport"&gt;Import File&lt;/button&gt;
-  &lt;/div&gt;
+  <!-- ── Top Row: Groups + Add Students ─────────────────── -->
+  <div class="dashboard-grid">
 
-  &lt;!-- Panel: Single Student --&gt;
-  &lt;div class="method-panel active" id="panelSingle"&gt;
-    &lt;form onsubmit="handleAddSingle(event)"&gt;
-      &lt;label for="singleUsername"&gt;Username&lt;/label&gt;
-      &lt;input type="text" id="singleUsername" placeholder="e.g. john_doe"&gt;
-      &lt;label for="singleGroup"&gt;Group&lt;/label&gt;
-      &lt;select id="singleGroup" class="group-select"&gt;
-        &lt;option value="Default"&gt;Default&lt;/option&gt;
-      &lt;/select&gt;
-      &lt;button type="submit" class="dash-btn full"&gt;Create Student&lt;/button&gt;
-      &lt;div id="addSingleMessage" class="auth-message" style="display:none; margin-top:0.75rem;"&gt;&lt;/div&gt;
-    &lt;/form&gt;
-  &lt;/div&gt;
+    <!-- Groups / Classes -->
+    <div class="dashboard-card">
+      <h3>Groups / Classes</h3>
+      <p class="card-subtitle">Organize your students into groups</p>
+      <hr>
+      <div id="groupTabs" style="margin-bottom:1rem;"></div>
+      <form onsubmit="handleCreateGroup(event)" style="display:flex; gap:0.5rem; align-items:center;">
+        <input type="text" id="newGroupName" placeholder="New group name" style="flex:1; margin-bottom:0;">
+        <button type="submit" class="dash-btn">Add</button>
+      </form>
+      <div id="groupMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
+    </div>
 
-  &lt;!-- Panel: Multiple Students --&gt;
-  &lt;div class="method-panel" id="panelMultiple"&gt;
-    &lt;form onsubmit="handleAddMultiple(event)"&gt;
-      &lt;label for="multiPrefix"&gt;Username Prefix&lt;/label&gt;
-      &lt;input type="text" id="multiPrefix" placeholder='e.g. "Student"'&gt;
-      &lt;label for="multiCount"&gt;Number of Accounts&lt;/label&gt;
-      &lt;input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25"&gt;
-      &lt;label for="multiGroup"&gt;Group&lt;/label&gt;
-      &lt;select id="multiGroup" class="group-select"&gt;
-        &lt;option value="Default"&gt;Default&lt;/option&gt;
-      &lt;/select&gt;
-      &lt;p style="font-size:0.8rem; color:#888; margin-bottom:0.75rem;"&gt;Creates Student1, Student2, Student3, etc.&lt;/p&gt;
-      &lt;button type="submit" class="dash-btn full"&gt;Create Students&lt;/button&gt;
-      &lt;div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.75rem;"&gt;&lt;/div&gt;
-    &lt;/form&gt;
-  &lt;/div&gt;
+    <!-- Add Students -->
+    <div class="dashboard-card">
+      <h3>Add Students</h3>
+      <p class="card-subtitle">Create student accounts</p>
+      <hr>
 
-  &lt;!-- Panel: Import from File --&gt;
-  &lt;div class="method-panel" id="panelImport"&gt;
-    &lt;form onsubmit="handleImportSubmit(event)"&gt;
-      &lt;label&gt;Upload .txt or .csv file&lt;/label&gt;
-      &lt;input type="file" accept=".txt,.csv" onchange="handleFileSelect(this)"&gt;
-      &lt;p class="file-format-help"&gt;For .txt files, list one username per line.&lt;/p&gt;
-      &lt;p class="file-format-help" style="margin-bottom: 1.2rem;"&gt;For .csv files, usernames are taken from the first column.&lt;/p&gt;
-      &lt;div id="filePreview" style="display:none; margin:0.75rem 0;"&gt;
-        &lt;table&gt;
-          &lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Username&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-          &lt;tbody id="filePreviewBody"&gt;&lt;/tbody&gt;
-        &lt;/table&gt;
-      &lt;/div&gt;
-      &lt;label for="importGroup"&gt;Group&lt;/label&gt;
-      &lt;select id="importGroup" class="group-select"&gt;
-        &lt;option value="Default"&gt;Default&lt;/option&gt;
-      &lt;/select&gt;
-      &lt;button type="submit" class="dash-btn full"&gt;Import Students&lt;/button&gt;
-      &lt;div id="importMessage" class="auth-message" style="display:none; margin-top:0.75rem;"&gt;&lt;/div&gt;
-    &lt;/form&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+      <!-- Method Tabs -->
+      <div style="margin-bottom:1rem;">
+        <button class="method-tab active" data-target="panelSingle">Single</button>
+        <button class="method-tab" data-target="panelMultiple">Multiple</button>
+        <button class="method-tab" data-target="panelImport">Import File</button>
+      </div>
+
+      <!-- Panel: Single Student -->
+      <div class="method-panel active" id="panelSingle">
+        <form onsubmit="handleAddSingle(event)">
+          <label for="singleUsername">Username</label>
+          <input type="text" id="singleUsername" placeholder="e.g. john_doe">
+          <label for="singleGroup">Group</label>
+          <select id="singleGroup" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+          <button type="submit" class="dash-btn full">Create Student</button>
+          <div id="addSingleMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
+        </form>
+      </div>
+
+      <!-- Panel: Multiple Students -->
+      <div class="method-panel" id="panelMultiple">
+        <form onsubmit="handleAddMultiple(event)">
+          <label for="multiPrefix">Username Prefix</label>
+          <input type="text" id="multiPrefix" placeholder="e.g. &quot;Student&quot;">
+          <label for="multiCount">Number of Accounts</label>
+          <input type="number" id="multiCount" min="1" max="100" placeholder="e.g. 25">
+          <label for="multiGroup">Group</label>
+          <select id="multiGroup" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+          <p style="font-size:0.8rem; color:#888; margin-bottom:0.75rem;">Creates Student1, Student2, Student3, etc.</p>
+          <button type="submit" class="dash-btn full">Create Students</button>
+          <div id="addMultipleMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
+        </form>
+      </div>
+
+      <!-- Panel: Import from File -->
+      <div class="method-panel" id="panelImport">
+        <form onsubmit="handleImportSubmit(event)">
+          <label>Upload .txt or .csv file</label>
+          <input type="file" accept=".txt,.csv" onchange="handleFileSelect(this)">
+          <p class="file-format-help">For .txt files, list one username per line.</p>
+          <p class="file-format-help" style="margin-bottom: 1.2rem;">For .csv files, usernames are taken from the first column.</p>
+          <div id="filePreview" style="display:none; margin:0.75rem 0;">
+            
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">#</th>
+<th data-quarto-table-cell-role="th">Username</th>
+</tr>
+</thead>
+<tbody id="filePreviewBody">
+</tbody>
+</table>
+
+          </div>
+          <label for="importGroup">Group</label>
+          <select id="importGroup" class="group-select">
+            <option value="Default">Default</option>
+          </select>
+          <button type="submit" class="dash-btn full">Import Students</button>
+          <div id="importMessage" class="auth-message" style="display:none; margin-top:0.75rem;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Your Students (full width) ─────────────────────── -->
+  <div style="max-width:1100px; margin:1.5rem auto 0;">
+    <div class="dashboard-card">
+      <h3>Your Students</h3>
+      <p class="card-subtitle" id="studentCount2">Loading...</p>
+      <hr>
+      
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Username</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Group</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Created</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Actions</th>
+</tr>
+</thead>
+<tbody id="studentTableBody">
+<tr class="odd">
+<td colspan="4" style="text-align: center; color: #888; padding: 2rem;">Loading...</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+  </div>
+
+  <!-- ── Delete Class Account ───────────────────────────── -->
+  <div style="max-width:1100px; margin:1.5rem auto 0;">
+    <div class="dashboard-card danger">
+      <h3>Delete Class Account</h3>
+      <p class="card-subtitle">Permanently delete your account and all student data</p>
+      <hr>
+      <p style="margin-bottom:1rem;">This will delete your teacher account and all associated student accounts. This action cannot be undone.</p>
+      <button class="danger-btn" onclick="handleDeleteTeacher()">Delete My Account and All Students</button>
+    </div>
+  </div>
+
 </div>
-<!-- ── Your Students (full width) ─────────────────────── -->
-<div style="max-width:1100px; margin:1.5rem auto 0;">
-<pre><code>&lt;div class="dashboard-card"&gt;
-  &lt;h3&gt;Your Students&lt;/h3&gt;
-  &lt;p class="card-subtitle" id="studentCount2"&gt;Loading...&lt;/p&gt;
-  &lt;hr&gt;
-  &lt;table&gt;
-    &lt;thead&gt;
-      &lt;tr&gt;
-        &lt;th&gt;Username&lt;/th&gt;
-        &lt;th&gt;Group&lt;/th&gt;
-        &lt;th&gt;Created&lt;/th&gt;
-        &lt;th&gt;Actions&lt;/th&gt;
-      &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody id="studentTableBody"&gt;
-      &lt;tr&gt;&lt;td colspan="4" style="text-align:center; color:#888; padding:2rem;"&gt;Loading...&lt;/td&gt;&lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
-&lt;/div&gt;</code></pre>
-</div>
-<!-- ── Delete Class Account ───────────────────────────── -->
-<div style="max-width:1100px; margin:1.5rem auto 0;">
-<pre><code>&lt;div class="dashboard-card danger"&gt;
-  &lt;h3&gt;Delete Class Account&lt;/h3&gt;
-  &lt;p class="card-subtitle"&gt;Permanently delete your account and all student data&lt;/p&gt;
-  &lt;hr&gt;
-  &lt;p style="margin-bottom:1rem;"&gt;This will delete your teacher account and all associated student accounts. This action cannot be undone.&lt;/p&gt;
-  &lt;button class="danger-btn" onclick="handleDeleteTeacher()"&gt;Delete My Account and All Students&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-</div>
-</div>
+
 <!-- ── Loading / Auth Check ───────────────────────────────── -->
 <div id="dashboardLoading" style="text-align:center; padding:4rem; color:#006C93;">
-<p>
-Loading dashboard…
-</p>
+  <p>Loading dashboard...</p>
 </div>
+
 <!-- ── Dashboard Scripts ──────────────────────────────────── -->
 <script src="js/admin.js"></script>
 <script>
@@ -828,7 +848,6 @@ Loading dashboard…
   checkDashboardAuth();
 })();
 </script>
-<p>```</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
