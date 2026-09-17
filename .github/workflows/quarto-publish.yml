@@ -29,9 +29,11 @@ jobs:
             -o "$TEXMFHOME/tex/latex/handoutwithnotes/handoutWithNotes.sty"
           /home/runner/.TinyTeX/bin/x86_64-linux/mktexlsr
 
-      - name: Install LaTeX packages
-        # luatexbase needed for PDF slides; tlmgr uses default CTAN (TL 2026)
-        run: /home/runner/.TinyTeX/bin/x86_64-linux/tlmgr install luatexbase
+      - name: Update TeX Live manager and install LaTeX packages
+        run: |
+          TLMGR=/home/runner/.TinyTeX/bin/x86_64-linux/tlmgr
+          "$TLMGR" update --self
+          "$TLMGR" install luatexbase
 
       - name: Set up Python
         uses: actions/setup-python@v5.6.0
