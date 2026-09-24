@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiny Sorter</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">&#9654;</span>
+        <h1>Tiny Sorter</h1>
+      </div>
+      <p class="subtitle">Teach an AI model, connect an Arduino, and sort objects in real time.</p>
+    </header>
+
+    <section class="config-panel">
+      <h2>Teachable Machine Model</h2>
+      <p class="config-hint">
+        Paste the model link from
+        <a href="https://teachablemachine.withgoogle.com/train/image" target="_blank" rel="noopener">Teachable Machine</a>
+        (Export &rarr; Upload &rarr; shareable link).
+      </p>
+      <div class="config-row">
+        <input
+          type="url"
+          id="model-url"
+          class="config-input"
+          placeholder="https://teachablemachine.withgoogle.com/models/your-model-id/"
+        />
+        <button id="load-model-btn" class="btn btn-primary">Load Model</button>
+      </div>
+      <p id="model-status" class="model-status" role="status">No model loaded</p>
+    </section>
+
+    <main>
+      <section id="live-sorter">
+        <div class="live-layout">
+          <div class="video-container">
+            <video id="webcam" autoplay playsinline muted></video>
+            <div id="live-overlay" class="overlay hidden">
+              <span id="live-label" class="overlay-label"></span>
+              <span id="live-confidence" class="overlay-confidence"></span>
+            </div>
+            <div id="camera-placeholder" class="placeholder">
+              <span aria-hidden="true">&#128247;</span>
+              <p>Load a model, then start the camera</p>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button id="start-btn" class="btn btn-primary" disabled>Start Sorting</button>
+            <button id="stop-btn" class="btn btn-secondary" disabled>Stop</button>
+            <span id="status-badge" class="badge badge-idle">Idle</span>
+          </div>
+
+          <div class="serial-controls">
+            <button id="connect-btn" class="btn btn-secondary">Connect Arduino</button>
+            <p id="serial-status" class="serial-status" role="status">Arduino not connected</p>
+          </div>
+
+          <div class="servo-test">
+            <div class="servo-test-header">
+              <div>
+                <h2 class="servo-test-title">Manual servo control</h2>
+                <p class="servo-test-description">Calibrate the four positions before starting the automatic sorter.</p>
+              </div>
+              <span class="servo-test-hint">Click a degree value to edit it.</span>
+            </div>
+
+            <div class="servo-test-controls" aria-label="Manual servo positions">
+              <button class="btn btn-secondary servo-position-btn" data-servo-position="left">
+                <span class="servo-position-label">Left</span>
+                <span class="servo-position-angle" data-angle-edit="left">180&deg;</span>
+              </button>
+              <button class="btn btn-secondary servo-position-btn" data-servo-position="cam">
+                <span class="servo-position-label">Cam</span>
+                <span class="servo-position-angle" data-angle-edit="cam">105&deg;</span>
+              </button>
+              <button class="btn btn-secondary servo-position-btn" data-servo-position="collector">
+                <span class="servo-position-label">Collector</span>
+                <span class="servo-position-angle" data-angle-edit="collector">45&deg;</span>
+              </button>
+              <button class="btn btn-secondary servo-position-btn" data-servo-position="right">
+                <span class="servo-position-label">Right</span>
+                <span class="servo-position-angle" data-angle-edit="right">9&deg;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

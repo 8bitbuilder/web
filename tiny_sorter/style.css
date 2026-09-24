@@ -1,0 +1,385 @@
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface-2: #242836;
+  --border: #2e3348;
+  --text: #e8eaf0;
+  --text-muted: #8b90a8;
+  --primary: #5b8def;
+  --primary-hover: #4a7de0;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.config-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.config-panel h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.config-hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.config-hint a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.config-hint a:hover {
+  text-decoration: underline;
+}
+
+.config-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.config-input {
+  flex: 1;
+  min-width: 200px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.config-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.model-status {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.model-status.status-ready {
+  color: var(--success);
+}
+
+.model-status.status-error {
+  color: #f87171;
+}
+
+.model-status.status-loading {
+  color: var(--warning);
+}
+
+.model-status.status-warning {
+  color: var(--warning);
+}
+
+.live-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.video-container {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  box-shadow: var(--shadow);
+}
+
+#webcam {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 2rem;
+}
+
+.placeholder p {
+  font-size: 0.9rem;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  padding: 1.5rem 1.25rem 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.overlay-label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.overlay-confidence {
+  font-size: 1rem;
+  color: var(--success);
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.serial-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.serial-status {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.serial-status.status-ready {
+  color: var(--success);
+}
+
+.serial-status.status-error {
+  color: #f87171;
+}
+
+.servo-test {
+  display: grid;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+
+.servo-test-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.servo-test-title {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.servo-test-description {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 0.15rem;
+}
+
+.servo-test-controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.servo-position-btn {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: center;
+  min-height: 4.3rem;
+  padding: 0.7rem 0.9rem;
+}
+
+.servo-position-btn.is-unavailable {
+  opacity: 0.72;
+}
+
+.servo-position-label {
+  font-size: 0.92rem;
+}
+
+.servo-position-angle {
+  border-radius: 999px;
+  color: #b8c9ef;
+  cursor: text;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  padding: 0.1rem 0.45rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.servo-position-angle:hover {
+  background: rgba(91, 141, 239, 0.14);
+  color: #d7e2ff;
+}
+
+.servo-test-hint {
+  color: #b8c9ef;
+  background: rgba(91, 141, 239, 0.1);
+  border: 1px solid rgba(91, 141, 239, 0.2);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  padding: 0.3rem 0.65rem;
+  white-space: nowrap;
+}
+
+.btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-idle {
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+.badge-live {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--success);
+}
+
+.badge-error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .servo-test-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .servo-test-hint {
+    align-self: flex-start;
+    white-space: normal;
+  }
+
+  .servo-test-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .servo-test-controls .btn {
+    width: 100%;
+  }
+}
