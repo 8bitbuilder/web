@@ -50,11 +50,13 @@ During this activity, we'll learn a bit more about linear regression and how the
 
 :::{#lst-activityI}
 ### Instructions
-1. Open the [RGB Applet V2](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-2.html){target="_blank"}.  
-2. Find card #1 in your deck. Hold it 1 to 2 inches in front of your webcam. 
-3. Using the middle square in the frame, record the RGB values for the card on your handout.  
-![](images/Red_Meaned_Pixels_Center.png)
-4. Repeat this process for all other numbered cards in your deck.  Make sure you hold each card the same distance away from your webcam.
+1. Open the [RGB Applet V3](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-3.html){target="_blank"}. 
+2. Find the completely white card (card #1) in your deck. Hold it 1 to 2 inches in front of your webcam. 
+3. Click the "Calibrate (point at white)" button to calibrate your camera.
+4. Find card #2 in your deck. Hold it in the same orientation and distance from your webcam as card #1.
+5. Click the "Compute Nitrate" button.
+6. Record the value displayed for your handout. 
+7. Repeat this process for all other numbered cards in your deck.  Make sure you hold each card the same distance away from your webcam.
 
 Read water quality test data like a computer!
 :::
