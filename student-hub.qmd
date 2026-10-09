@@ -1,0 +1,26 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+```{=html}
+{{< include _navbar.html >}}
+
+<!-- ── Student Hub ────────────────────────────────────────── -->
+<div class="auth-page">
+  <div class="auth-card" style="max-width:600px;">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2 id="studentWelcome">Welcome</h2>
+    <p class="auth-subtitle" id="studentGroup">You are now logged in. Explore the modules and activities available to you.</p>
+    <a href="modules.html" class="auth-btn" style="text-align:center; text-decoration:none; display:block;">Explore Modules</a>
+  </div>
+</div>
+
+<script src="js/students.js"></script>
+```

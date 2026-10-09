@@ -1,0 +1,58 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+```{=html}
+<!-- Navbar -->
+{{< include _navbar.html >}}
+
+<!-- Page content -->
+<div style="min-height:100vh; background:linear-gradient(135deg, #00746F 0%, #006C93 100%); display:flex; align-items:center; justify-content:center; padding:2rem;">
+  <div style="background:#fff; border-radius:20px; padding:3rem 2.5rem; max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); text-align:center;">
+
+    <img src="assets/logo.png" alt="AAIC Logo" style="height:60px; margin-bottom:1.5rem;">
+
+    <h2 style="color:#006C93; font-size:1.8rem; margin:0 0 1rem 0; font-weight:700;">Welcome, Guest</h2>
+
+    <p style="color:#58595B; font-size:1.05rem; line-height:1.7; margin:0 0 2rem 0;">
+      Feel free to explore our modules, but please note that your progress will not be saved.
+    </p>
+
+    <a href="modules.html" style="display:inline-block; padding:1rem 2.5rem; background:linear-gradient(135deg, #00746F 0%, #006C93 100%); color:#fff; border:none; border-radius:50px; font-size:1.1rem; font-weight:600; text-decoration:none; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,108,147,0.3);"
+      onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,108,147,0.4)';"
+      onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,108,147,0.3)';">
+      Explore Modules
+    </a>
+
+  </div>
+</div>
+
+<script>
+// If not a guest and not logged in, redirect to role selection
+(function() {
+  var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
+  if (!isGuest) {
+    // Check if user is logged in via Supabase
+    function checkAuth() {
+      if (typeof _supabase === 'undefined' || !_supabase) {
+        setTimeout(checkAuth, 200);
+        return;
+      }
+      _supabase.auth.getSession().then(function(result) {
+        if (!result.data.session) {
+          window.location.href = 'choose-role.html';
+        }
+      });
+    }
+    checkAuth();
+  }
+})();
+</script>
+```

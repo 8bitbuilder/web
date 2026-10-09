@@ -4,7 +4,7 @@
   --tennessee-orange: #FF8200;
   --smokey: #58595B;
   --white: #FFFFFF;
-  
+
   /* Accent Colors */
   --valley: #00746F;
   --torch: #E05933;
@@ -14,7 +14,7 @@
   --river: #517C96;
   --leconte: #8D2048;
   --rock: #A7A9AC;
-  
+
   --summit: #B9E1E2;
   --legacy: #579594;
   --buckskin: #705550;
@@ -41,7 +41,9 @@ body {
   background-color: var(--white);
 }
 
-/* Custom Navbar */
+/* ══════════════════════════════════════════════════════════
+   CUSTOM NAVBAR
+   ══════════════════════════════════════════════════════════ */
 .custom-navbar {
   background-color: var(--white);
   padding: 1rem 2rem;
@@ -110,31 +112,179 @@ body {
   padding: 0;
 }
 
-/* Mobile styles */
+/* ══════════════════════════════════════════════════════════
+   NAVBAR AUTH PILL BUTTON
+   Class names match _navbar.html exactly:
+     .nav-auth-wrapper  →  outer positioning wrapper
+     .nav-auth-btn      →  the pill button itself
+     .nav-auth-avatar   →  profile image inside the pill
+     .nav-auth-label    →  "Log In" or username text
+     .nav-auth-chevron  →  ▾ arrow
+     .nav-auth-dropdown →  the dropdown menu
+   ══════════════════════════════════════════════════════════ */
+.nav-auth-wrapper {
+  position: relative;
+  margin-left: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ── The Pill Button ─────────────────────────────────────── */
+.nav-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
+  border-radius: 50px;
+  border: 2px solid var(--globe);
+  background: var(--white);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--globe);
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.nav-auth-btn:hover {
+  background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
+  border-color: var(--globe);
+  color: var(--white);
+  box-shadow: 0 0 12px rgba(0, 108, 147, 0.45);
+}
+
+.nav-auth-btn:hover .nav-auth-label,
+.nav-auth-btn:hover .nav-auth-chevron {
+  color: var(--white) !important;
+}
+
+.nav-auth-btn:hover .nav-auth-avatar {
+  border-color: var(--white);
+}
+
+/* ── Logged-in variant ───────────────────────────────────── */
+.nav-auth-btn.logged-in {
+  border-color: var(--valley);
+  color: var(--valley);
+}
+
+.nav-auth-btn.logged-in:hover {
+  background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
+  border-color: var(--valley);
+  color: var(--white);
+  box-shadow: 0 0 12px rgba(0, 116, 111, 0.45);
+}
+
+.nav-auth-btn.logged-in .nav-auth-avatar {
+  border-color: var(--valley);
+}
+
+.nav-auth-btn.logged-in:hover .nav-auth-avatar {
+  border-color: var(--white);
+}
+
+/* ── Avatar ──────────────────────────────────────────────── */
+.nav-auth-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--globe);
+  object-fit: cover;
+  transition: border-color 0.25s ease;
+}
+
+/* ── Label text ──────────────────────────────────────────── */
+.nav-auth-label {
+  color: var(--globe);
+  transition: color 0.25s ease;
+}
+
+.nav-auth-btn.logged-in .nav-auth-label {
+  color: var(--valley);
+}
+
+/* ── Chevron arrow ───────────────────────────────────────── */
+.nav-auth-chevron {
+  font-size: 0.7rem;
+  color: var(--globe);
+  transition: transform 0.25s ease, color 0.25s ease;
+  line-height: 1;
+}
+
+.nav-auth-chevron.open {
+  transform: rotate(180deg);
+}
+
+.nav-auth-btn.logged-in .nav-auth-chevron {
+  color: var(--valley);
+}
+
+/* ── Dropdown Menu ───────────────────────────────────────── */
+.nav-auth-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.nav-auth-dropdown.show {
+  display: block;
+}
+
+.nav-auth-dropdown a {
+  display: block;
+  padding: 0.7rem 1.25rem;
+  color: var(--smokey);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.nav-auth-dropdown a:hover {
+  background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
+  color: var(--white) !important;
+}
+
+/* ── Hidden utility ──────────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE NAVBAR
+   ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .navbar-toggle {
     display: block;
     z-index: 10;
     flex-shrink: 0;
   }
-  
+
   .navbar-brand {
     flex: 1;
     max-width: calc(100% - 60px);
     overflow: hidden;
   }
-  
+
   .navbar-logo {
     height: 16px;
   }
-  
+
   .navbar-brand h1 {
     font-size: 1.1rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
   .navbar-links {
     display: none;
     position: absolute;
@@ -147,22 +297,37 @@ body {
     text-align: center;
     z-index: 9;
   }
-  
+
   .navbar-links.show {
     display: flex;
   }
-  
+
   .navbar-links a {
     display: block;
     margin: 1rem 0;
   }
-  
+
   .custom-navbar {
     position: relative;
   }
+
+  /* Auth pill on mobile */
+  .nav-auth-wrapper {
+    margin-left: 0.5rem;
+  }
+
+  .nav-auth-label {
+    display: none;
+  }
+
+  .nav-auth-btn {
+    padding: 0.4rem 0.6rem;
+  }
 }
 
-/* Hero Section */
+/* ══════════════════════════════════════════════════════════
+   HERO SECTION
+   ══════════════════════════════════════════════════════════ */
 .hero {
   background: linear-gradient(135deg, var(--valley) 0%, var(--globe) 100%);
   color: var(--white);
@@ -245,7 +410,9 @@ body {
   color: var(--white);
 }
 
-/* Logo Section */
+/* ══════════════════════════════════════════════════════════
+   LOGO SECTION
+   ══════════════════════════════════════════════════════════ */
 .logo-section {
   padding: 4rem 2rem;
   text-align: center;
@@ -294,17 +461,19 @@ body {
     align-items: center;
     width: 100%;
   }
-  
+
   .partner-logo-tpte,
   .partner-logo-aitn,
   .partner-logo-eecs {
     margin: 2rem 0;
-    width: 100%;  /* Force full width */
-    max-width: 300px;  /* Reasonable size on mobile */
+    width: 100%;
+    max-width: 300px;
   }
 }
 
-/* Footer */
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════ */
 .footer {
   background-color: var(--smokey);
   color: var(--limestone);
@@ -335,46 +504,49 @@ body {
   margin-bottom: 0.2rem;
 }
 
-/* Responsive: stack on mobile */
 @media (max-width: 768px) {
   .footer-columns {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .footer-right {
     text-align: left;
   }
 }
 
-/* Responsive Design */
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .hero {
     padding: 3rem 1.5rem;
   }
-  
+
   .hero h2 {
     font-size: 2rem;
   }
-  
+
   .hero p {
     font-size: 1.1rem;
   }
-  
+
   .hero-image {
     max-width: 300px;
   }
-  
+
   .modules-section h2 {
     font-size: 2rem;
   }
-  
+
   .module-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Modules Page Styles */
+/* ══════════════════════════════════════════════════════════
+   MODULES PAGE
+   ══════════════════════════════════════════════════════════ */
 .modules-intro {
   font-size: 1.25rem;
   text-align: center;
@@ -474,11 +646,11 @@ body {
 }
 
 .facilitator {
-    color: #006C93;
-  
-  &:hover {
-    color: #E65933;
-  }
+  color: #006C93;
+}
+
+.facilitator:hover {
+  color: #E65933;
 }
 
 .coming-soon {
@@ -496,7 +668,9 @@ body {
   padding: 0;
 }
 
-/* Contact Page Styles */
+/* ══════════════════════════════════════════════════════════
+   CONTACT PAGE
+   ══════════════════════════════════════════════════════════ */
 .contact-section {
   padding: 4rem 2rem;
   background-color: var(--white);
@@ -531,7 +705,9 @@ body {
   font-size: 1.2rem;
 }
 
-/* Lesson Outline Styles */
+/* ══════════════════════════════════════════════════════════
+   LESSON OUTLINE
+   ══════════════════════════════════════════════════════════ */
 .lesson-outline-section {
   padding: 4rem 2rem;
   background-color: var(--white);
@@ -546,7 +722,7 @@ body {
   background: var(--white);
   border-left: 5px solid var(--valley);
   padding: 1rem 2rem;
-  margin-bottom: 1.5rem; 
+  margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -586,4 +762,61 @@ body {
 
 .lesson-item.coming-soon h3 {
   color: var(--smokey);
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONTRIBUTORS / TEAM PAGE
+   ══════════════════════════════════════════════════════════ */
+.contributors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+.contributor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+}
+
+.contributor-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.contributor-image {
+  width: clamp(110px, 18vw, 220px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  display: block;
+}
+
+.contributor-name {
+  margin-top: 0.6rem;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+  display: block;
+}
+
+.contributor-affiliation {
+  margin-top: 1.0rem;
+  font-weight: 400;
+  color: #000;
+  text-align: center;
+  display: block;
+}
+
+.contributor-link:hover .contributor-image {
+  transform: translateY(-4px) scale(1.02);
+  transition: transform 180ms ease;
 }
