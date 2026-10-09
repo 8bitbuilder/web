@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appalachian A.I. Corps</title>
+<title>login-teacher – Appalachian A.I. Corps</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -243,66 +243,73 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
+<!-- ── Page content ───────────────────────────────────────── -->
+<div class="auth-page">
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Teacher Log In</h2>
+    <p class="auth-subtitle">Sign in to manage your classroom</p>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+    <form id="teacherLoginForm" onsubmit="return false;">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required="">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" required="">
+      <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
+    </form>
+    <div class="auth-links">
+      <a href="reset-password.html">Forgot your password?</a>
+    </div>
+    <div class="auth-links">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+</div>
 
+
+<script>
+document.getElementById('teacherLoginForm').addEventListener('submit', async () => {
+  const btn = document.getElementById('loginBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+  errorMsg.style.display = 'none';
+
+  try {
+    const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+
+    // Verify this is a teacher account
+    const { data: profile, error: profileErr } = await _supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', data.user.id)
+      .single();
+
+    if (profileErr) throw profileErr;
+    if (profile.role !== 'teacher') {
+      await _supabase.auth.signOut();
+      throw new Error('This login page is for teachers only.');
+    }
+
+    window.location.href = 'dashboard.html';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Log In';
+  }
+});
+</script>
 <script>
 function toggleMenu() {
   document.getElementById('navbarLinks').classList.toggle('show');
 }
-</script>
-<div class="hero">
-<div class="hero-content">
-<p><img src="assets/logo_white.png" class="hero-image img-fluid" alt="Appalachian A.I. Corps logo"></p>
-<h2 id="empowering-appalachia-through-artificial-intelligence">Empowering Appalachia Through Artificial&nbsp;Intelligence</h2>
-<p>The Appalachian A.I. Corps is an initiative dedicated to empowering Appalachian communities to harness artificial intelligence technologies to support their region, communities, and families.</p>
-<p>We believe that the power of AI should be accessible to all. Through education, collaboration, and practical application, we’re building a future where Appalachian communities lead in the intelligent use of technology.</p>
-<p><a href="choose-role.html" class="btn">Explore Our Modules</a></p>
-</div>
-</div>
-<div class="logo-section">
-<div class="logo-grid">
-<p><img src="assets/tpte_logo.png" class="partner-logo-tpte img-fluid" alt="University of Tennessee, Knoxville: Department of Theory &amp; Practice in Teacher Education logo"> <img src="assets/aitn_logo.png" class="partner-logo-aitn img-fluid" alt="AI Tennessee logo"> <img src="assets/eecs_logo.jpg" class="partner-logo-eecs img-fluid" alt="University of Tennessee, Knoxville: Min H. Kao Department of Electrical Engineering &amp; Computer Science logo"></p>
-</div>
-</div>
-<div class="footer">
-<div class="footer-columns">
-<div class="footer-left">
-<p><img src="assets/logo_white.png" class="footer-logo img-fluid" alt="AAIC logo"></p>
-<p><strong>Appalachian A.I. Corps</strong><br>
-Empowering Appalachia Through Artificial Intelligence</p>
-</div>
-<div class="footer-right">
-<p>Department of Theory &amp; Practice in Teacher Education<br>
-Min H. Kao Department of Electrical Engineering &amp; Computer Science<br>
-<strong>University of Tennessee, Knoxville</strong><br>
-Knoxville, TN</p>
-</div>
-</div>
-</div>
-<script>
-// If user is already logged in or in guest mode, make the button go directly to modules
-document.addEventListener('DOMContentLoaded', function() {
-  var isGuest = sessionStorage.getItem('guestMode') === 'true';
-  if (isGuest) {
-    var btn = document.querySelector('a.btn[href="choose-role.html"]');
-    if (btn) btn.href = 'modules.html';
-    return;
-  }
-
-  // Check Supabase session
-  function checkAndUpdateBtn() {
-    if (typeof _supabase === 'undefined' || !_supabase) {
-      setTimeout(checkAndUpdateBtn, 200);
-      return;
-    }
-    _supabase.auth.getSession().then(function(result) {
-      if (result.data.session) {
-        var btn = document.querySelector('a.btn[href="choose-role.html"]');
-        if (btn) btn.href = 'modules.html';
-      }
-    });
-  }
-  checkAndUpdateBtn();
-});
 </script>
 
 

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>contact – Appalachian A.I. Corps</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -30,14 +33,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-435ba6093e6f0817aa7405139811e7b1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet">  
 
 
 <link rel="stylesheet" href="styles-main.css">
+<link rel="stylesheet" href="styles-auth.css">
 </head>
 
 <body>
@@ -46,20 +50,198 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
-<div class="navbar-brand">
-<a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-<h1>
-Appalachian A.I. Corps
-</h1>
+  <div class="navbar-brand">
+    <a href="./"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <h1>Appalachian A.I. Corps</h1>
+  </div>
+  <button class="navbar-toggle" id="navToggleBtn">☰</button>
+  <nav class="navbar-links" id="navbarLinks">
+    <a href="./">Home</a> | <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a><span id="navModulesSep" style="display:none;"> | </span><a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav-auth-wrapper">
+
+    <!-- Logged-out state -->
+    <div id="authDropdownLoggedOut">
+      <div class="nav-auth-btn" id="authBtnOut">
+        <img src="assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
+        <span class="nav-auth-label">Log In</span>
+        <span class="nav-auth-chevron" id="chevronOut">▾</span>
+      </div>
+      <div class="nav-auth-dropdown" id="dropdownMenuOut">
+        <a href="login-student.html">Student</a>
+        <a href="login-teacher.html">Teacher</a>
+        <a href="#" id="navGuestLoginLink">Guest</a>
+      </div>
+    </div>
+
+    <!-- Logged-in state (hidden by default) -->
+    <div id="authDropdownLoggedIn" class="hidden">
+      <div class="nav-auth-btn logged-in" id="authBtnIn">
+        <img src="assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
+        <span class="nav-auth-label" id="navUsername">Username</span>
+        <span class="nav-auth-chevron" id="chevronIn">▾</span>
+      </div>
+      <div class="nav-auth-dropdown" id="dropdownMenuIn">
+        <a href="dashboard.html" id="navDashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="#" id="navLogOutLink">Log Out</a>
+      </div>
+    </div>
+
+  </div>
 </div>
-<button class="navbar-toggle" onclick="toggleMenu()">
-☰
-</button>
-<nav class="navbar-links" id="navbarLinks">
-<a href=".">Home</a> | <a href="modules">Modules</a> | <a href="contact">Contact</a>
-</nav>
-</div>
+
+<!-- ── Dropdown toggle script (no dependencies) ──────────── -->
+<script>
+(function() {
+  // Hamburger menu toggle
+  var navToggle = document.getElementById('navToggleBtn');
+  if (navToggle) {
+    navToggle.addEventListener('click', function() {
+      document.getElementById('navbarLinks').classList.toggle('show');
+    });
+  }
+
+  // Logged-out dropdown
+  var authBtnOut = document.getElementById('authBtnOut');
+  var dropdownMenuOut = document.getElementById('dropdownMenuOut');
+  var chevronOut = document.getElementById('chevronOut');
+
+  if (authBtnOut) {
+    authBtnOut.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (dropdownMenuIn) dropdownMenuIn.classList.remove('show');
+      if (chevronIn) chevronIn.classList.remove('open');
+      dropdownMenuOut.classList.toggle('show');
+      chevronOut.classList.toggle('open');
+    });
+  }
+
+  // Logged-in dropdown
+  var authBtnIn = document.getElementById('authBtnIn');
+  var dropdownMenuIn = document.getElementById('dropdownMenuIn');
+  var chevronIn = document.getElementById('chevronIn');
+
+  if (authBtnIn) {
+    authBtnIn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (dropdownMenuOut) dropdownMenuOut.classList.remove('show');
+      if (chevronOut) chevronOut.classList.remove('open');
+      dropdownMenuIn.classList.toggle('show');
+      chevronIn.classList.toggle('open');
+    });
+  }
+
+  // Close all dropdowns when clicking anywhere else
+  document.addEventListener('click', function() {
+    if (dropdownMenuOut) dropdownMenuOut.classList.remove('show');
+    if (chevronOut) chevronOut.classList.remove('open');
+    if (dropdownMenuIn) dropdownMenuIn.classList.remove('show');
+    if (chevronIn) chevronIn.classList.remove('open');
+  });
+
+  // Guest login from navbar dropdown
+  var navGuestLink = document.getElementById('navGuestLoginLink');
+  if (navGuestLink) {
+    navGuestLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      sessionStorage.setItem('aaic_guest', 'true');
+      window.location.href = 'guest-hub.html';
+    });
+  }
+
+  // Log Out handler (works for both Supabase users and guests)
+  var logOutLink = document.getElementById('navLogOutLink');
+  if (logOutLink) {
+    logOutLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Clear guest flag
+      sessionStorage.removeItem('aaic_guest');
+      // Sign out of Supabase if available
+      if (typeof _supabase !== 'undefined' && _supabase) {
+        _supabase.auth.signOut().then(function() {
+          window.location.href = '/';
+        });
+      } else {
+        window.location.href = '/';
+      }
+    });
+  }
+})();
+</script>
+
+<!-- ── Supabase + Auth (loads after dropdown is already working) ── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+
+<!-- ── Auth state check (handles Supabase users AND guests) ────── -->
+<script>
+(function() {
+  function showModulesLink() {
+    var modulesLink = document.getElementById('navModulesLink');
+    var modulesSep = document.getElementById('navModulesSep');
+    if (modulesLink) modulesLink.style.display = '';
+    if (modulesSep) modulesSep.style.display = '';
+  }
+
+  function switchToLoggedIn(displayName, isTeacher) {
+    var loggedOutEl = document.getElementById('authDropdownLoggedOut');
+    var loggedInEl = document.getElementById('authDropdownLoggedIn');
+    var navUsername = document.getElementById('navUsername');
+    var navDashboardLink = document.getElementById('navDashboardLink');
+
+    if (loggedOutEl) loggedOutEl.classList.add('hidden');
+    if (loggedInEl) loggedInEl.classList.remove('hidden');
+    if (navUsername) navUsername.textContent = displayName;
+    if (navDashboardLink) {
+      navDashboardLink.style.display = isTeacher ? 'block' : 'none';
+    }
+    showModulesLink();
+  }
+
+  function checkAuthState() {
+    // 1. Check guest mode FIRST (no Supabase needed)
+    var isGuest = sessionStorage.getItem('aaic_guest') === 'true';
+    if (isGuest) {
+      switchToLoggedIn('Guest', false);
+      return; // Done — no need to check Supabase
+    }
+
+    // 2. Check Supabase auth (wait until it's ready)
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      setTimeout(checkAuthState, 200);
+      return;
+    }
+
+    _supabase.auth.getSession().then(function(result) {
+      var session = result.data.session;
+
+      if (session && session.user) {
+        _supabase
+          .from('profiles')
+          .select('username, role')
+          .eq('id', session.user.id)
+          .single()
+          .then(function(profileResult) {
+            var profile = profileResult.data;
+            if (profile) {
+              switchToLoggedIn(profile.username, profile.role === 'teacher');
+            }
+          });
+      }
+      // If no session and not guest, stay in logged-out state (default)
+    });
+  }
+
+  // Run the check
+  checkAuthState();
+  document.addEventListener('DOMContentLoaded', checkAuthState);
+})();
+</script>
+
+
 <script>
 function toggleMenu() {
   const nav = document.getElementById('navbarLinks');
@@ -146,13 +328,14 @@ Knoxville, TN</p>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,41 +2,44 @@
 title: ""
 format:
   html:
-    css: styles-main.css
+    css:
+      - styles-main.css
+      - styles-auth.css
     toc: false
     theme: none
 ---
-::: {.custom-navbar}
-<div class="navbar-brand">
-  <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-  <h1>Appalachian A.I. Corps</h1>
-</div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact)
-</nav>
-:::
+
+```{=html}
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+{{< include _navbar.html >}}
+
 
 <script>
 function toggleMenu() {
-  const nav = document.getElementById('navbarLinks');
-  nav.classList.toggle('show');
+  document.getElementById('navbarLinks').classList.toggle('show');
 }
 </script>
+```
+
 
 ::: {.hero}
 ::: {.hero-content}
 ![](assets/logo_white.png){.hero-image fig-alt="Appalachian A.I. Corps logo"}
 
+
 ## Empowering Appalachia Through Artificial&nbsp;Intelligence
+
 
 The Appalachian A.I. Corps is an initiative dedicated to empowering Appalachian communities to harness artificial intelligence technologies to support their region, communities, and families.
 
+
 We believe that the power of AI should be accessible to all. Through education, collaboration, and practical application, we're building a future where Appalachian communities lead in the intelligent use of technology.
 
-[Explore Our Modules](modules){.btn}
+
+[Explore Our Modules](choose-role.html){.btn}
 :::
 :::
+
 
 ::: {.logo-section}
 ::: {.logo-grid}
@@ -46,14 +49,17 @@ We believe that the power of AI should be accessible to all. Through education, 
 :::
 :::
 
+
 ::: {.footer}
 ::: {.footer-columns}
 ::: {.footer-left}
 ![](assets/logo_white.png){.footer-logo fig-alt="AAIC logo"}
 
+
 **Appalachian A.I. Corps**  
 Empowering Appalachia Through Artificial Intelligence
 :::
+
 
 ::: {.footer-right}
 Department of Theory & Practice in Teacher Education  
@@ -63,3 +69,30 @@ Knoxville, TN
 :::
 :::
 :::
+
+<script>
+// If user is already logged in or in guest mode, make the button go directly to modules
+document.addEventListener('DOMContentLoaded', function() {
+  var isGuest = sessionStorage.getItem('guestMode') === 'true';
+  if (isGuest) {
+    var btn = document.querySelector('a.btn[href="choose-role.html"]');
+    if (btn) btn.href = 'modules.html';
+    return;
+  }
+
+  // Check Supabase session
+  function checkAndUpdateBtn() {
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      setTimeout(checkAndUpdateBtn, 200);
+      return;
+    }
+    _supabase.auth.getSession().then(function(result) {
+      if (result.data.session) {
+        var btn = document.querySelector('a.btn[href="choose-role.html"]');
+        if (btn) btn.href = 'modules.html';
+      }
+    });
+  }
+  checkAndUpdateBtn();
+});
+</script>
