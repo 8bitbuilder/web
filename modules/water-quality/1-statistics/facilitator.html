@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Facilitator’s Guide: Water Quality and Summary Statistics – Appalachian A.I. Corps</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-b2578795c39d7631e097a8c98b3237d4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../assets/logo.png" alt="Appalachian A.I. Corps logo." class="navbar-logo light-content">
+    <img src="../../../assets/logo.png" alt="Appalachian A.I. Corps logo." class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Appalachian A.I. Corps</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../modules"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../contact"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../team"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Facilitator’s Guide:<br>Water Quality and Summary Statistics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lesson-topics-and-standards" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-topics-and-standards">Lesson Topics and Standards</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><strong>Topics Covered:</strong>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Water quality
+<ul>
+<li>Nitrates<br>
+</li>
+<li>Nitrites<br>
+</li>
+</ul></li>
+<li>Introduction to Python programming</li>
+<li>Summary statistics:
+<ul>
+<li>Measures of center:
+<ul>
+<li>Mean<br>
+</li>
+<li>Median<br>
+</li>
+</ul></li>
+<li>Measures of spread:
+<ul>
+<li>Standard deviation<br>
+</li>
+<li>Range<br>
+</li>
+</ul></li>
+<li>Outliers<br>
+</li>
+</ul></li>
+<li>Data visualization:
+<ul>
+<li>Boxplots</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><strong>TN Standards Addressed:</strong>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><em>BIO1.LS2.1/ECO.LS2.13/EVSC.LS2.3:</em> Use mathematical and/or computational representations to support explanations of factors that affect the carrying capacity of ecosystems at different scales.<br>
+</li>
+<li><em>SCRE.ETS2.3:</em> Identify the most appropriate scientific instruments and/or computer programs for different experiments and research, and learn to use, care for, and maintain them, gather data, and analyze results.<br>
+</li>
+<li><em>PSCI.PS1.7:</em> Develop, or use, a model to predict or explain a phenomenon by using appropriate indicators.<br>
+</li>
+<li><em>SCRE.ETS3:</em> Applications of Science: Select and use appropriate data tables, graphs, and diagrams to represent data. Use mathematics and computational thinking to look for patterns in data.</li>
+<li><em>SCRE.ETS3:</em> Applications of Science: Select and use appropriate statistical procedures (descriptive statistics, t-tests, regression and correlation, chi-square, etc.) to analyze data.<br>
+</li>
+<li><em>A1.S.ID.A.1:</em> Use measures of center to solve real-world and mathematical problems.<br>
+</li>
+<li><em>A1.S.ID.A.3:</em> Interpret differences in shape, center, and spread in the context of the data sets, accounting for possible effects of extreme data points.<br>
+</li>
+<li><em>AGSCIENCE 3.3:</em> Biodiversity: Evaluate the impact of habitat fragmentation, destruction, and other environmental pressures, such as invasive species, overharvesting, pollution, and climate change on local and global biodiversity (genetic, species, and ecosystems.) Distinguish between types of pollution (point and nonpoint sources) and their sources to predict the effects on environmental conditions (e.g., water, soil, and air), animal populations, and plant populations from various kinds of human activity.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="lesson-overview-video-tour" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-overview-video-tour">Lesson Overview Video Tour</h2>
+<video width="80%" controls="">
+  <source src="facilitator-video-overview.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<p><br> If you would like a more in-depth overview of the lesson, please consult the <a href="https://appalachianaicorps.org/modules/water-quality/1-statistics/facilitator_notes.html" target="_blank" rel="noopener noreferrer">slides with visible facilitator notes</a>.</p>
+</section>
+<section id="slide-deck-for-lesson" class="level2">
+<h2 class="anchored" data-anchor-id="slide-deck-for-lesson">Slide Deck for Lesson</h2>
+<p><a href="https://appalachianaicorps.org/modules/water-quality/1-statistics/slides.html" target="_blank" rel="nofollow noopener noreferrer">Workshop #1 Slides</a></p>
+</section>
+<section id="student-handout" class="level2">
+<h2 class="anchored" data-anchor-id="student-handout">Student Handout</h2>
+<p>You can make a copy of the <a href="https://docs.google.com/document/d/1Oc6QdS_XJ--WyFC83-kmh5iWaKRTFvEh3kUxyyw8ylA/copy">student handout for this lesson</a>.</p>
+<p><br></p>
+<p>If you would like to provide students a copy of the slides with spaces for note taking, we have prepared a <a href="https://appalachianaicorps.org/modules/water-quality/1-statistics/student_handout.pdf" target="_blank" rel="noopener noreferrer">handout for this purpose</a>.</p>
+</section>
+<section id="lesson-prep" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-prep">Lesson Prep</h2>
+<section id="prepare-materials-for-nitrates-lab" class="level4">
+<h4 class="anchored">1. Prepare Materials for Nitrates Lab</h4>
+<p>We suggest creating water samples the for nitrates lab the day before. This will allow the nitrates to fully dissolve in the water.</p>
+<p><strong>Materials needed:</strong></p>
+<ul>
+<li>Miracle-Gro Fertilizer Liquid<br>
+</li>
+<li>Dropper/Pipette<br>
+</li>
+<li>Small cups for student use (to hold samples for testing)<br>
+</li>
+<li>Small sticky notes (we use the 1.875” stickies) grouped into sets of 1 red, 1 green, 1 blue, 1 yellow, etc.
+<ul>
+<li>Each group will be assigned a color (red, green, blue, yellow, etc.), so the number of stickies in a set will be dictated by the number of groups.<br>
+</li>
+<li>Each group will need one multi-colored sticky set per water sample.<br>
+</li>
+</ul></li>
+<li>1 Sharpie/Poster marker per group<br>
+</li>
+<li>Nitrate/Nitrate test strips<br>
+</li>
+<li>Masking tape/ sharpies to label cups/samples</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Nitrate Sample Creation Guide
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<section id="mixing-guide" class="level3 callout-body-container callout-body">
+<h3 class="anchored" data-anchor-id="mixing-guide">Mixing Guide</h3>
+<p><em>This plan is written to provide samples for 5 groups with 4 samples each.</em></p>
+<p>For 5 groups × 4 samples = 20 total samples<br>
+Fill each cup with 1 cup (8 oz) water, then add liquid fertilizer drops with dropper/pipette:</p>
+<p><strong>Normal/Low Range (8 samples) - 0-5 ppm</strong><br>
+4 samples: Plain water (0 drops)<br>
+4 samples: 1-2 drops per cup</p>
+<p><strong>Moderate Range (6 samples) - 8-12 ppm</strong><br>
+6 samples: 4-6 drops per cup</p>
+<p><strong>Medium-High Range (3 samples) - 15-20 ppm</strong><br>
+3 samples: 8-10 drops per cup</p>
+<p><strong>Extreme Outliers (3 samples) - 35-50 ppm</strong><br>
+2 samples: 20-25 drops per cup (~35-40 ppm)<br>
+1 sample: 30+ drops per cup (50 ppm, maxes out strip)</p>
+</section>
+</div>
+</div>
+</section>
+<section id="prepare-materials-for-boxplot-activity" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-materials-for-boxplot-activity">2. Prepare Materials for Boxplot Activity</h4>
+<p><strong>Materials needed:</strong></p>
+<ul>
+<li>1 Post-It Gridded Sticky Page/Group
+<ul>
+<li>We pre-drew the axis on the page due to time limitations<br>
+</li>
+</ul></li>
+<li>1 poster marker per group</li>
+</ul>
+</section>
+<section id="make-copies-1-handout-per-student" class="level4">
+<h4 class="anchored" data-anchor-id="make-copies-1-handout-per-student">3. Make Copies: 1 Handout Per Student</h4>
+<ul>
+<li>You will need to make 1 copy per student of the <a href="https://docs.google.com/document/d/1Oc6QdS_XJ--WyFC83-kmh5iWaKRTFvEh3kUxyyw8ylA/copy">workshop handout</a>. If color-copying is not possible, make sure to have a reference of the color key for the nitrate/nitrite test strips available for each group. Note that the keys vary depending on the brand of test strips you purchase, so you may need to modify the handout to match the specific test strips you are using. Also, the colors are sensitive to lighting and printer setup, so if may be preferrable to have several bottles available for comparison to the orginal key on the bottle itself.</li>
+</ul>
+</section>
+<section id="create-and-share-link-for-nitrates-lab-data-collection" class="level4">
+<h4 class="anchored" data-anchor-id="create-and-share-link-for-nitrates-lab-data-collection">4. Create and Share Link for Nitrates Lab Data Collection</h4>
+<ul>
+<li>Make sure you are logged into your school Google Account</li>
+<li>Use <a href="https://docs.google.com/forms/d/1xfxu1m-vVqFbG0K70ndde9DHtzwFCPIeKQsYvaR5IyQ/copy" rel="noopener noreferrer">this link</a> to make a copy of the Nitrate/Nitrite Lab Google Form</li>
+<li>Open your copy of the Nitrate/Nitrite Lab Google Form. Publish the form. Double check the sharing settings to make sure all of your students can respond.<br>
+<img src="images/check-sharing-settings-google-form.png" class="img-fluid" style="width:50.0%"></li>
+<li>While on the sharing settings, copy the respondent link and be prepared to share this link with your students, probably via email or your LMS. Close the sharing settings.</li>
+<li>On the “Responses” tab, click “Link to Sheet” &gt; “Create a New Sheet” to aggregate all of the student responses into one spreadsheet.</li>
+<li>Open the spreadsheet it generates (it may automatically open) and go to “File” &gt; “Share” &gt; “Publish to web” and use the following options:<br>
+<img src="images/publish-to-web-options-for-google-form.png" class="img-fluid" style="width:50.0%"></li>
+<li>When you click <strong>publish</strong>, it will give you a link. Please be prepared to share this link with your students during the second half of class… perhaps via email or via LMS. They will need to copy/paste it to access the data. You can set this up well in advance of class.<br>
+</li>
+<li><em>Note: If you are facilitating this module for more than one class, you will want to repeat this process once for each class, so that each class has their own submission form and spreadsheet.</em></li>
+<li>This can be done well in advance, just make sure to keep the form link <strong>(respondent link)</strong> and spreadsheet link <strong>(publish to web link)</strong> for each class ready to disseminate.</li>
+</ul>
+</section>
+<section id="create-group-tents-using-colored-paper-that-matches-the-sticky-notes." class="level4">
+<h4 class="anchored" data-anchor-id="create-group-tents-using-colored-paper-that-matches-the-sticky-notes.">5. Create group tents using colored paper that matches the sticky notes.</h4>
+</section>
+<section id="create-copy-of-exit-ticket-for-end-of-lesson-implementation." class="level4">
+<h4 class="anchored" data-anchor-id="create-copy-of-exit-ticket-for-end-of-lesson-implementation.">6. Create copy of exit ticket for end-of-lesson implementation.</h4>
+<ul>
+<li>We have drafted a three-question exit ticket that aligns with the three major content areas of this lesson (Water Quality, Python, and Statistics). We are providing the <a href="https://docs.google.com/forms/d/1ElNPJxW6w3OTOAUHia8L1RF_q2yqebzvwnI18XVjj5Y/copy">Google Form here</a> if you would like to use it or modify it for your own needs.</li>
+</ul>
+</section>
+<section id="create-copy-of-the-exercise-for-after-lesson-practice." class="level4">
+<h4 class="anchored" data-anchor-id="create-copy-of-the-exercise-for-after-lesson-practice.">7. Create copy of the exercise for after-lesson practice.</h4>
+<ul>
+<li>We have also created a Google Colab exercise that you can use with students to practice the concepts covered in this lesson. It is available <a href="https://colab.research.google.com/drive/1xm5qwxA6ZCm3BxuTKFL6n1ItlWgR84jM?usp=sharing">here</a>.</li>
+</ul>
+</section>
+</section>
+<section id="lesson-overview-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-overview-takeaways">Lesson Overview &amp; Takeaways</h2>
+<p>By the end of the lesson, students will be able to:</p>
+<ul>
+<li>Write and run a basic python script that includes:
+<ul>
+<li>strings<br>
+</li>
+<li>mathematical operators<br>
+</li>
+<li>statistics functions<br>
+</li>
+<li>print statements<br>
+</li>
+<li>lists<br>
+</li>
+</ul></li>
+<li>Explain, at a high level, the role of nitrogen in water quality evaluations<br>
+</li>
+<li>Carry out procedures to collect and interpret data concerning nitrate and nirite concentrations from a water quality test<br>
+</li>
+<li>Construct boxplots, manually and computationally, to visualize water quality data</li>
+</ul>
+</section>
+<section id="reference-materials" class="level2">
+<h2 class="anchored" data-anchor-id="reference-materials">Reference Materials</h2>
+<p>Whole-Class Video Links:<br>
+- <a href="https://edpuzzle.com/embed/media/695b558ffb53770c2e4fa1bd" rel="noopener noreferrer">Water Quality</a><br>
+- <a href="https://edpuzzle.com/embed/media/695c86636c7ddd288faebc26" rel="noopener noreferrer">Nitrogen Cycle</a><br>
+- <a href="https://edpuzzle.com/embed/media/695c8e7d1b8b4b96f64b0e80" rel="noopener noreferrer">Nitrogen as Polutant</a><br>
+- <a href="https://youtu.be/Ge9je05uYJ0?si=FspiImxmEBP8xHuN" rel="noopener noreferrer">What is Statistics?</a><br>
+- <a href="https://youtu.be/01WLS9X3FhY?si=0InxJE5vzH78qau3" rel="noopener noreferrer">Mean, Median &amp; Mode</a></p>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../modules/water-quality/1-statistics";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

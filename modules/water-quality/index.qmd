@@ -8,16 +8,9 @@ format:
     anchor-sections: false
 ---
 
-::: {.custom-navbar}
-<div class="navbar-brand">
-  <a href="../../"><img src="../../assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-  <h1>Appalachian A.I. Corps</h1>
-</div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-  [Home](../../) | [Modules](../../modules) | [Team](../../team) | [Contact](../../contact)
-</nav>
-:::
+```{=html}
+{{< include ../../_navbar.html >}}
+```
 
 <script>
 function toggleMenu() {
@@ -50,7 +43,7 @@ Learn mean, median, range, standard deviation, and outliers using nitrate/nitrit
 
 <br>
 
-[**Slides & Facilitator Guide**](1-statistics/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](1-statistics/facilitator){.facilitator .hidden}
 
 :::
 
@@ -63,7 +56,7 @@ Learn about neural networks, classification, and how computers process color.
 
 <br>
 
-[**Slides & Facilitator Guide**](2-classification/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](2-classification/facilitator){.facilitator .hidden}
 :::
 
 ::: {.lesson-item}
@@ -75,7 +68,7 @@ Learn about scatterplots, regression, and predicting nitrate concentrations.
 
 <br>
 
-[**Slides & Facilitator Guide**](3-regression/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](3-regression/facilitator){.facilitator .hidden}
 :::
 
 ::: {.lesson-item}
@@ -93,7 +86,7 @@ Use AI to assist in analysis of the data collected by the buoy.
 
 <br>
 
-[**Slides & Facilitator Guide**](5-dataanalysis/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](5-dataanalysis/facilitator){.facilitator .hidden}
 :::
 
 ::: {.lesson-item}
@@ -105,11 +98,41 @@ How will AI shape current and future careers?
 
 <br>
 
-[**Slides & Facilitator Guide**](6-careers/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](6-careers/facilitator){.facilitator .hidden}
 :::
 
 :::
 :::
+
+```{=html}
+<script>
+document.addEventListener('DOMContentLoaded', async function () {
+  const facilitatorLinks = document.querySelectorAll('a.facilitator');
+
+  try {
+    const { data: { session }, error: sessionError } =
+      await _supabase.auth.getSession();
+
+    if (sessionError) throw sessionError;
+    if (!session?.user) return;
+
+    const { data: profile, error: profileError } = await _supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single();
+
+    if (profileError) throw profileError;
+
+    if (profile?.role === 'teacher') {
+      facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+    }
+  } catch (error) {
+    console.error('Could not check teacher access for facilitator links:', error);
+  }
+});
+</script>
+```
 
 ::: {.footer}
 ::: {.footer-columns}
