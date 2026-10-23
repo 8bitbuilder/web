@@ -34,6 +34,11 @@ A series of lessons using AI to explore and monitor Appalachian water resources.
 ::: {.lesson-outline-section}
 ::: {.lesson-outline}
 
+::: {.lesson-item .teacher-notice .hidden}
+**TEACHERS:** Please click on the Slides & Facilitator Guide links located under each lesson to find slide decks, handouts, and other resources to help conduct these lessons in the classroom.
+:::
+
+
 ::: {.lesson-item}
 ### [Lesson 1: Statistics Fundamentals](1-statistics/)
 
@@ -108,6 +113,7 @@ How will AI shape current and future careers?
 <script>
 document.addEventListener('DOMContentLoaded', async function () {
   const facilitatorLinks = document.querySelectorAll('a.facilitator');
+  const teacherNotice = document.querySelector('.teacher-notice');
 
   try {
     const { data: { session }, error: sessionError } =
@@ -126,6 +132,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (profile?.role === 'teacher') {
       facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+      teacherNotice?.classList.remove('hidden');
     }
   } catch (error) {
     console.error('Could not check teacher access for facilitator links:', error);

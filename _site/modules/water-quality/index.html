@@ -258,6 +258,9 @@ function toggleMenu() {
 </div>
 <div class="lesson-outline-section">
 <div class="lesson-outline">
+<div class="lesson-item teacher-notice hidden">
+<p><strong>TEACHERS:</strong> Please click on the Slides &amp; Facilitator Guide links located under each lesson to find slide decks, handouts, and other resources to help conduct these lessons in the classroom.</p>
+</div>
 <section id="lesson-1-statistics-fundamentals" class="lesson-item">
 <h3><a href="1-statistics/">Lesson 1: Statistics Fundamentals</a></h3>
 <p>Learn mean, median, range, standard deviation, and outliers using nitrate/nitrite data.</p>
@@ -302,6 +305,7 @@ function toggleMenu() {
 <script>
 document.addEventListener('DOMContentLoaded', async function () {
   const facilitatorLinks = document.querySelectorAll('a.facilitator');
+  const teacherNotice = document.querySelector('.teacher-notice');
 
   try {
     const { data: { session }, error: sessionError } =
@@ -320,6 +324,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (profile?.role === 'teacher') {
       facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+      teacherNotice?.classList.remove('hidden');
     }
   } catch (error) {
     console.error('Could not check teacher access for facilitator links:', error);

@@ -756,6 +756,19 @@ body {
   line-height: 1.0;
 }
 
+.teacher-notice {
+  background-color: var(--valley);
+  color: var(--white);
+  border-left: none;
+  border-radius: 12px;
+}
+
+.teacher-notice p {
+  color: var(--white);
+  line-height: 1.5;
+  margin: 0;
+}
+
 .lesson-item.coming-soon {
   background: linear-gradient(135deg, var(--limestone) 0%, var(--summit) 100%);
   border-left-color: var(--rock);
