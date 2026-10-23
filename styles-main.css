@@ -746,7 +746,8 @@ body {
 }
 
 .lesson-item h3 a:hover {
-  color: var(--valley);
+  color: var(--tennessee-orange);
+  text-decoration: underline;
 }
 
 .lesson-item p {
