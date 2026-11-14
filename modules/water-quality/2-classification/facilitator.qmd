@@ -57,8 +57,8 @@ format:
 
 [Learn and apply ideas around image classification, neural networks, and color, as well as how they can be used to monitor water quality.]{.lead}
 
-[▶ Open Slide Deck](https://appalachianaicorps.org/modules/water-quality/2-classification/slides.html#/title-slide){.fg-btn}
-[📄 Student Handout](https://docs.google.com/document/d/1YlHKArDan-SWoDWpHBdIyw4bPZv3ZG8LF711mCvDTAk/copy){.fg-btn-outline}
+<!-- [▶ Open Slide Deck](https://appalachianaicorps.org/modules/water-quality/2-classification/slides.html#/title-slide){.fg-btn}
+[📄 Student Handout](https://docs.google.com/document/d/1YlHKArDan-SWoDWpHBdIyw4bPZv3ZG8LF711mCvDTAk/copy){.fg-btn-outline} -->
 :::
 
 <!-- ########## SECTION END: Banner ########## -->
