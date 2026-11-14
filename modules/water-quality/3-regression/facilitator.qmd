@@ -86,7 +86,7 @@ format:
 ::: {.fg-hero}
 <!-- [{{SUBJECT_AREA}}]{.fg-tag .fg-tag-light} [{{GRADE_BAND}}]{.fg-tag .fg-tag-light} [{{CODING_LANGUAGE}}]{.fg-tag .fg-tag-light} -->
 
-[How can color, scatterplots, and linear regression work together to help predict nitrate values?]{.lead}
+[Use color, scatterplots, and linear regression to help predict water quality.]{.lead}
 
 <!-- [▶ Open Slide Deck](https://appalachianaicorps.org/modules/water-quality/3-regression/slides.html){.fg-btn}
 [📄 Student Handout](https://docs.google.com/document/d/1wag0FSzDp6NchIcM4WAwIbBP_FqdIdcvL9YWwR8Mc8s/copy){.fg-btn-outline} -->
