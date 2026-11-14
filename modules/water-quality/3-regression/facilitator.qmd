@@ -50,7 +50,7 @@
 # whose _quarto.yml supplies the theme, fonts and
 # link-external-newwindow (external links open in a new tab).
 # =====================================================================
-title: "Facilitator's Guide:<br>Regression & Color"
+title: "Facilitator's Guide:<br>Regression and Color"
 subtitle: "AAIC Water Quality Modules · Lesson 3"
 format:
   live-html:
@@ -227,9 +227,9 @@ By the end of the lesson, students will be able to:
      open="true" after the label to make it start open.
      The box title is the text inside label="...". -->
 ::: {.fg-fold label="Prior Knowledge & Vocabulary"}
-**This lesson assumes that students have already:**
+**This lesson assumes that students have already had an introduction to:**
 
-- Learned about bivariate linear regression within their mathematics classes.
+- Bivariate linear regression within their mathematics classes.
 
 <!-- Table: each row is one line starting with |
      To add a row, copy a {{TERM}} line and paste it below. -->
@@ -333,11 +333,11 @@ The exit ticket asks students to describe a regression line, apply the idea of p
 
 <!-- ======== COPY START: one resource card ======== -->
 ::: {.fg-card}
-[🛒 Amazon Cart]{.fg-card-title}
+[🛒 Walmart Cart]{.fg-card-title}
 
 Share-A-Cart link for the stickers, poster markers, and Post-It gridded sticky pad easels.
 
-[Share-A-Cart](https://share-a-cart.com/get/6FDFH){.fg-btn-outline}
+[Share-A-Cart](https://share-a-cart.com/get/Z215Z){.fg-btn-outline}
 :::
 <!-- ======== COPY END: one resource card ========== -->
 

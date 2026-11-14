@@ -75,7 +75,7 @@ format:
 ::: {.fg-stat}
 [⏱]{.fg-stat-icon}
 
-[90 min]{.fg-stat-value}
+[90 minutes]{.fg-stat-value}
 
 [Class time]{.fg-stat-label}
 :::
@@ -91,7 +91,7 @@ format:
 ::: {.fg-stat}
 [👥]{.fg-stat-icon}
 
-[{{GROUP_SIZE}}]{.fg-stat-value}
+[3-4]{.fg-stat-value}
 
 [Group size]{.fg-stat-label}
 :::
@@ -99,7 +99,10 @@ format:
 ::: {.fg-stat}
 [💻]{.fg-stat-icon}
 
-[A computer with a webcam; a web browser (Chrome, Firefox, or Safari)]{.fg-stat-value}
+::: {.fg-stat-value .fg-stat-list}
+- 1:1 Devices
+- [Teachable Machine](https://teachablemachine.withgoogle.com/)
+:::
 
 [Tech needed]{.fg-stat-label}
 :::
@@ -144,12 +147,10 @@ By the end of the lesson, students will be able to:
 
 ::: {.fg-objectives}
 - [CS]{.fg-tag .fg-tag-cs} Train and evaluate an image classification model using Teachable Machine
-- Explain, at a high level, how a Convolutional Neural Net (CNN) works
-- Explain how computers represent images as pixels and colors as R, G, B values
-- Distinguish between binary and multiclass classification and provide examples of each
+- [CS]{.fg-tag .fg-tag-cs} Explain, at a high level, how a Convolutional Neural Net (CNN) works
+- [CS]{.fg-tag .fg-tag-cs} Explain how computers represent images as pixels and colors as R, G, B values
+- [CS]{.fg-tag .fg-tag-cs} Distinguish between binary and multiclass classification and provide examples of each
 - [DS]{.fg-tag .fg-tag-ds} Discuss ethical considerations around data ownership and fairness in AI-assisted agriculture
-  - {{DETAIL}}
-  - {{DETAIL}}
 - [AgScience]{.fg-tag .fg-tag-agscience} Describe the components of the Smokey Buoy and explain how it uses classification to monitor water quality
 :::
 :::
@@ -158,30 +159,25 @@ By the end of the lesson, students will be able to:
 <!-- Paste the link to the standards document over {{AGRISCIENCE_STANDARDS_URL}}.
      One topic per line. To indent a subtopic, start the line with
      two spaces before the dash. -->
-**Full document:** [TN AgriScience Standards](https://www.tn.gov/content/dam/tn/education/ccte/ag/cte_std_agriscience.pdf)
 
-- ***AGSCIENCE 2.1:*** *Overview:* Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.
-- ***3. Fundamentals of Environmental Systems:*** *3.3 Biodiversity:* Evaluate the impact of habitat fragmentation, destruction, and other environmental pressures, such as invasive species, overharvesting, pollution, and climate change on local and global biodiversity (genetic, species, and ecosystems.) Distinguish between types of pollution (point and not-point sources) and their sources to predict the effects on environmental conditions (e.g., water, soil, and air), animal populations, and plant populations from various kinds of human activity.
+- ***2.1 Overview:*** Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.
+- ***3.3 Biodiversity:*** Evaluate the impact of habitat fragmentation, destruction, and other environmental pressures, such as invasive species, overharvesting, pollution, and climate change on local and global biodiversity (genetic, species, and ecosystems.) Distinguish between types of pollution (point and not-point sources) and their sources to predict the effects on environmental conditions (e.g., water, soil, and air), animal populations, and plant populations from various kinds of human activity.
 :::
 
 ::: {.fg-panel label="Data Science Standards"}
 <!-- Paste the link to the standards document over {{DATA_SCIENCE_STANDARDS_URL}}.
      One standard per line, in this format:  - *CODE:* Full text -->
-**Full document:** [Data Science Standards](https://datasciencelearning.org/)
 
-- ***9-10.C.4.1a:***  Identify relationships and patterns using a digital tool.
-- ***{{STANDARD_CODE}}:***  {{STANDARD_TEXT}}
-- ***{{STANDARD_CODE}}:***  {{STANDARD_TEXT}}
+- ***9-10.C.4.1a:***  *Tool Application* Identify relationships and patterns using a digital tool.
 :::
 
 ::: {.fg-panel label="TN Computer Science Standards"}
 <!-- Paste the link to the standards document over {{CS_STANDARDS_URL}}.
      One standard per line, in this format:  - *CODE:* Full text -->
-**Full document:** [TN Computer Science Standards](https://www.tn.gov/content/dam/tn/education/standards/comp-sci/Final_Computer_Science_Standards_Framework_for_Grades_K-12.pdf)
 
-- ***CS.DA: Data Analysis 1)***  Create computational models that represent the relationships among different elements of data collected from a phenomenon or process. 
-- ***2)***  Utilize data to answer a question using a variety of computing and data visualization methods. 
-- ***3)***  Use data analysis tools and techniques to identify patterns in data representing complex systems.
+- ***CS.DA.1:*** *Data Analysis:* Create computational models that represent the relationships among different elements of data collected from a phenomenon or process.
+- ***CS.DA.2:*** *Data Analysis:* Utilize data to answer a question using a variety of computing and data visualization methods.
+- ***CS.DA.3:*** *Data Analysis:* Use data analysis tools and techniques to identify patterns in data representing complex systems.
 :::
 
 :::
@@ -192,7 +188,7 @@ By the end of the lesson, students will be able to:
      The box title is the text inside label="...". -->
 ::: {.fg-fold label="Prior Knowledge & Vocabulary"}
 
-**This lesson assumes that students have already:** 
+**This lesson assumes that students have already had an introduction to:** 
 
 - Water Quality: Water quality can be affected by natural processes and human activities.
 - Nitrogen Cycle: Nitrogen moves through the environment and is essential for living organisms.
@@ -206,9 +202,9 @@ By the end of the lesson, students will be able to:
 
 | Term | Student-friendly definition |
 |------|-----------------------------|
-| Neural network | [A type of artificial intelligence that learns to recognize patterns in data, such as pictures, sounds, or numbers, to make predictions or decisions.] |
-| Classification | [sorting items into groups based on appearance or behavior. Binary Classification: Two possible outcomes; Multiclass Classification: More than two possible outcomes ] |
-| Convolutional Neural Net (CNN) | [A type of artificial intelligence that learns to recognize patterns in images so it can identify and classify things, such as animals, plants, or objects.] |
+| Neural network | A type of artificial intelligence that learns to recognize patterns in data, such as pictures, sounds, or numbers, to make predictions or decisions. |
+| Classification | Sorting items into groups based on appearance or behavior. Binary Classification: Two possible outcomes; Multiclass Classification: More than two possible outcomes  |
+| Convolutional Neural Net (CNN) | A type of artificial intelligence that learns to recognize patterns in images so it can identify and classify things, such as animals, plants, or objects. |
 | Buoy | Tool for measuring nitrates in water. |
 
 [Additional Resources on These Topics](#additional-background-resources){.fg-btn}
