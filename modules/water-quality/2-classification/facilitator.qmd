@@ -695,9 +695,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ::: {.fg-card .fg-linklist #whole-class-videos}
 [Whole-Class Videos]{.fg-card-header}
 
-- [{{VIDEO_TITLE}}]({{VIDEO_URL}}) [EdPuzzle]{.fg-tag .fg-tag-valley}
 - [PBS Convolutional Neural Networks](http://youtube.com/watch?si=ur273VN6VpnoqXoZ&v=oV3ZY6tJiA0&feature=youtu.be) [YouTube]{.fg-tag .fg-tag-torch}
-- [{{VIDEO_TITLE}}]({{VIDEO_URL}}) [YouTube]{.fg-tag .fg-tag-torch}
 :::
 
 ::: {.fg-card .fg-linklist #additional-background-resources}
