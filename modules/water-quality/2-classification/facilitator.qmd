@@ -385,9 +385,8 @@ For this lesson, we recommend one red apple per child, and at least one Granny S
 - 🛒🍏 Green Apples
 - 🛒🍊 Mandarin Oranges
 - 🛒🔴🟢🟠 Distractor Objects
-<!-- ---- OPTIONAL: note box.
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
 
+:::
 
 ::: {.fg-step}
 #### Make Copies of the Student Handout {.unnumbered}
