@@ -395,9 +395,13 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
     - *Recorder:* Records the group’s ideas, answers, and data so nothing gets lost.
     - *Reporter:* Shares the group’s findings with the class when the work is done.
 
-**Extension:** In most machine learning regression models, we use multiple independent variables to predict a dependent variable. The buoy uses all three RGB channels (to different degrees) to predict nitrate concentrations. Ask students to brainstorm a situation when more than one independent variable predicts a dependent variable. You may wish to suggest the dependent variable of interest (e.g., observing a snow day) to get students started.
+**Extension:**
 
-**If you're short on time:** Skip the (1) two YouTube videos and model correctly placing the stickers onto the coordinate plane and (2) prediction of the regression line placement with the yardstick.
+ In most machine learning regression models, we use multiple independent variables to predict a dependent variable. The buoy uses all three RGB channels (to different degrees) to predict nitrate concentrations. Ask students to brainstorm a situation when more than one independent variable predicts a dependent variable. You may wish to suggest the dependent variable of interest (e.g., observing a snow day) to get students started.
+
+**If you're short on time:**
+
+ Skip the (1) two YouTube videos and model correctly placing the stickers onto the coordinate plane and (2) prediction of the regression line placement with the yardstick.
 
 <!-- ======== COPY END: one tab ========== -->
 

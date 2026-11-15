@@ -102,6 +102,7 @@ format:
 ::: {.fg-stat-value .fg-stat-list}
 - 1:1 Devices
 - [Teachable Machine](https://teachablemachine.withgoogle.com/)
+- [RGB Applet V1](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html)
 :::
 
 [Tech needed]{.fg-stat-label}
@@ -320,9 +321,10 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
 
 ### ❓ Discussion Questions
 
-1. [What are the benefits  and drawbacks to using a computerized buoy to conduct water quality tests?]
-2. {{QUESTION}}
-3. {{QUESTION}}
+1. *[Pose after groups test their Teachable Machine model]* Compare your model’s results with another group’s. Did both models classify each object the same way, with the same confidence? Why do you think that is?
+2. *[Pose after Q1, before Neural Networks]* Hold up something your model was never trained on, like a pencil or your hand. What does your model say? Why do you think it does that? What might happen if Smokey Buoy’s camera saw something that wasn’t a test pad, like a leaf or algae?
+3. *[Pose after Computers & Color Pt. 1, once fruit RGB values are recorded]* Look at the RGB values for your fruits. Which value (R, G or B) would best help a computer tell the red apple from the green apple? From the orange? Why?
+4. *[Pose near end of lesson]* Today, we trained a classification model to sort objects into groups from images. What else in AgriScience could we classify? What groups would we sort them into, and what would the computer need to “see”?
 
 ### 🔀 Differentiation
 
@@ -334,15 +336,9 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
 
 ### 🛠 Troubleshooting
 
-::: {.callout-caution collapse="true"}
-## {{PROBLEM}}
-{{FIX}}
-:::
+**Issue Accessing Applet**
 
-::: {.callout-caution collapse="true"}
-## {{PROBLEM}}
-{{FIX}}
-:::
+- Students must grant permission for the applet to access their webcam. If they decline, reload the applet.:
 
 :::
 
@@ -372,107 +368,44 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
 
 This lesson is reliant on the student use of their device’s webcam. Please double check that the webcam on their device is enabled and works with both [Teachable Machine](https://teachablemachine.withgoogle.com/) and the [AAIC Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html) used in this lesson.
 
-**Materials needed:**
+[Test Teachable Machine](https://teachablemachine.withgoogle.com/){.fg-btn}
 
-- A computer with a webcam
-- A web browser (Chrome, Firefox, or Safari)
+[Test AAIC RGB V1 Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html){.fg-btn}
 
-<!-- ---- OPTIONAL: collapsible detail box (e.g., a mixing guide).
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-::: {.callout-important collapse="true"}
-## {{DETAIL_BOX_TITLE}}
-
-*{{ASSUMPTIONS — e.g., written for 5 groups × 4 samples}}*
-
-| {{COLUMN}} | {{COLUMN}} | {{COLUMN}} |
-|---|---|---|
-| {{VALUE}} | {{VALUE}} | {{VALUE}} |
-| {{VALUE}} | {{VALUE}} | {{VALUE}} |
-:::
-<!-- ---- END OPTIONAL ---- -->
-
-<!-- ---- OPTIONAL: warning box.
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-::: {.callout-warning}
-{{WARNING_TEXT}}
-:::
-<!-- ---- END OPTIONAL ---- -->
 :::
 
 ::: {.fg-step}
 #### Purchase Fruit and Distractor {.unnumbered}
 
-For this lesson, we recommend one red apple per child, and at least one Granny Smith and mandarin orange per small group. If you want to lengthen this lesson, you could vary the types of red apples purchased and have discussion about the importance of training classification models for different varieties of apples and fruits. We also purchased an orange rubber ball, similarly sized to the mandarin oranges.
+For this lesson, we recommend one red apple per child, and at least one Granny Smith and mandarin orange per small group. If you want to lengthen this lesson, you could vary the types of red apples purchased and have discussion about the importance of training classification models for different varieties of apples and fruits. We also purchased an orange rubber ball, similarly sized to the mandarin oranges. We provide one option in the share-a-cart, but you may find better "distractor" objects in your home or classroom.
 
-<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
-          with screenshots of each step). Put the link inside ( ).
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-Walk through each step in the slides: [▶ Open the step-by-step slides]({{STEP_BY_STEP_SLIDES_URL}}){.fg-btn}
-<!-- ---- END OPTIONAL ---- -->
+**Materials needed:**
 
+- 🛒🍎 Red Apples
+- 🛒🍏 Green Apples
+- 🛒🍊 Mandarin Oranges
+- 🛒🔴🟢🟠 Distractor Objects
 <!-- ---- OPTIONAL: note box.
           Delete from here to "END OPTIONAL" if not needed. ---- -->
-::: {.callout-note}
-**Teaching more than one class?** {{MULTI_CLASS_NOTE}}
-:::
-<!-- ---- END OPTIONAL ---- -->
-:::
+
 
 ::: {.fg-step}
 #### Make Copies of the Student Handout {.unnumbered}
 
-Each student will need one copy of the student handout. You can make a copy of the handout by clicking the link above.
-
-<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
-          with screenshots of each step). Put the link inside ( ).
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-Walk through each step in the slides: [▶ Open the step-by-step slides]({{STEP_BY_STEP_SLIDES_URL}}){.fg-btn}
-<!-- ---- END OPTIONAL ---- -->
-
-<!-- ---- OPTIONAL: note box.
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-::: {.callout-note}
-**Teaching more than one class?** {{MULTI_CLASS_NOTE}}
-:::
-<!-- ---- END OPTIONAL ---- -->
-:::
+Each student will need one copy of the student handout. You can make a copy of the [handout above](#student-handout).
 
 ::: {.fg-step}
 #### Create copy of exit ticket for end-of-lesson implementation. {.unnumbered}
 
-We have drafted an exit ticket that aligns with this lesson. We are providing the [Google Form here](https://docs.google.com/forms/d/1qs_1RupqOY17vGspY___I6kDrig4PxWnLrMiVLCj0IQ/copy) if you would like to use it or modify it for your own needs.
+We have drafted an exit ticket that aligns with this lesson. We are providing the [Google Form here](#exit-ticket) if you would like to use it or modify it for your own needs.
 
-<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
-          with screenshots of each step). Put the link inside ( ).
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-Walk through each step in the slides: [▶ Open the step-by-step slides]({{STEP_BY_STEP_SLIDES_URL}}){.fg-btn}
-<!-- ---- END OPTIONAL ---- -->
-
-<!-- ---- OPTIONAL: note box.
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-::: {.callout-note}
-**Teaching more than one class?** {{MULTI_CLASS_NOTE}}
-:::
-<!-- ---- END OPTIONAL ---- -->
 :::
 
 ::: {.fg-step}
 #### Create copy of the exercise for after-lesson practice. {.unnumbered}
 
-We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available [here](https://docs.google.com/forms/d/1CRdhhvLsr_5YXHe5P8TK6QvB8wANtHGMzgxQd3ynsWI/copy).
+We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available [here](#practice-exercise).
 
-<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
-          with screenshots of each step). Put the link inside ( ).
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-Walk through each step in the slides: [▶ Open the step-by-step slides]({{STEP_BY_STEP_SLIDES_URL}}){.fg-btn}
-<!-- ---- END OPTIONAL ---- -->
-
-<!-- ---- OPTIONAL: note box.
-          Delete from here to "END OPTIONAL" if not needed. ---- -->
-::: {.callout-note}
-**Teaching more than one class?** {{MULTI_CLASS_NOTE}}
-:::
-<!-- ---- END OPTIONAL ---- -->
 :::
 
 :::

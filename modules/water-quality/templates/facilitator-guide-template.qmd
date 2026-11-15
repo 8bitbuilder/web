@@ -872,6 +872,13 @@ Questions or feedback on this lesson? Contact [aaic [at] utk [dot] edu]{.fg-emai
     font-size: 1.35rem; font-weight: 700; color: var(--aaic-globe);
     margin: 0.35rem 0 0;
   }
+  /* Bulleted stat value: keep the list centered in the card but
+     left-align the bullets so they line up */
+  .fg-stat .fg-stat-list ul {
+    display: inline-block; text-align: left;
+    margin: 0; padding-left: 1.1rem;
+    font-size: 1.1rem;
+  }
   .fg-stat .fg-stat-label {
     font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
     color: var(--aaic-smokey); margin: 0;
