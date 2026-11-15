@@ -393,6 +393,8 @@ For this lesson, we recommend one red apple per child, and at least one Granny S
 
 Each student will need one copy of the student handout. You can make a copy of the [handout above](#student-handout).
 
+:::
+
 ::: {.fg-step}
 #### Create copy of exit ticket for end-of-lesson implementation. {.unnumbered}
 
