@@ -864,8 +864,8 @@ document.addEventListener("DOMContentLoaded", () => {
 ::: {.fg-card .fg-linklist #whole-class-videos}
 [Whole-Class Videos]{.fg-card-header}
 
-- [Scatter Graphs: What they are and how to plot them]({{VIDEO_URL}}) [YouTube]{.fg-tag .fg-tag-torch}
-- [Scatter Graphs: Line of best fit]({{VIDEO_URL}}) [YouTube]{.fg-tag .fg-tag-torch}
+- [Scatter Graphs: What they are and how to plot them](https://youtu.be/b_Au4Ngm9pE?si=gQKsuZ9e9T4USxAC) [YouTube]{.fg-tag .fg-tag-torch}
+- [Scatter Graphs: Line of best fit](https://youtu.be/e18KM681cmg?si=3iQfTYdxxuQRalA4) [YouTube]{.fg-tag .fg-tag-torch}
 :::
 <!-- ======== COPY END: one link card ========== -->
 
