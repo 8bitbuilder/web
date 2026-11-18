@@ -273,7 +273,7 @@ A printable version of the slides with space for student notes.
 ::: {.fg-card #exit-ticket}
 [✅ Exit Ticket]{.fg-card-title}
 
-{{EXIT_TICKET_DESCRIPTION}}
+The exit ticket asks students to define classification, give an example of how classification might be used in Ag, and reflect on what is exciting and cocerning about this tech. Additionally, it asks student to predict the RGB values for "banana yellow". If you do not get to the Computers & Color Activity, Pt. I, throw out this last question.
 
 [Copy Google Form](https://docs.google.com/forms/d/1qs_1RupqOY17vGspY___I6kDrig4PxWnLrMiVLCj0IQ/copy){.fg-btn-outline}
 :::
@@ -338,7 +338,7 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
 
 **Issue Accessing Applet**
 
-- Students must grant permission for the applet to access their webcam. If they decline, reload the applet.:
+- Students must grant permission for the applet to access their webcam. If they decline, reload the applet.
 
 :::
 
