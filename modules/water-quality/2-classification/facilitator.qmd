@@ -328,9 +328,9 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
 
 ### 🔀 Differentiation
 
-**Extra support:** [Support strategy]
+**Extra support:** Binary vs multiclass Classification- provide [physical cards](https://docs.google.com/document/d/1KBX1gYzvGiXN_iNE1knbAoJXOAMa4PIKL2Ed4z8AUKA/edit?usp=sharing) or objects for students to classify in small groups. Teachable Machine- provide students with this [hand out](https://drive.google.com/file/d/1HHob0c2soLE8r1wAypVaHCn3y8zkd1H1/view?usp=sharing) as a reference
 
-**Extension:** {{EXTENSION_STRATEGY}}
+**Extension:** Binary vs multiclass Classification- Have students create their own classification categories in small groups. Teachable machine- allow students to design their own training process, select categories, and determine how many examples to collect. RBG Values- allow students to design investigations where they determine how light and shadow can affect RGB values in the water quality test strips.
 
 **If you're short on time:** {{WHAT_TO_CUT}}
 
@@ -701,8 +701,10 @@ document.addEventListener("DOMContentLoaded", () => {
 ::: {.fg-card .fg-linklist #additional-background-resources}
 [Additional Resources on Background Topics]{.fg-card-header}
 
-- [{{READING_TITLE}}]({{READING_URL}}) [{{WHY_ITS_USEFUL}}]{.fg-link-note}
-- [{{READING_TITLE}}]({{READING_URL}}) [{{WHY_ITS_USEFUL}}]{.fg-link-note}
+- [How Water Buoys Work](https://www.epa.gov/mysticriver/basic-information-about-mystic-river-buoy) [Provides information on what buoys do for water quality and examples of how it is used in another location through the EPA.]{.fg-link-note}
+- [How Neural Networks Work](https://www.khanacademy.org/computing/code-org/x06130d92:how-ai-works/x06130d92:what-is-ai/v/how-neural-networks-work?utm_account=Grant&utm_campaignname=DSA_www_US_lowincomestates&gad_source=1&gad_campaignid=10815796927&gbraid=0AAAAADn3z4IaAmqgnHCLKDcVlMCoYmr66&gclid=Cj0KCQiAzeXXBhCGARIsADO5-zFkURCd6JKtkSCxlU9QPldzNdJDehLVPQiJC8zq3Sh9-mAizCltbPcaAkYPEALw_wcB) [Video explaining neural networks]{.fg-link-note}
+- [Convolutional Neural Networks](https://medium.com/analytics-vidhya/what-is-cnn-a-5-year-old-guide-to-convolutional-neural-network-c9d0338c3bf7) [Article explaining convolutional neural networks]{.fg-link-note}
+- [Water Quality](https://watermanagement.yale.edu/topics/water-science/introduction-to-water-quality/) [Introduction to water quality]{.fg-link-note}
 :::
 
 :::
