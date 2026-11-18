@@ -332,7 +332,7 @@ For an in-depth walkthrough, see the [slides with visible facilitator notes](htt
 
 **Extension:** Binary vs multiclass Classification- Have students create their own classification categories in small groups. Teachable machine- allow students to design their own training process, select categories, and determine how many examples to collect. RBG Values- allow students to design investigations where they determine how light and shadow can affect RGB values in the water quality test strips.
 
-**If you're short on time:** {{WHAT_TO_CUT}}
+**If you're short on time:** Move the Computers & Color, Pt. 1 lesson to another day. If students consume the fruits before you get to the activity, bring 1 red apple, 1 green apple, and 1 orange to school and model the process in front of the class, providing the RGB values to the students so they can do the second part of the activity during Lesson 3.
 
 ### 🛠 Troubleshooting
 
@@ -547,29 +547,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ::: {.fg-timeline}
 
-::: {.fg-segment time="30 min" group="Whole class"}
-**{{SEGMENT_TITLE}}**
-{{WHAT_HAPPENS}}
+::: {.fg-segment time="10 min" group="Whole class"}
+**Introduction to the Buoy**
+Facilitate a discussion of each of the buoy components, with students completing handout about different part names.
 :::
 
-::: {.fg-segment time="10 min" group="Direct instruction"}
-**{{SEGMENT_TITLE}}**
-{{WHAT_HAPPENS}}
+::: {.fg-segment time="5 min" group="Whole class"}
+**Introduction to Classification**
+Facilitate initial discussion around classification, determining ripeness, and data ownership.
+:::
+
+::: {.fg-segment time="15 min" group="Groups"}
+**Training a Classifier**
+Use apples and oranges to train a fruit classifier using Google's Teachable Machine.
 :::
 
 ::: {.fg-segment time="20 min" group="Groups"}
-**{{SEGMENT_TITLE}}**
-{{WHAT_HAPPENS}}
+**Evaluate Classification Model**
+Using the student handout, collect data concerning model performance against a variety of specified tests.
 :::
 
-::: {.fg-segment time="25 min" group="Coding"}
-**{{SEGMENT_TITLE}}**
-{{WHAT_HAPPENS}}
+::: {.fg-segment time="25 min" group="Whole class, Direct instruction"}
+**Understanding Convolutional Neural Nets**
+Show two selected PBS clips and facilitate a discussion where students think through the different layers and features a CNN might consider to classify a cow. Students will complete portion of handout.
+:::
+
+::: {.fg-segment time="10 min" group="Groups"}
+**Classification & Color, Pt. 1**
+Using the applet, ask students to record the RGB values of their items (red apple, green apple, and mandarin orange) on their handout. Students will finish the rest of this activity during the next lesson, but it is important to record these values before the fruits are consumed/disappear.
 :::
 
 ::: {.fg-segment time="5 min" group="Individual"}
 **Exit Ticket**
-{{WHAT_HAPPENS}}
+Use the final 5 minutes of class for students to complete the exit ticket. Additionally, if you’d like to assign the practice exercise for homework, do so now.
 :::
 
 :::
