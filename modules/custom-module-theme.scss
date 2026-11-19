@@ -160,6 +160,15 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #e2f1f1;   /* a touch darker on hover/open */
   border-color: #006C93;
 }
+/* On gray-sides pages, give the button a stronger edge so it stands out */
+body.gray-sides .lesson-nav .btn-outline-primary {
+  border: 1.5px solid #006C93;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+body.gray-sides .lesson-nav .btn-outline-primary:hover,
+body.gray-sides .lesson-nav .btn-outline-primary.show {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+}
 .lesson-nav-label {
   display: flex;
   flex-direction: column;
