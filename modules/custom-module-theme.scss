@@ -22,6 +22,24 @@ body {
   background-color: #FFFFFF !important;
 }
 
+/* Gray side areas around a white content column.
+   Only on pages with `body-classes: gray-sides` in their front matter. */
+body.gray-sides {
+  background-color: #ececec !important;
+}
+body.gray-sides main.content {
+  background-color: #FFFFFF;
+  padding: 1.5rem 2rem 3rem 2rem;
+  min-height: calc(100vh - 60px);   /* 60px ~ navbar height */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+}
+body.gray-sides #quarto-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
 /* Link colors */
 a {
   color: #006C93;  /* Globe - default link color */

@@ -4,6 +4,7 @@ crossref:
   lst-title: "🎯 Checkpoint"
   lst-labels: alpha a
 format: live-html
+body-classes: gray-sides
 ---
 
 {{< include _lesson-nav.qmd >}}
