@@ -27,9 +27,10 @@ body {
 body.gray-sides {
   background-color: #ececec !important;
 }
-body.gray-sides main.content {
+body.gray-sides main.content,
+body.gray-sides #quarto-document-content {
   background-color: #FFFFFF;
-  padding: 1.5rem 2rem 3rem 2rem;
+  padding: 2rem 2rem 3rem 2rem !important;   /* top padding restores the original space above the title */
   min-height: calc(100vh - 60px);   /* 60px ~ navbar height */
   margin-top: 0 !important;
   margin-bottom: 0 !important;
