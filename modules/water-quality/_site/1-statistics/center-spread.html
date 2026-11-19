@@ -46,7 +46,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-36cabbdc3da853cadf8480de134705b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7ab91a72808edfe67ae106c8bfec24fd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -180,7 +180,10 @@ ul.task-list li input[type="checkbox"] {
      Edit the menu items here; every page picks up the change. -->
 <div class="dropdown lesson-nav mb-4">
   <button class="btn btn-outline-primary dropdown-toggle" type="button" id="lessonNavDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-    Lesson 1: Statistics
+    <span class="lesson-nav-label">
+      <span class="lesson-nav-lesson">Lesson 1: Statistics</span>
+      <span class="lesson-nav-page">Lesson Contents</span>
+    </span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="lessonNavDropdown">
     <li><h6 class="dropdown-header anchored">Lesson Contents</h6></li>
@@ -212,8 +215,8 @@ ul.task-list li input[type="checkbox"] {
       if (a.getAttribute("href") === page) {
         a.classList.add("active");
         a.setAttribute("aria-current", "page");
-        var btn = document.getElementById("lessonNavDropdown");
-        if (btn) btn.textContent = "Lesson 1: " + a.textContent.trim();
+        var label = document.querySelector(".lesson-nav .lesson-nav-page");
+        if (label) label.textContent = a.textContent.trim();
       }
     });
   })();
