@@ -1,6 +1,6 @@
 ---
 title: "Facilitator's Guide:<br>Water Quality and Summary Statistics"
-format: live-html
+format: html
 ---
 ## Lesson Topics and Standards
 

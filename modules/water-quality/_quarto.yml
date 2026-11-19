@@ -175,7 +175,7 @@ format:
     link-external-newwindow: true
     link-external-icon: true
     theme: united
-    toc: true
+    toc: false
     toc-location: right
     include-in-header:
       text: |
