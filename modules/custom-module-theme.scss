@@ -198,10 +198,10 @@ body.gray-sides .lesson-nav .btn-outline-primary.show {
 }
 
 /* On wide screens, pin the lesson dropdown to the left margin (where the
-   floating sidebar used to be). Below 1340px it stays inline above the content. */
+   floating sidebar used to be) at the top of the page. Below 1340px it stays inline above the content. */
 @media (min-width: 1340px) {
   .lesson-nav {
-    position: fixed;
+    position: absolute;   /* scrolls away with the page (fixed would follow you) */
     top: 6rem;          /* clears the fixed navbar */
     left: 1.5rem;
     max-width: 14rem;
