@@ -123,3 +123,47 @@ h1, h2, h3, h4, h5, h6 {
   border-color: #016d94;
   margin-bottom: 10px;
 }
+/* Lesson navigation dropdown (replaces floating sidebar) */
+.lesson-nav .btn-outline-primary {
+  color: #006C93;
+  border-color: #006C93;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+.lesson-nav .btn-outline-primary:hover,
+.lesson-nav .btn-outline-primary:focus,
+.lesson-nav .btn-outline-primary.show {
+  color: #FFFFFF;
+  background-color: #006C93;
+  border-color: #006C93;
+}
+.lesson-nav .dropdown-item:hover,
+.lesson-nav .dropdown-item:focus {
+  color: #e65933;
+  background-color: #F0EDE3;
+}
+.lesson-nav .dropdown-item.active,
+.lesson-nav .dropdown-item:active {
+  color: #FFFFFF;
+  background-color: #e65933;
+}
+
+/* On wide screens, pin the lesson dropdown to the left margin (where the
+   floating sidebar used to be). Below 1200px it stays inline above the content. */
+@media (min-width: 1200px) {
+  .lesson-nav {
+    position: fixed;
+    top: 6rem;          /* clears the fixed navbar */
+    left: 1.5rem;
+    max-width: 14rem;
+    z-index: 1000;
+  }
+  .lesson-nav .btn {
+    white-space: normal;  /* wrap long page names instead of widening */
+    text-align: left;
+  }
+  .lesson-nav .dropdown-menu {
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+}

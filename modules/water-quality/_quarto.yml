@@ -35,37 +35,37 @@ website:
         href: ../../contact
 
   sidebar:
-    - title: "Lesson 1: Statistics" 
-      id: lesson-1
-      style: "floating"
-      collapse-level: 2
-      align: left
-      contents:
-        - <b>Lesson Contents</b>
-        - text: "1. Overview"
-          href: 1-statistics/
-        - text: "2. Intro to Water Quality"
-          href: 1-statistics/intro-water-quality
-        - text: "3. Nitrates Lab"
-          href: 1-statistics/nitrates-lab
-        - text: "---"
-        - text: "4. Intro to Statistics"
-          href: 1-statistics/intro-statistics
-        - text: "5. Python: Lists"
-          href: 1-statistics/python-lists
-        - text: "6. Center & Spread"
-          href: 1-statistics/center-spread
-        - text: "---"
-        - text: "7. Boxplots Activity"
-          href: 1-statistics/boxplots-activity
-        - text: "8. Boxplots & Outliers"
-          href: 1-statistics/boxplots-outliers
-        - text: "---"
-        - text: "9. Exit Ticket"
-          href: #
-        - text: "---"
-        - text: "Optional Exercise"
-          href: https://colab.research.google.com/drive/1xm5qwxA6ZCm3BxuTKFL6n1ItlWgR84jM?usp=sharing
+    # - title: "Lesson 1: Statistics" 
+    #   id: lesson-1
+    #   style: "floating"
+    #   collapse-level: 2
+    #   align: left
+    #   contents:
+    #     - <b>Lesson Contents</b>
+    #     - text: "1. Overview"
+    #       href: 1-statistics/
+    #     - text: "2. Intro to Water Quality"
+    #       href: 1-statistics/intro-water-quality
+    #     - text: "3. Nitrates Lab"
+    #       href: 1-statistics/nitrates-lab
+    #     - text: "---"
+    #     - text: "4. Intro to Statistics"
+    #       href: 1-statistics/intro-statistics
+    #     - text: "5. Python: Lists"
+    #       href: 1-statistics/python-lists
+    #     - text: "6. Center & Spread"
+    #       href: 1-statistics/center-spread
+    #     - text: "---"
+    #     - text: "7. Boxplots Activity"
+    #       href: 1-statistics/boxplots-activity
+    #     - text: "8. Boxplots & Outliers"
+    #       href: 1-statistics/boxplots-outliers
+    #     - text: "---"
+    #     - text: "9. Exit Ticket"
+    #       href: #
+    #     - text: "---"
+    #     - text: "Optional Exercise"
+    #       href: https://colab.research.google.com/drive/1xm5qwxA6ZCm3BxuTKFL6n1ItlWgR84jM?usp=sharing
 
     - title: "Lesson 2: Classification" 
       id: lesson-2

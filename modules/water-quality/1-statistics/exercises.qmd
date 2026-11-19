@@ -4,8 +4,9 @@ crossref:
   lst-title: "🎯 Checkpoint"
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-1
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 ## Put Your Skills to the Test! 🔬
 

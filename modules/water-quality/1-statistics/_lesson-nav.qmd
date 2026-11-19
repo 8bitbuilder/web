@@ -1,0 +1,46 @@
+```{=html}
+<!-- Lesson 1 navigation dropdown (replaces the old "lesson-1" sidebar).
+     Included at the top of each Lesson 1 page via {{< include _lesson-nav.qmd >}}.
+     Edit the menu items here; every page picks up the change. -->
+<div class="dropdown lesson-nav mb-4">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button"
+          id="lessonNavDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    Lesson 1: Statistics
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="lessonNavDropdown">
+    <li><h6 class="dropdown-header">Lesson Contents</h6></li>
+    <li><a class="dropdown-item" href="index.html">1. Overview</a></li>
+    <li><a class="dropdown-item" href="intro-water-quality.html">2. Intro to Water Quality</a></li>
+    <li><a class="dropdown-item" href="nitrates-lab.html">3. Nitrates Lab</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="intro-statistics.html">4. Intro to Statistics</a></li>
+    <li><a class="dropdown-item" href="python-lists.html">5. Python: Lists</a></li>
+    <li><a class="dropdown-item" href="center-spread.html">6. Center &amp; Spread</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="boxplots-activity.html">7. Boxplots Activity</a></li>
+    <li><a class="dropdown-item" href="boxplots-outliers.html">8. Boxplots &amp; Outliers</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">9. Exit Ticket</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="https://colab.research.google.com/drive/1xm5qwxA6ZCm3BxuTKFL6n1ItlWgR84jM?usp=sharing" target="_blank" rel="noopener">Optional Exercise</a></li>
+  </ul>
+</div>
+
+<script>
+  // Highlight the current page in the dropdown and show it on the button.
+  // Runs immediately (the dropdown above is already on the page), so it
+  // doesn't wait for Pyodide and the rest of the page to finish loading.
+  (function () {
+    var page = window.location.pathname.split("/").pop() || "index.html";
+    if (!page.endsWith(".html")) page += ".html";
+    document.querySelectorAll(".lesson-nav .dropdown-item").forEach(function (a) {
+      if (a.getAttribute("href") === page) {
+        a.classList.add("active");
+        a.setAttribute("aria-current", "page");
+        var btn = document.getElementById("lessonNavDropdown");
+        if (btn) btn.textContent = "Lesson 1: " + a.textContent.trim();
+      }
+    });
+  })();
+</script>
+```
