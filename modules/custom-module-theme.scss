@@ -154,7 +154,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #5a6a72;
 }
 .lesson-nav-page {
+  font-size: 0.85rem;
   font-weight: 600;
+  white-space: nowrap;   /* keep the page name on one line */
 }
 .lesson-nav .dropdown-item:hover,
 .lesson-nav .dropdown-item:focus {
@@ -168,8 +170,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* On wide screens, pin the lesson dropdown to the left margin (where the
-   floating sidebar used to be). Below 1200px it stays inline above the content. */
-@media (min-width: 1200px) {
+   floating sidebar used to be). Below 1340px it stays inline above the content. */
+@media (min-width: 1340px) {
   .lesson-nav {
     position: fixed;
     top: 6rem;          /* clears the fixed navbar */
