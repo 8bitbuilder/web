@@ -4,8 +4,10 @@ crossref:
   lst-title: "🎯 Checkpoint 1."
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-2
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 **This module is designed to be used in conjunction with the Lesson 2 slide deck and other resources located in the facilitator's guide.**
 

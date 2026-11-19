@@ -6,8 +6,10 @@ crossref:
 format:
   live-html: 
     copy-code: true
-sidebar: lesson-5
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 :::{.ltblue-container}
 ## **What Question Do You Want to Ask of the Data?**

@@ -25,7 +25,7 @@ website:
           - text: "L4: Physical Computing"
             href: 4-physical-computing/index
           - text: "L5: Sensor Data"
-            href: 5-sensor-data/index
+            href: 5-dataanalysis/index
     right:
       - text: "AAIC Home"
         href: ../../
@@ -34,7 +34,7 @@ website:
       - text: "Contact"
         href: ../../contact
 
-  sidebar:
+  # sidebar:   (replaced by each lesson's _lesson-nav.qmd dropdown)
     # - title: "Lesson 1: Statistics" 
     #   id: lesson-1
     #   style: "floating"
@@ -67,108 +67,108 @@ website:
     #     - text: "Optional Exercise"
     #       href: https://colab.research.google.com/drive/1xm5qwxA6ZCm3BxuTKFL6n1ItlWgR84jM?usp=sharing
 
-    - title: "Lesson 2: Classification" 
-      id: lesson-2
-      style: "floating"
-      collapse-level: 2
-      align: left
-      contents:
-        - <b>Lesson Contents</b>
-        - text: "1. Intro to the Buoy"
-          href: 2-classification/
-        - text: "2. Intro to Classification"
-          href: 2-classification/intro-classification
-        - text: "---"
-        - text: "3. Classification - Train"
-          href: 2-classification/classification-activity-train
-        - text: "4. Classification - Buoy"
-          href: 2-classification/classification-activity-buoy
-        - text: "---"
-        - text: "5. How Does It Work?"
-          href: 2-classification/inside-classification
-        - text: "6. Color Activity"
-          href: 2-classification/color-activity
-        - text: "7. Computers & Color"
-          href: 2-classification/computers-color
-        - text: "---"
-        - text: "8. Exit Ticket"
-          href: #
-        - text: "---"
-        - text: "Optional Exercise"
-          href: #
+  #   - title: "Lesson 2: Classification" 
+  #     id: lesson-2
+  #     style: "floating"
+  #     collapse-level: 2
+  #     align: left
+  #     contents:
+  #       - <b>Lesson Contents</b>
+  #       - text: "1. Intro to the Buoy"
+  #         href: 2-classification/
+  #       - text: "2. Intro to Classification"
+  #         href: 2-classification/intro-classification
+  #       - text: "---"
+  #       - text: "3. Classification - Train"
+  #         href: 2-classification/classification-activity-train
+  #       - text: "4. Classification - Buoy"
+  #         href: 2-classification/classification-activity-buoy
+  #       - text: "---"
+  #       - text: "5. How Does It Work?"
+  #         href: 2-classification/inside-classification
+  #       - text: "6. Color Activity"
+  #         href: 2-classification/color-activity
+  #       - text: "7. Computers & Color"
+  #         href: 2-classification/computers-color
+  #       - text: "---"
+  #       - text: "8. Exit Ticket"
+  #         href: #
+  #       - text: "---"
+  #       - text: "Optional Exercise"
+  #         href: #
 
-    - title: "Lesson 3: Regression" 
-      id: lesson-3
-      style: "floating"
-      collapse-level: 2
-      align: left
-      contents:
-        - <b>Lesson Contents</b>
-        - text: "---"
-        - text: "0. Computers & Color"
-          href: 2-classification/computers-color
-        - text: "---"
-        - text: "1. Overview"
-          href: 3-regression/
-        - text: "2. Direct Variation"
-          href: 3-regression/direct-variation
-        - text: "3. Linear Regression"
-          href: 3-regression/intro-regression
-        - text: "---"
-        - text: "4. Regression Activity - Pt. I"
-          href: 3-regression/regression-activity-1
-        - text: "5. Regression Activity - Pt. II"
-          href: 3-regression/regression-activity-2
-        - text: "6. Prediction & R²"
-          href: 3-regression/prediction-rsquared
-        - text: "---"
-        - text: "7. Exit Ticket"
-          href: #
-        - text: "---"
-        - text: "Optional Exercise"
-          href: #      
+  #   - title: "Lesson 3: Regression" 
+  #     id: lesson-3
+  #     style: "floating"
+  #     collapse-level: 2
+  #     align: left
+  #     contents:
+  #       - <b>Lesson Contents</b>
+  #       - text: "---"
+  #       - text: "0. Computers & Color"
+  #         href: 2-classification/computers-color
+  #       - text: "---"
+  #       - text: "1. Overview"
+  #         href: 3-regression/
+  #       - text: "2. Direct Variation"
+  #         href: 3-regression/direct-variation
+  #       - text: "3. Linear Regression"
+  #         href: 3-regression/intro-regression
+  #       - text: "---"
+  #       - text: "4. Regression Activity - Pt. I"
+  #         href: 3-regression/regression-activity-1
+  #       - text: "5. Regression Activity - Pt. II"
+  #         href: 3-regression/regression-activity-2
+  #       - text: "6. Prediction & R²"
+  #         href: 3-regression/prediction-rsquared
+  #       - text: "---"
+  #       - text: "7. Exit Ticket"
+  #         href: #
+  #       - text: "---"
+  #       - text: "Optional Exercise"
+  #         href: #      
         
-    - title: "Lesson 5: Data Analysis" 
-      id: lesson-5
-      style: "floating"
-      collapse-level: 2
-      align: left
-      contents:
-        - <b>Lesson Contents</b>
-        - text: "---"
-        - text: "1. Overview"
-          href: 5-dataanalysis/
-        - text: "2. Intro Statistics: Review"
-          href: 5-dataanalysis/intro-stats-review
-        - text: "3. Links for Today"
-          href: 5-dataanalysis/link-menu
-        - text: "---"
-        - text: "3. Exit Ticket"
-          href: #
-        - text: "Optional Exercise"
-          href: #   
+  #   - title: "Lesson 5: Data Analysis" 
+  #     id: lesson-5
+  #     style: "floating"
+  #     collapse-level: 2
+  #     align: left
+  #     contents:
+  #       - <b>Lesson Contents</b>
+  #       - text: "---"
+  #       - text: "1. Overview"
+  #         href: 5-dataanalysis/
+  #       - text: "2. Intro Statistics: Review"
+  #         href: 5-dataanalysis/intro-stats-review
+  #       - text: "3. Links for Today"
+  #         href: 5-dataanalysis/link-menu
+  #       - text: "---"
+  #       - text: "3. Exit Ticket"
+  #         href: #
+  #       - text: "Optional Exercise"
+  #         href: #   
 
-    - title: "Lesson 6: AI Careers" 
-      id: lesson-6
-      style: "floating"
-      collapse-level: 2
-      align: left
-      contents:
-        - <b>Lesson Contents</b>
-        - text: "---"
-        - text: "1. Overview"
-          href: 6-careers/
-        - text: "2. Review: Workshops"
-          href: 6-careers/workshops
-        - text: "3. Review: Chatbot Prompting"
-          href: 6-careers/prompting
-        - text: "4. Review: Classification"
-          href: 6-careers/classification
-        - text: "5. Review: Regression"
-          href: 6-careers/regression
-        - text: "6. AI Careers"
-          href: 6-careers/careers
-        - text: "---"
+  #   - title: "Lesson 6: AI Careers" 
+  #     id: lesson-6
+  #     style: "floating"
+  #     collapse-level: 2
+  #     align: left
+  #     contents:
+  #       - <b>Lesson Contents</b>
+  #       - text: "---"
+  #       - text: "1. Overview"
+  #         href: 6-careers/
+  #       - text: "2. Review: Workshops"
+  #         href: 6-careers/workshops
+  #       - text: "3. Review: Chatbot Prompting"
+  #         href: 6-careers/prompting
+  #       - text: "4. Review: Classification"
+  #         href: 6-careers/classification
+  #       - text: "5. Review: Regression"
+  #         href: 6-careers/regression
+  #       - text: "6. AI Careers"
+  #         href: 6-careers/careers
+  #       - text: "---"
 
 format:
   html:
