@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@v4.2.2
       
       - uses: quarto-dev/quarto-actions/setup@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           tinytex: true
         
