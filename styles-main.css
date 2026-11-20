@@ -743,6 +743,11 @@ body {
   transform: translateX(5px);
 }
 
+.lesson-item.teacher-notice:hover {
+  box-shadow: none;
+  transform: none;
+}
+
 .lesson-item h3 {
   color: var(--globe);
   font-size: 1.5rem;
@@ -751,18 +756,37 @@ body {
 
 .lesson-item h3 a {
   color: var(--globe);
-  text-decoration: none;
+  text-decoration: underline;
   transition: color 0.3s ease;
 }
 
 .lesson-item h3 a:hover {
-  color: var(--valley);
+  color: var(--tennessee-orange);
+  text-decoration: underline;
 }
 
 .lesson-item p {
   color: var(--smokey);
   margin-bottom: 0.5rem;
   line-height: 1.0;
+}
+
+.guest-notice {
+  margin-bottom: 1.5rem;
+}
+
+.teacher-notice {
+  background-color: #DCEEF5;
+  color: #005475;
+  border-left: none;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.teacher-notice p {
+  color: #005475;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .lesson-item.coming-soon {

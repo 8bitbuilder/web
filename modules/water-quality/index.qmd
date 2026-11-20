@@ -8,16 +8,9 @@ format:
     anchor-sections: false
 ---
 
-::: {.custom-navbar}
-<div class="navbar-brand">
-  <a href="../../"><img src="../../assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-  <h1>Appalachian A.I. Corps</h1>
-</div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-  [Home](../../) | [Modules](../../modules) | [Team](../../team) | [Contact](../../contact)
-</nav>
-:::
+```{=html}
+{{< include ../../_navbar.html >}}
+```
 
 <script>
 function toggleMenu() {
@@ -41,6 +34,16 @@ A series of lessons using AI to explore and monitor Appalachian water resources.
 ::: {.lesson-outline-section}
 ::: {.lesson-outline}
 
+::: {.guest-notice .hidden}
+Click each **lesson title** (e.g., *Lesson 1: Statistics Fundamentals*) to access the corresponding learning module. Below each lesson, you'll also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
+:::
+
+
+::: {.lesson-item .teacher-notice .hidden}
+**TEACHERS:** Click each **lesson title** (e.g., *Lesson 1: Statistics Fundamentals*) to access the corresponding learning module. Underneath each lesson, you will also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
+:::
+
+
 ::: {.lesson-item}
 ### [Lesson 1: Statistics Fundamentals](1-statistics/)
 
@@ -50,7 +53,7 @@ Learn mean, median, range, standard deviation, and outliers using nitrate/nitrit
 
 <br>
 
-[**Slides & Facilitator Guide**](1-statistics/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](1-statistics/facilitator){.facilitator .hidden}
 
 :::
 
@@ -63,7 +66,7 @@ Learn about neural networks, classification, and how computers process color.
 
 <br>
 
-[**Slides & Facilitator Guide**](2-classification/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](2-classification/facilitator){.facilitator .hidden}
 :::
 
 ::: {.lesson-item}
@@ -75,7 +78,7 @@ Learn about scatterplots, regression, and predicting nitrate concentrations.
 
 <br>
 
-[**Slides & Facilitator Guide**](3-regression/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](3-regression/facilitator){.facilitator .hidden}
 :::
 
 ::: {.lesson-item}
@@ -93,7 +96,7 @@ Use AI to assist in analysis of the data collected by the buoy.
 
 <br>
 
-[**Slides & Facilitator Guide**](5-dataanalysis/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](5-dataanalysis/facilitator){.facilitator .hidden}
 :::
 
 ::: {.lesson-item}
@@ -105,11 +108,50 @@ How will AI shape current and future careers?
 
 <br>
 
-[**Slides & Facilitator Guide**](6-careers/facilitator){.facilitator}
+[**Slides & Facilitator Guide**](6-careers/facilitator){.facilitator .hidden}
 :::
 
 :::
 :::
+
+```{=html}
+<script>
+document.addEventListener('DOMContentLoaded', async function () {
+  const facilitatorLinks = document.querySelectorAll('a.facilitator');
+  const teacherNotice = document.querySelector('.teacher-notice');
+  const guestNotice = document.querySelector('.guest-notice');
+
+  if (sessionStorage.getItem('aaic_guest') === 'true') {
+  guestNotice?.classList.remove('hidden');
+  facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+  return;
+  }
+
+  try {
+    const { data: { session }, error: sessionError } =
+      await _supabase.auth.getSession();
+
+    if (sessionError) throw sessionError;
+    if (!session?.user) return;
+
+    const { data: profile, error: profileError } = await _supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single();
+
+    if (profileError) throw profileError;
+
+    if (profile?.role === 'teacher') {
+      facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+      teacherNotice?.classList.remove('hidden');
+    }
+  } catch (error) {
+    console.error('Could not check teacher access for facilitator links:', error);
+  }
+});
+</script>
+```
 
 ::: {.footer}
 ::: {.footer-columns}

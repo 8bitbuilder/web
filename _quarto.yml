@@ -2,9 +2,25 @@ project:
   type: website
   output-dir: _site
   render:
-    - "*.qmd"
-    - "!modules/**"
+    # - "*.qmd"
+    # - "!modules/**"
+    # - "js/**"
+
+    - "choose-role.qmd"
+    - "contact.qmd"
+    - "dashboard.qmd"
+    - "guest-hub.qmd"
+    - "index.qmd"
+    - "login-student.qmd"
+    - "login-teacher.qmd"
+    - "modules.qmd"
+    - "reset-password.qmd"
+    - "signup.qmd"
+    - "student-hub.qmd"
+    - "team.qmd"
+    - "modules/water-quality/index.qmd"
     - "js/**"
+    
   resources:
     - "js/**"
     - "assets/**"
