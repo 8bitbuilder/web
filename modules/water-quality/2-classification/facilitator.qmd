@@ -1,98 +1,1428 @@
 ---
+# =====================================================================
+# FACILITATOR GUIDE TEMPLATE
+# =====================================================================
+#
+# USAGE
+#  - Copy to <lesson>/facilitator.qmd; don't edit the template itself.
+#  - Replace every {{PLACEHOLDER}} (search for "{{").
+#  - Add/remove items by duplicating/deleting their ::: blocks; remove
+#    sections between their SECTION START/END notes.
+#  - Educative features: snippets in _educative-features/, documented
+#    in educative-features-guide.qmd.
+#  - Everything below "STOP. DO NOT EDIT ANYTHING BELOW THIS LINE." is
+#    shared page CSS/JS; change it here, not in individual guides.
+#
+# ---------------------------------------------------------------------
+# For maintainers: the page only matches the AAIC site when rendered
+# inside modules/<module>/<lesson>/ of the app-ai-corps/web repo,
+# whose _quarto.yml supplies the theme, fonts and
+# link-external-newwindow (external links open in a new tab).
+# =====================================================================
 title: "Facilitator's Guide:<br>Classification and Color"
-format: live-html
+subtitle: "AAIC Water Quality Modules · Lesson 2"
+format:
+  live-html:
+    toc: true
+    toc-location: right
+    toc-title: "On this page"
+    toc-depth: 2
+    page-layout: article
+    smooth-scroll: true
+    # Opens every link on the page in a new tab, except jumps within the page (#...)
+    include-after-body:
+      text: |
+        <script>
+        document.querySelectorAll('main a[href]:not([href^="#"])').forEach(function (a) {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+        });
+        </script>
 ---
-## Lesson Topics and Standards
 
-::: {.callout-note collapse="true"}
-## **Topics Covered:**
+<!-- ###################################################################
+     CONTENT STARTS HERE
+     Everything from here down to "CONTENT ENDS HERE" is the page.
+     ################################################################### -->
 
-- AI: Classification
-  - binary vs. multiclass classification
-  - training & evaluating a model
-  - convolutional neural nets (CNNs)
-- The Water Quality Buoy
-  - components & how it works
-  - classification within the buoy
-- Computers & Color
-  - images as pixels
-  - color as R, G, B values
-- Ethics of AI in Agriculture
-  - data ownership
-  - fairness 
+
+<!-- ###################################################################
+     SECTION START: Banner
+     The colored box at the top of the page.
+     Replace each {{...}}. Leave the [ ] and { } around them as they are.
+     ################################################################### -->
+
+::: {.fg-hero}
+<!-- [{{SUBJECT_AREA}}]{.fg-tag .fg-tag-light} [{{GRADE_BAND}}]{.fg-tag .fg-tag-light} [{{CODING_LANGUAGE}}]{.fg-tag .fg-tag-light} -->
+
+[Learn and apply ideas around image classification, neural networks, and color, as well as how they can be used to monitor water quality.]{.lead}
+
+<!-- [▶ Open Slide Deck](https://appalachianaicorps.org/modules/water-quality/2-classification/slides.html#/title-slide){.fg-btn}
+[📄 Student Handout](https://docs.google.com/document/d/1YlHKArDan-SWoDWpHBdIyw4bPZv3ZG8LF711mCvDTAk/copy){.fg-btn-outline} -->
+:::
+
+<!-- ########## SECTION END: Banner ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: At-a-Glance Cards
+     Three small cards under the banner. Keep each answer to 1–3 words.
+     To change an icon, replace the emoji on the first line of a card.
+     ################################################################### -->
+
+::: {.fg-grid-3}
+
+::: {.fg-stat}
+[⏱]{.fg-stat-icon}
+
+[90 minutes]{.fg-stat-value}
+
+[Class time]{.fg-stat-label}
+:::
+
+<!-- ::: {.fg-stat}
+[🧰]{.fg-stat-icon}
+
+[{{PREP_TIME}}]{.fg-stat-value}
+
+[Prep time]{.fg-stat-label}
+::: -->
+
+::: {.fg-stat}
+[👥]{.fg-stat-icon}
+
+[3-4]{.fg-stat-value}
+
+[Group size]{.fg-stat-label}
+:::
+
+::: {.fg-stat}
+[💻]{.fg-stat-icon}
+
+::: {.fg-stat-value .fg-stat-list}
+- 1:1 Devices
+- [Teachable Machine](https://teachablemachine.withgoogle.com/)
+- [RGB Applet V1](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html)
+:::
+
+[Tech needed]{.fg-stat-label}
+:::
 
 :::
 
-::: {.callout-note collapse="true"}
-## **TN Standards Addressed:** 
+<!-- ########## SECTION END: At-a-Glance Cards ########## -->
 
-- *BIO1.LS2.1/ECO.LS2.13/EVSC.LS2.3:* Use mathematical and/or computational representations to support explanations of factors that affect the carrying capacity of ecosystems at different scales.    
-- *SCRE.ETS2.3:*  Identify the most appropriate scientific instruments and/or computer programs for different experiments and research, and learn to use, care for, and maintain them, gather data, and analyze results.    
-- *PSCI.PS1.7:* Develop, or use, a model to predict or explain a phenomenon by using appropriate indicators.    
-- *SCRE.ETS3:* Applications of Science: Use data to develop a model. Evaluate the effectiveness of the model by making and testing predictions.
-- *AGSCIENCE 2.1:* Overview: Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.
-- *AGSCIENCE 3.2:* Models:  Develop models for the flow of energy and matter (inorganic forms and overall biomass) in various ecosystems impacting agricultural and environmental systems. Using these models, calculate rates of productivity by analyzing the major components of a food chain. Employ mathematical models to explain growth patterns and rates, both densitydependent and density-independent factors, observed in ecosystems energy and nutrients flow.
+
+<!-- ###################################################################
+     SECTION START: Lesson Topics and Standards
+     Expandable panels. Each panel opens when clicked.
+     - The panel title is the text inside label="...".
+     - open="true" makes a panel start open. Use it on one panel at most;
+       leave it off and all panels start closed.
+     - To add a panel: duplicate a whole ::: {.fg-panel} block.
+     - "Prior Knowledge & Vocabulary" (right below this note) is its
+       own separate fold-out box, so opening it doesn't close the others.
+     ################################################################### -->
+
+
+## Lesson Objectives and Standards
+
+::: {.fg-accordion}
+
+::: {.fg-panel label="Learning Objectives" open="true"}
+<!-- Learning Objectives (always the first panel; it starts open).
+     A bulleted list. Each objective starts with a colored tag that
+     shows its subject area. Copy the tag you need from this list:
+       [CS]{.fg-tag .fg-tag-cs}                 Computer Science
+       [DS]{.fg-tag .fg-tag-ds}                 Data Science
+       [Math]{.fg-tag .fg-tag-math}             Math
+       [Science]{.fg-tag .fg-tag-science}       Science
+       [AgScience]{.fg-tag .fg-tag-agscience}   Agricultural Science
+     - To add an objective: copy one line that starts with - and
+       paste it on the next line. Then change the tag if needed.
+     - An objective can have more than one tag. Put them side by side.
+     - To add detail under an objective, start a new line with two
+       spaces before the dash (see the example below).
+     -->
+By the end of the lesson, students will be able to:
+
+::: {.fg-objectives}
+- [CS]{.fg-tag .fg-tag-cs} Train and evaluate an image classification model using Teachable Machine
+- [CS]{.fg-tag .fg-tag-cs} Explain, at a high level, how a Convolutional Neural Net (CNN) works
+- [CS]{.fg-tag .fg-tag-cs} Explain how computers represent images as pixels and colors as R, G, B values
+- [CS]{.fg-tag .fg-tag-cs} Distinguish between binary and multiclass classification and provide examples of each
+- [DS]{.fg-tag .fg-tag-ds} Discuss ethical considerations around data ownership and fairness in AI-assisted agriculture
+- [AgScience]{.fg-tag .fg-tag-agscience} Describe the components of the Smokey Buoy and explain how it uses classification to monitor water quality
+:::
 :::
 
-## Lesson Overview Video Tour
+::: {.fg-panel label="TN AgriScience Standards"}
+<!-- Paste the link to the standards document over {{AGRISCIENCE_STANDARDS_URL}}.
+     One topic per line. To indent a subtopic, start the line with
+     two spaces before the dash. -->
 
-```{=html}
-<video width="80%" controls>
-  <source src="facilitator-video-overview.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-```
-<br>
-If you would like a more in-depth overview of the lesson, please consult the [slides with visible facilitator notes](https://appalachianaicorps.org/modules/water-quality/2-classification/facilitator_notes.html){target="_blank" rel="noopener noreferrer"}.
+- ***2.1 Overview:*** Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.
+- ***3.3 Biodiversity:*** Evaluate the impact of habitat fragmentation, destruction, and other environmental pressures, such as invasive species, overharvesting, pollution, and climate change on local and global biodiversity (genetic, species, and ecosystems.) Distinguish between types of pollution (point and not-point sources) and their sources to predict the effects on environmental conditions (e.g., water, soil, and air), animal populations, and plant populations from various kinds of human activity.
+:::
 
-## Slide Deck for Lesson
+::: {.fg-panel label="Data Science Standards"}
+<!-- Paste the link to the standards document over {{DATA_SCIENCE_STANDARDS_URL}}.
+     One standard per line, in this format:  - *CODE:* Full text -->
 
-<a href="https://appalachianaicorps.org/modules/water-quality/2-classification/slides.html" target="_blank" rel="nofollow noopener noreferrer">Workshop #2 Slides</a>
+- ***9-10.C.4.1a:***  *Tool Application* Identify relationships and patterns using a digital tool.
+:::
 
-## Student Handout
-You can make a copy of the [student handout for this lesson](https://docs.google.com/document/d/1YlHKArDan-SWoDWpHBdIyw4bPZv3ZG8LF711mCvDTAk/copy).
+::: {.fg-panel label="TN Computer Science Standards"}
+<!-- Paste the link to the standards document over {{CS_STANDARDS_URL}}.
+     One standard per line, in this format:  - *CODE:* Full text -->
 
-<br>
+- ***CS.DA.1:*** *Data Analysis:* Create computational models that represent the relationships among different elements of data collected from a phenomenon or process.
+- ***CS.DA.2:*** *Data Analysis:* Utilize data to answer a question using a variety of computing and data visualization methods.
+- ***CS.DA.3:*** *Data Analysis:* Use data analysis tools and techniques to identify patterns in data representing complex systems.
+:::
 
-If you would like to provide students a copy of the slides with spaces for note taking, we have prepared a [handout for this purpose](https://appalachianaicorps.org/modules/water-quality/2-classification/student_handout.pdf){target="_blank" rel="noopener noreferrer"}.
+:::
+
+<!-- Prior Knowledge & Vocabulary: a fold-out box on its own, styled
+     like the Estimated Lesson Timing box. It starts closed; add
+     open="true" after the label to make it start open.
+     The box title is the text inside label="...". -->
+::: {.fg-fold label="Prior Knowledge & Vocabulary"}
+
+**This lesson assumes that students have already had an introduction to:** 
+
+- Water Quality: Water quality can be affected by natural processes and human activities.
+- Nitrogen Cycle: Nitrogen moves through the environment and is essential for living organisms.
+- Pollution: Human activities, such as farming and fertilizer use, can affect water quality.
+- Data Literacy: Basic experience reading tables, interpreting graphs, and identifying patterns in data.
+- Math Skills: Basic addition, subtraction, division, and comparing numbers.
+- Computer Skills: Basic computer navigation and entering information.
+
+<!-- Table: each row is one line starting with |
+     To add a row, copy a {{TERM}} line and paste it below. -->
+
+| Term | Student-friendly definition |
+|------|-----------------------------|
+| Neural network | A type of artificial intelligence that learns to recognize patterns in data, such as pictures, sounds, or numbers, to make predictions or decisions. |
+| Classification | Sorting items into groups based on appearance or behavior. Binary Classification: Two possible outcomes; Multiclass Classification: More than two possible outcomes  |
+| Convolutional Neural Net (CNN) | A type of artificial intelligence that learns to recognize patterns in images so it can identify and classify things, such as animals, plants, or objects. |
+| Buoy | Tool for measuring nitrates in water. |
+
+[Additional Resources on These Topics](#additional-background-resources){.fg-btn}
+
+:::
+
+<!-- ########## SECTION END: Lesson Topics and Standards ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Overview Video Tour
+     VIDEO: on the line just below the heading that contains
+     REPLACE-WITH-VIDEO.mp4, replace ONLY that word with either:
+       - the video's file name (the file must be in the lesson folder),
+         e.g.  facilitator-video-overview.mp4
+       - or a YouTube link, e.g.  https://youtu.be/abc123
+     Leave the curly braces, < > and the word "video" exactly as they are.
+     ################################################################### -->
+
+<!-- ## Lesson Overview Video Tour
+
+{{< video REPLACE-WITH-VIDEO.mp4 >}}
+ -->
+
+<!-- ########## SECTION END: Lesson Overview Video Tour ########## -->
+
+<!-- 
+###################################################################
+     SECTION START: Lesson Materials
+     One card per resource, each with a short description and a button.
+     - The button text goes inside [ ], the link inside ( ).
+     - .fg-btn = solid button, .fg-btn-outline = outlined button.
+     ###################################################################  -->
+## Lesson Materials
+
+
+::: {.fg-grid-3}
+
+::: {.fg-card}
+[🖥️ Slide Deck]{.fg-card-title}
+
+The slides you'll present during the lesson.
+
+[Open slides](https://appalachianaicorps.org/modules/water-quality/2-classification/slides.html#/title-slide){.fg-btn}
+:::
+
+<!-- #student-handout lets other parts of the page link here: [text](#student-handout) -->
+::: {.fg-card #student-handout}
+[📄 Student Handout]{.fg-card-title}
+
+Opens a "Make a copy" prompt so you get your own editable version.
+
+[Make a copy](https://docs.google.com/document/d/1YlHKArDan-SWoDWpHBdIyw4bPZv3ZG8LF711mCvDTAk/copy){.fg-btn}
+:::
+
+::: {.fg-card}
+[📝 Note-Taking Slides]{.fg-card-title}
+
+A printable version of the slides with space for student notes.
+
+[Download PDF](https://appalachianaicorps.org/modules/water-quality/2-classification/student_handout.pdf){.fg-btn-outline}
+:::
+
+<!-- #exit-ticket lets other parts of the page link here: [text](#exit-ticket) -->
+::: {.fg-card #exit-ticket}
+[✅ Exit Ticket]{.fg-card-title}
+
+The exit ticket asks students to define classification, give an example of how classification might be used in Ag, and reflect on what is exciting and cocerning about this tech. Additionally, it asks student to predict the RGB values for "banana yellow". If you do not get to the Computers & Color Activity, Pt. I, throw out this last question.
+
+[Copy Google Form](https://docs.google.com/forms/d/1qs_1RupqOY17vGspY___I6kDrig4PxWnLrMiVLCj0IQ/copy){.fg-btn-outline}
+:::
+
+<!-- #practice-exercise lets other parts of the page link here: [text](#practice-exercise) -->
+::: {.fg-card #practice-exercise}
+[💻 Practice Exercise]{.fg-card-title}
+
+{{PRACTICE_DESCRIPTION}}
+
+[Open in Colab]({{PRACTICE_URL}}){.fg-btn-outline}
+:::
+
+::: {.fg-card}
+[🛒 Walmart Cart]{.fg-card-title}
+
+Share-A-Cart link for the apples, mandarins, and a distractor ball (goal is a ball that looks similar to fruit in some respects.)
+
+[Share-A-Cart](https://share-a-cart.com/get/F1085W){.fg-btn-outline}
+:::
+
+:::
+
+<!-- ########## SECTION END: Lesson Materials ########## -->
+
+## Facilitation Notes
+
+::: {.panel-tabset}
+
+### 🖥️ Slide Deck with Notes
+
+For an in-depth walkthrough, see the [slides with visible facilitator notes](https://appalachianaicorps.org/modules/water-quality/2-classification/facilitator_notes.html#/title-slide).
+
+<!-- ### 💡 Tips
+
+- {{TIP}}
+- {{TIP}} -->
+
+<!-- ### ⚠️ Common Misconceptions
+
+| Students may think... | Address it by... |
+|---|---|
+| {{MISCONCEPTION}} | {{STRATEGY}} |
+| {{MISCONCEPTION}} | {{STRATEGY}} | -->
+
+### ❓ Discussion Questions
+
+1. *[Pose after groups test their Teachable Machine model]* Compare your model’s results with another group’s. Did both models classify each object the same way, with the same confidence? Why do you think that is?
+2. *[Pose after Q1, before Neural Networks]* Hold up something your model was never trained on, like a pencil or your hand. What does your model say? Why do you think it does that? What might happen if Smokey Buoy’s camera saw something that wasn’t a test pad, like a leaf or algae?
+3. *[Pose after Computers & Color Pt. 1, once fruit RGB values are recorded]* Look at the RGB values for your fruits. Which value (R, G or B) would best help a computer tell the red apple from the green apple? From the orange? Why?
+4. *[Pose near end of lesson]* Today, we trained a classification model to sort objects into groups from images. What else in AgriScience could we classify? What groups would we sort them into, and what would the computer need to “see”?
+
+### 🔀 Differentiation
+
+**Extra support:** Binary vs multiclass Classification- provide [physical cards](https://docs.google.com/document/d/1KBX1gYzvGiXN_iNE1knbAoJXOAMa4PIKL2Ed4z8AUKA/edit?usp=sharing) or objects for students to classify in small groups. Teachable Machine- provide students with this [hand out](https://drive.google.com/file/d/1HHob0c2soLE8r1wAypVaHCn3y8zkd1H1/view?usp=sharing) as a reference
+
+**Extension:** Binary vs multiclass Classification- Have students create their own classification categories in small groups. Teachable machine- allow students to design their own training process, select categories, and determine how many examples to collect. RBG Values- allow students to design investigations where they determine how light and shadow can affect RGB values in the water quality test strips.
+
+**If you're short on time:** Move the Computers & Color, Pt. 1 lesson to another day. If students consume the fruits before you get to the activity, bring 1 red apple, 1 green apple, and 1 orange to school and model the process in front of the class, providing the RGB values to the students so they can do the second part of the activity during Lesson 3.
+
+### 🛠 Troubleshooting
+
+**Issue Accessing Applet**
+
+- Students must grant permission for the applet to access their webcam. If they decline, reload the applet.
+
+:::
+
+<!-- ########## SECTION END: Facilitation Notes ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Prep
+     A checklist, then numbered prep steps.
+     - The checklist fills itself in from the step titles. Don't type in it.
+     - Steps number themselves (1, 2, 3...) in the order they appear.
+     - Each step can include the optional pieces marked inside it.
+     ################################################################### -->
 
 ## Lesson Prep
 
-#### 1. Ensure Student Access to Webcam
-This lesson is reliant on the student use of their device's webcam. Please double check that the webcam on their device is enabled and works with both [Teachable Machine](https://teachablemachine.withgoogle.com/) and the [AAIC Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html) used in this lesson.
+::: {.callout-tip}
+## Prep checklist
+::: {.fg-checklist}
+:::
+:::
 
-#### 2. Purchase Fruit and Distractor
-For this lesson, we recommend one red apple per child, and at least one Granny Smith and mandarin orange per small group. If you want to lengthen this lesson, you could vary the types of red apples purchased and have discussion about the importance of training classification models for different varieities of apples and fruits. We also purchased an orange rubber ball, similarly sized to the mandarin oranges.
+::: {.fg-steps}
 
-#### 3. Make Copies of the Student Handout
-Each student will need one copy of the student handout. You can make a copy of the handout by clicking the link above.
+::: {.fg-step}
+#### Ensure Student Access to Webcam {.unnumbered}
 
-#### 4. Create copy of exit ticket for end-of-lesson implementation.
+This lesson is reliant on the student use of their device’s webcam. Please double check that the webcam on their device is enabled and works with both [Teachable Machine](https://teachablemachine.withgoogle.com/) and the [AAIC Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html) used in this lesson.
 
-We have drafted an exit ticket that aligns with tthis lesson. We are providing the [Google Form here](https://docs.google.com/forms/d/1qs_1RupqOY17vGspY___I6kDrig4PxWnLrMiVLCj0IQ/copy) if you would like to use it or modify it for your own needs.
+[Test Teachable Machine](https://teachablemachine.withgoogle.com/){.fg-btn}
 
-#### 5. Create copy of the exercise for after-lesson practice.
+[Test AAIC RGB V1 Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html){.fg-btn}
 
-We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available [here](https://docs.google.com/forms/d/1CRdhhvLsr_5YXHe5P8TK6QvB8wANtHGMzgxQd3ynsWI/copy).
+:::
 
-## Lesson Overview & Takeaways
+::: {.fg-step}
+#### Purchase Fruit and Distractor {.unnumbered}
 
-By the end of the lesson, students will be able to:
+For this lesson, we recommend one red apple per child, and at least one Granny Smith and mandarin orange per small group. If you want to lengthen this lesson, you could vary the types of red apples purchased and have discussion about the importance of training classification models for different varieties of apples and fruits. We also purchased an orange rubber ball, similarly sized to the mandarin oranges. We provide one option in the share-a-cart, but you may find better "distractor" objects in your home or classroom.
 
-- Describe the components of the Smokey Buoy and explain 
-  how it uses classification to monitor water quality
-- Distinguish between binary and multiclass classification 
-  and provide examples of each
-- Train and evaluate an image classification model using 
-  Teachable Machine
-- Explain, at a high level, how a Convolutional Neural Net 
-  (CNN) works
-- Explain how computers represent images as pixels and 
-  colors as R, G, B values
-- Discuss ethical considerations around data ownership and 
-  fairness in AI-assisted agriculture
-  
+**Materials needed:**
+
+- 🛒🍎 Red Apples
+- 🛒🍏 Green Apples
+- 🛒🍊 Mandarin Oranges
+- 🛒🔴🟢🟠 Distractor Objects
+
+:::
+
+::: {.fg-step}
+#### Make Copies of the Student Handout {.unnumbered}
+
+Each student will need one copy of the student handout. You can make a copy of the [handout above](#student-handout).
+
+:::
+
+::: {.fg-step}
+#### Create copy of exit ticket for end-of-lesson implementation. {.unnumbered}
+
+We have drafted an exit ticket that aligns with this lesson. We are providing the [Google Form here](#exit-ticket) if you would like to use it or modify it for your own needs.
+
+:::
+
+::: {.fg-step}
+#### Create copy of the exercise for after-lesson practice. {.unnumbered}
+
+We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available [here](#practice-exercise).
+
+:::
+
+:::
+
+
+```{=html}
+<style>
+/* Lesson Prep accordion only */
+.fg-steps > .fg-step img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0.75rem auto;
+}
+
+.fg-steps > .fg-step > details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.fg-steps > .fg-step > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fg-steps > .fg-step > details > summary > h4 {
+  margin: 0;
+  font-family: var(--fg-heading-font);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  color: var(--aaic-globe, #006C93);
+  transition: color 0.15s ease;
+}
+
+.fg-steps > .fg-step > details > summary:hover > h4 {
+  color: var(--aaic-torch, #E65933);
+}
+
+.fg-steps > .fg-step > details[open] > summary {
+  margin-bottom: 0.75rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 2px solid var(--aaic-summit, #B9E1E2);
+}
+
+/* Title bar for Lesson Prep steps (tinted, rounded, with arrow) */
+.fg-steps > .fg-step > details > summary {
+  position: relative;
+  padding: 0.3rem 2.25rem 0.35rem 0.75rem;
+  background: var(--aaic-ltblue, #f1f9f9);
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.fg-steps > .fg-step > details > summary:hover {
+  background: #e4f3f3;
+}
+
+.fg-steps > .fg-step > details > summary::after {
+  content: "▼";
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: var(--aaic-globe, #006C93);
+  transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when expanded */
+.fg-steps > .fg-step > details[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".fg-steps > .fg-step")
+    .forEach(step => {
+
+      const heading = step.querySelector(":scope > h4");
+      if (!heading) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+
+      // Keep the existing step title
+      summary.appendChild(heading);
+      details.appendChild(summary);
+
+      // Move all existing content into the accordion
+      while (step.firstChild) {
+        details.appendChild(step.firstChild);
+      }
+
+      step.appendChild(details);
+    });
+
+  // Preserve Prep Checklist links
+  document.querySelectorAll(".fg-checklist")
+    .forEach(checklist => {
+      checklist.addEventListener("click", event => {
+        const link = event.target.closest('a[href^="#prep-step-"]');
+        if (!link) return;
+
+        const step = document.getElementById(link.hash.slice(1));
+        if (step) {
+          const details = step.querySelector("details");
+          if (details) details.open = true;
+        }
+      });
+    });
+
+});
+</script>
+```
+
+
+<!-- ########## SECTION END: Lesson Prep ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Flow
+     A timeline of the class period. Each segment has:
+       time="..."    about how long it takes, e.g. 10 min
+       group="..."   one of: Whole class, Direct instruction, Groups,
+                     Coding, Individual  (each gets its own color)
+                     For more than one, separate with commas,
+                     e.g. group="Groups, Coding"
+     Type between the quote marks only.
+     ################################################################### -->
+
+
+## Estimated Time Per Lesson Component
+
+::: {.fg-timeline}
+
+::: {.fg-segment time="10 min" group="Whole class"}
+**Introduction to the Buoy**
+Facilitate a discussion of each of the buoy components, with students completing handout about different part names.
+:::
+
+::: {.fg-segment time="5 min" group="Whole class"}
+**Introduction to Classification**
+Facilitate initial discussion around classification, determining ripeness, and data ownership.
+:::
+
+::: {.fg-segment time="15 min" group="Groups"}
+**Training a Classifier**
+Use apples and oranges to train a fruit classifier using Google's Teachable Machine.
+:::
+
+::: {.fg-segment time="20 min" group="Groups"}
+**Evaluate Classification Model**
+Using the student handout, collect data concerning model performance against a variety of specified tests.
+:::
+
+::: {.fg-segment time="25 min" group="Whole class, Direct instruction"}
+**Understanding Convolutional Neural Nets**
+Show two selected PBS clips and facilitate a discussion where students think through the different layers and features a CNN might consider to classify a cow. Students will complete portion of handout.
+:::
+
+::: {.fg-segment time="10 min" group="Groups"}
+**Classification & Color, Pt. 1**
+Using the applet, ask students to record the RGB values of their items (red apple, green apple, and mandarin orange) on their handout. Students will finish the rest of this activity during the next lesson, but it is important to record these values before the fruits are consumed/disappear.
+:::
+
+::: {.fg-segment time="5 min" group="Individual"}
+**Exit Ticket**
+Use the final 5 minutes of class for students to complete the exit ticket. Additionally, if you’d like to assign the practice exercise for homework, do so now.
+:::
+
+:::
+
+```{=html}
+<style>
+/* Single accordion for entire Lesson Flow */
+.fg-flow-accordion {
+  border: 1px solid var(--aaic-border, #dcdcdc);
+  border-radius: var(--fg-radius, 12px);
+  overflow: hidden;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.fg-flow-accordion > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.65rem 1rem;
+  background: var(--aaic-ltblue, #f1f9f9);
+  color: #000;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.fg-flow-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fg-flow-accordion > summary:hover {
+  background: #e2f1f2;
+}
+
+/* Dropdown arrow */
+.fg-flow-accordion > summary::after {
+  content: "▼";
+  font-size: 0.85rem;
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.fg-flow-accordion[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.fg-flow-accordion[open] > summary {
+  border-bottom: 1px solid var(--aaic-border, #dcdcdc);
+}
+
+.fg-flow-accordion > .fg-timeline {
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+/* Other fold-out boxes (.fg-fold) reuse this look */
+.fg-flow-accordion > .fg-fold-body { padding: 0.75rem 1rem; }
+.fg-flow-accordion > .fg-fold-body > :last-child { margin-bottom: 0; }
+
+/* Heading sized like the "Prior Knowledge & Vocabulary" box header;
+   stays an h2 so it still appears in "On this page" */
+.fg-flow-accordion > summary > h2,
+.fg-flow-accordion > summary > .fg-fold-title {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: var(--fg-heading-font);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #000;
+}
+.fg-flow-accordion > summary > h2 .anchorjs-link { display: none !important; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const timeline = document.querySelector(".fg-timeline");
+  if (!timeline) return;
+
+  const heading = timeline.previousElementSibling;
+  if (!heading || heading.tagName !== "H2") return;
+
+  const accordion = document.createElement("details");
+  accordion.className = "fg-flow-accordion";
+
+  const summary = document.createElement("summary");
+
+  summary.appendChild(heading);
+
+  timeline.before(accordion);
+  accordion.append(summary, timeline);
+
+});
+</script>
+```
+
+<!-- ########## SECTION END: Lesson Flow ########## -->
+
+
+
+<!-- ###################################################################
+     SECTION START: Facilitation Notes
+     Tabs. Each tab starts with a line beginning with ###
+     The text after ### is the tab's name.
+     ################################################################### -->
+
+
+<!-- ###################################################################
+     SECTION START: Reference Materials
+     Two cards of links. Each link is one line:
+       - [Title shown on page](https://link) [Source]{.fg-tag}
+     To add a link, copy one line starting with - and paste it below.
+     ################################################################### -->
+
 ## Reference Materials
 
-Whole-Class Video Links:  
-- [PBS Convolutional Neural Networks](https://youtu.be/oV3ZY6tJiA0?si=ur273VN6VpnoqXoZ){rel="noopener noreferrer"}
+::: {.fg-grid-2}
+
+<!-- #whole-class-videos lets other parts of the page link here: [text](#whole-class-videos) -->
+::: {.fg-card .fg-linklist #whole-class-videos}
+[Whole-Class Videos]{.fg-card-header}
+
+- [PBS Convolutional Neural Networks](http://youtube.com/watch?si=ur273VN6VpnoqXoZ&v=oV3ZY6tJiA0&feature=youtu.be) [YouTube]{.fg-tag .fg-tag-torch}
+:::
+
+::: {.fg-card .fg-linklist #additional-background-resources}
+[Additional Resources on Background Topics]{.fg-card-header}
+
+- [How Water Buoys Work](https://www.epa.gov/mysticriver/basic-information-about-mystic-river-buoy) [Provides information on what buoys do for water quality and examples of how it is used in another location through the EPA.]{.fg-link-note}
+- [How Neural Networks Work](https://www.khanacademy.org/computing/code-org/x06130d92:how-ai-works/x06130d92:what-is-ai/v/how-neural-networks-work?utm_account=Grant&utm_campaignname=DSA_www_US_lowincomestates&gad_source=1&gad_campaignid=10815796927&gbraid=0AAAAADn3z4IaAmqgnHCLKDcVlMCoYmr66&gclid=Cj0KCQiAzeXXBhCGARIsADO5-zFkURCd6JKtkSCxlU9QPldzNdJDehLVPQiJC8zq3Sh9-mAizCltbPcaAkYPEALw_wcB) [Video explaining neural networks]{.fg-link-note}
+- [Convolutional Neural Networks](https://medium.com/analytics-vidhya/what-is-cnn-a-5-year-old-guide-to-convolutional-neural-network-c9d0338c3bf7) [Article explaining convolutional neural networks]{.fg-link-note}
+- [Water Quality](https://watermanagement.yale.edu/topics/water-science/introduction-to-water-quality/) [Introduction to water quality]{.fg-link-note}
+:::
+
+:::
+
+<!-- ########## SECTION END: Reference Materials ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Footer
+     ################################################################### -->
+
+---
+
+::: {.text-center .text-body-secondary .small}
+<!-- The email address is stored backwards so spam bots can't read it.
+     The page turns it back into a clickable link. -->
+Questions or feedback on this lesson? Contact [aaic [at] utk [dot] edu]{.fg-email u="ciaa" d="ude.ktu"}
+:::
+
+<!-- ########## SECTION END: Footer ########## -->
+
+
+<!-- ###################################################################
+     CONTENT ENDS HERE
+
+     ⛔ STOP. DO NOT EDIT ANYTHING BELOW THIS LINE. ⛔
+     The rest of this file controls colors, layout and how the
+     expandable panels and timeline work. Changing it
+     can break the page.
+     ################################################################### -->
+
+```{=html}
+<!-- =================================================================
+     STYLES AND SCRIPT — for whoever maintains the template.
+     Uses the AAIC brand palette. Edit the --aaic-* values to rebrand.
+     ================================================================= -->
+<style>
+  /* AAIC palette — same values as styles-main.css on the main site.
+     custom-module-theme.scss (loaded by the water-quality _quarto.yml)
+     already handles fonts, link colors, TOC/sidebar hover, navbar,
+     and callout borders, so this block only styles the new components. */
+  :root {
+    --aaic-globe: #006C93;      /* primary: links, accents */
+    --aaic-torch: #E65933;      /* hover / active (theme uses #e65933) */
+    --aaic-valley: #00746F;
+    --aaic-river: #517C96;
+    --aaic-orange: #FF8200;     /* Tennessee orange */
+    --aaic-sunsphere: #FED535;
+    --aaic-smokey: #58595B;
+    --aaic-limestone: #F0EDE3;
+    --aaic-summit: #B9E1E2;
+    --aaic-ltblue: #f1f9f9;     /* .ltblue-container / .checkpoint-box */
+    --aaic-ltorange: #fdf5f2;   /* .dkorange-container */
+    --aaic-border: #dcdcdc;
+    --fg-accent: var(--aaic-globe);
+    --fg-radius: 12px;          /* matches .module-card */
+    --fg-heading-font: 'Montserrat', Helvetica, Arial, sans-serif;
+  }
+
+  /* Buttons — pill shape like the main-site .btn, sized for cards.
+     Use .fg-btn (solid) or .fg-btn-outline. */
+  .fg-btn, .fg-btn-outline {
+    display: inline-block;
+    border-radius: 50px;
+    border: 2px solid var(--aaic-globe);
+    padding: 0.35rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+  }
+  .fg-btn { background: var(--aaic-globe); color: #fff !important; }
+  .fg-btn-outline { background: #fff; color: var(--aaic-globe) !important; }
+  .fg-btn:hover, .fg-btn-outline:hover {
+    background: var(--aaic-torch);
+    border-color: var(--aaic-torch);
+    color: #fff !important;
+    transform: translateY(-1px);
+  }
+
+  /* Small tags (badges) */
+  .fg-tag {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    vertical-align: middle;
+    color: #fff;
+    background: var(--aaic-smokey);
+  }
+  .fg-tag-globe  { background: var(--aaic-globe); }
+  .fg-tag-valley { background: var(--aaic-valley); }
+  .fg-tag-torch  { background: var(--aaic-torch); }
+  .fg-tag-river  { background: var(--aaic-river); }
+  .fg-tag-sun    { background: var(--aaic-sunsphere); color: #333; }
+  .fg-tag-light  { background: var(--aaic-limestone); color: var(--aaic-globe); }
+
+  /* Hero banner */
+  .fg-hero {
+    background: linear-gradient(135deg, var(--aaic-globe) 0%, var(--aaic-valley) 100%);
+    color: #fff;
+    border-radius: var(--fg-radius);
+    padding: 1.25rem 1.5rem;
+    margin: 0.75rem 0 1.25rem;
+  }
+  .fg-hero p { margin-bottom: 0.4rem; }
+  .fg-hero .lead { font-size: 1.15rem; }
+  .fg-hero .fg-tag { margin-right: 0.25rem; }
+  .fg-hero .fg-btn { background: #fff; border-color: #fff; color: var(--aaic-globe) !important; }
+  .fg-hero .fg-btn-outline { background: transparent; border-color: #fff; color: #fff !important; }
+  .fg-hero .fg-btn:hover, .fg-hero .fg-btn-outline:hover {
+    background: var(--aaic-orange); border-color: var(--aaic-orange); color: #fff !important;
+  }
+
+  /* Space below the at-a-glance row */
+
+  /* Cards — share the main-site .module-card radius, shadow and hover */
+  .fg-card, .fg-stat {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    height: 100%;
+  }
+  .fg-card { transition: all 0.3s ease; }
+  .fg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 116, 111, 0.2);
+    border-color: var(--aaic-torch);
+  }
+  .fg-card .card-body { display: flex; flex-direction: column; }
+  .fg-card .card-body > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card .card-title {
+    font-family: var(--fg-heading-font);
+    font-weight: 700;
+    color: var(--aaic-globe);
+    margin-bottom: 0.5rem;
+  }
+  .fg-card .card-header {
+    background: var(--aaic-ltblue);
+    border-bottom: 1px solid var(--aaic-border);
+    font-family: var(--fg-heading-font);
+    color: var(--aaic-globe);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+  }
+
+  /* Colored left edge for objective cards */
+  .fg-edge { border-left: 5px solid var(--fg-edge-color, var(--fg-accent)) !important; }
+  .fg-edge-globe  { --fg-edge-color: var(--aaic-globe); }
+  .fg-edge-valley { --fg-edge-color: var(--aaic-valley); }
+  .fg-edge-torch  { --fg-edge-color: var(--aaic-torch); }
+  .fg-edge-river  { --fg-edge-color: var(--aaic-river); }
+
+  /* Stat / at-a-glance cards */
+  .fg-stat { text-align: center; background: var(--aaic-ltblue); }
+  .fg-stat .fg-stat-icon { font-size: 1.6rem; line-height: 1; }
+  .fg-stat .fg-stat-value {
+    font-family: var(--fg-heading-font);
+    font-size: 1.35rem; font-weight: 700; color: var(--aaic-globe);
+    margin: 0.35rem 0 0;
+  }
+  /* Bulleted stat value: keep the list centered in the card but
+     left-align the bullets so they line up */
+  .fg-stat .fg-stat-list ul {
+    display: inline-block; text-align: left;
+    margin: 0; padding-left: 1.1rem;
+    font-size: 1.1rem;
+  }
+  .fg-stat .fg-stat-label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin: 0;
+  }
+
+  /* Accordion */
+  .accordion-item { border-color: var(--aaic-border); }
+  .accordion-item:first-of-type { border-top-left-radius: var(--fg-radius); border-top-right-radius: var(--fg-radius); }
+  .accordion-item:last-of-type  { border-bottom-left-radius: var(--fg-radius); border-bottom-right-radius: var(--fg-radius); }
+  .accordion-header { margin: 0 !important; }
+  /* Quarto appends a section-link icon to headings; inside an accordion
+     header it wraps onto its own line, so hide it there */
+  .accordion-header .anchorjs-link { display: none !important; }
+  .accordion-button {
+    font-family: var(--fg-heading-font);
+    font-weight: 600;
+    color: var(--aaic-globe);
+  }
+  .accordion-button:not(.collapsed) {
+    background: var(--aaic-ltblue);
+    color: var(--aaic-globe);
+    box-shadow: inset 0 -1px 0 var(--aaic-border);
+  }
+  .accordion-button:hover { color: var(--aaic-torch); }
+  .accordion-button:focus { box-shadow: 0 0 0 0.2rem rgba(0, 108, 147, 0.25); }
+  .accordion-button { padding: 0.65rem 1rem; }
+  .accordion-body { padding: 0.75rem 1rem; }
+
+  /* Always-open box (.fg-box): styled like an open accordion panel */
+  .fg-box {
+    margin: 0.75rem 0 1.25rem; border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius); overflow: hidden; background: #fff;
+  }
+  .fg-box-header {
+    margin: 0 !important; padding: 0.65rem 1rem;
+    background: var(--aaic-ltblue); box-shadow: inset 0 -1px 0 var(--aaic-border);
+    font-family: var(--fg-heading-font); font-weight: 600; font-size: 1rem;
+    color: var(--aaic-globe);
+  }
+  .fg-box-header .anchorjs-link { display: none !important; }
+  .fg-box-body { padding: 0.75rem 1rem; }
+  .fg-box-body > :last-child { margin-bottom: 0; }
+
+  /* Tabsets — Globe text, Torch underline on the active tab
+     (the united theme would otherwise make them orange-red) */
+  .panel-tabset .nav-tabs .nav-link { color: var(--aaic-globe); font-weight: 600; }
+  /* Compact tabs so they fit on one row on wide screens; on narrower
+     screens they wrap onto a second row (never a sideways scrollbar). */
+  .panel-tabset .nav-tabs .nav-link { font-size: 0.8rem; padding: 0.4rem 0.55rem; white-space: nowrap; }
+  .panel-tabset .nav-tabs .nav-link:hover { color: var(--aaic-torch); }
+  .panel-tabset .nav-tabs .nav-link.active {
+    color: var(--aaic-torch);
+    border-bottom: 3px solid var(--aaic-torch);
+  }
+
+  /* Numbered prep steps */
+  .fg-step {
+    position: relative;
+    border-left: 3px solid var(--aaic-summit);
+    padding: 0.15rem 0 0.25rem 1.25rem;
+    margin: 0 0 1rem 1rem;
+  }
+  .fg-step::before {
+    content: counter(fgstep);
+    position: absolute; left: -1rem; top: 0;
+    width: 1.85rem; height: 1.85rem; border-radius: 50%;
+    background: var(--aaic-globe); color: #fff;
+    font-family: var(--fg-heading-font);
+    font-weight: 700; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fg-step > h4:first-child, .fg-step > p:first-child { margin-top: 0; }
+  .fg-step-meta { font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  /* Lesson-flow timeline */
+  .fg-timeline { list-style: none; padding-left: 0; margin: 1rem 0; }
+  .fg-timeline > li {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.5rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > li:last-child { border-bottom: none; }
+  .fg-timeline .fg-time {
+    font-family: var(--fg-heading-font);
+    font-weight: 700; color: var(--aaic-globe); font-variant-numeric: tabular-nums;
+  }
+  .fg-timeline .fg-time small { display: block; font-family: Helvetica, Arial, sans-serif; font-weight: 400; color: var(--aaic-smokey); }
+  .fg-timeline h5 { margin: 0 0 0.25rem; font-size: 1rem; }
+  .fg-timeline p { margin: 0; }
+
+  /* Carousel */
+  .fg-carousel {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    overflow: hidden;
+    background: var(--aaic-ltblue);
+    margin: 1rem 0 1.5rem;
+  }
+  .fg-carousel .carousel-item img { max-height: 420px; object-fit: contain; margin: 0 auto; display: block; padding: 1rem 1rem 0; }
+  .fg-carousel .fg-caption { padding: 0.75rem 3.5rem 2.5rem; text-align: center; }
+  .fg-carousel .fg-caption strong { display: block; font-family: var(--fg-heading-font); color: var(--aaic-globe); }
+  .fg-carousel .carousel-control-prev-icon,
+  .fg-carousel .carousel-control-next-icon { filter: invert(1) grayscale(100); }
+  .fg-carousel .carousel-indicators [data-bs-target] { background-color: var(--aaic-globe); }
+  .fg-carousel figure { margin: 0; }
+
+  /* Responsive video */
+  .fg-video { border-radius: var(--fg-radius); overflow: hidden; margin: 1rem 0; }
+
+  /* Link lists inside cards */
+  .fg-card .list-group-item-action { color: var(--aaic-globe); }
+  .fg-card .list-group-item-action:hover { color: var(--aaic-torch); background: var(--aaic-ltblue); }
+
+  /* ---------- Educative features ---------- */
+  .fg-ef-index { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 1.5rem; }
+  .fg-ef-index a {
+    display: inline-block; border: 1px solid var(--aaic-border); border-radius: 50px;
+    padding: 0.2rem 0.7rem; font-size: 0.8rem; font-weight: 600;
+    color: var(--aaic-globe); text-decoration: none; background: #fff;
+  }
+  .fg-ef-index a:hover { border-color: var(--aaic-torch); color: var(--aaic-torch); }
+  .fg-ef-index a span { color: var(--aaic-smokey); font-weight: 400; margin-right: 0.25rem; }
+
+  .fg-ef {
+    border: 1px solid var(--aaic-border); border-radius: var(--fg-radius);
+    padding: 0.9rem 1.1rem; margin: 0 0 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+  .fg-ef > h3:first-child, .fg-ef > section > h3 { margin-top: 0; }
+  .fg-ef h3 { font-size: 1.2rem; color: var(--aaic-globe); margin-top: 0; }
+  .fg-ef .fg-ef-meta { margin: -0.25rem 0 0.75rem; }
+
+  /* "What goes here" — the papers' definition */
+  .fg-ef-what {
+    background: var(--aaic-ltblue); border-radius: 8px;
+    padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.95rem;
+  }
+  .fg-ef-what > p:first-child::before {
+    content: "What goes here"; display: block;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-globe);
+    margin-bottom: 0.25rem;
+  }
+  .fg-ef-what p { margin-bottom: 0.4rem; }
+  .fg-ef-what p:last-child { margin-bottom: 0; }
+
+  /* Example label above each component */
+  .fg-ef-example-label {
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-torch);
+    margin: 0 0 0.4rem;
+  }
+  .fg-cite { font-size: 0.8rem; color: var(--aaic-smokey); white-space: nowrap; }
+  .fg-ef-example-label .fg-cite { text-transform: none; letter-spacing: 0; font-weight: 400; font-family: Helvetica, Arial, sans-serif; }
+
+  /* Quoted example text */
+  .fg-quote {
+    border-left: 4px solid var(--aaic-summit); padding: 0.25rem 0 0.25rem 1rem;
+    color: #333; font-style: italic; margin: 0.75rem 0;
+  }
+  .fg-quote p { margin-bottom: 0.4rem; }
+
+  /* Core ideas map: before -> this unit -> later */
+  .fg-flow { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 1.75rem; align-items: stretch; }
+  .fg-flow .fg-flow-step {
+    border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem;
+    font-size: 0.9rem; background: #fff;
+  }
+  .fg-flow .fg-flow-step.fg-flow-now { border: 2px solid var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-flow .fg-flow-step strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--aaic-globe); }
+  .fg-flow .fg-flow-arrow { align-self: center; color: var(--aaic-globe); font-size: 1.25rem; }
+  @media (max-width: 640px) {
+    .fg-flow { grid-template-columns: 1fr; }
+    .fg-flow { gap: 2rem; }
+  }
+
+  /* Concept map placeholder */
+  .fg-diagram {
+    border: 2px dashed var(--aaic-summit); border-radius: 8px; background: var(--aaic-ltblue);
+    padding: 1.5rem; text-align: center; color: var(--aaic-smokey); font-size: 0.9rem;
+  }
+
+  /* Lesson storyline banner */
+  .fg-storyline {
+    border-left: 5px solid var(--aaic-valley); background: #f2f8f7;
+    border-radius: 0 8px 8px 0; padding: 0.75rem 1rem;
+  }
+  .fg-storyline p:last-child { margin-bottom: 0; }
+
+  /* Definition boxes */
+  .fg-defbox { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-bottom: 0.75rem; }
+  .fg-defbox .fg-defbox-label {
+    background: var(--aaic-globe); color: #fff; padding: 0.3rem 0.75rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+  }
+  .fg-defbox.fg-defbox-student .fg-defbox-label { background: var(--aaic-valley); }
+  .fg-defbox .fg-defbox-label p { margin: 0; }
+  .fg-defbox .fg-defbox-body { padding: 0.6rem 0.75rem; }
+  .fg-defbox .fg-defbox-body p:last-child { margin-bottom: 0; }
+
+  /* Why / How two-column box */
+  .fg-whyhow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .fg-whyhow > div { border-radius: 8px; padding: 0.75rem 1rem; }
+  .fg-whyhow .fg-why { background: var(--aaic-ltblue); border-top: 4px solid var(--aaic-globe); }
+  .fg-whyhow .fg-how { background: var(--aaic-ltorange); border-top: 4px solid var(--aaic-torch); }
+  .fg-whyhow h5 { font-size: 0.9rem; margin: 0 0 0.35rem; }
+  .fg-whyhow p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-whyhow { grid-template-columns: 1fr; } }
+
+  /* CK / PCK call-outs */
+  .fg-callout { border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 0.6rem; border-left: 5px solid; }
+  .fg-callout p:last-child { margin-bottom: 0; }
+  .fg-callout-ck  { border-color: var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-callout-pck { border-color: var(--aaic-torch); background: var(--aaic-ltorange); }
+  .fg-callout .fg-tag { margin-right: 0.4rem; }
+
+  /* Practice overview page + reminder icon */
+  .fg-overview { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 0.75rem; }
+  .fg-overview > div { border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.9rem; }
+  .fg-overview h5 { font-size: 0.85rem; color: var(--aaic-globe); margin: 0 0 0.25rem; }
+  .fg-overview p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-overview { grid-template-columns: 1fr; } }
+  .fg-reminder-row { display: flex; align-items: flex-start; gap: 0.75rem; }
+  .fg-reminder {
+    flex: 0 0 auto; width: 6.5rem; text-align: center; border: 2px solid var(--aaic-globe);
+    border-radius: 8px; padding: 0.3rem 0.2rem; font-size: 0.65rem; font-weight: 700;
+    color: var(--aaic-globe); line-height: 1.2; text-transform: uppercase;
+  }
+  .fg-reminder .fg-reminder-icon { display: block; font-size: 1.4rem; line-height: 1.2; }
+  .fg-reminder-step { flex: 1; }
+  .fg-reminder-step strong { color: var(--aaic-globe); }
+  .fg-reminder-step .fg-cite { display: block; white-space: normal; margin-top: 0.25rem; }
+
+  /* Narrative vignette */
+  .fg-narrative {
+    position: relative; background: #faf8f4; border: 1px solid var(--aaic-limestone);
+    border-radius: 8px; padding: 1rem 1rem 0.75rem 3.25rem;
+  }
+  .fg-narrative::before {
+    content: "\201C"; position: absolute; left: 0.85rem; top: 0.1rem;
+    font-family: Georgia, serif; font-size: 3rem; color: var(--aaic-torch); line-height: 1;
+  }
+  .fg-narrative p:last-child { margin-bottom: 0; }
+  .fg-dialogue { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.9rem; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue .fg-speaker { font-weight: 700; color: var(--aaic-globe); margin-right: 0.35rem; }
+
+  /* Sample student work */
+  .fg-work { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+  .fg-work .fg-work-label {
+    background: var(--aaic-limestone); color: var(--aaic-smokey); padding: 0.35rem 1rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+    border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-work .fg-work-label p { margin: 0; }
+  .fg-work .fg-work-sample { padding: 0.75rem 1rem; }
+  .fg-work .fg-work-sample .fg-work-prompt { color: var(--aaic-smokey); font-size: 0.9rem; }
+  .fg-work .fg-work-sample .fg-work-response {
+    border-left: 3px solid var(--aaic-border); padding-left: 0.85rem; margin-top: 0.5rem;
+  }
+  .fg-work .fg-work-feedback { border-top: 1px dashed var(--aaic-border); padding: 0.6rem 1rem; background: var(--aaic-ltorange); font-size: 0.9rem; }
+  .fg-work p:last-child { margin-bottom: 0; }
+
+  /* Capstone question */
+  .fg-capstone {
+    border: 2px solid var(--aaic-globe); border-radius: var(--fg-radius);
+    padding: 1rem 1.25rem; text-align: center;
+  }
+  .fg-capstone .fg-capstone-q { font-family: var(--fg-heading-font); font-weight: 700; font-size: 1.1rem; color: var(--aaic-globe); }
+  .fg-capstone p:last-child { margin-bottom: 0; }
+
+  .fg-ef-refs { font-size: 0.85rem; color: var(--aaic-smokey); }
+  .fg-ef-refs p { padding-left: 1.5rem; text-indent: -1.5rem; }
+
+  .fg-ef-hint { font-size: 0.9rem; color: var(--aaic-smokey); font-style: italic; margin: 0 0 0.75rem; }
+
+
+  /* ---------- Simplified blocks (no nesting needed) ---------- */
+  .fg-grid-2, .fg-grid-3, .fg-grid-4 { display: grid; gap: 0.75rem; margin: 0.75rem 0 1.25rem; }
+  .fg-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fg-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fg-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 767px) {
+    .fg-grid-2, .fg-grid-3 { grid-template-columns: 1fr; }
+    .fg-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .fg-hero + .fg-grid-3, .fg-hero + .fg-grid-4 { margin-bottom: 1.5rem; }
+  .fg-card { background: #fff; padding: 0.75rem 1rem; display: flex; flex-direction: column; }
+  .fg-card > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card > ul:last-child { margin-bottom: 0; }
+  .fg-card > p:first-child { margin-bottom: 0.25rem; }
+  .fg-card, .fg-stat { overflow-wrap: anywhere; }
+  /* Cards with an id (link targets) stop below the fixed navbar when jumped to */
+  .fg-card[id] { scroll-margin-top: 5rem; }
+  .fg-stat { padding: 0.6rem 0.75rem; }
+  .fg-stat p { margin-bottom: 0.15rem; }
+  .fg-card-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; color: var(--aaic-globe);
+  }
+  .fg-card-header {
+    display: block; margin: -0.75rem -1rem 0.5rem; padding: 0.5rem 1rem;
+    background: var(--aaic-ltblue); border-bottom: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+    font-family: var(--fg-heading-font); font-weight: 700; color: var(--aaic-globe);
+  }
+  .fg-edge-globe, .fg-edge-valley, .fg-edge-torch, .fg-edge-river {
+    border-left: 5px solid var(--fg-edge-color) !important;
+  }
+
+  .fg-linklist ul { list-style: none; padding: 0; margin: 0; }
+  .fg-linklist li {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 0.15rem 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-linklist li:last-child { border-bottom: none; }
+  .fg-linklist li a { font-weight: 600; }
+  .fg-link-note { flex-basis: 100%; font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  .fg-accordion { margin: 0.75rem 0 1.25rem; }
+  .fg-steps { counter-reset: fgstep; }
+  .fg-step { counter-increment: fgstep; }
+  .fg-checklist ul { list-style: none; padding-left: 0; margin: 0; }
+  .fg-checklist li { margin: 0.15rem 0; }
+  .fg-checklist input { margin-right: 0.5rem; }
+
+  .fg-timeline > .fg-segment {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.5rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > .fg-segment:last-child { border-bottom: none; }
+  .fg-segment-body p { margin: 0; }
+  .fg-segment-tags { display: block; margin-top: 0.3rem; }
+  .fg-segment-body strong:first-child { display: block; font-family: var(--fg-heading-font); margin-bottom: 0.15rem; }
+
+  .fg-carousel .fg-caption p { margin: 0; }
+  .fg-slide-num {
+    display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin-bottom: 0.25rem;
+  }
+
+  .fg-flow .fg-flow-step { position: relative; }
+  .fg-flow .fg-flow-step p { margin: 0; }
+  .fg-flow .fg-flow-step:not(:last-child)::after {
+    content: "→"; position: absolute; right: -1.45rem; top: 50%; transform: translateY(-50%);
+    color: var(--aaic-globe); font-size: 1.25rem;
+  }
+  @media (max-width: 640px) {
+    .fg-flow .fg-flow-step:not(:last-child)::after {
+      content: "↓"; right: auto; left: 50%; top: auto; bottom: -1.75rem; transform: translateX(-50%);
+    }
+  }
+
+  .fg-reminder p, .fg-reminder-step p { margin: 0; }
+  .fg-dialogue ul { list-style: none; padding: 0; margin: 0; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue strong { color: var(--aaic-globe); }
+
+  .fg-defbox > p:first-child, .fg-work > p:first-child { margin: 0; }
+  .fg-defbox .fg-defbox-label, .fg-work .fg-work-label { display: block; }
+  .fg-work .fg-work-sample .fg-work-prompt { display: block; }
+  .fg-whyhow-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.9rem; margin-bottom: 0.35rem;
+  }
+  .fg-overview-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; margin: 0.25rem 0 0.5rem;
+  }
+  .fg-overview-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.85rem; color: var(--aaic-globe); margin-bottom: 0.25rem;
+  }
+  .fg-overview p { margin-bottom: 0.25rem; }
+
+
+  /* Learning objectives: subject tags */
+  .fg-tag-cs        { background: var(--aaic-torch); }
+  .fg-tag-ds        { background: var(--aaic-valley); }
+  .fg-tag-math      { background: var(--aaic-globe); }
+  .fg-tag-science   { background: var(--aaic-river); }
+  .fg-tag-agscience { background: #ABC178; color: #2f3a12; }  /* Switchgrass */
+  .fg-objectives > ul { margin: 0.75rem 0 1.5rem; padding-left: 1.25rem; }
+  .fg-objectives > ul > li { margin-bottom: 0.4rem; }
+  .fg-objectives .fg-tag { min-width: 5.25rem; text-align: center; margin-right: 0.35rem; }
+  .fg-objectives ul ul { margin-top: 0.25rem; }
+
+
+  /* Educative features pasted into the page */
+  .fg-feature { margin: 0.75rem 0 1rem; }
+  .fg-feature-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-globe); border-bottom: 2px solid var(--aaic-summit);
+    padding-bottom: 0.25rem; margin-bottom: 0.6rem;
+  }
+  .fg-feature > p:first-child { margin-bottom: 0; }
+  .fg-callout, .fg-whyhow, .fg-defbox, .fg-capstone, .fg-reminder-row { margin-top: 0.75rem; margin-bottom: 0.75rem; }
+
+  /* Print: expand collapsed content, hide interactive chrome */
+  @media print {
+    .collapse { display: block !important; height: auto !important; }
+    .carousel-item { display: block !important; float: none !important; }
+    .carousel-control-prev, .carousel-control-next, .carousel-indicators, .fg-btn, .fg-btn-outline { display: none !important; }
+    .fg-hero { color: #000; background: none; border: 2px solid var(--aaic-globe); }
+  }
+</style>
+<script>
+/* Turns the simple blocks in the content above into interactive parts:
+   expandable panels, the timeline and the prep checklist. */
+document.addEventListener("DOMContentLoaded", () => {
+  const attr = (el, name) => el.getAttribute("data-" + name) ?? el.getAttribute(name);
+
+  // Expandable panels (.fg-accordion > .fg-panel)
+  document.querySelectorAll(".fg-accordion").forEach((acc, a) => {
+    acc.id = acc.id || `fg-accordion-${a + 1}`;
+    acc.classList.add("accordion");
+    acc.querySelectorAll(":scope > .fg-panel").forEach((panel, i) => {
+      const id = `${acc.id}-panel-${i + 1}`;
+      const open = attr(panel, "open") === "true";
+      const item = document.createElement("div");
+      item.className = "accordion-item";
+      const header = document.createElement("h3");
+      header.className = "accordion-header";
+      const button = document.createElement("button");
+      button.className = "accordion-button" + (open ? "" : " collapsed");
+      button.type = "button";
+      button.setAttribute("data-bs-toggle", "collapse");
+      button.setAttribute("data-bs-target", "#" + id);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-controls", id);
+      button.textContent = attr(panel, "label") || "Untitled panel";
+      header.appendChild(button);
+      const collapse = document.createElement("div");
+      collapse.id = id;
+      collapse.className = "accordion-collapse collapse" + (open ? " show" : "");
+      collapse.setAttribute("data-bs-parent", "#" + acc.id);
+      const body = document.createElement("div");
+      body.className = "accordion-body";
+      body.append(...panel.childNodes);
+      collapse.appendChild(body);
+      item.append(header, collapse);
+      panel.replaceWith(item);
+    });
+  });
+
+  // Fold-out boxes (.fg-fold), styled like the Estimated Lesson Timing box
+  document.querySelectorAll(".fg-fold").forEach((fold) => {
+    const details = document.createElement("details");
+    details.className = "fg-flow-accordion";
+    details.open = attr(fold, "open") === "true";
+    const summary = document.createElement("summary");
+    const title = document.createElement("span");
+    title.className = "fg-fold-title";
+    title.textContent = attr(fold, "label") || "Untitled box";
+    summary.appendChild(title);
+    const body = document.createElement("div");
+    body.className = "fg-fold-body";
+    body.append(...fold.childNodes);
+    details.append(summary, body);
+    fold.replaceWith(details);
+  });
+
+  // Always-open boxes (.fg-box)
+  document.querySelectorAll(".fg-box").forEach((box) => {
+    const header = document.createElement("h3");
+    header.className = "fg-box-header";
+    header.textContent = attr(box, "label") || "Untitled box";
+    const body = document.createElement("div");
+    body.className = "fg-box-body";
+    body.append(...box.childNodes);
+    box.append(header, body);
+  });
+
+  // Scrambled email addresses (.fg-email): user and domain are stored reversed
+  document.querySelectorAll(".fg-email").forEach((el) => {
+    const rev = (v) => (v || "").split("").reverse().join("");
+    const address = rev(attr(el, "u")) + "@" + rev(attr(el, "d"));
+    const link = document.createElement("a");
+    link.href = "mailto:" + address;
+    link.textContent = address;
+    el.replaceWith(link);
+  });
+
+  // Timeline (.fg-timeline > .fg-segment)
+  const groupColors = {
+    "whole class": "globe", "direct instruction": "river",
+    "groups": "valley", "coding": "torch", "individual": ""
+  };
+  document.querySelectorAll(".fg-timeline > .fg-segment").forEach((seg) => {
+    const time = document.createElement("div");
+    time.className = "fg-time";
+    time.textContent = attr(seg, "time") || "";
+    const length = attr(seg, "length");
+    if (length) {
+      const small = document.createElement("small");
+      small.textContent = length;
+      time.appendChild(small);
+    }
+    const body = document.createElement("div");
+    body.className = "fg-segment-body";
+    body.append(...seg.childNodes);
+    const group = attr(seg, "group");
+    if (group) {
+      const target = body.querySelector(":scope > p") || body;
+      const tagRow = document.createElement("span");
+      tagRow.className = "fg-segment-tags";
+      group.split(",").map((g) => g.trim()).filter(Boolean).forEach((g) => {
+        const tag = document.createElement("span");
+        const color = groupColors[g.toLowerCase()];
+        tag.className = "fg-tag" + (color ? " fg-tag-" + color : "");
+        tag.textContent = g;
+        tagRow.append(tag, " ");
+      });
+      target.append(tagRow);
+    }
+    seg.replaceChildren(time, body);
+  });
+
+  // Prep checklist built from the step titles (.fg-checklist)
+  document.querySelectorAll(".fg-checklist").forEach((list) => {
+    const steps = [...document.querySelectorAll(".fg-steps .fg-step")];
+    if (!steps.length) return;
+    const ul = document.createElement("ul");
+    steps.forEach((step, i) => {
+      step.id = step.id || `prep-step-${i + 1}`;
+      const title = step.querySelector("h1, h2, h3, h4, h5, h6");
+      const li = document.createElement("li");
+      const label = document.createElement("label");
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      const link = document.createElement("a");
+      link.href = "#" + step.id;
+      link.textContent = `Step ${i + 1}: ${title ? title.textContent.trim() : ""}`;
+      label.append(box, link);
+      li.appendChild(label);
+      ul.appendChild(li);
+    });
+    list.replaceChildren(ul);
+  });
+});
+</script>
+```

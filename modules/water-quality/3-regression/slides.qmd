@@ -5,6 +5,8 @@ author: "Appalachian A. I. Corps @ UTK"
 crossref:
   lst-title: "🎯 Checkpoint"
 format:
+  pptx:
+    reference-doc: ../templates/aaic-slides-template.pptx
   revealjs:
     theme: [simple, aaic_slides_style.scss]
     mainfont: Montserrat
@@ -786,27 +788,29 @@ import json
 import warnings
 from IPython.display import display, HTML
 
+
 def process_data(color_data, nitrate_ppm):
     color_data = np.array(color_data)
     nitrate_ppm = np.array(nitrate_ppm)
     return color_data, nitrate_ppm
 
+
 def process_df(color_data, nitrate_ppm):
-    df = pd.DataFrame({
-        "color_data": color_data,
-        "nitrate_ppm": nitrate_ppm
-    })
+    df = pd.DataFrame({"color_data": color_data, "nitrate_ppm": nitrate_ppm})
     return df
+
 
 def linear_regression(x, y):
     slope, intercept = np.polyfit(x, y, 1)
     return slope, intercept
+
 
 def calculate_rsquared(x, y, slope, intercept):
     y_pred = slope * x + intercept
     ss_res = np.sum((y - y_pred) ** 2)
     ss_tot = np.sum((y - np.mean(y)) ** 2)
     return 1 - (ss_res / ss_tot)
+
 
 def show_prediction_plot(color_data, nitrate_ppm, slope, intercept):
     x_arr = np.linspace(float(min(color_data)), float(max(color_data)), 200)
@@ -853,12 +857,14 @@ upd();
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", UserWarning)
-        display(HTML(
-            '<iframe srcdoc="{}" width="100%" height="510" '
-            'frameborder="0" style="border:none;"></iframe>'.format(
-                srcdoc.replace('"', '&quot;')
+        display(
+            HTML(
+                '<iframe srcdoc="{}" width="100%" height="510" '
+                'frameborder="0" style="border:none;"></iframe>'.format(
+                    srcdoc.replace('"', "&quot;")
+                )
             )
-        ))
+        )
 ```
 
 ## Storing Your Data
@@ -1121,9 +1127,12 @@ plt.title("Nitrate Concentration vs. Color")
 plt.xlabel("Color")
 plt.ylabel("Nitrate Concentration (ppm)")
 plt.text(
-    min(color_data), max(nitrate_ppm),
+    min(color_data),
+    max(nitrate_ppm),
     f"y = {slope:.2f}x + {intercept:.2f}\n",
-    ha="left", fontsize=10, color="gray"
+    ha="left",
+    fontsize=10,
+    color="gray",
 )
 plt.tight_layout()
 plt.show()

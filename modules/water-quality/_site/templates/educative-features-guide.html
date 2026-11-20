@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Facilitator’s Guide: {{LESSON_TITLE}}</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6d8538bbe41e7165ec0b31bd65b8e73f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../aaic_letters.png" alt="Appalachian A.I. Corps logo." class="navbar-logo light-content">
+    <img src="../aaic_letters.png" alt="Appalachian A.I. Corps logo." class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-water-quality-lessons" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Water Quality Lessons</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-water-quality-lessons">    
+        <li>
+    <a class="dropdown-item" href="../1-statistics/index">
+ <span class="dropdown-text">L1: Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../2-classification/index">
+ <span class="dropdown-text">L2: Classification &amp; Color</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../3-regression/index">
+ <span class="dropdown-text">L3: Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../4-physical-computing/index">
+ <span class="dropdown-text">L4: Physical Computing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../5-sensor-data/index">
+ <span class="dropdown-text">L5: Sensor Data</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../"> 
+<span class="menu-text">AAIC Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../modules"> 
+<span class="menu-text">AAIC Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../contact"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#lesson-topics-and-standards" id="toc-lesson-topics-and-standards" class="nav-link active" data-scroll-target="#lesson-topics-and-standards">Lesson Topics and Standards</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#lesson-overview-video-tour" id="toc-lesson-overview-video-tour" class="nav-link" data-scroll-target="#lesson-overview-video-tour">Lesson Overview Video Tour</a></li>
+  <li><a href="#lesson-materials" id="toc-lesson-materials" class="nav-link" data-scroll-target="#lesson-materials">Lesson Materials</a></li>
+  <li><a href="#lesson-prep" id="toc-lesson-prep" class="nav-link" data-scroll-target="#lesson-prep">Lesson Prep</a></li>
+  <li><a href="#lesson-flow" id="toc-lesson-flow" class="nav-link" data-scroll-target="#lesson-flow">Lesson Flow</a></li>
+  <li><a href="#facilitation-notes" id="toc-facilitation-notes" class="nav-link" data-scroll-target="#facilitation-notes">Facilitation Notes</a></li>
+  <li><a href="#reference-materials" id="toc-reference-materials" class="nav-link" data-scroll-target="#reference-materials">Reference Materials</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Facilitator’s Guide:<br>{{LESSON_TITLE}}</h1>
+<p class="subtitle lead">{{MODULE_NAME}} · Lesson {{LESSON_NUMBER}}</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- ###################################################################
+     CONTENT STARTS HERE
+     Everything from here down to "CONTENT ENDS HERE" is the page.
+     ################################################################### -->
+<!-- ###################################################################
+     SECTION START: Banner
+     The colored box at the top of the page.
+     Replace each {{...}}. Leave the [ ] and { } around them as they are.
+     ################################################################### -->
+<div class="fg-hero">
+<p><span class="fg-tag fg-tag-light">{{SUBJECT_AREA}}</span> <span class="fg-tag fg-tag-light">{{GRADE_BAND}}</span> <span class="fg-tag fg-tag-light">{{CODING_LANGUAGE}}</span></p>
+<p><span class="lead">{{ONE_SENTENCE_LESSON_SUMMARY}}</span></p>
+<p><a href="{{SLIDES_URL}}" class="fg-btn">▶ Open Slide Deck</a> <a href="{{HANDOUT_COPY_URL}}" class="fg-btn-outline">📄 Student Handout</a></p>
+</div>
+<!-- ########## SECTION END: Banner ########## -->
+<!-- ###################################################################
+     SECTION START: At-a-Glance Cards
+     Four small cards under the banner. Keep each answer to 1–3 words.
+     To change an icon, replace the emoji on the first line of a card.
+     ################################################################### -->
+<div class="fg-grid-4">
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">⏱</span></p>
+<p><span class="fg-stat-value">{{DURATION}}</span></p>
+<p><span class="fg-stat-label">Class time</span></p>
+</div>
+<!-- ======== COPY END: one at-a-glance card ========== -->
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">🧰</span></p>
+<p><span class="fg-stat-value">{{PREP_TIME}}</span></p>
+<p><span class="fg-stat-label">Prep time</span></p>
+</div>
+<!-- ======== COPY END: one at-a-glance card ========== -->
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">👥</span></p>
+<p><span class="fg-stat-value">{{GROUP_SIZE}}</span></p>
+<p><span class="fg-stat-label">Group size</span></p>
+</div>
+<!-- ======== COPY END: one at-a-glance card ========== -->
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">💻</span></p>
+<p><span class="fg-stat-value">{{TECH_NEEDED}}</span></p>
+<p><span class="fg-stat-label">Tech needed</span></p>
+</div>
+<!-- ======== COPY END: one at-a-glance card ========== -->
+</div>
+<!-- ########## SECTION END: At-a-Glance Cards ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Topics and Standards
+     Expandable panels. Each panel opens when clicked.
+     - The panel title is the text inside label="...".
+     - open="true" makes a panel start open. Use it on one panel only.
+     - To add a panel: copy one panel (COPY START to COPY END) and
+       paste it right below another panel's COPY END line.
+     ################################################################### -->
+<section id="lesson-topics-and-standards" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-topics-and-standards">Lesson Topics and Standards</h2>
+<div class="fg-accordion">
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="Topics Covered" open="true">
+<!-- One topic per line. To indent a subtopic, start the line with
+     two spaces before the dash. -->
+<ul>
+<li>{{TOPIC}}
+<ul>
+<li>{{SUBTOPIC}}</li>
+<li>{{SUBTOPIC}}</li>
+</ul></li>
+<li>{{TOPIC}}</li>
+<li>{{TOPIC}}</li>
+</ul>
+</div>
+<!-- ======== COPY END: one expandable panel ========== -->
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="Data Science Standards">
+<!-- One standard per line, in this format:  - *CODE:* Full text -->
+<ul>
+<li><em>{{STANDARD_CODE}}:</em> {{STANDARD_TEXT}}</li>
+<li><em>{{STANDARD_CODE}}:</em> {{STANDARD_TEXT}}</li>
+<li><em>{{STANDARD_CODE}}:</em> {{STANDARD_TEXT}}</li>
+</ul>
+</div>
+<!-- ======== COPY END: one expandable panel ========== -->
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="Computational Thinking Standards">
+<!-- One standard per line, in this format:  - *CODE:* Full text -->
+<ul>
+<li><em>{{STANDARD_CODE}}:</em> {{STANDARD_TEXT}}</li>
+<li><em>{{STANDARD_CODE}}:</em> {{STANDARD_TEXT}}</li>
+<li><em>{{STANDARD_CODE}}:</em> {{STANDARD_TEXT}}</li>
+</ul>
+</div>
+<!-- ======== COPY END: one expandable panel ========== -->
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="Prior Knowledge &amp; Vocabulary">
+<p><strong>Students should already know:</strong> {{PREREQUISITES}}</p>
+<!-- Table: each row is one line starting with |
+     To add a row, copy a {{TERM}} line and paste it below. -->
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Student-friendly definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>{{TERM}}</td>
+<td>{{DEFINITION}}</td>
+</tr>
+<tr class="even">
+<td>{{TERM}}</td>
+<td>{{DEFINITION}}</td>
+</tr>
+<tr class="odd">
+<td>{{TERM}}</td>
+<td>{{DEFINITION}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- ======== COPY END: one expandable panel ========== -->
+</div>
+<!-- ########## SECTION END: Lesson Topics and Standards ########## -->
+<!-- ###################################################################
+     SECTION START: Learning Objectives
+     A bulleted list. Each objective starts with a colored tag that
+     shows its subject area. Copy the tag you need from this list:
+       [CT]{.fg-tag .fg-tag-ct}                 Computational Thinking
+       [DS]{.fg-tag .fg-tag-ds}                 Data Science
+       [Math]{.fg-tag .fg-tag-math}             Math
+       [Science]{.fg-tag .fg-tag-science}       Science
+       [AgScience]{.fg-tag .fg-tag-agscience}   Agricultural Science
+     - To add an objective: copy one line that starts with - and
+       paste it on the next line. Then change the tag if needed.
+     - An objective can have more than one tag. Put them side by side.
+     - To add detail under an objective, start a new line with two
+       spaces before the dash (see the example below).
+     ################################################################### -->
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<p>By the end of the lesson, students will be able to:</p>
+<div class="fg-objectives">
+<ul>
+<li><span class="fg-tag fg-tag-ct">CT</span> {{OBJECTIVE}}</li>
+<li><span class="fg-tag fg-tag-ds">DS</span> {{OBJECTIVE}}
+<ul>
+<li>{{DETAIL}}</li>
+<li>{{DETAIL}}</li>
+</ul></li>
+<li><span class="fg-tag fg-tag-math">Math</span> {{OBJECTIVE}}</li>
+<li><span class="fg-tag fg-tag-science">Science</span> {{OBJECTIVE}}</li>
+<li><span class="fg-tag fg-tag-agscience">AgScience</span> {{OBJECTIVE}}</li>
+</ul>
+</div>
+<!-- ########## SECTION END: Learning Objectives ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Overview Video Tour
+     VIDEO: on the line just below the heading that contains
+     REPLACE-WITH-VIDEO.mp4, replace ONLY that word with either:
+       - the video's file name (the file must be in the lesson folder),
+         e.g.  facilitator-video-overview.mp4
+       - or a YouTube link, e.g.  https://youtu.be/abc123
+     Leave the curly braces, < > and the word "video" exactly as they are.
+     ################################################################### -->
+</section>
+<section id="lesson-overview-video-tour" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-overview-video-tour">Lesson Overview Video Tour</h2>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="REPLACE-WITH-VIDEO.mp4"></video></div>
+<div class="ltblue-container">
+<p>For a more in-depth walkthrough, see the <a href="{{FACILITATOR_NOTES_URL}}">slides with visible facilitator notes</a>.</p>
+</div>
+<!-- ########## SECTION END: Lesson Overview Video Tour ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Materials
+     One card per resource, each with a short description and a button.
+     - The button text goes inside [ ], the link inside ( ).
+     - .fg-btn = solid button, .fg-btn-outline = outlined button.
+     ################################################################### -->
+</section>
+<section id="lesson-materials" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-materials">Lesson Materials</h2>
+<div class="fg-grid-3">
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">🖥️ Slide Deck</span></p>
+<p>The slides you’ll present during the lesson.</p>
+<p><a href="{{SLIDES_URL}}" class="fg-btn">Open slides</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">📄 Student Handout</span></p>
+<p>Opens a “Make a copy” prompt so you get your own editable version.</p>
+<p><a href="{{HANDOUT_COPY_URL}}" class="fg-btn">Make a copy</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">📝 Note-Taking Slides</span></p>
+<p>A printable version of the slides with space for student notes.</p>
+<p><a href="{{NOTES_HANDOUT_PDF_URL}}" class="fg-btn-outline">Download PDF</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">✅ Exit Ticket</span></p>
+<p>{{EXIT_TICKET_DESCRIPTION}}</p>
+<p><a href="{{EXIT_TICKET_COPY_URL}}" class="fg-btn-outline">Copy Google Form</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">🧪 Practice Exercise</span></p>
+<p>{{PRACTICE_DESCRIPTION}}</p>
+<p><a href="{{PRACTICE_URL}}" class="fg-btn-outline">Open in Colab</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">🔗 {{RESOURCE_NAME}}</span></p>
+<p>{{RESOURCE_DESCRIPTION}}</p>
+<p><a href="{{RESOURCE_URL}}" class="fg-btn-outline">{{BUTTON_TEXT}}</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+</div>
+<!-- ########## SECTION END: Lesson Materials ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Prep
+     A checklist, then numbered prep steps.
+     - The checklist fills itself in from the step titles. Don't type in it.
+     - Steps number themselves (1, 2, 3...) in the order they appear.
+     - Each step can include the optional pieces marked inside it.
+     ################################################################### -->
+</section>
+<section id="lesson-prep" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-prep">Lesson Prep</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Prep checklist
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="fg-checklist">
+<p>(This list is built automatically from the step titles below.)</p>
+</div>
+</div>
+</div>
+<div class="fg-steps">
+<!-- ======== COPY START: one prep step ======== -->
+<section id="step_title" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="step_title">{{STEP_TITLE}}</h4>
+<p><span class="fg-step-meta">⏱ {{TIME_NEEDED}} · 📅 {{WHEN_TO_DO_IT}}</span></p>
+<p>{{WHAT_TO_DO_AND_WHY}}</p>
+<p><strong>Materials needed:</strong></p>
+<ul>
+<li>{{MATERIAL}}</li>
+<li>{{MATERIAL}}
+<ul>
+<li>{{NOTE_ABOUT_THIS_MATERIAL}}</li>
+</ul></li>
+<li>{{MATERIAL}}</li>
+</ul>
+<!-- ---- OPTIONAL: collapsible detail box (e.g., a mixing guide).
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>{{DETAIL_BOX_TITLE}}
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><em>{{ASSUMPTIONS — e.g., written for 5 groups × 4 samples}}</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>{{COLUMN}}</th>
+<th>{{COLUMN}}</th>
+<th>{{COLUMN}}</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>{{VALUE}}</td>
+<td>{{VALUE}}</td>
+<td>{{VALUE}}</td>
+</tr>
+<tr class="even">
+<td>{{VALUE}}</td>
+<td>{{VALUE}}</td>
+<td>{{VALUE}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ---- END OPTIONAL ---- -->
+<!-- ---- OPTIONAL: warning box.
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>{{WARNING_TEXT}}</p>
+</div>
+</div>
+<!-- ---- END OPTIONAL ---- -->
+</section>
+<!-- ======== COPY END: one prep step ========== -->
+<!-- ======== COPY START: one prep step ======== -->
+<section id="step_title-1" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="step_title-1">{{STEP_TITLE}}</h4>
+<p><span class="fg-step-meta">⏱ {{TIME_NEEDED}} · 📅 {{WHEN_TO_DO_IT}}</span></p>
+<p>{{WHAT_TO_DO_AND_WHY}}</p>
+<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
+          with screenshots of each step). Put the link inside ( ).
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+<p>Walk through each step in the slides: <a href="{{STEP_BY_STEP_SLIDES_URL}}" class="fg-btn">▶ Open the step-by-step slides</a> <!-- ---- END OPTIONAL ---- --></p>
+<!-- ---- OPTIONAL: note box.
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Teaching more than one class?</strong> {{MULTI_CLASS_NOTE}}</p>
+</div>
+</div>
+<!-- ---- END OPTIONAL ---- -->
+</section>
+<!-- ======== COPY END: one prep step ========== -->
+</div>
+<!-- ########## SECTION END: Lesson Prep ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Flow
+     A timeline of the class period. Each segment has:
+       time="..."    when it starts, e.g. 0:00 or 9:15
+       length="..."  how long, e.g. 10 min
+       group="..."   one of: Whole class, Direct instruction, Groups,
+                     Coding, Individual  (each gets its own color)
+     Type between the quote marks only.
+     ################################################################### -->
+</section>
+<section id="lesson-flow" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-flow">Lesson Flow</h2>
+<div class="fg-timeline">
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="0:00" data-length="10 min" data-group="Whole class">
+<p><strong>{{SEGMENT_TITLE}}</strong> {{WHAT_HAPPENS}}</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="0:10" data-length="15 min" data-group="Direct instruction">
+<p><strong>{{SEGMENT_TITLE}}</strong> {{WHAT_HAPPENS}}</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="0:25" data-length="20 min" data-group="Groups">
+<p><strong>{{SEGMENT_TITLE}}</strong> {{WHAT_HAPPENS}}</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="0:45" data-length="25 min" data-group="Coding">
+<p><strong>{{SEGMENT_TITLE}}</strong> {{WHAT_HAPPENS}}</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="1:10" data-length="5 min" data-group="Individual">
+<p><strong>Exit Ticket</strong> {{WHAT_HAPPENS}}</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+</div>
+<!-- ########## SECTION END: Lesson Flow ########## -->
+<!-- ###################################################################
+     SECTION START: Facilitation Notes
+     Tabs. Each tab starts with a line beginning with ###
+     The text after ### is the tab's name.
+     ################################################################### -->
+</section>
+<section id="facilitation-notes" class="level2">
+<h2 class="anchored" data-anchor-id="facilitation-notes">Facilitation Notes</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">💡 Tips</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">⚠️ Common Misconceptions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">❓ Discussion Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">🔀 Differentiation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">🛠 Troubleshooting</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ul>
+<li>{{TIP}}</li>
+<li>{{TIP}}</li>
+</ul>
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Students may think…</th>
+<th>Address it by…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>{{MISCONCEPTION}}</td>
+<td>{{STRATEGY}}</td>
+</tr>
+<tr class="even">
+<td>{{MISCONCEPTION}}</td>
+<td>{{STRATEGY}}</td>
+</tr>
+</tbody>
+</table>
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<ol type="1">
+<li>{{QUESTION}}</li>
+<li>{{QUESTION}}</li>
+<li>{{QUESTION}} <!-- ======== COPY END: one tab ========== --></li>
+</ol>
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>Extra support:</strong> {{SUPPORT_STRATEGY}}</p>
+<p><strong>Extension:</strong> {{EXTENSION_STRATEGY}}</p>
+<p><strong>If you’re short on time:</strong> {{WHAT_TO_CUT}}</p>
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<!-- ======== COPY START: one problem + fix ======== -->
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>{{PROBLEM}}
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>{{FIX}}</p>
+</div>
+</div>
+</div>
+<!-- ======== COPY END: one problem + fix ========== -->
+<!-- ======== COPY START: one problem + fix ======== -->
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>{{PROBLEM}}
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>{{FIX}}</p>
+</div>
+</div>
+</div>
+<!-- ======== COPY END: one problem + fix ========== -->
+<!-- ======== COPY END: one tab ========== -->
+</div>
+</div>
+</div>
+<!-- ########## SECTION END: Facilitation Notes ########## -->
+<!-- ###################################################################
+     SECTION START: Reference Materials
+     Two cards of links. Each link is one line:
+       - [Title shown on page](https://link) [Source]{.fg-tag}
+     To add a link, copy one line starting with - and paste it below.
+     ################################################################### -->
+</section>
+<section id="reference-materials" class="level2">
+<h2 class="anchored" data-anchor-id="reference-materials">Reference Materials</h2>
+<div class="fg-grid-2">
+<!-- ======== COPY START: one link card ======== -->
+<div class="fg-card fg-linklist">
+<p><span class="fg-card-header">Whole-Class Videos</span></p>
+<ul>
+<li><a href="{{VIDEO_URL}}">{{VIDEO_TITLE}}</a> <span class="fg-tag fg-tag-valley">EdPuzzle</span></li>
+<li><a href="{{VIDEO_URL}}">{{VIDEO_TITLE}}</a> <span class="fg-tag fg-tag-torch">YouTube</span></li>
+<li><a href="{{VIDEO_URL}}">{{VIDEO_TITLE}}</a> <span class="fg-tag fg-tag-torch">YouTube</span></li>
+</ul>
+</div>
+<!-- ======== COPY END: one link card ========== -->
+<!-- ======== COPY START: one link card ======== -->
+<div class="fg-card fg-linklist">
+<p><span class="fg-card-header">Background Reading for Facilitators</span></p>
+<ul>
+<li><a href="{{READING_URL}}">{{READING_TITLE}}</a> <span class="fg-link-note">{{WHY_ITS_USEFUL}}</span></li>
+<li><a href="{{READING_URL}}">{{READING_TITLE}}</a> <span class="fg-link-note">{{WHY_ITS_USEFUL}}</span></li>
+</ul>
+</div>
+<!-- ======== COPY END: one link card ========== -->
+</div>
+<!-- ########## SECTION END: Reference Materials ########## -->
+<!-- ###################################################################
+     SECTION START: Footer
+     ################################################################### -->
+<hr>
+<div class="text-center text-body-secondary small">
+<p>Questions or feedback on this lesson? Contact {{CONTACT_NAME_OR_EMAIL}} · Last updated {{DATE}}</p>
+</div>
+<!-- ########## SECTION END: Footer ########## -->
+<!-- ###################################################################
+     CONTENT ENDS HERE
+
+     ⛔ STOP. DO NOT EDIT ANYTHING BELOW THIS LINE. ⛔
+     The rest of this file controls colors, layout and how the
+     expandable panels and timeline work. Changing it
+     can break the page.
+     ################################################################### -->
+<!-- =================================================================
+     STYLES AND SCRIPT — for whoever maintains the template.
+     Uses the AAIC brand palette. Edit the --aaic-* values to rebrand.
+     ================================================================= -->
+<style>
+  /* AAIC palette — same values as styles-main.css on the main site.
+     custom-module-theme.scss (loaded by the water-quality _quarto.yml)
+     already handles fonts, link colors, TOC/sidebar hover, navbar,
+     and callout borders, so this block only styles the new components. */
+  :root {
+    --aaic-globe: #006C93;      /* primary: links, accents */
+    --aaic-torch: #E65933;      /* hover / active (theme uses #e65933) */
+    --aaic-valley: #00746F;
+    --aaic-river: #517C96;
+    --aaic-orange: #FF8200;     /* Tennessee orange */
+    --aaic-sunsphere: #FED535;
+    --aaic-smokey: #58595B;
+    --aaic-limestone: #F0EDE3;
+    --aaic-summit: #B9E1E2;
+    --aaic-ltblue: #f1f9f9;     /* .ltblue-container / .checkpoint-box */
+    --aaic-ltorange: #fdf5f2;   /* .dkorange-container */
+    --aaic-border: #dcdcdc;
+    --fg-accent: var(--aaic-globe);
+    --fg-radius: 12px;          /* matches .module-card */
+    --fg-heading-font: 'Montserrat', Helvetica, Arial, sans-serif;
+  }
+
+  /* Buttons — pill shape like the main-site .btn, sized for cards.
+     Use .fg-btn (solid) or .fg-btn-outline. */
+  .fg-btn, .fg-btn-outline {
+    display: inline-block;
+    border-radius: 50px;
+    border: 2px solid var(--aaic-globe);
+    padding: 0.35rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+  }
+  .fg-btn { background: var(--aaic-globe); color: #fff !important; }
+  .fg-btn-outline { background: #fff; color: var(--aaic-globe) !important; }
+  .fg-btn:hover, .fg-btn-outline:hover {
+    background: var(--aaic-torch);
+    border-color: var(--aaic-torch);
+    color: #fff !important;
+    transform: translateY(-1px);
+  }
+
+  /* Small tags (badges) */
+  .fg-tag {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    vertical-align: middle;
+    color: #fff;
+    background: var(--aaic-smokey);
+  }
+  .fg-tag-globe  { background: var(--aaic-globe); }
+  .fg-tag-valley { background: var(--aaic-valley); }
+  .fg-tag-torch  { background: var(--aaic-torch); }
+  .fg-tag-river  { background: var(--aaic-river); }
+  .fg-tag-sun    { background: var(--aaic-sunsphere); color: #333; }
+  .fg-tag-light  { background: var(--aaic-limestone); color: var(--aaic-globe); }
+
+  /* Hero banner */
+  .fg-hero {
+    background: linear-gradient(135deg, var(--aaic-globe) 0%, var(--aaic-valley) 100%);
+    color: #fff;
+    border-radius: var(--fg-radius);
+    padding: 1.75rem 2rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .fg-hero p { margin-bottom: 0.6rem; }
+  .fg-hero .lead { font-size: 1.15rem; }
+  .fg-hero .fg-tag { margin-right: 0.25rem; }
+  .fg-hero .fg-btn { background: #fff; border-color: #fff; color: var(--aaic-globe) !important; }
+  .fg-hero .fg-btn-outline { background: transparent; border-color: #fff; color: #fff !important; }
+  .fg-hero .fg-btn:hover, .fg-hero .fg-btn-outline:hover {
+    background: var(--aaic-orange); border-color: var(--aaic-orange); color: #fff !important;
+  }
+
+  /* Space below the at-a-glance row */
+
+  /* Cards — share the main-site .module-card radius, shadow and hover */
+  .fg-card, .fg-stat {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    height: 100%;
+  }
+  .fg-card { transition: all 0.3s ease; }
+  .fg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 116, 111, 0.2);
+    border-color: var(--aaic-torch);
+  }
+  .fg-card .card-body { display: flex; flex-direction: column; }
+  .fg-card .card-body > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card .card-title {
+    font-family: var(--fg-heading-font);
+    font-weight: 700;
+    color: var(--aaic-globe);
+    margin-bottom: 0.5rem;
+  }
+  .fg-card .card-header {
+    background: var(--aaic-ltblue);
+    border-bottom: 1px solid var(--aaic-border);
+    font-family: var(--fg-heading-font);
+    color: var(--aaic-globe);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+  }
+
+  /* Colored left edge for objective cards */
+  .fg-edge { border-left: 5px solid var(--fg-edge-color, var(--fg-accent)) !important; }
+  .fg-edge-globe  { --fg-edge-color: var(--aaic-globe); }
+  .fg-edge-valley { --fg-edge-color: var(--aaic-valley); }
+  .fg-edge-torch  { --fg-edge-color: var(--aaic-torch); }
+  .fg-edge-river  { --fg-edge-color: var(--aaic-river); }
+
+  /* Stat / at-a-glance cards */
+  .fg-stat { text-align: center; background: var(--aaic-ltblue); }
+  .fg-stat .fg-stat-icon { font-size: 1.6rem; line-height: 1; }
+  .fg-stat .fg-stat-value {
+    font-family: var(--fg-heading-font);
+    font-size: 1.35rem; font-weight: 700; color: var(--aaic-globe);
+    margin: 0.35rem 0 0;
+  }
+  .fg-stat .fg-stat-label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin: 0;
+  }
+
+  /* Accordion */
+  .accordion-item { border-color: var(--aaic-border); }
+  .accordion-item:first-of-type { border-top-left-radius: var(--fg-radius); border-top-right-radius: var(--fg-radius); }
+  .accordion-item:last-of-type  { border-bottom-left-radius: var(--fg-radius); border-bottom-right-radius: var(--fg-radius); }
+  .accordion-header { margin: 0 !important; }
+  /* Quarto appends a section-link icon to headings; inside an accordion
+     header it wraps onto its own line, so hide it there */
+  .accordion-header .anchorjs-link { display: none !important; }
+  .accordion-button {
+    font-family: var(--fg-heading-font);
+    font-weight: 600;
+    color: var(--aaic-globe);
+  }
+  .accordion-button:not(.collapsed) {
+    background: var(--aaic-ltblue);
+    color: var(--aaic-globe);
+    box-shadow: inset 0 -1px 0 var(--aaic-border);
+  }
+  .accordion-button:hover { color: var(--aaic-torch); }
+  .accordion-button:focus { box-shadow: 0 0 0 0.2rem rgba(0, 108, 147, 0.25); }
+
+  /* Tabsets — Globe text, Torch underline on the active tab
+     (the united theme would otherwise make them orange-red) */
+  .panel-tabset .nav-tabs .nav-link { color: var(--aaic-globe); font-weight: 600; }
+  /* Compact tabs so they fit on one row on wide screens; on narrower
+     screens they wrap onto a second row (never a sideways scrollbar). */
+  .panel-tabset .nav-tabs .nav-link { font-size: 0.8rem; padding: 0.4rem 0.55rem; white-space: nowrap; }
+  .panel-tabset .nav-tabs .nav-link:hover { color: var(--aaic-torch); }
+  .panel-tabset .nav-tabs .nav-link.active {
+    color: var(--aaic-torch);
+    border-bottom: 3px solid var(--aaic-torch);
+  }
+
+  /* Numbered prep steps */
+  .fg-step {
+    position: relative;
+    border-left: 3px solid var(--aaic-summit);
+    padding: 0.25rem 0 0.5rem 1.5rem;
+    margin: 0 0 1.5rem 1rem;
+  }
+  .fg-step::before {
+    content: counter(fgstep);
+    position: absolute; left: -1rem; top: 0;
+    width: 1.85rem; height: 1.85rem; border-radius: 50%;
+    background: var(--aaic-globe); color: #fff;
+    font-family: var(--fg-heading-font);
+    font-weight: 700; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fg-step > h4:first-child, .fg-step > p:first-child { margin-top: 0; }
+  .fg-step-meta { font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  /* Lesson-flow timeline */
+  .fg-timeline { list-style: none; padding-left: 0; margin: 1rem 0; }
+  .fg-timeline > li {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.75rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > li:last-child { border-bottom: none; }
+  .fg-timeline .fg-time {
+    font-family: var(--fg-heading-font);
+    font-weight: 700; color: var(--aaic-globe); font-variant-numeric: tabular-nums;
+  }
+  .fg-timeline .fg-time small { display: block; font-family: Helvetica, Arial, sans-serif; font-weight: 400; color: var(--aaic-smokey); }
+  .fg-timeline h5 { margin: 0 0 0.25rem; font-size: 1rem; }
+  .fg-timeline p { margin: 0; }
+
+  /* Carousel */
+  .fg-carousel {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    overflow: hidden;
+    background: var(--aaic-ltblue);
+    margin: 1rem 0 1.5rem;
+  }
+  .fg-carousel .carousel-item img { max-height: 420px; object-fit: contain; margin: 0 auto; display: block; padding: 1rem 1rem 0; }
+  .fg-carousel .fg-caption { padding: 0.75rem 3.5rem 2.5rem; text-align: center; }
+  .fg-carousel .fg-caption strong { display: block; font-family: var(--fg-heading-font); color: var(--aaic-globe); }
+  .fg-carousel .carousel-control-prev-icon,
+  .fg-carousel .carousel-control-next-icon { filter: invert(1) grayscale(100); }
+  .fg-carousel .carousel-indicators [data-bs-target] { background-color: var(--aaic-globe); }
+  .fg-carousel figure { margin: 0; }
+
+  /* Responsive video */
+  .fg-video { border-radius: var(--fg-radius); overflow: hidden; margin: 1rem 0; }
+
+  /* Link lists inside cards */
+  .fg-card .list-group-item-action { color: var(--aaic-globe); }
+  .fg-card .list-group-item-action:hover { color: var(--aaic-torch); background: var(--aaic-ltblue); }
+
+  /* ---------- Educative features ---------- */
+  .fg-ef-index { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 1.5rem; }
+  .fg-ef-index a {
+    display: inline-block; border: 1px solid var(--aaic-border); border-radius: 50px;
+    padding: 0.2rem 0.7rem; font-size: 0.8rem; font-weight: 600;
+    color: var(--aaic-globe); text-decoration: none; background: #fff;
+  }
+  .fg-ef-index a:hover { border-color: var(--aaic-torch); color: var(--aaic-torch); }
+  .fg-ef-index a span { color: var(--aaic-smokey); font-weight: 400; margin-right: 0.25rem; }
+
+  .fg-ef {
+    border: 1px solid var(--aaic-border); border-radius: var(--fg-radius);
+    padding: 1.25rem 1.5rem; margin: 0 0 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+  .fg-ef > h3:first-child, .fg-ef > section > h3 { margin-top: 0; }
+  .fg-ef h3 { font-size: 1.2rem; color: var(--aaic-globe); margin-top: 0; }
+  .fg-ef .fg-ef-meta { margin: -0.25rem 0 0.75rem; }
+
+  /* "What goes here" — the papers' definition */
+  .fg-ef-what {
+    background: var(--aaic-ltblue); border-radius: 8px;
+    padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.95rem;
+  }
+  .fg-ef-what > p:first-child::before {
+    content: "What goes here"; display: block;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-globe);
+    margin-bottom: 0.25rem;
+  }
+  .fg-ef-what p { margin-bottom: 0.4rem; }
+  .fg-ef-what p:last-child { margin-bottom: 0; }
+
+  /* Example label above each component */
+  .fg-ef-example-label {
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-torch);
+    margin: 0 0 0.4rem;
+  }
+  .fg-cite { font-size: 0.8rem; color: var(--aaic-smokey); white-space: nowrap; }
+  .fg-ef-example-label .fg-cite { text-transform: none; letter-spacing: 0; font-weight: 400; font-family: Helvetica, Arial, sans-serif; }
+
+  /* Quoted example text */
+  .fg-quote {
+    border-left: 4px solid var(--aaic-summit); padding: 0.25rem 0 0.25rem 1rem;
+    color: #333; font-style: italic; margin: 0.75rem 0;
+  }
+  .fg-quote p { margin-bottom: 0.4rem; }
+
+  /* Core ideas map: before -> this unit -> later */
+  .fg-flow { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 1.75rem; align-items: stretch; }
+  .fg-flow .fg-flow-step {
+    border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem;
+    font-size: 0.9rem; background: #fff;
+  }
+  .fg-flow .fg-flow-step.fg-flow-now { border: 2px solid var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-flow .fg-flow-step strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--aaic-globe); }
+  .fg-flow .fg-flow-arrow { align-self: center; color: var(--aaic-globe); font-size: 1.25rem; }
+  @media (max-width: 640px) {
+    .fg-flow { grid-template-columns: 1fr; }
+    .fg-flow { gap: 2rem; }
+  }
+
+  /* Concept map placeholder */
+  .fg-diagram {
+    border: 2px dashed var(--aaic-summit); border-radius: 8px; background: var(--aaic-ltblue);
+    padding: 1.5rem; text-align: center; color: var(--aaic-smokey); font-size: 0.9rem;
+  }
+
+  /* Lesson storyline banner */
+  .fg-storyline {
+    border-left: 5px solid var(--aaic-valley); background: #f2f8f7;
+    border-radius: 0 8px 8px 0; padding: 0.75rem 1rem;
+  }
+  .fg-storyline p:last-child { margin-bottom: 0; }
+
+  /* Definition boxes */
+  .fg-defbox { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-bottom: 0.75rem; }
+  .fg-defbox .fg-defbox-label {
+    background: var(--aaic-globe); color: #fff; padding: 0.3rem 0.75rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+  }
+  .fg-defbox.fg-defbox-student .fg-defbox-label { background: var(--aaic-valley); }
+  .fg-defbox .fg-defbox-label p { margin: 0; }
+  .fg-defbox .fg-defbox-body { padding: 0.6rem 0.75rem; }
+  .fg-defbox .fg-defbox-body p:last-child { margin-bottom: 0; }
+
+  /* Why / How two-column box */
+  .fg-whyhow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .fg-whyhow > div { border-radius: 8px; padding: 0.75rem 1rem; }
+  .fg-whyhow .fg-why { background: var(--aaic-ltblue); border-top: 4px solid var(--aaic-globe); }
+  .fg-whyhow .fg-how { background: var(--aaic-ltorange); border-top: 4px solid var(--aaic-torch); }
+  .fg-whyhow h5 { font-size: 0.9rem; margin: 0 0 0.35rem; }
+  .fg-whyhow p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-whyhow { grid-template-columns: 1fr; } }
+
+  /* CK / PCK call-outs */
+  .fg-callout { border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 0.6rem; border-left: 5px solid; }
+  .fg-callout p:last-child { margin-bottom: 0; }
+  .fg-callout-ck  { border-color: var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-callout-pck { border-color: var(--aaic-torch); background: var(--aaic-ltorange); }
+  .fg-callout .fg-tag { margin-right: 0.4rem; }
+
+  /* Practice overview page + reminder icon */
+  .fg-overview { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 0.75rem; }
+  .fg-overview > div { border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.9rem; }
+  .fg-overview h5 { font-size: 0.85rem; color: var(--aaic-globe); margin: 0 0 0.25rem; }
+  .fg-overview p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-overview { grid-template-columns: 1fr; } }
+  .fg-reminder-row { display: flex; align-items: flex-start; gap: 0.75rem; }
+  .fg-reminder {
+    flex: 0 0 auto; width: 6.5rem; text-align: center; border: 2px solid var(--aaic-globe);
+    border-radius: 8px; padding: 0.3rem 0.2rem; font-size: 0.65rem; font-weight: 700;
+    color: var(--aaic-globe); line-height: 1.2; text-transform: uppercase;
+  }
+  .fg-reminder .fg-reminder-icon { display: block; font-size: 1.4rem; line-height: 1.2; }
+  .fg-reminder-step { flex: 1; }
+  .fg-reminder-step strong { color: var(--aaic-globe); }
+  .fg-reminder-step .fg-cite { display: block; white-space: normal; margin-top: 0.25rem; }
+
+  /* Narrative vignette */
+  .fg-narrative {
+    position: relative; background: #faf8f4; border: 1px solid var(--aaic-limestone);
+    border-radius: 8px; padding: 1rem 1rem 0.75rem 3.25rem;
+  }
+  .fg-narrative::before {
+    content: "\201C"; position: absolute; left: 0.85rem; top: 0.1rem;
+    font-family: Georgia, serif; font-size: 3rem; color: var(--aaic-torch); line-height: 1;
+  }
+  .fg-narrative p:last-child { margin-bottom: 0; }
+  .fg-dialogue { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.9rem; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue .fg-speaker { font-weight: 700; color: var(--aaic-globe); margin-right: 0.35rem; }
+
+  /* Sample student work */
+  .fg-work { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+  .fg-work .fg-work-label {
+    background: var(--aaic-limestone); color: var(--aaic-smokey); padding: 0.35rem 1rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+    border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-work .fg-work-label p { margin: 0; }
+  .fg-work .fg-work-sample { padding: 0.75rem 1rem; }
+  .fg-work .fg-work-sample .fg-work-prompt { color: var(--aaic-smokey); font-size: 0.9rem; }
+  .fg-work .fg-work-sample .fg-work-response {
+    border-left: 3px solid var(--aaic-border); padding-left: 0.85rem; margin-top: 0.5rem;
+  }
+  .fg-work .fg-work-feedback { border-top: 1px dashed var(--aaic-border); padding: 0.6rem 1rem; background: var(--aaic-ltorange); font-size: 0.9rem; }
+  .fg-work p:last-child { margin-bottom: 0; }
+
+  /* Capstone question */
+  .fg-capstone {
+    border: 2px solid var(--aaic-globe); border-radius: var(--fg-radius);
+    padding: 1rem 1.25rem; text-align: center;
+  }
+  .fg-capstone .fg-capstone-q { font-family: var(--fg-heading-font); font-weight: 700; font-size: 1.1rem; color: var(--aaic-globe); }
+  .fg-capstone p:last-child { margin-bottom: 0; }
+
+  .fg-ef-refs { font-size: 0.85rem; color: var(--aaic-smokey); }
+  .fg-ef-refs p { padding-left: 1.5rem; text-indent: -1.5rem; }
+
+  .fg-ef-hint { font-size: 0.9rem; color: var(--aaic-smokey); font-style: italic; margin: 0 0 0.75rem; }
+
+
+  /* ---------- Simplified blocks (no nesting needed) ---------- */
+  .fg-grid-2, .fg-grid-3, .fg-grid-4 { display: grid; gap: 1rem; margin: 1rem 0 1.5rem; }
+  .fg-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fg-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fg-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 767px) {
+    .fg-grid-2, .fg-grid-3 { grid-template-columns: 1fr; }
+    .fg-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .fg-hero + .fg-grid-4 { margin-bottom: 2rem; }
+  .fg-card { background: #fff; padding: 1rem 1.25rem; display: flex; flex-direction: column; }
+  .fg-card > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card > ul:last-child { margin-bottom: 0; }
+  .fg-card > p:first-child { margin-bottom: 0.25rem; }
+  .fg-card, .fg-stat { overflow-wrap: anywhere; }
+  .fg-stat { padding: 1rem 0.75rem; }
+  .fg-stat p { margin-bottom: 0.25rem; }
+  .fg-card-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; color: var(--aaic-globe);
+  }
+  .fg-card-header {
+    display: block; margin: -1rem -1.25rem 0.5rem; padding: 0.6rem 1.25rem;
+    background: var(--aaic-ltblue); border-bottom: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+    font-family: var(--fg-heading-font); font-weight: 700; color: var(--aaic-globe);
+  }
+  .fg-edge-globe, .fg-edge-valley, .fg-edge-torch, .fg-edge-river {
+    border-left: 5px solid var(--fg-edge-color) !important;
+  }
+
+  .fg-linklist ul { list-style: none; padding: 0; margin: 0; }
+  .fg-linklist li {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 0.15rem 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-linklist li:last-child { border-bottom: none; }
+  .fg-linklist li a { font-weight: 600; }
+  .fg-link-note { flex-basis: 100%; font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  .fg-accordion { margin: 1rem 0 1.5rem; }
+  .fg-steps { counter-reset: fgstep; }
+  .fg-step { counter-increment: fgstep; }
+  .fg-checklist ul { list-style: none; padding-left: 0; margin: 0; }
+  .fg-checklist li { margin: 0.15rem 0; }
+  .fg-checklist input { margin-right: 0.5rem; }
+
+  .fg-timeline > .fg-segment {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.75rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > .fg-segment:last-child { border-bottom: none; }
+  .fg-segment-body p { margin: 0; }
+  .fg-segment-body strong:first-child { display: block; font-family: var(--fg-heading-font); margin-bottom: 0.15rem; }
+
+  .fg-carousel .fg-caption p { margin: 0; }
+  .fg-slide-num {
+    display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin-bottom: 0.25rem;
+  }
+
+  .fg-flow .fg-flow-step { position: relative; }
+  .fg-flow .fg-flow-step p { margin: 0; }
+  .fg-flow .fg-flow-step:not(:last-child)::after {
+    content: "→"; position: absolute; right: -1.45rem; top: 50%; transform: translateY(-50%);
+    color: var(--aaic-globe); font-size: 1.25rem;
+  }
+  @media (max-width: 640px) {
+    .fg-flow .fg-flow-step:not(:last-child)::after {
+      content: "↓"; right: auto; left: 50%; top: auto; bottom: -1.75rem; transform: translateX(-50%);
+    }
+  }
+
+  .fg-reminder p, .fg-reminder-step p { margin: 0; }
+  .fg-dialogue ul { list-style: none; padding: 0; margin: 0; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue strong { color: var(--aaic-globe); }
+
+  .fg-defbox > p:first-child, .fg-work > p:first-child { margin: 0; }
+  .fg-defbox .fg-defbox-label, .fg-work .fg-work-label { display: block; }
+  .fg-work .fg-work-sample .fg-work-prompt { display: block; }
+  .fg-whyhow-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.9rem; margin-bottom: 0.35rem;
+  }
+  .fg-overview-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; margin: 0.25rem 0 0.5rem;
+  }
+  .fg-overview-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.85rem; color: var(--aaic-globe); margin-bottom: 0.25rem;
+  }
+  .fg-overview p { margin-bottom: 0.25rem; }
+
+
+  /* Learning objectives: subject tags */
+  .fg-tag-ct        { background: var(--aaic-globe); }
+  .fg-tag-ds        { background: var(--aaic-valley); }
+  .fg-tag-math      { background: var(--aaic-torch); }
+  .fg-tag-science   { background: var(--aaic-river); }
+  .fg-tag-agscience { background: #ABC178; color: #2f3a12; }  /* Switchgrass */
+  .fg-objectives > ul { margin: 0.75rem 0 1.5rem; padding-left: 1.25rem; }
+  .fg-objectives > ul > li { margin-bottom: 0.4rem; }
+  .fg-objectives .fg-tag { min-width: 5.25rem; text-align: center; margin-right: 0.35rem; }
+  .fg-objectives ul ul { margin-top: 0.25rem; }
+
+
+  /* Educative features pasted into the page */
+  .fg-feature { margin: 1rem 0 1.25rem; }
+  .fg-feature-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-globe); border-bottom: 2px solid var(--aaic-summit);
+    padding-bottom: 0.25rem; margin-bottom: 0.6rem;
+  }
+  .fg-feature > p:first-child { margin-bottom: 0; }
+  .fg-callout, .fg-whyhow, .fg-defbox, .fg-capstone, .fg-reminder-row { margin-top: 0.75rem; margin-bottom: 0.75rem; }
+
+  /* Print: expand collapsed content, hide interactive chrome */
+  @media print {
+    .collapse { display: block !important; height: auto !important; }
+    .carousel-item { display: block !important; float: none !important; }
+    .carousel-control-prev, .carousel-control-next, .carousel-indicators, .fg-btn, .fg-btn-outline { display: none !important; }
+    .fg-hero { color: #000; background: none; border: 2px solid var(--aaic-globe); }
+  }
+</style>
+<script>
+/* Turns the simple blocks in the content above into interactive parts:
+   expandable panels, the timeline and the prep checklist. */
+document.addEventListener("DOMContentLoaded", () => {
+  const attr = (el, name) => el.getAttribute("data-" + name) ?? el.getAttribute(name);
+
+  // Expandable panels (.fg-accordion > .fg-panel)
+  document.querySelectorAll(".fg-accordion").forEach((acc, a) => {
+    acc.id = acc.id || `fg-accordion-${a + 1}`;
+    acc.classList.add("accordion");
+    acc.querySelectorAll(":scope > .fg-panel").forEach((panel, i) => {
+      const id = `${acc.id}-panel-${i + 1}`;
+      const open = attr(panel, "open") === "true";
+      const item = document.createElement("div");
+      item.className = "accordion-item";
+      const header = document.createElement("h3");
+      header.className = "accordion-header";
+      const button = document.createElement("button");
+      button.className = "accordion-button" + (open ? "" : " collapsed");
+      button.type = "button";
+      button.setAttribute("data-bs-toggle", "collapse");
+      button.setAttribute("data-bs-target", "#" + id);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-controls", id);
+      button.textContent = attr(panel, "label") || "Untitled panel";
+      header.appendChild(button);
+      const collapse = document.createElement("div");
+      collapse.id = id;
+      collapse.className = "accordion-collapse collapse" + (open ? " show" : "");
+      collapse.setAttribute("data-bs-parent", "#" + acc.id);
+      const body = document.createElement("div");
+      body.className = "accordion-body";
+      body.append(...panel.childNodes);
+      collapse.appendChild(body);
+      item.append(header, collapse);
+      panel.replaceWith(item);
+    });
+  });
+
+  // Timeline (.fg-timeline > .fg-segment)
+  const groupColors = {
+    "whole class": "globe", "direct instruction": "river",
+    "groups": "valley", "coding": "torch", "individual": ""
+  };
+  document.querySelectorAll(".fg-timeline > .fg-segment").forEach((seg) => {
+    const time = document.createElement("div");
+    time.className = "fg-time";
+    time.textContent = attr(seg, "time") || "";
+    const length = attr(seg, "length");
+    if (length) {
+      const small = document.createElement("small");
+      small.textContent = length;
+      time.appendChild(small);
+    }
+    const body = document.createElement("div");
+    body.className = "fg-segment-body";
+    body.append(...seg.childNodes);
+    const group = attr(seg, "group");
+    if (group) {
+      const tag = document.createElement("span");
+      const color = groupColors[group.trim().toLowerCase()];
+      tag.className = "fg-tag" + (color ? " fg-tag-" + color : "");
+      tag.textContent = group;
+      const target = body.querySelector(":scope > p") || body;
+      target.append(" ", tag);
+    }
+    seg.replaceChildren(time, body);
+  });
+
+  // Prep checklist built from the step titles (.fg-checklist)
+  document.querySelectorAll(".fg-checklist").forEach((list) => {
+    const steps = [...document.querySelectorAll(".fg-steps .fg-step")];
+    if (!steps.length) return;
+    const ul = document.createElement("ul");
+    steps.forEach((step, i) => {
+      step.id = step.id || `prep-step-${i + 1}`;
+      const title = step.querySelector("h1, h2, h3, h4, h5, h6");
+      const li = document.createElement("li");
+      const label = document.createElement("label");
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      const link = document.createElement("a");
+      link.href = "#" + step.id;
+      link.textContent = `Step ${i + 1}: ${title ? title.textContent.trim() : ""}`;
+      label.append(box, link);
+      li.appendChild(label);
+      ul.appendChild(li);
+    });
+    list.replaceChildren(ul);
+  });
+});
+</script>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../templates";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

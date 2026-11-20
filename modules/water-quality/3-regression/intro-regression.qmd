@@ -4,8 +4,10 @@ crossref:
   lst-title: "🎯 Checkpoint 3."
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-3
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 ## The Case for Regression
 - Bob's cubes saved us money, but now the heights of our towers are all over the place.

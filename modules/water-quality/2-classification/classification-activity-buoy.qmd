@@ -4,8 +4,10 @@ crossref:
   lst-title: "🎯 Checkpoint 4."
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-2
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 On the last page, you trained your a model to classify apples and oranges. Now, let's first see a video of how the classifier in the buoy works.
 

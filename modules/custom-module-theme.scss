@@ -22,6 +22,25 @@ body {
   background-color: #FFFFFF !important;
 }
 
+/* Gray side areas around a white content column.
+   Only on pages with `body-classes: gray-sides` in their front matter. */
+body.gray-sides {
+  background-color: #ececec !important;
+}
+body.gray-sides main.content,
+body.gray-sides #quarto-document-content {
+  background-color: #FFFFFF;
+  padding: 2rem 2rem 3rem 2rem !important;   /* top padding restores the original space above the title */
+  min-height: calc(100vh - 60px);   /* 60px ~ navbar height */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+}
+body.gray-sides #quarto-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
 /* Link colors */
 a {
   color: #006C93;  /* Globe - default link color */
@@ -122,4 +141,78 @@ h1, h2, h3, h4, h5, h6 {
   border-width: 1px;
   border-color: #016d94;
   margin-bottom: 10px;
+}
+/* Lesson navigation dropdown (replaces floating sidebar) */
+.lesson-nav .btn-outline-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+  color: #006C93;
+  background-color: #f1f9f9;   /* same light blue as .ltblue-container */
+  border-color: #dcdcdc;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
+.lesson-nav .btn-outline-primary:hover,
+.lesson-nav .btn-outline-primary:focus,
+.lesson-nav .btn-outline-primary.show {
+  color: #006C93;
+  background-color: #e2f1f1;   /* a touch darker on hover/open */
+  border-color: #006C93;
+}
+/* On gray-sides pages, give the button a stronger edge so it stands out */
+body.gray-sides .lesson-nav .btn-outline-primary {
+  border: 1.5px solid #006C93;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+body.gray-sides .lesson-nav .btn-outline-primary:hover,
+body.gray-sides .lesson-nav .btn-outline-primary.show {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+}
+.lesson-nav-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.lesson-nav-lesson {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #5a6a72;
+}
+.lesson-nav-page {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;   /* keep the page name on one line */
+}
+.lesson-nav .dropdown-item:hover,
+.lesson-nav .dropdown-item:focus {
+  color: #e65933;
+  background-color: #F0EDE3;
+}
+.lesson-nav .dropdown-item.active,
+.lesson-nav .dropdown-item:active {
+  color: #FFFFFF;
+  background-color: #e65933;
+}
+
+/* On wide screens, pin the lesson dropdown to the left margin (where the
+   floating sidebar used to be) at the top of the page. Below 1340px it stays inline above the content. */
+@media (min-width: 1340px) {
+  .lesson-nav {
+    position: absolute;   /* scrolls away with the page (fixed would follow you) */
+    top: 6rem;          /* clears the fixed navbar */
+    left: 1.5rem;
+    max-width: 14rem;
+    z-index: 1000;
+  }
+  .lesson-nav .btn {
+    white-space: normal;  /* wrap long page names instead of widening */
+    text-align: left;
+  }
+  .lesson-nav .dropdown-menu {
+    max-height: 75vh;
+    overflow-y: auto;
+  }
 }

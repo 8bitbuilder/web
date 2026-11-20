@@ -4,8 +4,10 @@ crossref:
   lst-title: "🎯 Checkpoint"
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-1
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 ## 🥽 Get Ready, Scientists!
 We are going to conduct a brief water quality lab to practice gathering data about nitrates and nitrates in water samples.

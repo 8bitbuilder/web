@@ -1,0 +1,98 @@
+---
+title: "Facilitator's Guide:<br>Classification and Color"
+format: live-html
+---
+## Lesson Topics and Standards
+
+::: {.callout-note collapse="true"}
+## **Topics Covered:**
+
+- AI: Classification
+  - binary vs. multiclass classification
+  - training & evaluating a model
+  - convolutional neural nets (CNNs)
+- The Water Quality Buoy
+  - components & how it works
+  - classification within the buoy
+- Computers & Color
+  - images as pixels
+  - color as R, G, B values
+- Ethics of AI in Agriculture
+  - data ownership
+  - fairness 
+
+:::
+
+::: {.callout-note collapse="true"}
+## **TN Standards Addressed:** 
+
+- *BIO1.LS2.1/ECO.LS2.13/EVSC.LS2.3:* Use mathematical and/or computational representations to support explanations of factors that affect the carrying capacity of ecosystems at different scales.    
+- *SCRE.ETS2.3:*  Identify the most appropriate scientific instruments and/or computer programs for different experiments and research, and learn to use, care for, and maintain them, gather data, and analyze results.    
+- *PSCI.PS1.7:* Develop, or use, a model to predict or explain a phenomenon by using appropriate indicators.    
+- *SCRE.ETS3:* Applications of Science: Use data to develop a model. Evaluate the effectiveness of the model by making and testing predictions.
+- *AGSCIENCE 2.1:* Overview: Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.
+- *AGSCIENCE 3.2:* Models:  Develop models for the flow of energy and matter (inorganic forms and overall biomass) in various ecosystems impacting agricultural and environmental systems. Using these models, calculate rates of productivity by analyzing the major components of a food chain. Employ mathematical models to explain growth patterns and rates, both densitydependent and density-independent factors, observed in ecosystems energy and nutrients flow.
+:::
+
+## Lesson Overview Video Tour
+
+```{=html}
+<video width="80%" controls>
+  <source src="facilitator-video-overview.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+```
+<br>
+If you would like a more in-depth overview of the lesson, please consult the [slides with visible facilitator notes](https://appalachianaicorps.org/modules/water-quality/2-classification/facilitator_notes.html){target="_blank" rel="noopener noreferrer"}.
+
+## Slide Deck for Lesson
+
+<a href="https://appalachianaicorps.org/modules/water-quality/2-classification/slides.html" target="_blank" rel="nofollow noopener noreferrer">Workshop #2 Slides</a>
+
+## Student Handout
+You can make a copy of the [student handout for this lesson](https://docs.google.com/document/d/1YlHKArDan-SWoDWpHBdIyw4bPZv3ZG8LF711mCvDTAk/copy).
+
+<br>
+
+If you would like to provide students a copy of the slides with spaces for note taking, we have prepared a [handout for this purpose](https://appalachianaicorps.org/modules/water-quality/2-classification/student_handout.pdf){target="_blank" rel="noopener noreferrer"}.
+
+## Lesson Prep
+
+#### 1. Ensure Student Access to Webcam
+This lesson is reliant on the student use of their device's webcam. Please double check that the webcam on their device is enabled and works with both [Teachable Machine](https://teachablemachine.withgoogle.com/) and the [AAIC Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-1.html) used in this lesson.
+
+#### 2. Purchase Fruit and Distractor
+For this lesson, we recommend one red apple per child, and at least one Granny Smith and mandarin orange per small group. If you want to lengthen this lesson, you could vary the types of red apples purchased and have discussion about the importance of training classification models for different varieities of apples and fruits. We also purchased an orange rubber ball, similarly sized to the mandarin oranges.
+
+#### 3. Make Copies of the Student Handout
+Each student will need one copy of the student handout. You can make a copy of the handout by clicking the link above.
+
+#### 4. Create copy of exit ticket for end-of-lesson implementation.
+
+We have drafted an exit ticket that aligns with tthis lesson. We are providing the [Google Form here](https://docs.google.com/forms/d/1qs_1RupqOY17vGspY___I6kDrig4PxWnLrMiVLCj0IQ/copy) if you would like to use it or modify it for your own needs.
+
+#### 5. Create copy of the exercise for after-lesson practice.
+
+We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available [here](https://docs.google.com/forms/d/1CRdhhvLsr_5YXHe5P8TK6QvB8wANtHGMzgxQd3ynsWI/copy).
+
+## Lesson Overview & Takeaways
+
+By the end of the lesson, students will be able to:
+
+- Describe the components of the Smokey Buoy and explain 
+  how it uses classification to monitor water quality
+- Distinguish between binary and multiclass classification 
+  and provide examples of each
+- Train and evaluate an image classification model using 
+  Teachable Machine
+- Explain, at a high level, how a Convolutional Neural Net 
+  (CNN) works
+- Explain how computers represent images as pixels and 
+  colors as R, G, B values
+- Discuss ethical considerations around data ownership and 
+  fairness in AI-assisted agriculture
+  
+## Reference Materials
+
+Whole-Class Video Links:  
+- [PBS Convolutional Neural Networks](https://youtu.be/oV3ZY6tJiA0?si=ur273VN6VpnoqXoZ){rel="noopener noreferrer"}

@@ -4,8 +4,10 @@ crossref:
   lst-title: "🎯 Checkpoint 5."
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-2
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 :::{.ltblue-container}
 **Checkpoints on this Page:**

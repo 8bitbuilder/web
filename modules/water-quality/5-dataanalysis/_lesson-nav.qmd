@@ -1,0 +1,42 @@
+```{=html}
+<!-- Lesson 5 navigation dropdown (replaces the old floating sidebar).
+     Included at the top of each Lesson 5 page via {{< include _lesson-nav.qmd >}}.
+     Edit the menu items here; every page picks up the change. -->
+<div class="dropdown lesson-nav mb-4">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button"
+          id="lessonNavDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="lesson-nav-label">
+      <span class="lesson-nav-lesson">Lesson 5: Data Analysis</span>
+      <span class="lesson-nav-page">Lesson Contents</span>
+    </span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="lessonNavDropdown">
+    <li><h6 class="dropdown-header">Lesson Contents</h6></li>
+    <li><a class="dropdown-item" href="index.html">1. Overview</a></li>
+    <li><a class="dropdown-item" href="intro-stats-review.html">2. Intro Statistics: Review</a></li>
+    <li><a class="dropdown-item" href="link-menu.html">3. Links for Today</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">4. Exit Ticket</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Optional Exercise</a></li>
+  </ul>
+</div>
+
+<script>
+  // Highlight the current page in the dropdown and show it on the button.
+  // Runs immediately (the dropdown above is already on the page), so it
+  // doesn't wait for Pyodide and the rest of the page to finish loading.
+  (function () {
+    var page = window.location.pathname.split("/").pop() || "index.html";
+    if (!page.endsWith(".html")) page += ".html";
+    document.querySelectorAll(".lesson-nav .dropdown-item").forEach(function (a) {
+      if (a.getAttribute("href") === page) {
+        a.classList.add("active");
+        a.setAttribute("aria-current", "page");
+        var label = document.querySelector(".lesson-nav .lesson-nav-page");
+        if (label) label.textContent = a.textContent.trim();
+      }
+    });
+  })();
+</script>
+```

@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.11.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Facilitator’s Guide: Regression &amp; Prediction</title>
+<title>Facilitator’s Guide: Regression and Color</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -32,16 +38,19 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c885c3925676627532b743aee6efee3c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-231c86e777e0d4689807c0c4df76bf8a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,25 +78,26 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../aaic_letters.png" alt="Appalachian A.I. Corps logo." class="navbar-logo">
+    <img src="../aaic_letters.png" alt="Appalachian A.I. Corps logo." class="navbar-logo light-content">
+    <img src="../aaic_letters.png" alt="Appalachian A.I. Corps logo." class="navbar-logo dark-content">
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -137,6 +147,7 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -145,26 +156,26 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#lesson-topics-and-standards" id="toc-lesson-topics-and-standards" class="nav-link active" data-scroll-target="#lesson-topics-and-standards">Lesson Topics and Standards</a></li>
-  <li><a href="#lesson-overview-video-tour" id="toc-lesson-overview-video-tour" class="nav-link" data-scroll-target="#lesson-overview-video-tour">Lesson Overview Video Tour</a></li>
-  <li><a href="#slide-deck-for-lesson" id="toc-slide-deck-for-lesson" class="nav-link" data-scroll-target="#slide-deck-for-lesson">Slide Deck for Lesson</a></li>
-  <li><a href="#student-handout" id="toc-student-handout" class="nav-link" data-scroll-target="#student-handout">Student Handout</a></li>
+  <ul class="collapse">
+  <li><a href="#lesson-objectives-and-standards" id="toc-lesson-objectives-and-standards" class="nav-link active" data-scroll-target="#lesson-objectives-and-standards">Lesson Objectives and Standards</a></li>
+  <li><a href="#lesson-materials" id="toc-lesson-materials" class="nav-link" data-scroll-target="#lesson-materials">Lesson Materials</a></li>
+  <li><a href="#facilitation-notes" id="toc-facilitation-notes" class="nav-link" data-scroll-target="#facilitation-notes">Facilitation Notes</a></li>
   <li><a href="#lesson-prep" id="toc-lesson-prep" class="nav-link" data-scroll-target="#lesson-prep">Lesson Prep</a></li>
-  <li><a href="#lesson-overview-takeaways" id="toc-lesson-overview-takeaways" class="nav-link" data-scroll-target="#lesson-overview-takeaways">Lesson Overview &amp; Takeaways</a></li>
+  <li><a href="#estimated-time-per-lesson-component" id="toc-estimated-time-per-lesson-component" class="nav-link" data-scroll-target="#estimated-time-per-lesson-component">Estimated Time Per Lesson Component</a></li>
   <li><a href="#reference-materials" id="toc-reference-materials" class="nav-link" data-scroll-target="#reference-materials">Reference Materials</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content" tabindex="-1">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Facilitator’s Guide:<br>Regression &amp; Prediction</h1>
+<h1 class="title">Facilitator’s Guide:<br>Regression and Color</h1>
+<p class="subtitle lead">AAIC Water Quality Modules · Lesson 3</p>
 </div>
 
 
@@ -181,137 +192,1434 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lesson-topics-and-standards" class="level2">
-<h2 class="anchored" data-anchor-id="lesson-topics-and-standards">Lesson Topics and Standards</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<!-- ###################################################################
+     CONTENT STARTS HERE
+     Everything from here down to "CONTENT ENDS HERE" is the page.
+     ################################################################### -->
+<!-- ###################################################################
+     SECTION START: Banner
+     The colored box at the top of the page.
+     Replace each {{...}}. Leave the [ ] and { } around them as they are.
+     ################################################################### -->
+<div class="fg-hero">
+<!-- [{{SUBJECT_AREA}}]{.fg-tag .fg-tag-light} [{{GRADE_BAND}}]{.fg-tag .fg-tag-light} [{{CODING_LANGUAGE}}]{.fg-tag .fg-tag-light} -->
+<p><span class="lead">Use color, scatterplots, and linear regression to help predict water quality.</span></p>
+<!-- [▶ Open Slide Deck](https://appalachianaicorps.org/modules/water-quality/3-regression/slides.html){.fg-btn}
+[📄 Student Handout](https://docs.google.com/document/d/1wag0FSzDp6NchIcM4WAwIbBP_FqdIdcvL9YWwR8Mc8s/copy){.fg-btn-outline} -->
 </div>
-<div class="callout-title-container flex-fill">
-<strong>Topics Covered:</strong>
+<!-- ########## SECTION END: Banner ########## -->
+<!-- ###################################################################
+     SECTION START: At-a-Glance Cards
+     Three small cards under the banner. Keep each answer to 1–3 words.
+     To change an icon, replace the emoji on the first line of a card.
+     ################################################################### -->
+<div class="fg-grid-3">
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">⏱</span></p>
+<p><span class="fg-stat-value">90 minutes</span></p>
+<p><span class="fg-stat-label">Class time</span></p>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+<!-- ======== COPY END: one at-a-glance card ========== -->
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<!-- ::: {.fg-stat}
+[🧰]{.fg-stat-icon}
+
+[{{PREP_TIME}}]{.fg-stat-value}
+
+[Prep time]{.fg-stat-label}
+::: -->
+<!-- ======== COPY END: one at-a-glance card ========== -->
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">👥</span></p>
+<p><span class="fg-stat-value">3-4</span></p>
+<p><span class="fg-stat-label">Group size</span></p>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+<!-- ======== COPY END: one at-a-glance card ========== -->
+<!-- ======== COPY START: one at-a-glance card ======== -->
+<div class="fg-stat">
+<p><span class="fg-stat-icon">💻</span></p>
+<div class="fg-stat-value fg-stat-list">
 <ul>
-<li>AI: Regression
+<li>1:1 Devices</li>
+<li><a href="https://appalachianaicorps.org/modules/water-quality/RGB-Applet-2.html">RGB Applet V2</a></li>
+</ul>
+</div>
+<p><span class="fg-stat-label">Tech needed</span></p>
+</div>
+<!-- ======== COPY END: one at-a-glance card ========== -->
+</div>
+<!-- ########## SECTION END: At-a-Glance Cards ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Topics and Standards
+     Expandable panels. Each panel opens when clicked.
+     - The panel title is the text inside label="...".
+     - open="true" makes a panel start open. Use it on one panel at most;
+       leave it off and all panels start closed.
+     - To add a panel: copy one panel (COPY START to COPY END) and
+       paste it right below another panel's COPY END line.
+     - "Prior Knowledge & Vocabulary" (right below this note) is its
+       own separate fold-out box, so opening it doesn't close the others.
+     ################################################################### -->
+<section id="lesson-objectives-and-standards" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-objectives-and-standards">Lesson Objectives and Standards</h2>
+<div class="fg-accordion">
+<div class="fg-panel" data-label="Learning Objectives" open="true">
+<!-- Learning Objectives (always the first panel; it starts open).
+     A bulleted list. Each objective starts with a colored tag that
+     shows its subject area. Copy the tag you need from this list:
+       [CS]{.fg-tag .fg-tag-cs}                 Computer Science
+       [DS]{.fg-tag .fg-tag-ds}                 Data Science
+       [Math]{.fg-tag .fg-tag-math}             Math
+       [Science]{.fg-tag .fg-tag-science}       Science
+       [AgScience]{.fg-tag .fg-tag-agscience}   Agricultural Science
+     - To add an objective: copy one line that starts with - and
+       paste it on the next line. Then change the tag if needed.
+     - An objective can have more than one tag. Put them side by side.
+     - To add detail under an objective, start a new line with two
+       spaces before the dash (see the example below).
+     -->
+<p>By the end of the lesson, students will be able to:</p>
+<div class="fg-objectives">
 <ul>
-<li>regression vs.&nbsp;classification</li>
-<li>predicting continuous values</li>
-</ul></li>
-<li>Scatterplots &amp; Lines of Best Fit
-<ul>
-<li>plotting data</li>
-<li>fitting a line to noisy data</li>
-</ul></li>
-<li>Linear Regression in Python
-<ul>
-<li>slope &amp; intercept</li>
-<li>predicting new values</li>
-</ul></li>
-<li>Model Evaluation
-<ul>
-<li>R² as a measure of fit</li>
-</ul></li>
-<li>The Water Quality Buoy
-<ul>
-<li>using regression to predict nitrate levels from test pad color</li>
-</ul></li>
+<li><span class="fg-tag fg-tag-cs">CS</span> Use Python to generate a linear regression model and predict outcomes.</li>
+<li><span class="fg-tag fg-tag-ds">DS</span> Understand and create models of the relationship between RGB color values and nitrate concentrations using self-collected data.</li>
+<li><span class="fg-tag fg-tag-agscience">AgScience</span> Create and apply a linear model predicting dissolved nitrogen concentrations in waterways.</li>
 </ul>
 </div>
 </div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<strong>TN Standards Addressed:</strong>
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="TN AgriScience Standards">
+<!-- One topic per line. To indent a subtopic, start the line with
+     two spaces before the dash. -->
 <ul>
-<li><em>BIO1.LS2.1/ECO.LS2.13/EVSC.LS2.3:</em> Use mathematical and/or computational representations to support explanations of factors that affect the carrying capacity of ecosystems at different scales.<br>
-</li>
-<li><em>SCRE.ETS2.3:</em> Identify the most appropriate scientific instruments and/or computer programs for different experiments and research, and learn to use, care for, and maintain them, gather data, and analyze results.<br>
-</li>
-<li><em>PSCI.PS1.7:</em> Develop, or use, a model to predict or explain a phenomenon by using appropriate indicators.<br>
-</li>
-<li><em>SCRE.ETS3:</em> Applications of Science: Use data to develop a model. Evaluate the effectiveness of the model by making and testing predictions.</li>
-<li><em>AGSCIENCE 2.1:</em> Overview: Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.</li>
-<li><em>AGSCIENCE 3.2:</em> Models: Develop models for the flow of energy and matter (inorganic forms and overall biomass) in various ecosystems impacting agricultural and environmental systems. Using these models, calculate rates of productivity by analyzing the major components of a food chain. Employ mathematical models to explain growth patterns and rates, both densitydependent and density-independent factors, observed in ecosystems energy and nutrients flow.</li>
+<li><strong><em>3.2 Models:</em></strong> Develop models for the flow of energy and matter (inorganic forms and overall biomass) in various ecosystems impacting agricultural and environmental systems. Using these models, calculate rates of productivity by analyzing the major components of a food chain. Employ mathematical models to explain growth patterns and rates, both density-dependent and density-independent factors, observed in ecosystems energy and nutrients flow.</li>
 </ul>
 </div>
+<!-- ======== COPY END: one expandable panel ========== -->
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="Data Science Standards">
+<!-- One standard per line, in this format:  - *CODE:* Full text -->
+<ul>
+<li><strong><em>3-5.B.3.1d:</em></strong> <em>Creating your own data:</em> Plan and conduct measurements by identifying measurable characteristics and collecting both categorical and numerical variables of objects/events.</li>
+<li><strong><em>9-10.C.2.3b:</em></strong> <em>Defining relationships:</em> Analyze data to uncover correlations, trends, and groupings that inform decision-making processes across diverse fields.</li>
+<li><strong><em>9-10.C.5.2a:</em></strong> <em>Creating models:</em> Construct and analyze models to represent linear and non-linear relationships in data.</li>
+<li><strong><em>9-10.C.5.2b:</em></strong> <em>Creating models:</em> Use technology to create, test, and refine models.</li>
+</ul>
+</div>
+<!-- ======== COPY END: one expandable panel ========== -->
+<!-- ======== COPY START: one expandable panel ======== -->
+<div class="fg-panel" data-label="TN Computer Science Standards">
+<!-- One standard per line, in this format:  - *CODE:* Full text -->
+<ul>
+<li><strong><em>CS.AT.1:</em></strong> <em>Algorithmic Thinking:</em> Use lists to simplify solutions, generalizing computational problems instead of repeatedly using simple variables.</li>
+<li><strong><em>CS.DA.1:</em></strong> <em>Data Analysis:</em> Create computational models that represent the relationships among different elements of data collected from a phenomenon or process.</li>
+<li><strong><em>CS.DA.2:</em></strong> <em>Data Analysis:</em> Utilize data to answer a question using a variety of computing and data visualization methods.</li>
+<li><strong><em>CS.DA.3:</em></strong> <em>Data Analysis:</em> Use data analysis tools and techniques to identify patterns in data representing complex systems.</li>
+</ul>
+</div>
+<!-- ======== COPY END: one expandable panel ========== -->
+</div>
+<!-- Prior Knowledge & Vocabulary: a fold-out box on its own, styled
+     like the Estimated Lesson Timing box. It starts closed; add
+     open="true" after the label to make it start open.
+     The box title is the text inside label="...". -->
+<div class="fg-fold" data-label="Prior Knowledge &amp; Vocabulary">
+<p><strong>This lesson assumes that students have already had an introduction to:</strong></p>
+<ul>
+<li>Bivariate linear regression within their mathematics classes.</li>
+</ul>
+<!-- Table: each row is one line starting with |
+     To add a row, copy a {{TERM}} line and paste it below. -->
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Student-friendly definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regression</td>
+<td>A statistical method for finding the relationship between two variables, often shown as a “line of best fit” that runs through a set of data points.</td>
+</tr>
+<tr class="even">
+<td>Prediction</td>
+<td>An estimate of what will happen or what a value will be, based on patterns found in data. For example, using a regression line to guess a test score from hours studied.</td>
+</tr>
+<tr class="odd">
+<td>Scatterplot</td>
+<td>A graph that uses dots to show the relationship between two sets of data. Each dot represents one pair of values.</td>
+</tr>
+<tr class="even">
+<td>Independent Variable</td>
+<td>The variable you change or control in an experiment. It goes on the x-axis (horizontal).</td>
+</tr>
+<tr class="odd">
+<td>Dependent Variable</td>
+<td>The variable you measure to see how it responds to changes in the independent variable. It goes on the y-axis (vertical) and “depends” on the other variable.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="#additional-background-resources" class="fg-btn">Additional Resources on These Topics</a></p>
+</div>
+<!-- ########## SECTION END: Lesson Topics and Standards ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Overview Video Tour
+     VIDEO: on the line just below the heading that contains
+     REPLACE-WITH-VIDEO.mp4, replace ONLY that word with either:
+       - the video's file name (the file must be in the lesson folder),
+         e.g.  facilitator-video-overview.mp4
+       - or a YouTube link, e.g.  https://youtu.be/abc123
+     Leave the curly braces, < > and the word "video" exactly as they are.
+     ################################################################### -->
+<!-- ## Lesson Overview Video Tour
+
+
+ -->
+<!-- ########## SECTION END: Lesson Overview Video Tour ########## -->
+<!-- 
+###################################################################
+     SECTION START: Lesson Materials
+     One card per resource, each with a short description and a button.
+     - The button text goes inside [ ], the link inside ( ).
+     - .fg-btn = solid button, .fg-btn-outline = outlined button.
+     ###################################################################  -->
+</section>
+<section id="lesson-materials" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-materials">Lesson Materials</h2>
+<div class="fg-grid-3">
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">🖥️ Slide Deck</span></p>
+<p>The slides you’ll present during the lesson.</p>
+<p><a href="https://appalachianaicorps.org/modules/water-quality/3-regression/slides.html" class="fg-btn">Open slides</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<!-- #student-handout lets other parts of the page link here: [text](#student-handout) -->
+<div id="student-handout" class="fg-card">
+<p><span class="fg-card-title">📄 Student Handout</span></p>
+<p>Opens a “Make a copy” prompt so you get your own editable version.</p>
+<p><a href="https://docs.google.com/document/d/1wag0FSzDp6NchIcM4WAwIbBP_FqdIdcvL9YWwR8Mc8s/copy" class="fg-btn">Make a copy</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">📝 Note-Taking Slides</span></p>
+<p>A printable version of the slides with space for student notes.</p>
+<p><a href="https://appalachianaicorps.org/modules/water-quality/3-regression/student_handout.pdf" class="fg-btn-outline">Download PDF</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<!-- #exit-ticket lets other parts of the page link here: [text](#exit-ticket) -->
+<div id="exit-ticket" class="fg-card">
+<p><span class="fg-card-title">✅ Exit Ticket</span></p>
+<p>The exit ticket asks students to describe a regression line, apply the idea of prediction to another real-world context, and apply their knowledge of prediction to the buoy’s ML regression process.</p>
+<p><a href="https://forms.gle/3FKgkkyLxZrqoFnf7" class="fg-btn-outline">Copy Google Form</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<!-- #practice-exercise lets other parts of the page link here: [text](#practice-exercise) -->
+<div id="practice-exercise" class="fg-card">
+<p><span class="fg-card-title">🧑‍💻 Practice Exercise</span></p>
+<p>{{PRACTICE_DESCRIPTION}}</p>
+<p><a href="{{PRACTICE_URL}}" class="fg-btn-outline">Open in Colab</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+<!-- ======== COPY START: one resource card ======== -->
+<div class="fg-card">
+<p><span class="fg-card-title">🛒 Walmart Cart</span></p>
+<p>Share-A-Cart link for the stickers, poster markers, and Post-It gridded sticky pad easels.</p>
+<p><a href="https://share-a-cart.com/get/Z215Z" class="fg-btn-outline">Share-A-Cart</a></p>
+</div>
+<!-- ======== COPY END: one resource card ========== -->
+</div>
+<!-- ########## SECTION END: Lesson Materials ########## -->
+</section>
+<section id="facilitation-notes" class="level2">
+<h2 class="anchored" data-anchor-id="facilitation-notes">Facilitation Notes</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">🖥️ Slide Deck with Notes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">❓ Discussion Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">🔀 Differentiation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">🛠 Troubleshooting</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>For an in-depth walkthrough, see the <a href="https://appalachianaicorps.org/modules/water-quality/3-regression/facilitator_notes.html">slides with visible facilitator notes</a>.</p>
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+<!-- ### 💡 Tips
+
+- {{TIP}}
+- {{TIP}} -->
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+<!-- ### ⚠️ Common Misconceptions
+
+| Students may think... | Address it by... |
+|---|---|
+| {{MISCONCEPTION}} | {{STRATEGY}} |
+| {{MISCONCEPTION}} | {{STRATEGY}} | -->
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li>[<em>Pose after gruops record RGB value for each purple card with PPM values</em>] Compare your observed values with another group. Do you have the same values? Why do you think that that is?</li>
+<li>[<em>Pose after prediction card activity</em>] Does each group get the same predicted concentration for each card? Why do you think that is?</li>
+<li>[<em>Pose near end of lesson</em>] Today, we learned to use a regression model to predict nitrate concentrations from RGB values. What other things could we predict in AgriScience? What variable(s) could be useful to predict them? <!-- ======== COPY END: one tab ========== --></li>
+</ol>
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Extra support:</strong></p>
+<ul>
+<li>Prelabeling the grid paper axes will support students who have never been asked to count by multiples on an axis.</li>
+<li>Data entry into the code cells that generate the linear regression model is prone to error. Consider assigning one team member to enter the data, and another to double check the work before generating the model.</li>
+<li>Assigning group roles can support different students’ strengths. Consider drawing from complex instruction strategies and assigning a role to each team member:
+<ul>
+<li><em>Facilitator:</em> Keeps the group on track and makes sure everyone gets a turn to share. Asks the group’s questions to the teacher, but only after checking with teammates first.</li>
+<li><em>Resource Manager:</em> Gets the materials your group needs and puts them away at the end. Goes to the teacher when the whole group needs help or supplies.</li>
+<li><em>Recorder:</em> Records the group’s ideas, answers, and data so nothing gets lost.</li>
+<li><em>Reporter:</em> Shares the group’s findings with the class when the work is done.</li>
+</ul></li>
+</ul>
+<p><strong>Extension:</strong> In most machine learning regression models, we use multiple independent variables to predict a dependent variable. The buoy uses all three RGB channels (to different degrees) to predict nitrate concentrations. Ask students to brainstorm a situation when more than one independent variable predicts a dependent variable. You may wish to suggest the dependent variable of interest (e.g., observing a snow day) to get students started.</p>
+<p><strong>If you’re short on time:</strong> Skip the (1) two YouTube videos and model correctly placing the stickers onto the coordinate plane and (2) prediction of the regression line placement with the yardstick.</p>
+<!-- ======== COPY END: one tab ========== -->
+<!-- ======== COPY START: one tab ======== -->
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<!-- ======== COPY START: one problem + fix ======== -->
+<p><strong>Issue Accessing Applet</strong></p>
+<ul>
+<li>Students must grant permission for the applet to access their webcam. If they decline, reload the applet.</li>
+<li>Only one working applet/computer combination per group is necessary.</li>
+</ul>
+<p><strong>Generated Regression Model is a Poor Fit</strong></p>
+<ul>
+<li>Double check the data entered into the lists for <code>color_data</code> and <code>nitrate_data</code>. Typos are common.</li>
+</ul>
+<!-- ======== COPY END: one tab ========== -->
 </div>
 </div>
-</section>
-<section id="lesson-overview-video-tour" class="level2">
-<h2 class="anchored" data-anchor-id="lesson-overview-video-tour">Lesson Overview Video Tour</h2>
-<video width="80%" controls="">
-  <source src="facilitator-video-overview.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<p><br> If you would like a more in-depth overview of the lesson, please consult the <a href="https://appalachianaicorps.org/modules/water-quality/3-regression/facilitator_notes.html" target="_blank" rel="noopener noreferrer">slides with visible facilitator notes</a>.</p>
-</section>
-<section id="slide-deck-for-lesson" class="level2">
-<h2 class="anchored" data-anchor-id="slide-deck-for-lesson">Slide Deck for Lesson</h2>
-<p><a href="https://appalachianaicorps.org/modules/water-quality/3-regression/slides.html" target="_blank" rel="nofollow noopener noreferrer">Workshop #3 Slides</a></p>
-</section>
-<section id="student-handout" class="level2">
-<h2 class="anchored" data-anchor-id="student-handout">Student Handout</h2>
-<p>You can make a copy of the <a href="https://docs.google.com/document/d/1wag0FSzDp6NchIcM4WAwIbBP_FqdIdcvL9YWwR8Mc8s/copy">student handout for this lesson</a>.</p>
-<p><br></p>
-<p>If you would like to provide students a copy of the slides with spaces for note taking, we have prepared a <a href="https://appalachianaicorps.org/modules/water-quality/3-regression/student_handout.pdf" target="_blank" rel="noopener noreferrer">handout for this purpose</a>.</p>
+</div>
+<!-- ########## SECTION END: Facilitation Notes ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Prep
+     A checklist, then numbered prep steps.
+     - The checklist fills itself in from the step titles. Don't type in it.
+     - Steps number themselves (1, 2, 3...) in the order they appear.
+     - Each step can include the optional pieces marked inside it.
+     ################################################################### -->
 </section>
 <section id="lesson-prep" class="level2">
 <h2 class="anchored" data-anchor-id="lesson-prep">Lesson Prep</h2>
-<section id="purchaseprepare-materials-for-lesson" class="level4">
-<h4 class="anchored" data-anchor-id="purchaseprepare-materials-for-lesson">1. Purchase/Prepare Materials for Lesson</h4>
-<p>This lesson makes use of the large/sticky 3M Post-It Grid paper, the red/green/yellow/blue circular yard sale stickers available at most office supply stores, black poster markers, and yardsticks. Optionally, depending on the grade level of your students, it may be advantageous to consider pre-labeling the graph paper with x and y axes (to save time).</p>
-</section>
-<section id="ensure-student-access-to-webcam" class="level4">
-<h4 class="anchored" data-anchor-id="ensure-student-access-to-webcam">2. Ensure Student Access to Webcam</h4>
-<p>This lesson is reliant on the student use of their device’s webcam. Please double check that the webcam on their device is enabled and works with the <a href="https://appalachianaicorps.org/modules/water-quality/RGB-Applet-2.html">AAIC Applet</a> used in this lesson.</p>
-</section>
-<section id="print-and-cut-purple-test-pad-card-deck" class="level4">
-<h4 class="anchored" data-anchor-id="print-and-cut-purple-test-pad-card-deck">3. Print and Cut Purple Test Pad Card Deck</h4>
-<p>For this lesson, we recommend one deck of purple nitrate test strip cards per student group. It is important that these cards be printed in color and of high quality. While the colors are approximations of the exact colors that result from the nitrate test strips used in lesson #1, the key is that they capture the mathematical differences in usefulness of the red, green, and blue channels in meaningfully predicting nitrate concentrations in water samples. This behavior mirrors the reality of the ML model driving the buoy’s predictions.</p>
-</section>
-<section id="make-copies-of-the-student-handout" class="level4">
-<h4 class="anchored" data-anchor-id="make-copies-of-the-student-handout">4. Make Copies of the Student Handout</h4>
-<p>Each student will need one copy of the student handout. You can make a copy of the handout by clicking the link above.</p>
-</section>
-<section id="create-copy-of-exit-ticket-for-end-of-lesson-implementation." class="level4">
-<h4 class="anchored" data-anchor-id="create-copy-of-exit-ticket-for-end-of-lesson-implementation.">5. Create copy of exit ticket for end-of-lesson implementation.</h4>
-<p>We have drafted an exit ticket that aligns with this lesson. We are providing the <a href="https://docs.google.com/forms/d/11oDoRR2eR3Yl_q_MNksztxhcLlcB_YSD8EyivygLnOs/copy">Google Form here</a> if you would like to use it or modify it for your own needs.</p>
-</section>
-<section id="create-copy-of-the-exercise-for-after-lesson-practice." class="level4">
-<h4 class="anchored" data-anchor-id="create-copy-of-the-exercise-for-after-lesson-practice.">6. Create copy of the exercise for after-lesson practice.</h4>
-<p>We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available <a href="#">here</a>.</p>
-</section>
-</section>
-<section id="lesson-overview-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="lesson-overview-takeaways">Lesson Overview &amp; Takeaways</h2>
-<p>By the end of the lesson, students will be able to:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Prep checklist
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="fg-checklist">
+<p>(This list is built automatically from the step titles below.)</p>
+</div>
+</div>
+</div>
+<div class="fg-steps">
+<!-- ======== COPY START: one prep step ======== -->
+<section id="purchasegather-materials-for-lesson" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="purchasegather-materials-for-lesson">Purchase/Gather Materials for Lesson</h4>
+<p><strong>Materials needed:</strong></p>
 <ul>
-<li>Distinguish between classification and regression and explain when each is appropriate</li>
-<li>Describe how Smokey Buoy uses regression to predict nitrate levels from test pad images</li>
-<li>Explain how mean RGB values from an image can serve as inputs to a regression model</li>
-<li>Construct a scatterplot and interpret a line of best fit</li>
-<li>Use a linear regression model in Python to predict new values from color data</li>
-<li>Evaluate a regression model’s performance using R²</li>
+<li>🛒 1 Sheet of Post-It Super Sticky Easel Pad GRIDDED Paper Per Group</li>
+<li>🛒 1 Black Poster Marker Per Group</li>
+<li>🛒 2 Sheets of the Avery ¾” Circular Multi-Color Labels Per Group</li>
+<li>1 Yardstick Per Group (purchaseable at home improvement stores)</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Stretch Your Supplies
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Each group will be assigned either red, green, or blue. They will only need their assigned color of stickers from each of the two sheets. Before class, cut the sheets into strips to conserve materials and only provide two strips of the color needed to each group.</p>
+<p><img src="images/yardsale_stickers.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="ensure-student-access-to-webcam-and-applet" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="ensure-student-access-to-webcam-and-applet">Ensure Student Access to Webcam and Applet</h4>
+<p>This lesson is reliant on the student use of device webcams (at least one per group). Please double check that the webcams on their devices are enabled and work with the AAIC Applet used in this lesson.</p>
+<p><a href="https://appalachianaicorps.org/modules/water-quality/RGB-Applet-2.html" class="fg-btn">Test AAIC RGB V2 Applet</a></p>
+<p><strong>What will it look like if the applet works?</strong></p>
+<ul>
+<li>When the “What Humans See” option is select, a low-quality full-color image is shown</li>
+<li>When the “What Computers See” option is selected, squares of that color with numbers in them are shown (for red, green, and blue channels)</li>
+</ul>
+<p><img src="images/RGB_Applet_Test.png" class="img-fluid"></p>
+</section>
+<section id="check-that-video-links-are-accessible" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="check-that-video-links-are-accessible">Check that Video Links are Accessible</h4>
+<p><a href="#whole-class-videos">Two YouTube videos</a> are used in this lesson. Confirm that the two links are not blocked at your school, or you can access them when needed.</p>
+</section>
+<section id="prepare-purple-color-swatch-cards" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="prepare-purple-color-swatch-cards">Prepare Purple Color Swatch Cards</h4>
+<p>Print and cut one deck of purple color swatch cards for each group. It is important that these cards be printed in color and of high quality. While the colors are approximations of the exact colors that result from the nitrate test strips used in lesson #1, the key is that they capture the mathematical differences in usefulness of the red, green, and blue channels in meaningfully predicting nitrate concentrations in water samples. This behavior mirrors the reality of the ML model driving the buoy’s predictions.</p>
+<p><a href="#" class="fg-btn">Card Deck Optimized for Fluorescent Lighting</a></p>
+<p><a href="#" class="fg-btn">Card Deck for Standard Lighting</a></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Separating the Decks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Separate these decks into two separate piles. Groups will first use the eight cards with PPM values written on them to create their model.</p>
+<p>Later, groups will need the three predictor cards to use in predicting nitrate concentrations from their created model.</p>
+<p><img src="images/stacks_of_purplecards_aaic_l3.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="make-copies-of-the-student-handout" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="make-copies-of-the-student-handout">Make Copies of the Student Handout</h4>
+<p>Each student will need one copy of the student handout. You can make a copy of the <a href="#student-handout">handout above</a>.</p>
+</section>
+<section id="make-digital-copy-of-student-exit-ticket-and-link-in-your-lms" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="make-digital-copy-of-student-exit-ticket-and-link-in-your-lms">Make (Digital) Copy of Student Exit Ticket and Link in Your LMS</h4>
+<p>We have drafted an exit ticket that aligns with this lesson. We are providing the <a href="#exit-ticket">Google Form here</a> if you would like to use it or modify it for your own needs.</p>
+</section>
+<section id="make-digital-copy-of-student-exercise-and-link-in-your-lms" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="make-digital-copy-of-student-exercise-and-link-in-your-lms">Make (Digital) Copy of Student Exercise and Link in Your LMS</h4>
+<p>We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available <a href="#practice-exercise">here</a>.</p>
+</section>
+<section id="optional-but-recommended-pre-label-grid-paper-with-xy-axis-and-tick-marks" class="level4 unnumbered fg-step">
+<h4 class="unnumbered anchored" data-anchor-id="optional-but-recommended-pre-label-grid-paper-with-xy-axis-and-tick-marks">(Optional but Recommended) Pre-Label Grid Paper with X,Y Axis and Tick Marks</h4>
+<p>For the exercise to fit on the grid paper, the y and x axes will need to count by different units (y by 2s and x by 10s), given the size of the paper. This can sometimes be tricky for students. So, if pressed for time, we suggest pre-labeling the paper (see example below) so students can quickly begin plotting their values.</p>
+<p><img src="images/Labeled_Grid_Paper_Crop.png" class="img-fluid"></p>
+<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
+          with screenshots of each step). Put the link inside ( ).
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+<!-- Walk through each step in the slides: [▶ Open the step-by-step slides]({{STEP_BY_STEP_SLIDES_URL}}){.fg-btn} -->
+<!-- ---- END OPTIONAL ---- -->
+<!-- ---- OPTIONAL: note box.
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+<!-- ::: {.callout-note}
+**Teaching more than one class?** {{MULTI_CLASS_NOTE}}
+::: -->
+<!-- ---- END OPTIONAL ---- -->
+</section>
+<!-- ======== COPY END: one prep step ========== -->
+</div>
+<style>
+/* Lesson Prep accordion only */
+.fg-steps > .fg-step img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0.75rem auto;
+}
+
+.fg-steps > .fg-step > details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.fg-steps > .fg-step > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fg-steps > .fg-step > details > summary > h4 {
+  margin: 0;
+  font-family: var(--fg-heading-font);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  color: var(--aaic-globe, #006C93);
+  transition: color 0.15s ease;
+}
+
+.fg-steps > .fg-step > details > summary:hover > h4 {
+  color: var(--aaic-torch, #E65933);
+}
+
+.fg-steps > .fg-step > details[open] > summary {
+  margin-bottom: 0.75rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 2px solid var(--aaic-summit, #B9E1E2);
+}
+
+/* Title bar for Lesson Prep steps (tinted, rounded, with arrow) */
+.fg-steps > .fg-step > details > summary {
+  position: relative;
+  padding: 0.3rem 2.25rem 0.35rem 0.75rem;
+  background: var(--aaic-ltblue, #f1f9f9);
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.fg-steps > .fg-step > details > summary:hover {
+  background: #e4f3f3;
+}
+
+.fg-steps > .fg-step > details > summary::after {
+  content: "▼";
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: var(--aaic-globe, #006C93);
+  transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when expanded */
+.fg-steps > .fg-step > details[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".fg-steps > .fg-step")
+    .forEach(step => {
+
+      const heading = step.querySelector(":scope > h4");
+      if (!heading) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+
+      // Keep the existing step title
+      summary.appendChild(heading);
+      details.appendChild(summary);
+
+      // Move all existing content into the accordion
+      while (step.firstChild) {
+        details.appendChild(step.firstChild);
+      }
+
+      step.appendChild(details);
+    });
+
+  // Preserve Prep Checklist links
+  document.querySelectorAll(".fg-checklist")
+    .forEach(checklist => {
+      checklist.addEventListener("click", event => {
+        const link = event.target.closest('a[href^="#prep-step-"]');
+        if (!link) return;
+
+        const step = document.getElementById(link.hash.slice(1));
+        if (step) {
+          const details = step.querySelector("details");
+          if (details) details.open = true;
+        }
+      });
+    });
+
+});
+</script>
+<!-- ########## SECTION END: Lesson Prep ########## -->
+<!-- ###################################################################
+     SECTION START: Lesson Flow
+     A timeline of the class period. Each segment has:
+       time="..."    about how long it takes, e.g. 10 min
+       group="..."   one of: Whole class, Direct instruction, Groups,
+                     Coding, Individual  (each gets its own color)
+                     For more than one, separate with commas,
+                     e.g. group="Groups, Coding"
+     Type between the quote marks only.
+     ################################################################### -->
+</section>
+<section id="estimated-time-per-lesson-component" class="level2">
+<h2 class="anchored" data-anchor-id="estimated-time-per-lesson-component">Estimated Time Per Lesson Component</h2>
+<div class="fg-timeline">
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="5 min" data-group="Direct instruction, Whole class">
+<p><strong>Introduction to Regression</strong> Deliver Initial Slides/Lead up to Regression Activity Pt. I.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="15 min" data-group="Groups">
+<p><strong>Regression Activity Pt. I</strong> Groups will use applet to record RGB values of purple swatches in deck.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="10 min" data-group="Groups">
+<p><strong>Regression Activity Pt. II</strong> Students watch short scatterplot video and plot their assign color stickers on grid.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="20 min" data-group="Coding, Groups">
+<p><strong>Regression Activity Pt. III</strong> Students input values from Pt. II into Python code block to generate digital scatterplot (should match) and linear regression model.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="10 min" data-group="Groups">
+<p><strong>Regression Activity Pt. IV</strong> Students use the yardstick and marker to approximate the regression line on the gridpaper, making it match the computer version as much as possible.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="10 min" data-group="Groups">
+<p><strong>Regression Activity Pt. V</strong> Students use linear regression model to predict nitrate concentrations for their three “prediction cards.”</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="10 min" data-group="Whole class, Individual">
+<p><strong>Discussion/Reflection</strong> Use this time for whole-group discussion of the day’s work and then individual journaling/reflection about the learning.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+<!-- ======== COPY START: one timeline segment ======== -->
+<div class="fg-segment" data-time="10 min" data-group="Individual">
+<p><strong>Exit Ticket &amp; (If Desired) Assignment of Practice Exercise</strong> Use the final 10 minutes of class for students to complete the exit ticket. Additionally, if you’d like to assign the practice exercise for homework, do so now.</p>
+</div>
+<!-- ======== COPY END: one timeline segment ========== -->
+</div>
+<style>
+/* Single accordion for entire Lesson Flow */
+.fg-flow-accordion {
+  border: 1px solid var(--aaic-border, #dcdcdc);
+  border-radius: var(--fg-radius, 12px);
+  overflow: hidden;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.fg-flow-accordion > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.65rem 1rem;
+  background: var(--aaic-ltblue, #f1f9f9);
+  color: #000;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.fg-flow-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fg-flow-accordion > summary:hover {
+  background: #e2f1f2;
+}
+
+/* Dropdown arrow */
+.fg-flow-accordion > summary::after {
+  content: "▼";
+  font-size: 0.85rem;
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.fg-flow-accordion[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.fg-flow-accordion[open] > summary {
+  border-bottom: 1px solid var(--aaic-border, #dcdcdc);
+}
+
+.fg-flow-accordion > .fg-timeline {
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+/* Other fold-out boxes (.fg-fold) reuse this look */
+.fg-flow-accordion > .fg-fold-body { padding: 0.75rem 1rem; }
+.fg-flow-accordion > .fg-fold-body > :last-child { margin-bottom: 0; }
+
+/* Heading sized like the "Prior Knowledge & Vocabulary" box header;
+   stays an h2 so it still appears in "On this page" */
+.fg-flow-accordion > summary > h2,
+.fg-flow-accordion > summary > .fg-fold-title {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: var(--fg-heading-font);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #000;
+}
+.fg-flow-accordion > summary > h2 .anchorjs-link { display: none !important; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const timeline = document.querySelector(".fg-timeline");
+  if (!timeline) return;
+
+  const heading = timeline.previousElementSibling;
+  if (!heading || heading.tagName !== "H2") return;
+
+  const accordion = document.createElement("details");
+  accordion.className = "fg-flow-accordion";
+
+  const summary = document.createElement("summary");
+
+  summary.appendChild(heading);
+
+  timeline.before(accordion);
+  accordion.append(summary, timeline);
+
+});
+</script>
+<!-- ########## SECTION END: Lesson Flow ########## -->
+<!-- ###################################################################
+     SECTION START: Facilitation Notes
+     Tabs. Each tab starts with a line beginning with ###
+     The text after ### is the tab's name.
+     ################################################################### -->
+<!-- ###################################################################
+     SECTION START: Reference Materials
+     Two cards of links. Each link is one line:
+       - [Title shown on page](https://link) [Source]{.fg-tag}
+     To add a link, copy one line starting with - and paste it below.
+     ################################################################### -->
 </section>
 <section id="reference-materials" class="level2">
 <h2 class="anchored" data-anchor-id="reference-materials">Reference Materials</h2>
-<p>Whole-Class Video Links:<br>
-- <a href="https://youtu.be/b_Au4Ngm9pE?si=gQKsuZ9e9T4USxAC" rel="noopener noreferrer">Scatter Graphs: What they are and how to plot them</a><br>
-- <a href="https://youtu.be/e18KM681cmg?si=3iQfTYdxxuQRalA4" rel="noopener noreferrer">Scatter Graphs: Line of best fit</a></p>
+<div class="fg-grid-2">
+<!-- ======== COPY START: one link card ======== -->
+<!-- #whole-class-videos lets other parts of the page link here: [text](#whole-class-videos) -->
+<div id="whole-class-videos" class="fg-card fg-linklist">
+<p><span class="fg-card-header">Whole-Class Videos</span></p>
+<ul>
+<li><a href="{{VIDEO_URL}}">Scatter Graphs: What they are and how to plot them</a> <span class="fg-tag fg-tag-torch">YouTube</span></li>
+<li><a href="{{VIDEO_URL}}">Scatter Graphs: Line of best fit</a> <span class="fg-tag fg-tag-torch">YouTube</span></li>
+</ul>
+</div>
+<!-- ======== COPY END: one link card ========== -->
+<!-- ======== COPY START: one link card ======== -->
+<div id="additional-background-resources" class="fg-card fg-linklist">
+<p><span class="fg-card-header">Other Useful Materials</span></p>
+<ul>
+<li><a href="https://youtu.be/0T0z8d0_aY4?si=ssH5kEhashqLMX7t">Introduction to Linear Regression</a> <span class="fg-link-note">Provides broad overview/intuition about how linear regression works</span></li>
+</ul>
+</div>
+<!-- ======== COPY END: one link card ========== -->
+</div>
+<!-- ########## SECTION END: Reference Materials ########## -->
+<!-- ###################################################################
+     SECTION START: Footer
+     ################################################################### -->
+<hr>
+<div class="text-center text-body-secondary small">
+<!-- The email address is stored backwards so spam bots can't read it.
+     The page turns it back into a clickable link. -->
+<p>Questions or feedback on this lesson? Contact <span class="fg-email" data-u="ciaa" data-d="ude.ktu">aaic [at] utk [dot] edu</span></p>
+</div>
+<!-- ########## SECTION END: Footer ########## -->
+<!-- ###################################################################
+     CONTENT ENDS HERE
+
+     ⛔ STOP. DO NOT EDIT ANYTHING BELOW THIS LINE. ⛔
+     The rest of this file controls colors, layout and how the
+     expandable panels and timeline work. Changing it
+     can break the page.
+     ################################################################### -->
+<!-- =================================================================
+     STYLES AND SCRIPT — for whoever maintains the template.
+     Uses the AAIC brand palette. Edit the --aaic-* values to rebrand.
+     ================================================================= -->
+<style>
+  /* AAIC palette — same values as styles-main.css on the main site.
+     custom-module-theme.scss (loaded by the water-quality _quarto.yml)
+     already handles fonts, link colors, TOC/sidebar hover, navbar,
+     and callout borders, so this block only styles the new components. */
+  :root {
+    --aaic-globe: #006C93;      /* primary: links, accents */
+    --aaic-torch: #E65933;      /* hover / active (theme uses #e65933) */
+    --aaic-valley: #00746F;
+    --aaic-river: #517C96;
+    --aaic-orange: #FF8200;     /* Tennessee orange */
+    --aaic-sunsphere: #FED535;
+    --aaic-smokey: #58595B;
+    --aaic-limestone: #F0EDE3;
+    --aaic-summit: #B9E1E2;
+    --aaic-ltblue: #f1f9f9;     /* .ltblue-container / .checkpoint-box */
+    --aaic-ltorange: #fdf5f2;   /* .dkorange-container */
+    --aaic-border: #dcdcdc;
+    --fg-accent: var(--aaic-globe);
+    --fg-radius: 12px;          /* matches .module-card */
+    --fg-heading-font: 'Montserrat', Helvetica, Arial, sans-serif;
+  }
+
+  /* Buttons — pill shape like the main-site .btn, sized for cards.
+     Use .fg-btn (solid) or .fg-btn-outline. */
+  .fg-btn, .fg-btn-outline {
+    display: inline-block;
+    border-radius: 50px;
+    border: 2px solid var(--aaic-globe);
+    padding: 0.35rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+  }
+  .fg-btn { background: var(--aaic-globe); color: #fff !important; }
+  .fg-btn-outline { background: #fff; color: var(--aaic-globe) !important; }
+  .fg-btn:hover, .fg-btn-outline:hover {
+    background: var(--aaic-torch);
+    border-color: var(--aaic-torch);
+    color: #fff !important;
+    transform: translateY(-1px);
+  }
+
+  /* Small tags (badges) */
+  .fg-tag {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    vertical-align: middle;
+    color: #fff;
+    background: var(--aaic-smokey);
+  }
+  .fg-tag-globe  { background: var(--aaic-globe); }
+  .fg-tag-valley { background: var(--aaic-valley); }
+  .fg-tag-torch  { background: var(--aaic-torch); }
+  .fg-tag-river  { background: var(--aaic-river); }
+  .fg-tag-sun    { background: var(--aaic-sunsphere); color: #333; }
+  .fg-tag-light  { background: var(--aaic-limestone); color: var(--aaic-globe); }
+
+  /* Hero banner */
+  .fg-hero {
+    background: linear-gradient(135deg, var(--aaic-globe) 0%, var(--aaic-valley) 100%);
+    color: #fff;
+    border-radius: var(--fg-radius);
+    padding: 1.25rem 1.5rem;
+    margin: 0.75rem 0 1.25rem;
+  }
+  .fg-hero p { margin-bottom: 0.4rem; }
+  .fg-hero .lead { font-size: 1.15rem; }
+  .fg-hero .fg-tag { margin-right: 0.25rem; }
+  .fg-hero .fg-btn { background: #fff; border-color: #fff; color: var(--aaic-globe) !important; }
+  .fg-hero .fg-btn-outline { background: transparent; border-color: #fff; color: #fff !important; }
+  .fg-hero .fg-btn:hover, .fg-hero .fg-btn-outline:hover {
+    background: var(--aaic-orange); border-color: var(--aaic-orange); color: #fff !important;
+  }
+
+  /* Space below the at-a-glance row */
+
+  /* Cards — share the main-site .module-card radius, shadow and hover */
+  .fg-card, .fg-stat {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    height: 100%;
+  }
+  .fg-card { transition: all 0.3s ease; }
+  .fg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 116, 111, 0.2);
+    border-color: var(--aaic-torch);
+  }
+  .fg-card .card-body { display: flex; flex-direction: column; }
+  .fg-card .card-body > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card .card-title {
+    font-family: var(--fg-heading-font);
+    font-weight: 700;
+    color: var(--aaic-globe);
+    margin-bottom: 0.5rem;
+  }
+  .fg-card .card-header {
+    background: var(--aaic-ltblue);
+    border-bottom: 1px solid var(--aaic-border);
+    font-family: var(--fg-heading-font);
+    color: var(--aaic-globe);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+  }
+
+  /* Colored left edge for objective cards */
+  .fg-edge { border-left: 5px solid var(--fg-edge-color, var(--fg-accent)) !important; }
+  .fg-edge-globe  { --fg-edge-color: var(--aaic-globe); }
+  .fg-edge-valley { --fg-edge-color: var(--aaic-valley); }
+  .fg-edge-torch  { --fg-edge-color: var(--aaic-torch); }
+  .fg-edge-river  { --fg-edge-color: var(--aaic-river); }
+
+  /* Stat / at-a-glance cards */
+  .fg-stat { text-align: center; background: var(--aaic-ltblue); }
+  .fg-stat .fg-stat-icon { font-size: 1.6rem; line-height: 1; }
+  .fg-stat .fg-stat-value {
+    font-family: var(--fg-heading-font);
+    font-size: 1.35rem; font-weight: 700; color: var(--aaic-globe);
+    margin: 0.35rem 0 0;
+  }
+  /* Bulleted stat value: keep the list centered in the card but
+     left-align the bullets so they line up */
+  .fg-stat .fg-stat-list ul {
+    display: inline-block; text-align: left;
+    margin: 0; padding-left: 1.1rem;
+    font-size: 1.1rem;
+  }
+  .fg-stat .fg-stat-label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin: 0;
+  }
+
+  /* Accordion */
+  .accordion-item { border-color: var(--aaic-border); }
+  .accordion-item:first-of-type { border-top-left-radius: var(--fg-radius); border-top-right-radius: var(--fg-radius); }
+  .accordion-item:last-of-type  { border-bottom-left-radius: var(--fg-radius); border-bottom-right-radius: var(--fg-radius); }
+  .accordion-header { margin: 0 !important; }
+  /* Quarto appends a section-link icon to headings; inside an accordion
+     header it wraps onto its own line, so hide it there */
+  .accordion-header .anchorjs-link { display: none !important; }
+  .accordion-button {
+    font-family: var(--fg-heading-font);
+    font-weight: 600;
+    color: var(--aaic-globe);
+  }
+  .accordion-button:not(.collapsed) {
+    background: var(--aaic-ltblue);
+    color: var(--aaic-globe);
+    box-shadow: inset 0 -1px 0 var(--aaic-border);
+  }
+  .accordion-button:hover { color: var(--aaic-torch); }
+  .accordion-button:focus { box-shadow: 0 0 0 0.2rem rgba(0, 108, 147, 0.25); }
+  .accordion-button { padding: 0.65rem 1rem; }
+  .accordion-body { padding: 0.75rem 1rem; }
+
+  /* Always-open box (.fg-box): styled like an open accordion panel */
+  .fg-box {
+    margin: 0.75rem 0 1.25rem; border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius); overflow: hidden; background: #fff;
+  }
+  .fg-box-header {
+    margin: 0 !important; padding: 0.65rem 1rem;
+    background: var(--aaic-ltblue); box-shadow: inset 0 -1px 0 var(--aaic-border);
+    font-family: var(--fg-heading-font); font-weight: 600; font-size: 1rem;
+    color: var(--aaic-globe);
+  }
+  .fg-box-header .anchorjs-link { display: none !important; }
+  .fg-box-body { padding: 0.75rem 1rem; }
+  .fg-box-body > :last-child { margin-bottom: 0; }
+
+  /* Tabsets — Globe text, Torch underline on the active tab
+     (the united theme would otherwise make them orange-red) */
+  .panel-tabset .nav-tabs .nav-link { color: var(--aaic-globe); font-weight: 600; }
+  /* Compact tabs so they fit on one row on wide screens; on narrower
+     screens they wrap onto a second row (never a sideways scrollbar). */
+  .panel-tabset .nav-tabs .nav-link { font-size: 0.8rem; padding: 0.4rem 0.55rem; white-space: nowrap; }
+  .panel-tabset .nav-tabs .nav-link:hover { color: var(--aaic-torch); }
+  .panel-tabset .nav-tabs .nav-link.active {
+    color: var(--aaic-torch);
+    border-bottom: 3px solid var(--aaic-torch);
+  }
+
+  /* Numbered prep steps */
+  .fg-step {
+    position: relative;
+    border-left: 3px solid var(--aaic-summit);
+    padding: 0.15rem 0 0.25rem 1.25rem;
+    margin: 0 0 1rem 1rem;
+  }
+  .fg-step::before {
+    content: counter(fgstep);
+    position: absolute; left: -1rem; top: 0;
+    width: 1.85rem; height: 1.85rem; border-radius: 50%;
+    background: var(--aaic-globe); color: #fff;
+    font-family: var(--fg-heading-font);
+    font-weight: 700; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fg-step > h4:first-child, .fg-step > p:first-child { margin-top: 0; }
+  .fg-step-meta { font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  /* Lesson-flow timeline */
+  .fg-timeline { list-style: none; padding-left: 0; margin: 1rem 0; }
+  .fg-timeline > li {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.5rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > li:last-child { border-bottom: none; }
+  .fg-timeline .fg-time {
+    font-family: var(--fg-heading-font);
+    font-weight: 700; color: var(--aaic-globe); font-variant-numeric: tabular-nums;
+  }
+  .fg-timeline .fg-time small { display: block; font-family: Helvetica, Arial, sans-serif; font-weight: 400; color: var(--aaic-smokey); }
+  .fg-timeline h5 { margin: 0 0 0.25rem; font-size: 1rem; }
+  .fg-timeline p { margin: 0; }
+
+  /* Carousel */
+  .fg-carousel {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    overflow: hidden;
+    background: var(--aaic-ltblue);
+    margin: 1rem 0 1.5rem;
+  }
+  .fg-carousel .carousel-item img { max-height: 420px; object-fit: contain; margin: 0 auto; display: block; padding: 1rem 1rem 0; }
+  .fg-carousel .fg-caption { padding: 0.75rem 3.5rem 2.5rem; text-align: center; }
+  .fg-carousel .fg-caption strong { display: block; font-family: var(--fg-heading-font); color: var(--aaic-globe); }
+  .fg-carousel .carousel-control-prev-icon,
+  .fg-carousel .carousel-control-next-icon { filter: invert(1) grayscale(100); }
+  .fg-carousel .carousel-indicators [data-bs-target] { background-color: var(--aaic-globe); }
+  .fg-carousel figure { margin: 0; }
+
+  /* Responsive video */
+  .fg-video { border-radius: var(--fg-radius); overflow: hidden; margin: 1rem 0; }
+
+  /* Link lists inside cards */
+  .fg-card .list-group-item-action { color: var(--aaic-globe); }
+  .fg-card .list-group-item-action:hover { color: var(--aaic-torch); background: var(--aaic-ltblue); }
+
+  /* ---------- Educative features ---------- */
+  .fg-ef-index { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 1.5rem; }
+  .fg-ef-index a {
+    display: inline-block; border: 1px solid var(--aaic-border); border-radius: 50px;
+    padding: 0.2rem 0.7rem; font-size: 0.8rem; font-weight: 600;
+    color: var(--aaic-globe); text-decoration: none; background: #fff;
+  }
+  .fg-ef-index a:hover { border-color: var(--aaic-torch); color: var(--aaic-torch); }
+  .fg-ef-index a span { color: var(--aaic-smokey); font-weight: 400; margin-right: 0.25rem; }
+
+  .fg-ef {
+    border: 1px solid var(--aaic-border); border-radius: var(--fg-radius);
+    padding: 0.9rem 1.1rem; margin: 0 0 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+  .fg-ef > h3:first-child, .fg-ef > section > h3 { margin-top: 0; }
+  .fg-ef h3 { font-size: 1.2rem; color: var(--aaic-globe); margin-top: 0; }
+  .fg-ef .fg-ef-meta { margin: -0.25rem 0 0.75rem; }
+
+  /* "What goes here" — the papers' definition */
+  .fg-ef-what {
+    background: var(--aaic-ltblue); border-radius: 8px;
+    padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.95rem;
+  }
+  .fg-ef-what > p:first-child::before {
+    content: "What goes here"; display: block;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-globe);
+    margin-bottom: 0.25rem;
+  }
+  .fg-ef-what p { margin-bottom: 0.4rem; }
+  .fg-ef-what p:last-child { margin-bottom: 0; }
+
+  /* Example label above each component */
+  .fg-ef-example-label {
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-torch);
+    margin: 0 0 0.4rem;
+  }
+  .fg-cite { font-size: 0.8rem; color: var(--aaic-smokey); white-space: nowrap; }
+  .fg-ef-example-label .fg-cite { text-transform: none; letter-spacing: 0; font-weight: 400; font-family: Helvetica, Arial, sans-serif; }
+
+  /* Quoted example text */
+  .fg-quote {
+    border-left: 4px solid var(--aaic-summit); padding: 0.25rem 0 0.25rem 1rem;
+    color: #333; font-style: italic; margin: 0.75rem 0;
+  }
+  .fg-quote p { margin-bottom: 0.4rem; }
+
+  /* Core ideas map: before -> this unit -> later */
+  .fg-flow { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 1.75rem; align-items: stretch; }
+  .fg-flow .fg-flow-step {
+    border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem;
+    font-size: 0.9rem; background: #fff;
+  }
+  .fg-flow .fg-flow-step.fg-flow-now { border: 2px solid var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-flow .fg-flow-step strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--aaic-globe); }
+  .fg-flow .fg-flow-arrow { align-self: center; color: var(--aaic-globe); font-size: 1.25rem; }
+  @media (max-width: 640px) {
+    .fg-flow { grid-template-columns: 1fr; }
+    .fg-flow { gap: 2rem; }
+  }
+
+  /* Concept map placeholder */
+  .fg-diagram {
+    border: 2px dashed var(--aaic-summit); border-radius: 8px; background: var(--aaic-ltblue);
+    padding: 1.5rem; text-align: center; color: var(--aaic-smokey); font-size: 0.9rem;
+  }
+
+  /* Lesson storyline banner */
+  .fg-storyline {
+    border-left: 5px solid var(--aaic-valley); background: #f2f8f7;
+    border-radius: 0 8px 8px 0; padding: 0.75rem 1rem;
+  }
+  .fg-storyline p:last-child { margin-bottom: 0; }
+
+  /* Definition boxes */
+  .fg-defbox { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-bottom: 0.75rem; }
+  .fg-defbox .fg-defbox-label {
+    background: var(--aaic-globe); color: #fff; padding: 0.3rem 0.75rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+  }
+  .fg-defbox.fg-defbox-student .fg-defbox-label { background: var(--aaic-valley); }
+  .fg-defbox .fg-defbox-label p { margin: 0; }
+  .fg-defbox .fg-defbox-body { padding: 0.6rem 0.75rem; }
+  .fg-defbox .fg-defbox-body p:last-child { margin-bottom: 0; }
+
+  /* Why / How two-column box */
+  .fg-whyhow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .fg-whyhow > div { border-radius: 8px; padding: 0.75rem 1rem; }
+  .fg-whyhow .fg-why { background: var(--aaic-ltblue); border-top: 4px solid var(--aaic-globe); }
+  .fg-whyhow .fg-how { background: var(--aaic-ltorange); border-top: 4px solid var(--aaic-torch); }
+  .fg-whyhow h5 { font-size: 0.9rem; margin: 0 0 0.35rem; }
+  .fg-whyhow p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-whyhow { grid-template-columns: 1fr; } }
+
+  /* CK / PCK call-outs */
+  .fg-callout { border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 0.6rem; border-left: 5px solid; }
+  .fg-callout p:last-child { margin-bottom: 0; }
+  .fg-callout-ck  { border-color: var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-callout-pck { border-color: var(--aaic-torch); background: var(--aaic-ltorange); }
+  .fg-callout .fg-tag { margin-right: 0.4rem; }
+
+  /* Practice overview page + reminder icon */
+  .fg-overview { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 0.75rem; }
+  .fg-overview > div { border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.9rem; }
+  .fg-overview h5 { font-size: 0.85rem; color: var(--aaic-globe); margin: 0 0 0.25rem; }
+  .fg-overview p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-overview { grid-template-columns: 1fr; } }
+  .fg-reminder-row { display: flex; align-items: flex-start; gap: 0.75rem; }
+  .fg-reminder {
+    flex: 0 0 auto; width: 6.5rem; text-align: center; border: 2px solid var(--aaic-globe);
+    border-radius: 8px; padding: 0.3rem 0.2rem; font-size: 0.65rem; font-weight: 700;
+    color: var(--aaic-globe); line-height: 1.2; text-transform: uppercase;
+  }
+  .fg-reminder .fg-reminder-icon { display: block; font-size: 1.4rem; line-height: 1.2; }
+  .fg-reminder-step { flex: 1; }
+  .fg-reminder-step strong { color: var(--aaic-globe); }
+  .fg-reminder-step .fg-cite { display: block; white-space: normal; margin-top: 0.25rem; }
+
+  /* Narrative vignette */
+  .fg-narrative {
+    position: relative; background: #faf8f4; border: 1px solid var(--aaic-limestone);
+    border-radius: 8px; padding: 1rem 1rem 0.75rem 3.25rem;
+  }
+  .fg-narrative::before {
+    content: "\201C"; position: absolute; left: 0.85rem; top: 0.1rem;
+    font-family: Georgia, serif; font-size: 3rem; color: var(--aaic-torch); line-height: 1;
+  }
+  .fg-narrative p:last-child { margin-bottom: 0; }
+  .fg-dialogue { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.9rem; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue .fg-speaker { font-weight: 700; color: var(--aaic-globe); margin-right: 0.35rem; }
+
+  /* Sample student work */
+  .fg-work { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+  .fg-work .fg-work-label {
+    background: var(--aaic-limestone); color: var(--aaic-smokey); padding: 0.35rem 1rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+    border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-work .fg-work-label p { margin: 0; }
+  .fg-work .fg-work-sample { padding: 0.75rem 1rem; }
+  .fg-work .fg-work-sample .fg-work-prompt { color: var(--aaic-smokey); font-size: 0.9rem; }
+  .fg-work .fg-work-sample .fg-work-response {
+    border-left: 3px solid var(--aaic-border); padding-left: 0.85rem; margin-top: 0.5rem;
+  }
+  .fg-work .fg-work-feedback { border-top: 1px dashed var(--aaic-border); padding: 0.6rem 1rem; background: var(--aaic-ltorange); font-size: 0.9rem; }
+  .fg-work p:last-child { margin-bottom: 0; }
+
+  /* Capstone question */
+  .fg-capstone {
+    border: 2px solid var(--aaic-globe); border-radius: var(--fg-radius);
+    padding: 1rem 1.25rem; text-align: center;
+  }
+  .fg-capstone .fg-capstone-q { font-family: var(--fg-heading-font); font-weight: 700; font-size: 1.1rem; color: var(--aaic-globe); }
+  .fg-capstone p:last-child { margin-bottom: 0; }
+
+  .fg-ef-refs { font-size: 0.85rem; color: var(--aaic-smokey); }
+  .fg-ef-refs p { padding-left: 1.5rem; text-indent: -1.5rem; }
+
+  .fg-ef-hint { font-size: 0.9rem; color: var(--aaic-smokey); font-style: italic; margin: 0 0 0.75rem; }
+
+
+  /* ---------- Simplified blocks (no nesting needed) ---------- */
+  .fg-grid-2, .fg-grid-3, .fg-grid-4 { display: grid; gap: 0.75rem; margin: 0.75rem 0 1.25rem; }
+  .fg-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fg-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fg-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 767px) {
+    .fg-grid-2, .fg-grid-3 { grid-template-columns: 1fr; }
+    .fg-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .fg-hero + .fg-grid-3, .fg-hero + .fg-grid-4 { margin-bottom: 1.5rem; }
+  .fg-card { background: #fff; padding: 0.75rem 1rem; display: flex; flex-direction: column; }
+  .fg-card > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card > ul:last-child { margin-bottom: 0; }
+  .fg-card > p:first-child { margin-bottom: 0.25rem; }
+  .fg-card, .fg-stat { overflow-wrap: anywhere; }
+  /* Cards with an id (link targets) stop below the fixed navbar when jumped to */
+  .fg-card[id] { scroll-margin-top: 5rem; }
+  .fg-stat { padding: 0.6rem 0.75rem; }
+  .fg-stat p { margin-bottom: 0.15rem; }
+  .fg-card-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; color: var(--aaic-globe);
+  }
+  .fg-card-header {
+    display: block; margin: -0.75rem -1rem 0.5rem; padding: 0.5rem 1rem;
+    background: var(--aaic-ltblue); border-bottom: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+    font-family: var(--fg-heading-font); font-weight: 700; color: var(--aaic-globe);
+  }
+  .fg-edge-globe, .fg-edge-valley, .fg-edge-torch, .fg-edge-river {
+    border-left: 5px solid var(--fg-edge-color) !important;
+  }
+
+  .fg-linklist ul { list-style: none; padding: 0; margin: 0; }
+  .fg-linklist li {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 0.15rem 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-linklist li:last-child { border-bottom: none; }
+  .fg-linklist li a { font-weight: 600; }
+  .fg-link-note { flex-basis: 100%; font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  .fg-accordion { margin: 0.75rem 0 1.25rem; }
+  .fg-steps { counter-reset: fgstep; }
+  .fg-step { counter-increment: fgstep; }
+  .fg-checklist ul { list-style: none; padding-left: 0; margin: 0; }
+  .fg-checklist li { margin: 0.15rem 0; }
+  .fg-checklist input { margin-right: 0.5rem; }
+
+  .fg-timeline > .fg-segment {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.5rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > .fg-segment:last-child { border-bottom: none; }
+  .fg-segment-body p { margin: 0; }
+  .fg-segment-tags { display: block; margin-top: 0.3rem; }
+  .fg-segment-body strong:first-child { display: block; font-family: var(--fg-heading-font); margin-bottom: 0.15rem; }
+
+  .fg-carousel .fg-caption p { margin: 0; }
+  .fg-slide-num {
+    display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin-bottom: 0.25rem;
+  }
+
+  .fg-flow .fg-flow-step { position: relative; }
+  .fg-flow .fg-flow-step p { margin: 0; }
+  .fg-flow .fg-flow-step:not(:last-child)::after {
+    content: "→"; position: absolute; right: -1.45rem; top: 50%; transform: translateY(-50%);
+    color: var(--aaic-globe); font-size: 1.25rem;
+  }
+  @media (max-width: 640px) {
+    .fg-flow .fg-flow-step:not(:last-child)::after {
+      content: "↓"; right: auto; left: 50%; top: auto; bottom: -1.75rem; transform: translateX(-50%);
+    }
+  }
+
+  .fg-reminder p, .fg-reminder-step p { margin: 0; }
+  .fg-dialogue ul { list-style: none; padding: 0; margin: 0; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue strong { color: var(--aaic-globe); }
+
+  .fg-defbox > p:first-child, .fg-work > p:first-child { margin: 0; }
+  .fg-defbox .fg-defbox-label, .fg-work .fg-work-label { display: block; }
+  .fg-work .fg-work-sample .fg-work-prompt { display: block; }
+  .fg-whyhow-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.9rem; margin-bottom: 0.35rem;
+  }
+  .fg-overview-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; margin: 0.25rem 0 0.5rem;
+  }
+  .fg-overview-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.85rem; color: var(--aaic-globe); margin-bottom: 0.25rem;
+  }
+  .fg-overview p { margin-bottom: 0.25rem; }
+
+
+  /* Learning objectives: subject tags */
+  .fg-tag-cs        { background: var(--aaic-torch); }
+  .fg-tag-ds        { background: var(--aaic-valley); }
+  .fg-tag-math      { background: var(--aaic-globe); }
+  .fg-tag-science   { background: var(--aaic-river); }
+  .fg-tag-agscience { background: #ABC178; color: #2f3a12; }  /* Switchgrass */
+  .fg-objectives > ul { margin: 0.75rem 0 1.5rem; padding-left: 1.25rem; }
+  .fg-objectives > ul > li { margin-bottom: 0.4rem; }
+  .fg-objectives .fg-tag { min-width: 5.25rem; text-align: center; margin-right: 0.35rem; }
+  .fg-objectives ul ul { margin-top: 0.25rem; }
+
+
+  /* Educative features pasted into the page */
+  .fg-feature { margin: 0.75rem 0 1rem; }
+  .fg-feature-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-globe); border-bottom: 2px solid var(--aaic-summit);
+    padding-bottom: 0.25rem; margin-bottom: 0.6rem;
+  }
+  .fg-feature > p:first-child { margin-bottom: 0; }
+  .fg-callout, .fg-whyhow, .fg-defbox, .fg-capstone, .fg-reminder-row { margin-top: 0.75rem; margin-bottom: 0.75rem; }
+
+  /* Print: expand collapsed content, hide interactive chrome */
+  @media print {
+    .collapse { display: block !important; height: auto !important; }
+    .carousel-item { display: block !important; float: none !important; }
+    .carousel-control-prev, .carousel-control-next, .carousel-indicators, .fg-btn, .fg-btn-outline { display: none !important; }
+    .fg-hero { color: #000; background: none; border: 2px solid var(--aaic-globe); }
+  }
+</style>
+<script>
+/* Turns the simple blocks in the content above into interactive parts:
+   expandable panels, the timeline and the prep checklist. */
+document.addEventListener("DOMContentLoaded", () => {
+  const attr = (el, name) => el.getAttribute("data-" + name) ?? el.getAttribute(name);
+
+  // Expandable panels (.fg-accordion > .fg-panel)
+  document.querySelectorAll(".fg-accordion").forEach((acc, a) => {
+    acc.id = acc.id || `fg-accordion-${a + 1}`;
+    acc.classList.add("accordion");
+    acc.querySelectorAll(":scope > .fg-panel").forEach((panel, i) => {
+      const id = `${acc.id}-panel-${i + 1}`;
+      const open = attr(panel, "open") === "true";
+      const item = document.createElement("div");
+      item.className = "accordion-item";
+      const header = document.createElement("h3");
+      header.className = "accordion-header";
+      const button = document.createElement("button");
+      button.className = "accordion-button" + (open ? "" : " collapsed");
+      button.type = "button";
+      button.setAttribute("data-bs-toggle", "collapse");
+      button.setAttribute("data-bs-target", "#" + id);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-controls", id);
+      button.textContent = attr(panel, "label") || "Untitled panel";
+      header.appendChild(button);
+      const collapse = document.createElement("div");
+      collapse.id = id;
+      collapse.className = "accordion-collapse collapse" + (open ? " show" : "");
+      collapse.setAttribute("data-bs-parent", "#" + acc.id);
+      const body = document.createElement("div");
+      body.className = "accordion-body";
+      body.append(...panel.childNodes);
+      collapse.appendChild(body);
+      item.append(header, collapse);
+      panel.replaceWith(item);
+    });
+  });
+
+  // Fold-out boxes (.fg-fold), styled like the Estimated Lesson Timing box
+  document.querySelectorAll(".fg-fold").forEach((fold) => {
+    const details = document.createElement("details");
+    details.className = "fg-flow-accordion";
+    details.open = attr(fold, "open") === "true";
+    const summary = document.createElement("summary");
+    const title = document.createElement("span");
+    title.className = "fg-fold-title";
+    title.textContent = attr(fold, "label") || "Untitled box";
+    summary.appendChild(title);
+    const body = document.createElement("div");
+    body.className = "fg-fold-body";
+    body.append(...fold.childNodes);
+    details.append(summary, body);
+    fold.replaceWith(details);
+  });
+
+  // Always-open boxes (.fg-box)
+  document.querySelectorAll(".fg-box").forEach((box) => {
+    const header = document.createElement("h3");
+    header.className = "fg-box-header";
+    header.textContent = attr(box, "label") || "Untitled box";
+    const body = document.createElement("div");
+    body.className = "fg-box-body";
+    body.append(...box.childNodes);
+    box.append(header, body);
+  });
+
+  // Scrambled email addresses (.fg-email): user and domain are stored reversed
+  document.querySelectorAll(".fg-email").forEach((el) => {
+    const rev = (v) => (v || "").split("").reverse().join("");
+    const address = rev(attr(el, "u")) + "@" + rev(attr(el, "d"));
+    const link = document.createElement("a");
+    link.href = "mailto:" + address;
+    link.textContent = address;
+    el.replaceWith(link);
+  });
+
+  // Timeline (.fg-timeline > .fg-segment)
+  const groupColors = {
+    "whole class": "globe", "direct instruction": "river",
+    "groups": "valley", "coding": "torch", "individual": ""
+  };
+  document.querySelectorAll(".fg-timeline > .fg-segment").forEach((seg) => {
+    const time = document.createElement("div");
+    time.className = "fg-time";
+    time.textContent = attr(seg, "time") || "";
+    const length = attr(seg, "length");
+    if (length) {
+      const small = document.createElement("small");
+      small.textContent = length;
+      time.appendChild(small);
+    }
+    const body = document.createElement("div");
+    body.className = "fg-segment-body";
+    body.append(...seg.childNodes);
+    const group = attr(seg, "group");
+    if (group) {
+      const target = body.querySelector(":scope > p") || body;
+      const tagRow = document.createElement("span");
+      tagRow.className = "fg-segment-tags";
+      group.split(",").map((g) => g.trim()).filter(Boolean).forEach((g) => {
+        const tag = document.createElement("span");
+        const color = groupColors[g.toLowerCase()];
+        tag.className = "fg-tag" + (color ? " fg-tag-" + color : "");
+        tag.textContent = g;
+        tagRow.append(tag, " ");
+      });
+      target.append(tagRow);
+    }
+    seg.replaceChildren(time, body);
+  });
+
+  // Prep checklist built from the step titles (.fg-checklist)
+  document.querySelectorAll(".fg-checklist").forEach((list) => {
+    const steps = [...document.querySelectorAll(".fg-steps .fg-step")];
+    if (!steps.length) return;
+    const ul = document.createElement("ul");
+    steps.forEach((step, i) => {
+      step.id = step.id || `prep-step-${i + 1}`;
+      const title = step.querySelector("h1, h2, h3, h4, h5, h6");
+      const li = document.createElement("li");
+      const label = document.createElement("label");
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      const link = document.createElement("a");
+      link.href = "#" + step.id;
+      link.textContent = `Step ${i + 1}: ${title ? title.textContent.trim() : ""}`;
+      label.append(box, link);
+      li.appendChild(label);
+      ul.appendChild(li);
+    });
+    list.replaceChildren(ul);
+  });
+});
+</script>
 
 
 <script type="ojs-module-contents">
@@ -393,13 +1701,14 @@ window._ojs.runtime.interpretFromScriptTags();
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -415,11 +1724,30 @@ window._ojs.runtime.interpretFromScriptTags();
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
         var filterRegex = new RegExp('/' + window.location.host + '/');
+      const newWindowLabel = "(opens in a new tab)";
+      const newWindowNoteId = "quarto-ext-newwindow-label";
+      // Links reference one hidden label through aria-describedby, so the
+      // announcement never changes their accessible name.
+      var describeNewWindow = (link) => {
+        if (!window.document.getElementById(newWindowNoteId)) {
+          var newWindowNote = window.document.createElement("span");
+          newWindowNote.id = newWindowNoteId;
+          newWindowNote.hidden = true;
+          newWindowNote.textContent = newWindowLabel;
+          window.document.body.appendChild(newWindowNote);
+        }
+        var describedBy = (link.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean);
+        if (!describedBy.includes(newWindowNoteId)) {
+          describedBy.push(newWindowNoteId);
+          link.setAttribute("aria-describedby", describedBy.join(" "));
+        }
+      }
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -433,10 +1761,72 @@ window._ojs.runtime.interpretFromScriptTags();
             if (link.getAttribute("rel") === null) {
               link.setAttribute("rel", "noopener");
             }
+            describeNewWindow(link);
+          if (!link.classList.contains('no-external-icon')) {
             // default icon
             link.classList.add("external");
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -450,6 +1840,7 @@ window._ojs.runtime.interpretFromScriptTags();
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -612,44 +2003,54 @@ window._ojs.runtime.interpretFromScriptTags();
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -748,9 +2149,20 @@ window._ojs.runtime.interpretFromScriptTags();
     }
   });
   </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
 </div> <!-- /content -->
+<script>
+document.querySelectorAll('main a[href]:not([href^="#"])').forEach(function (a) {
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+});
+</script>
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

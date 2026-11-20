@@ -1,0 +1,96 @@
+---
+title: "Facilitator's Guide:<br>Regression & Prediction"
+format: live-html
+---
+## Lesson Topics and Standards
+
+::: {.callout-note collapse="true"}
+## **Topics Covered:**
+
+- AI: Regression
+  - regression vs. classification
+  - predicting continuous values
+- Scatterplots & Lines of Best Fit
+  - plotting data
+  - fitting a line to noisy data
+- Linear Regression in Python
+  - slope & intercept
+  - predicting new values
+- Model Evaluation
+  - R² as a measure of fit
+- The Water Quality Buoy
+  - using regression to predict nitrate levels from test pad color 
+
+:::
+
+::: {.callout-note collapse="true"}
+## **TN Standards Addressed:** 
+
+- *BIO1.LS2.1/ECO.LS2.13/EVSC.LS2.3:* Use mathematical and/or computational representations to support explanations of factors that affect the carrying capacity of ecosystems at different scales.    
+- *SCRE.ETS2.3:*  Identify the most appropriate scientific instruments and/or computer programs for different experiments and research, and learn to use, care for, and maintain them, gather data, and analyze results.    
+- *PSCI.PS1.7:* Develop, or use, a model to predict or explain a phenomenon by using appropriate indicators.    
+- *SCRE.ETS3:* Applications of Science: Use data to develop a model. Evaluate the effectiveness of the model by making and testing predictions.
+- *AGSCIENCE 2.1:* Overview: Articulate important historical and current events impacting the agricultural industry and agricultural youth development. Include landmark laws, theories, and practices such as, but not limited to, the Morrill Act, the Smith-Lever Act, the Smith-Hughes Act, and influential figures such as John Deere, Henry Groseclose, Booker T. Washington, and important government agencies in the promotion of knowledge and technology of agricultural science, biotechnology, and key technological developments.
+- *AGSCIENCE 3.2:* Models:  Develop models for the flow of energy and matter (inorganic forms and overall biomass) in various ecosystems impacting agricultural and environmental systems. Using these models, calculate rates of productivity by analyzing the major components of a food chain. Employ mathematical models to explain growth patterns and rates, both densitydependent and density-independent factors, observed in ecosystems energy and nutrients flow.
+:::
+
+## Lesson Overview Video Tour
+
+```{=html}
+<video width="80%" controls>
+  <source src="facilitator-video-overview.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+```
+<br>
+If you would like a more in-depth overview of the lesson, please consult the [slides with visible facilitator notes](https://appalachianaicorps.org/modules/water-quality/3-regression/facilitator_notes.html){target="_blank" rel="noopener noreferrer"}.
+
+## Slide Deck for Lesson
+
+<a href="https://appalachianaicorps.org/modules/water-quality/3-regression/slides.html" target="_blank" rel="nofollow noopener noreferrer">Workshop #3 Slides</a>
+
+## Student Handout
+You can make a copy of the [student handout for this lesson](https://docs.google.com/document/d/1wag0FSzDp6NchIcM4WAwIbBP_FqdIdcvL9YWwR8Mc8s/copy).
+
+<br>
+
+If you would like to provide students a copy of the slides with spaces for note taking, we have prepared a [handout for this purpose](https://appalachianaicorps.org/modules/water-quality/3-regression/student_handout.pdf){target="_blank" rel="noopener noreferrer"}.
+
+## Lesson Prep
+
+#### 1. Purchase/Prepare Materials for Lesson
+This lesson makes use of the large/sticky 3M Post-It Grid paper, the red/green/yellow/blue circular yard sale stickers available at most office supply stores, black poster markers, and yardsticks. Optionally, depending on the grade level of your students, it may be advantageous to consider pre-labeling the graph paper with x and y axes (to save time).
+
+#### 2. Ensure Student Access to Webcam
+This lesson is reliant on the student use of their device's webcam. Please double check that the webcam on their device is enabled and works with the [AAIC Applet](https://appalachianaicorps.org/modules/water-quality/RGB-Applet-2.html) used in this lesson.
+
+#### 3. Print and Cut Purple Test Pad Card Deck
+For this lesson, we recommend one deck of purple nitrate test strip cards per student group. It is important that these cards be printed in color and of high quality. While the colors are approximations of the exact colors that result from the nitrate test strips used in lesson #1, the key is that they capture the mathematical differences in usefulness of the red, green, and blue channels in meaningfully predicting nitrate concentrations in water samples. This behavior mirrors the reality of the ML model driving the buoy's predictions.
+
+#### 4. Make Copies of the Student Handout
+Each student will need one copy of the student handout. You can make a copy of the handout by clicking the link above.
+
+#### 5. Create copy of exit ticket for end-of-lesson implementation.
+
+We have drafted an exit ticket that aligns with this lesson. We are providing the [Google Form here](https://docs.google.com/forms/d/11oDoRR2eR3Yl_q_MNksztxhcLlcB_YSD8EyivygLnOs/copy) if you would like to use it or modify it for your own needs.
+
+#### 6. Create copy of the exercise for after-lesson practice.
+
+We have also created an exercise that you can use with students to practice the concepts covered in this lesson. It is available [here](#).
+
+## Lesson Overview & Takeaways
+
+By the end of the lesson, students will be able to:
+
+- Distinguish between classification and regression and explain when each is appropriate
+- Describe how Smokey Buoy uses regression to predict nitrate levels from test pad images
+- Explain how mean RGB values from an image can serve as inputs to a regression model
+- Construct a scatterplot and interpret a line of best fit
+- Use a linear regression model in Python to predict new values from color data
+- Evaluate a regression model's performance using R²
+  
+## Reference Materials
+
+Whole-Class Video Links:  
+- [Scatter Graphs: What they are and how to plot them](https://youtu.be/b_Au4Ngm9pE?si=gQKsuZ9e9T4USxAC){rel="noopener noreferrer"}  
+- [Scatter Graphs: Line of best fit](https://youtu.be/e18KM681cmg?si=3iQfTYdxxuQRalA4){rel="noopener noreferrer"}

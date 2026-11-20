@@ -4,8 +4,10 @@ crossref:
   lst-title: "🎯 Checkpoint 5."
   lst-labels: alpha a
 format: live-html
-sidebar: lesson-6
+body-classes: gray-sides
 ---
+
+{{< include _lesson-nav.qmd >}}
 
 :::{.ltgray-container}
 For this station, you will think about 🍅 tomato 🍅 ripeness and how we might use AI tools to support such work.
