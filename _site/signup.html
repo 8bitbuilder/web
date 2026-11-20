@@ -70,8 +70,8 @@ ul.task-list li input[type="checkbox"] {
         <span class="nav-auth-chevron" id="chevronOut">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuOut">
-        <a href="./login-student.html">Student</a>
-        <a href="./login-teacher.html">Teacher</a>
+        <a data-site-href="/login-student.html" href="./login-student.html">Student</a>
+        <a data-site-href="/login-teacher.html" href="./login-teacher.html">Teacher</a>
         <a href="#" id="navGuestLoginLink">Guest</a>
       </div>
     </div>
@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
         <span class="nav-auth-chevron" id="chevronIn">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuIn">
-        <a href="./dashboard.html" id="navDashboardLink" ...="">Teacher Dashboard</a>
+        <a data-site-href="/dashboard.html" href="./dashboard.html" id="navDashboardLink" ...="">Teacher Dashboard</a>
         <a href="#" id="navLogOutLink">Log Out</a>
       </div>
     </div>
@@ -188,8 +188,8 @@ ul.task-list li input[type="checkbox"] {
 
 <!-- ── Supabase + Auth (loads after dropdown is already working) ── -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./js/supabase-config.js"></script>
-<script src="./js/auth.js"></script>
+<script src="https://appalachianaicorps.org/js/supabase-config.js"></script>
+<script src="https://appalachianaicorps.org/js/auth.js"></script>
 
 <!-- ── Auth state check (handles Supabase users AND guests) ────── -->
 <script>
