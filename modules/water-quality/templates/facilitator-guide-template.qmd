@@ -1,0 +1,1419 @@
+---
+# =====================================================================
+# FACILITATOR GUIDE TEMPLATE
+# =====================================================================
+#
+# HOW TO EDIT THIS FILE (no coding experience needed)
+#
+#  1. Save a copy first. Name it facilitator.qmd and put it in the
+#     lesson's folder. Never edit the original template.
+#
+#  2. Fill in the blanks. Every blank looks like {{SOMETHING}}.
+#     Select the whole thing, including both sets of curly braces,
+#     and type your text over it. Tip: use Find (Ctrl+F / Cmd+F)
+#     and search for {{ to jump from blank to blank.
+#
+#  3. Leave the "structure" lines alone. Lines that start with :::
+#     open and close boxes, and they always come in pairs. Don't
+#     edit or delete one by itself. Also leave alone anything inside
+#     { } that comes right after a ] or ), such as {.fg-btn}.
+#
+#  4. Gray notes between <!-- and --> are instructions for you.
+#     They never show on the web page. You can leave them in.
+#
+#  5. To ADD another item (a card, panel, step, slide...):
+#     find its "COPY START" line, select everything from that line
+#     down to the matching "COPY END" line (including both lines),
+#     copy it, and paste it on a new line right after the COPY END.
+#
+#  6. To REMOVE an item: delete everything from its COPY START line
+#     down to its COPY END line (including both lines).
+#     To remove a whole section: delete from its "SECTION START"
+#     note down to its "SECTION END" note.
+#
+#  7. Don't edit anything below the line that says
+#     "STOP. DO NOT EDIT ANYTHING BELOW THIS LINE."
+#
+#  8. To see your changes, click "Preview" (Positron or RStudio)
+#     or run: quarto preview facilitator.qmd
+#     If the page looks broken, undo (Ctrl+Z / Cmd+Z) your last
+#     change. The usual cause is a deleted ::: line.
+#
+#  9. Educative features (extra supports for teachers) are ready-to-copy
+#     files in the folder _educative-features. Open the file, select
+#     all, copy, and paste it where you want it in this file. What goes
+#     in each feature is explained in educative-features-guide.qmd.
+#
+# ---------------------------------------------------------------------
+# For maintainers: the page only matches the AAIC site when rendered
+# inside modules/<module>/<lesson>/ of the app-ai-corps/web repo,
+# whose _quarto.yml supplies the theme, fonts and
+# link-external-newwindow (external links open in a new tab).
+# =====================================================================
+title: "Facilitator's Guide:<br>{{LESSON_TITLE}}"
+subtitle: "{{MODULE_NAME}} · Lesson {{LESSON_NUMBER}}"
+format:
+  live-html:
+    toc: true
+    toc-location: right
+    toc-title: "On this page"
+    toc-depth: 2
+    page-layout: article
+    smooth-scroll: true
+---
+
+<!-- ###################################################################
+     CONTENT STARTS HERE
+     Everything from here down to "CONTENT ENDS HERE" is the page.
+     ################################################################### -->
+
+
+<!-- ###################################################################
+     SECTION START: Banner
+     The colored box at the top of the page.
+     Replace each {{...}}. Leave the [ ] and { } around them as they are.
+     ################################################################### -->
+
+::: {.fg-hero}
+[{{SUBJECT_AREA}}]{.fg-tag .fg-tag-light} [{{GRADE_BAND}}]{.fg-tag .fg-tag-light} [{{CODING_LANGUAGE}}]{.fg-tag .fg-tag-light}
+
+[{{ONE_SENTENCE_LESSON_SUMMARY}}]{.lead}
+
+[▶ Open Slide Deck]({{SLIDES_URL}}){.fg-btn}
+[📄 Student Handout]({{HANDOUT_COPY_URL}}){.fg-btn-outline}
+:::
+
+<!-- ########## SECTION END: Banner ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: At-a-Glance Cards
+     Four small cards under the banner. Keep each answer to 1–3 words.
+     To change an icon, replace the emoji on the first line of a card.
+     ################################################################### -->
+
+::: {.fg-grid-4}
+
+<!-- ======== COPY START: one at-a-glance card ======== -->
+::: {.fg-stat}
+[⏱]{.fg-stat-icon}
+
+[{{DURATION}}]{.fg-stat-value}
+
+[Class time]{.fg-stat-label}
+:::
+<!-- ======== COPY END: one at-a-glance card ========== -->
+
+<!-- ======== COPY START: one at-a-glance card ======== -->
+::: {.fg-stat}
+[🧰]{.fg-stat-icon}
+
+[{{PREP_TIME}}]{.fg-stat-value}
+
+[Prep time]{.fg-stat-label}
+:::
+<!-- ======== COPY END: one at-a-glance card ========== -->
+
+<!-- ======== COPY START: one at-a-glance card ======== -->
+::: {.fg-stat}
+[👥]{.fg-stat-icon}
+
+[{{GROUP_SIZE}}]{.fg-stat-value}
+
+[Group size]{.fg-stat-label}
+:::
+<!-- ======== COPY END: one at-a-glance card ========== -->
+
+<!-- ======== COPY START: one at-a-glance card ======== -->
+::: {.fg-stat}
+[💻]{.fg-stat-icon}
+
+[{{TECH_NEEDED}}]{.fg-stat-value}
+
+[Tech needed]{.fg-stat-label}
+:::
+<!-- ======== COPY END: one at-a-glance card ========== -->
+
+:::
+
+<!-- ########## SECTION END: At-a-Glance Cards ########## -->
+
+
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Topics and Standards
+     Expandable panels. Each panel opens when clicked.
+     - The panel title is the text inside label="...".
+     - open="true" makes a panel start open. Use it on one panel only.
+     - To add a panel: copy one panel (COPY START to COPY END) and
+       paste it right below another panel's COPY END line.
+     ################################################################### -->
+
+## Lesson Topics and Standards
+
+::: {.fg-accordion}
+
+<!-- ======== COPY START: one expandable panel ======== -->
+::: {.fg-panel label="Topics Covered" open="true"}
+<!-- One topic per line. To indent a subtopic, start the line with
+     two spaces before the dash. -->
+- {{TOPIC}}
+  - {{SUBTOPIC}}
+  - {{SUBTOPIC}}
+- {{TOPIC}}
+- {{TOPIC}}
+:::
+<!-- ======== COPY END: one expandable panel ========== -->
+
+<!-- ======== COPY START: one expandable panel ======== -->
+::: {.fg-panel label="Data Science Standards"}
+<!-- One standard per line, in this format:  - *CODE:* Full text -->
+- *{{STANDARD_CODE}}:* {{STANDARD_TEXT}}
+- *{{STANDARD_CODE}}:* {{STANDARD_TEXT}}
+- *{{STANDARD_CODE}}:* {{STANDARD_TEXT}}
+:::
+<!-- ======== COPY END: one expandable panel ========== -->
+
+<!-- ======== COPY START: one expandable panel ======== -->
+::: {.fg-panel label="Computational Thinking Standards"}
+<!-- One standard per line, in this format:  - *CODE:* Full text -->
+- *{{STANDARD_CODE}}:* {{STANDARD_TEXT}}
+- *{{STANDARD_CODE}}:* {{STANDARD_TEXT}}
+- *{{STANDARD_CODE}}:* {{STANDARD_TEXT}}
+:::
+<!-- ======== COPY END: one expandable panel ========== -->
+
+<!-- ======== COPY START: one expandable panel ======== -->
+::: {.fg-panel label="Prior Knowledge & Vocabulary"}
+**Students should already know:** {{PREREQUISITES}}
+
+<!-- Table: each row is one line starting with |
+     To add a row, copy a {{TERM}} line and paste it below. -->
+
+| Term | Student-friendly definition |
+|------|-----------------------------|
+| {{TERM}} | {{DEFINITION}} |
+| {{TERM}} | {{DEFINITION}} |
+| {{TERM}} | {{DEFINITION}} |
+
+:::
+<!-- ======== COPY END: one expandable panel ========== -->
+
+:::
+
+<!-- ########## SECTION END: Lesson Topics and Standards ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Learning Objectives
+     A bulleted list. Each objective starts with a colored tag that
+     shows its subject area. Copy the tag you need from this list:
+       [CT]{.fg-tag .fg-tag-ct}                 Computational Thinking
+       [DS]{.fg-tag .fg-tag-ds}                 Data Science
+       [Math]{.fg-tag .fg-tag-math}             Math
+       [Science]{.fg-tag .fg-tag-science}       Science
+       [AgScience]{.fg-tag .fg-tag-agscience}   Agricultural Science
+     - To add an objective: copy one line that starts with - and
+       paste it on the next line. Then change the tag if needed.
+     - An objective can have more than one tag. Put them side by side.
+     - To add detail under an objective, start a new line with two
+       spaces before the dash (see the example below).
+     ################################################################### -->
+
+## Learning Objectives
+
+By the end of the lesson, students will be able to:
+
+::: {.fg-objectives}
+- [CT]{.fg-tag .fg-tag-ct} {{OBJECTIVE}}
+- [DS]{.fg-tag .fg-tag-ds} {{OBJECTIVE}}
+  - {{DETAIL}}
+  - {{DETAIL}}
+- [Math]{.fg-tag .fg-tag-math} {{OBJECTIVE}}
+- [Science]{.fg-tag .fg-tag-science} {{OBJECTIVE}}
+- [AgScience]{.fg-tag .fg-tag-agscience} {{OBJECTIVE}}
+:::
+<!-- ########## SECTION END: Learning Objectives ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Overview Video Tour
+     VIDEO: on the line just below the heading that contains
+     REPLACE-WITH-VIDEO.mp4, replace ONLY that word with either:
+       - the video's file name (the file must be in the lesson folder),
+         e.g.  facilitator-video-overview.mp4
+       - or a YouTube link, e.g.  https://youtu.be/abc123
+     Leave the curly braces, < > and the word "video" exactly as they are.
+     ################################################################### -->
+
+## Lesson Overview Video Tour
+
+{{< video REPLACE-WITH-VIDEO.mp4 >}}
+
+::: {.ltblue-container}
+For a more in-depth walkthrough, see the [slides with visible facilitator notes]({{FACILITATOR_NOTES_URL}}).
+:::
+
+<!-- ########## SECTION END: Lesson Overview Video Tour ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Materials
+     One card per resource, each with a short description and a button.
+     - The button text goes inside [ ], the link inside ( ).
+     - .fg-btn = solid button, .fg-btn-outline = outlined button.
+     ################################################################### -->
+
+## Lesson Materials
+
+::: {.fg-grid-3}
+
+<!-- ======== COPY START: one resource card ======== -->
+::: {.fg-card}
+[🖥️ Slide Deck]{.fg-card-title}
+
+The slides you'll present during the lesson.
+
+[Open slides]({{SLIDES_URL}}){.fg-btn}
+:::
+<!-- ======== COPY END: one resource card ========== -->
+
+<!-- ======== COPY START: one resource card ======== -->
+::: {.fg-card}
+[📄 Student Handout]({{HANDOUT_COPY_URL}}){.fg-card-title}
+
+Opens a "Make a copy" prompt so you get your own editable version.
+
+[Make a copy]({{HANDOUT_COPY_URL}}){.fg-btn}
+:::
+<!-- ======== COPY END: one resource card ========== -->
+
+<!-- ======== COPY START: one resource card ======== -->
+::: {.fg-card}
+[📝 Note-Taking Slides]{.fg-card-title}
+
+A printable version of the slides with space for student notes.
+
+[Download PDF]({{NOTES_HANDOUT_PDF_URL}}){.fg-btn-outline}
+:::
+<!-- ======== COPY END: one resource card ========== -->
+
+<!-- ======== COPY START: one resource card ======== -->
+::: {.fg-card}
+[✅ Exit Ticket]({{HANDOUT_COPY_URL}}){.fg-card-title}
+
+{{EXIT_TICKET_DESCRIPTION}}
+
+[Copy Google Form]({{EXIT_TICKET_COPY_URL}}){.fg-btn-outline}
+:::
+<!-- ======== COPY END: one resource card ========== -->
+
+<!-- ======== COPY START: one resource card ======== -->
+::: {.fg-card}
+[🧪 Practice Exercise]({{HANDOUT_COPY_URL}}){.fg-card-title}
+
+{{PRACTICE_DESCRIPTION}}
+
+[Open in Colab]({{PRACTICE_URL}}){.fg-btn-outline}
+:::
+<!-- ======== COPY END: one resource card ========== -->
+
+<!-- ======== COPY START: one resource card ======== -->
+::: {.fg-card}
+[🔗 {{RESOURCE_NAME}}]{.fg-card-title}
+
+{{RESOURCE_DESCRIPTION}}
+
+[{{BUTTON_TEXT}}]({{RESOURCE_URL}}){.fg-btn-outline}
+:::
+<!-- ======== COPY END: one resource card ========== -->
+
+:::
+
+<!-- ########## SECTION END: Lesson Materials ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Prep
+     A checklist, then numbered prep steps.
+     - The checklist fills itself in from the step titles. Don't type in it.
+     - Steps number themselves (1, 2, 3...) in the order they appear.
+     - Each step can include the optional pieces marked inside it.
+     ################################################################### -->
+
+## Lesson Prep
+
+::: {.callout-tip}
+## Prep checklist
+::: {.fg-checklist}
+(This list is built automatically from the step titles below.)
+:::
+:::
+
+::: {.fg-steps}
+
+<!-- ======== COPY START: one prep step ======== -->
+::: {.fg-step}
+#### {{STEP_TITLE}} {.unnumbered}
+
+[⏱ {{TIME_NEEDED}} · 📅 {{WHEN_TO_DO_IT}}]{.fg-step-meta}
+
+{{WHAT_TO_DO_AND_WHY}}
+
+**Materials needed:**
+
+- {{MATERIAL}}
+- {{MATERIAL}}
+  - {{NOTE_ABOUT_THIS_MATERIAL}}
+- {{MATERIAL}}
+
+<!-- ---- OPTIONAL: collapsible detail box (e.g., a mixing guide).
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+::: {.callout-important collapse="true"}
+## {{DETAIL_BOX_TITLE}}
+
+*{{ASSUMPTIONS — e.g., written for 5 groups × 4 samples}}*
+
+| {{COLUMN}} | {{COLUMN}} | {{COLUMN}} |
+|---|---|---|
+| {{VALUE}} | {{VALUE}} | {{VALUE}} |
+| {{VALUE}} | {{VALUE}} | {{VALUE}} |
+:::
+<!-- ---- END OPTIONAL ---- -->
+
+<!-- ---- OPTIONAL: warning box.
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+::: {.callout-warning}
+{{WARNING_TEXT}}
+:::
+<!-- ---- END OPTIONAL ---- -->
+:::
+<!-- ======== COPY END: one prep step ========== -->
+
+<!-- ======== COPY START: one prep step ======== -->
+::: {.fg-step}
+#### {{STEP_TITLE}} {.unnumbered}
+
+[⏱ {{TIME_NEEDED}} · 📅 {{WHEN_TO_DO_IT}}]{.fg-step-meta}
+
+{{WHAT_TO_DO_AND_WHY}}
+
+<!-- ---- OPTIONAL: link to step-by-step slides (e.g., Google Slides
+          with screenshots of each step). Put the link inside ( ).
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+Walk through each step in the slides: [▶ Open the step-by-step slides]({{STEP_BY_STEP_SLIDES_URL}}){.fg-btn}
+<!-- ---- END OPTIONAL ---- -->
+
+<!-- ---- OPTIONAL: note box.
+          Delete from here to "END OPTIONAL" if not needed. ---- -->
+::: {.callout-note}
+**Teaching more than one class?** {{MULTI_CLASS_NOTE}}
+:::
+<!-- ---- END OPTIONAL ---- -->
+:::
+<!-- ======== COPY END: one prep step ========== -->
+
+:::
+
+
+```{=html}
+<style>
+/* Lesson Prep accordion only */
+.fg-steps > .fg-step > details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.fg-steps > .fg-step > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fg-steps > .fg-step > details > summary > h4 {
+  margin: 0;
+}
+
+.fg-steps > .fg-step > details[open] > summary {
+  margin-bottom: 0.75rem;
+}
+
+/* Dropdown arrow for Lesson Prep steps */
+.fg-steps > .fg-step > details > summary {
+  position: relative;
+  padding-right: 2rem;
+}
+
+.fg-steps > .fg-step > details > summary::after {
+  content: "▼";
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: var(--aaic-globe, #006C93);
+  transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when expanded */
+.fg-steps > .fg-step > details[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".fg-steps > .fg-step")
+    .forEach(step => {
+
+      const heading = step.querySelector(":scope > h4");
+      if (!heading) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+
+      // Keep the existing step title
+      summary.appendChild(heading);
+      details.appendChild(summary);
+
+      // Move all existing content into the accordion
+      while (step.firstChild) {
+        details.appendChild(step.firstChild);
+      }
+
+      step.appendChild(details);
+    });
+
+  // Preserve Prep Checklist links
+  document.querySelectorAll(".fg-checklist")
+    .forEach(checklist => {
+      checklist.addEventListener("click", event => {
+        const link = event.target.closest('a[href^="#prep-step-"]');
+        if (!link) return;
+
+        const step = document.getElementById(link.hash.slice(1));
+        if (step) {
+          const details = step.querySelector("details");
+          if (details) details.open = true;
+        }
+      });
+    });
+
+});
+</script>
+```
+
+
+<!-- ########## SECTION END: Lesson Prep ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Lesson Flow
+     A timeline of the class period. Each segment has:
+       time="..."    when it starts, e.g. 0:00 or 9:15
+       length="..."  how long, e.g. 10 min
+       group="..."   one of: Whole class, Direct instruction, Groups,
+                     Coding, Individual  (each gets its own color)
+     Type between the quote marks only.
+     ################################################################### -->
+
+## Lesson Flow
+
+::: {.fg-timeline}
+
+<!-- ======== COPY START: one timeline segment ======== -->
+::: {.fg-segment time="0:00" length="10 min" group="Whole class"}
+**{{SEGMENT_TITLE}}**
+{{WHAT_HAPPENS}}
+:::
+<!-- ======== COPY END: one timeline segment ========== -->
+
+<!-- ======== COPY START: one timeline segment ======== -->
+::: {.fg-segment time="0:10" length="15 min" group="Direct instruction"}
+**{{SEGMENT_TITLE}}**
+{{WHAT_HAPPENS}}
+:::
+<!-- ======== COPY END: one timeline segment ========== -->
+
+<!-- ======== COPY START: one timeline segment ======== -->
+::: {.fg-segment time="0:25" length="20 min" group="Groups"}
+**{{SEGMENT_TITLE}}**
+{{WHAT_HAPPENS}}
+:::
+<!-- ======== COPY END: one timeline segment ========== -->
+
+<!-- ======== COPY START: one timeline segment ======== -->
+::: {.fg-segment time="0:45" length="25 min" group="Coding"}
+**{{SEGMENT_TITLE}}**
+{{WHAT_HAPPENS}}
+:::
+<!-- ======== COPY END: one timeline segment ========== -->
+
+<!-- ======== COPY START: one timeline segment ======== -->
+::: {.fg-segment time="1:10" length="5 min" group="Individual"}
+**Exit Ticket**
+{{WHAT_HAPPENS}}
+:::
+<!-- ======== COPY END: one timeline segment ========== -->
+
+:::
+
+
+```{=html}
+<style>
+/* Lesson Flow accordion only */
+.fg-timeline > .fg-segment {
+  display: block !important;
+  padding: 0 !important;
+}
+
+.fg-timeline > .fg-segment > details > summary {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.75rem 0;
+  font-weight: 700;
+}
+
+.fg-timeline > .fg-segment > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Numbered circle */
+.fg-flow-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  background: var(--aaic-globe, #006C93);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Dropdown arrow */
+.fg-timeline > .fg-segment > details > summary::after {
+  content: "▼";
+  font-size: 0.85rem;
+  color: var(--aaic-globe, #006C93);
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.fg-timeline > .fg-segment > details[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+/* Preserve original timeline layout when expanded */
+.fg-flow-fold-body {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.fg-flow-number {
+  width: auto;
+  min-width: 3.8rem;
+  padding: 0 0.5rem;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+</style>
+
+<script>
+window.addEventListener("load", () => {
+
+  document.querySelectorAll(".fg-timeline > .fg-segment")
+    .forEach((segment, index) => {
+
+      const time = segment.querySelector(":scope > .fg-time");
+      const body = segment.querySelector(":scope > .fg-segment-body");
+
+      if (!time || !body) return;
+
+      // Get existing segment title
+      const heading = body.querySelector("strong");
+      const title = heading
+        ? heading.textContent.trim()
+        : `Segment ${index + 1}`;
+
+      if (heading) heading.remove();
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+
+    // Estimated duration
+    const number = document.createElement("span");
+    number.className = "fg-flow-number";
+    number.textContent =
+    time.querySelector("small")?.textContent.trim() ||
+    segment.getAttribute("data-length") ||
+    segment.getAttribute("length") ||
+    "";
+
+      // Existing title
+      const titleText = document.createElement("span");
+      titleText.textContent = title;
+
+      summary.append(number, titleText);
+
+      // Keep existing time, length, group and description
+      const content = document.createElement("div");
+      content.className = "fg-flow-fold-body";
+      content.append(time, body);
+
+      details.append(summary, content);
+      segment.appendChild(details);
+    });
+
+});
+</script>
+```
+
+
+<!-- ########## SECTION END: Lesson Flow ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Facilitation Notes
+     Tabs. Each tab starts with a line beginning with ###
+     The text after ### is the tab's name.
+     ################################################################### -->
+
+## Facilitation Notes
+
+::: {.panel-tabset}
+
+<!-- ======== COPY START: one tab ======== -->
+### 💡 Tips
+
+- {{TIP}}
+- {{TIP}}
+
+<!-- ======== COPY END: one tab ========== -->
+
+<!-- ======== COPY START: one tab ======== -->
+### ⚠️ Common Misconceptions
+
+| Students may think... | Address it by... |
+|---|---|
+| {{MISCONCEPTION}} | {{STRATEGY}} |
+| {{MISCONCEPTION}} | {{STRATEGY}} |
+
+<!-- ======== COPY END: one tab ========== -->
+
+<!-- ======== COPY START: one tab ======== -->
+### ❓ Discussion Questions
+
+1. {{QUESTION}}
+2. {{QUESTION}}
+3. {{QUESTION}}
+<!-- ======== COPY END: one tab ========== -->
+
+<!-- ======== COPY START: one tab ======== -->
+### 🔀 Differentiation
+
+**Extra support:** {{SUPPORT_STRATEGY}}
+
+**Extension:** {{EXTENSION_STRATEGY}}
+
+**If you're short on time:** {{WHAT_TO_CUT}}
+
+<!-- ======== COPY END: one tab ========== -->
+
+<!-- ======== COPY START: one tab ======== -->
+### 🛠 Troubleshooting
+
+<!-- ======== COPY START: one problem + fix ======== -->
+::: {.callout-caution collapse="true"}
+## {{PROBLEM}}
+{{FIX}}
+:::
+<!-- ======== COPY END: one problem + fix ========== -->
+
+<!-- ======== COPY START: one problem + fix ======== -->
+::: {.callout-caution collapse="true"}
+## {{PROBLEM}}
+{{FIX}}
+:::
+<!-- ======== COPY END: one problem + fix ========== -->
+<!-- ======== COPY END: one tab ========== -->
+
+:::
+
+<!-- ########## SECTION END: Facilitation Notes ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Reference Materials
+     Two cards of links. Each link is one line:
+       - [Title shown on page](https://link) [Source]{.fg-tag}
+     To add a link, copy one line starting with - and paste it below.
+     ################################################################### -->
+
+## Reference Materials
+
+::: {.fg-grid-2}
+
+<!-- ======== COPY START: one link card ======== -->
+::: {.fg-card .fg-linklist}
+[Whole-Class Videos]({{HANDOUT_COPY_URL}}){.fg-card-header}
+
+- [{{VIDEO_TITLE}}]({{VIDEO_URL}}) [EdPuzzle]{.fg-tag .fg-tag-valley}
+- [{{VIDEO_TITLE}}]({{VIDEO_URL}}) [YouTube]{.fg-tag .fg-tag-torch}
+- [{{VIDEO_TITLE}}]({{VIDEO_URL}}) [YouTube]{.fg-tag .fg-tag-torch}
+:::
+<!-- ======== COPY END: one link card ========== -->
+
+<!-- ======== COPY START: one link card ======== -->
+::: {.fg-card .fg-linklist}
+[Background Reading for Facilitators]{.fg-card-header}
+
+- [{{READING_TITLE}}]({{READING_URL}}) [{{WHY_ITS_USEFUL}}]{.fg-link-note}
+- [{{READING_TITLE}}]({{READING_URL}}) [{{WHY_ITS_USEFUL}}]{.fg-link-note}
+:::
+<!-- ======== COPY END: one link card ========== -->
+
+:::
+
+<!-- ########## SECTION END: Reference Materials ########## -->
+
+
+<!-- ###################################################################
+     SECTION START: Footer
+     ################################################################### -->
+
+---
+
+::: {.text-center .text-body-secondary .small}
+Questions or feedback on this lesson? Contact {{CONTACT_NAME_OR_EMAIL}} · Last updated {{DATE}}
+:::
+
+<!-- ########## SECTION END: Footer ########## -->
+
+
+<!-- ###################################################################
+     CONTENT ENDS HERE
+
+     ⛔ STOP. DO NOT EDIT ANYTHING BELOW THIS LINE. ⛔
+     The rest of this file controls colors, layout and how the
+     expandable panels and timeline work. Changing it
+     can break the page.
+     ################################################################### -->
+
+```{=html}
+<!-- =================================================================
+     STYLES AND SCRIPT — for whoever maintains the template.
+     Uses the AAIC brand palette. Edit the --aaic-* values to rebrand.
+     ================================================================= -->
+<style>
+  /* AAIC palette — same values as styles-main.css on the main site.
+     custom-module-theme.scss (loaded by the water-quality _quarto.yml)
+     already handles fonts, link colors, TOC/sidebar hover, navbar,
+     and callout borders, so this block only styles the new components. */
+  :root {
+    --aaic-globe: #006C93;      /* primary: links, accents */
+    --aaic-torch: #E65933;      /* hover / active (theme uses #e65933) */
+    --aaic-valley: #00746F;
+    --aaic-river: #517C96;
+    --aaic-orange: #FF8200;     /* Tennessee orange */
+    --aaic-sunsphere: #FED535;
+    --aaic-smokey: #58595B;
+    --aaic-limestone: #F0EDE3;
+    --aaic-summit: #B9E1E2;
+    --aaic-ltblue: #f1f9f9;     /* .ltblue-container / .checkpoint-box */
+    --aaic-ltorange: #fdf5f2;   /* .dkorange-container */
+    --aaic-border: #dcdcdc;
+    --fg-accent: var(--aaic-globe);
+    --fg-radius: 12px;          /* matches .module-card */
+    --fg-heading-font: 'Montserrat', Helvetica, Arial, sans-serif;
+  }
+
+  /* Buttons — pill shape like the main-site .btn, sized for cards.
+     Use .fg-btn (solid) or .fg-btn-outline. */
+  .fg-btn, .fg-btn-outline {
+    display: inline-block;
+    border-radius: 50px;
+    border: 2px solid var(--aaic-globe);
+    padding: 0.35rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+  }
+  .fg-btn { background: var(--aaic-globe); color: #fff !important; }
+  .fg-btn-outline { background: #fff; color: var(--aaic-globe) !important; }
+  .fg-btn:hover, .fg-btn-outline:hover {
+    background: var(--aaic-torch);
+    border-color: var(--aaic-torch);
+    color: #fff !important;
+    transform: translateY(-1px);
+  }
+
+  /* Small tags (badges) */
+  .fg-tag {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    vertical-align: middle;
+    color: #fff;
+    background: var(--aaic-smokey);
+  }
+  .fg-tag-globe  { background: var(--aaic-globe); }
+  .fg-tag-valley { background: var(--aaic-valley); }
+  .fg-tag-torch  { background: var(--aaic-torch); }
+  .fg-tag-river  { background: var(--aaic-river); }
+  .fg-tag-sun    { background: var(--aaic-sunsphere); color: #333; }
+  .fg-tag-light  { background: var(--aaic-limestone); color: var(--aaic-globe); }
+
+  /* Hero banner */
+  .fg-hero {
+    background: linear-gradient(135deg, var(--aaic-globe) 0%, var(--aaic-valley) 100%);
+    color: #fff;
+    border-radius: var(--fg-radius);
+    padding: 1.75rem 2rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .fg-hero p { margin-bottom: 0.6rem; }
+  .fg-hero .lead { font-size: 1.15rem; }
+  .fg-hero .fg-tag { margin-right: 0.25rem; }
+  .fg-hero .fg-btn { background: #fff; border-color: #fff; color: var(--aaic-globe) !important; }
+  .fg-hero .fg-btn-outline { background: transparent; border-color: #fff; color: #fff !important; }
+  .fg-hero .fg-btn:hover, .fg-hero .fg-btn-outline:hover {
+    background: var(--aaic-orange); border-color: var(--aaic-orange); color: #fff !important;
+  }
+
+  /* Space below the at-a-glance row */
+
+  /* Cards — share the main-site .module-card radius, shadow and hover */
+  .fg-card, .fg-stat {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    height: 100%;
+  }
+  .fg-card { transition: all 0.3s ease; }
+  .fg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 116, 111, 0.2);
+    border-color: var(--aaic-torch);
+  }
+  .fg-card .card-body { display: flex; flex-direction: column; }
+  .fg-card .card-body > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card .card-title {
+    font-family: var(--fg-heading-font);
+    font-weight: 700;
+    color: var(--aaic-globe);
+    margin-bottom: 0.5rem;
+  }
+  .fg-card .card-header {
+    background: var(--aaic-ltblue);
+    border-bottom: 1px solid var(--aaic-border);
+    font-family: var(--fg-heading-font);
+    color: var(--aaic-globe);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+  }
+
+  /* Colored left edge for objective cards */
+  .fg-edge { border-left: 5px solid var(--fg-edge-color, var(--fg-accent)) !important; }
+  .fg-edge-globe  { --fg-edge-color: var(--aaic-globe); }
+  .fg-edge-valley { --fg-edge-color: var(--aaic-valley); }
+  .fg-edge-torch  { --fg-edge-color: var(--aaic-torch); }
+  .fg-edge-river  { --fg-edge-color: var(--aaic-river); }
+
+  /* Stat / at-a-glance cards */
+  .fg-stat { text-align: center; background: var(--aaic-ltblue); }
+  .fg-stat .fg-stat-icon { font-size: 1.6rem; line-height: 1; }
+  .fg-stat .fg-stat-value {
+    font-family: var(--fg-heading-font);
+    font-size: 1.35rem; font-weight: 700; color: var(--aaic-globe);
+    margin: 0.35rem 0 0;
+  }
+  .fg-stat .fg-stat-label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin: 0;
+  }
+
+  /* Accordion */
+  .accordion-item { border-color: var(--aaic-border); }
+  .accordion-item:first-of-type { border-top-left-radius: var(--fg-radius); border-top-right-radius: var(--fg-radius); }
+  .accordion-item:last-of-type  { border-bottom-left-radius: var(--fg-radius); border-bottom-right-radius: var(--fg-radius); }
+  .accordion-header { margin: 0 !important; }
+  /* Quarto appends a section-link icon to headings; inside an accordion
+     header it wraps onto its own line, so hide it there */
+  .accordion-header .anchorjs-link { display: none !important; }
+  .accordion-button {
+    font-family: var(--fg-heading-font);
+    font-weight: 600;
+    color: var(--aaic-globe);
+  }
+  .accordion-button:not(.collapsed) {
+    background: var(--aaic-ltblue);
+    color: var(--aaic-globe);
+    box-shadow: inset 0 -1px 0 var(--aaic-border);
+  }
+  .accordion-button:hover { color: var(--aaic-torch); }
+  .accordion-button:focus { box-shadow: 0 0 0 0.2rem rgba(0, 108, 147, 0.25); }
+
+  /* Tabsets — Globe text, Torch underline on the active tab
+     (the united theme would otherwise make them orange-red) */
+  .panel-tabset .nav-tabs .nav-link { color: var(--aaic-globe); font-weight: 600; }
+  /* Compact tabs so they fit on one row on wide screens; on narrower
+     screens they wrap onto a second row (never a sideways scrollbar). */
+  .panel-tabset .nav-tabs .nav-link { font-size: 0.8rem; padding: 0.4rem 0.55rem; white-space: nowrap; }
+  .panel-tabset .nav-tabs .nav-link:hover { color: var(--aaic-torch); }
+  .panel-tabset .nav-tabs .nav-link.active {
+    color: var(--aaic-torch);
+    border-bottom: 3px solid var(--aaic-torch);
+  }
+
+  /* Numbered prep steps */
+  .fg-step {
+    position: relative;
+    border-left: 3px solid var(--aaic-summit);
+    padding: 0.25rem 0 0.5rem 1.5rem;
+    margin: 0 0 1.5rem 1rem;
+  }
+  .fg-step::before {
+    content: counter(fgstep);
+    position: absolute; left: -1rem; top: 0;
+    width: 1.85rem; height: 1.85rem; border-radius: 50%;
+    background: var(--aaic-globe); color: #fff;
+    font-family: var(--fg-heading-font);
+    font-weight: 700; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fg-step > h4:first-child, .fg-step > p:first-child { margin-top: 0; }
+  .fg-step-meta { font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  /* Lesson-flow timeline */
+  .fg-timeline { list-style: none; padding-left: 0; margin: 1rem 0; }
+  .fg-timeline > li {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.75rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > li:last-child { border-bottom: none; }
+  .fg-timeline .fg-time {
+    font-family: var(--fg-heading-font);
+    font-weight: 700; color: var(--aaic-globe); font-variant-numeric: tabular-nums;
+  }
+  .fg-timeline .fg-time small { display: block; font-family: Helvetica, Arial, sans-serif; font-weight: 400; color: var(--aaic-smokey); }
+  .fg-timeline h5 { margin: 0 0 0.25rem; font-size: 1rem; }
+  .fg-timeline p { margin: 0; }
+
+  /* Carousel */
+  .fg-carousel {
+    border: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius);
+    overflow: hidden;
+    background: var(--aaic-ltblue);
+    margin: 1rem 0 1.5rem;
+  }
+  .fg-carousel .carousel-item img { max-height: 420px; object-fit: contain; margin: 0 auto; display: block; padding: 1rem 1rem 0; }
+  .fg-carousel .fg-caption { padding: 0.75rem 3.5rem 2.5rem; text-align: center; }
+  .fg-carousel .fg-caption strong { display: block; font-family: var(--fg-heading-font); color: var(--aaic-globe); }
+  .fg-carousel .carousel-control-prev-icon,
+  .fg-carousel .carousel-control-next-icon { filter: invert(1) grayscale(100); }
+  .fg-carousel .carousel-indicators [data-bs-target] { background-color: var(--aaic-globe); }
+  .fg-carousel figure { margin: 0; }
+
+  /* Responsive video */
+  .fg-video { border-radius: var(--fg-radius); overflow: hidden; margin: 1rem 0; }
+
+  /* Link lists inside cards */
+  .fg-card .list-group-item-action { color: var(--aaic-globe); }
+  .fg-card .list-group-item-action:hover { color: var(--aaic-torch); background: var(--aaic-ltblue); }
+
+  /* ---------- Educative features ---------- */
+  .fg-ef-index { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 1.5rem; }
+  .fg-ef-index a {
+    display: inline-block; border: 1px solid var(--aaic-border); border-radius: 50px;
+    padding: 0.2rem 0.7rem; font-size: 0.8rem; font-weight: 600;
+    color: var(--aaic-globe); text-decoration: none; background: #fff;
+  }
+  .fg-ef-index a:hover { border-color: var(--aaic-torch); color: var(--aaic-torch); }
+  .fg-ef-index a span { color: var(--aaic-smokey); font-weight: 400; margin-right: 0.25rem; }
+
+  .fg-ef {
+    border: 1px solid var(--aaic-border); border-radius: var(--fg-radius);
+    padding: 1.25rem 1.5rem; margin: 0 0 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  }
+  .fg-ef > h3:first-child, .fg-ef > section > h3 { margin-top: 0; }
+  .fg-ef h3 { font-size: 1.2rem; color: var(--aaic-globe); margin-top: 0; }
+  .fg-ef .fg-ef-meta { margin: -0.25rem 0 0.75rem; }
+
+  /* "What goes here" — the papers' definition */
+  .fg-ef-what {
+    background: var(--aaic-ltblue); border-radius: 8px;
+    padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.95rem;
+  }
+  .fg-ef-what > p:first-child::before {
+    content: "What goes here"; display: block;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-globe);
+    margin-bottom: 0.25rem;
+  }
+  .fg-ef-what p { margin-bottom: 0.4rem; }
+  .fg-ef-what p:last-child { margin-bottom: 0; }
+
+  /* Example label above each component */
+  .fg-ef-example-label {
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--aaic-torch);
+    margin: 0 0 0.4rem;
+  }
+  .fg-cite { font-size: 0.8rem; color: var(--aaic-smokey); white-space: nowrap; }
+  .fg-ef-example-label .fg-cite { text-transform: none; letter-spacing: 0; font-weight: 400; font-family: Helvetica, Arial, sans-serif; }
+
+  /* Quoted example text */
+  .fg-quote {
+    border-left: 4px solid var(--aaic-summit); padding: 0.25rem 0 0.25rem 1rem;
+    color: #333; font-style: italic; margin: 0.75rem 0;
+  }
+  .fg-quote p { margin-bottom: 0.4rem; }
+
+  /* Core ideas map: before -> this unit -> later */
+  .fg-flow { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 1.75rem; align-items: stretch; }
+  .fg-flow .fg-flow-step {
+    border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem;
+    font-size: 0.9rem; background: #fff;
+  }
+  .fg-flow .fg-flow-step.fg-flow-now { border: 2px solid var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-flow .fg-flow-step strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--aaic-globe); }
+  .fg-flow .fg-flow-arrow { align-self: center; color: var(--aaic-globe); font-size: 1.25rem; }
+  @media (max-width: 640px) {
+    .fg-flow { grid-template-columns: 1fr; }
+    .fg-flow { gap: 2rem; }
+  }
+
+  /* Concept map placeholder */
+  .fg-diagram {
+    border: 2px dashed var(--aaic-summit); border-radius: 8px; background: var(--aaic-ltblue);
+    padding: 1.5rem; text-align: center; color: var(--aaic-smokey); font-size: 0.9rem;
+  }
+
+  /* Lesson storyline banner */
+  .fg-storyline {
+    border-left: 5px solid var(--aaic-valley); background: #f2f8f7;
+    border-radius: 0 8px 8px 0; padding: 0.75rem 1rem;
+  }
+  .fg-storyline p:last-child { margin-bottom: 0; }
+
+  /* Definition boxes */
+  .fg-defbox { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-bottom: 0.75rem; }
+  .fg-defbox .fg-defbox-label {
+    background: var(--aaic-globe); color: #fff; padding: 0.3rem 0.75rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+  }
+  .fg-defbox.fg-defbox-student .fg-defbox-label { background: var(--aaic-valley); }
+  .fg-defbox .fg-defbox-label p { margin: 0; }
+  .fg-defbox .fg-defbox-body { padding: 0.6rem 0.75rem; }
+  .fg-defbox .fg-defbox-body p:last-child { margin-bottom: 0; }
+
+  /* Why / How two-column box */
+  .fg-whyhow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .fg-whyhow > div { border-radius: 8px; padding: 0.75rem 1rem; }
+  .fg-whyhow .fg-why { background: var(--aaic-ltblue); border-top: 4px solid var(--aaic-globe); }
+  .fg-whyhow .fg-how { background: var(--aaic-ltorange); border-top: 4px solid var(--aaic-torch); }
+  .fg-whyhow h5 { font-size: 0.9rem; margin: 0 0 0.35rem; }
+  .fg-whyhow p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-whyhow { grid-template-columns: 1fr; } }
+
+  /* CK / PCK call-outs */
+  .fg-callout { border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 0.6rem; border-left: 5px solid; }
+  .fg-callout p:last-child { margin-bottom: 0; }
+  .fg-callout-ck  { border-color: var(--aaic-globe); background: var(--aaic-ltblue); }
+  .fg-callout-pck { border-color: var(--aaic-torch); background: var(--aaic-ltorange); }
+  .fg-callout .fg-tag { margin-right: 0.4rem; }
+
+  /* Practice overview page + reminder icon */
+  .fg-overview { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 0.75rem; }
+  .fg-overview > div { border: 1px solid var(--aaic-border); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.9rem; }
+  .fg-overview h5 { font-size: 0.85rem; color: var(--aaic-globe); margin: 0 0 0.25rem; }
+  .fg-overview p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) { .fg-overview { grid-template-columns: 1fr; } }
+  .fg-reminder-row { display: flex; align-items: flex-start; gap: 0.75rem; }
+  .fg-reminder {
+    flex: 0 0 auto; width: 6.5rem; text-align: center; border: 2px solid var(--aaic-globe);
+    border-radius: 8px; padding: 0.3rem 0.2rem; font-size: 0.65rem; font-weight: 700;
+    color: var(--aaic-globe); line-height: 1.2; text-transform: uppercase;
+  }
+  .fg-reminder .fg-reminder-icon { display: block; font-size: 1.4rem; line-height: 1.2; }
+  .fg-reminder-step { flex: 1; }
+  .fg-reminder-step strong { color: var(--aaic-globe); }
+  .fg-reminder-step .fg-cite { display: block; white-space: normal; margin-top: 0.25rem; }
+
+  /* Narrative vignette */
+  .fg-narrative {
+    position: relative; background: #faf8f4; border: 1px solid var(--aaic-limestone);
+    border-radius: 8px; padding: 1rem 1rem 0.75rem 3.25rem;
+  }
+  .fg-narrative::before {
+    content: "\201C"; position: absolute; left: 0.85rem; top: 0.1rem;
+    font-family: Georgia, serif; font-size: 3rem; color: var(--aaic-torch); line-height: 1;
+  }
+  .fg-narrative p:last-child { margin-bottom: 0; }
+  .fg-dialogue { margin: 0.5rem 0 0; padding: 0; list-style: none; font-size: 0.9rem; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue .fg-speaker { font-weight: 700; color: var(--aaic-globe); margin-right: 0.35rem; }
+
+  /* Sample student work */
+  .fg-work { border: 1px solid var(--aaic-border); border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+  .fg-work .fg-work-label {
+    background: var(--aaic-limestone); color: var(--aaic-smokey); padding: 0.35rem 1rem;
+    font-family: var(--fg-heading-font); font-weight: 700; font-size: 0.8rem;
+    border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-work .fg-work-label p { margin: 0; }
+  .fg-work .fg-work-sample { padding: 0.75rem 1rem; }
+  .fg-work .fg-work-sample .fg-work-prompt { color: var(--aaic-smokey); font-size: 0.9rem; }
+  .fg-work .fg-work-sample .fg-work-response {
+    border-left: 3px solid var(--aaic-border); padding-left: 0.85rem; margin-top: 0.5rem;
+  }
+  .fg-work .fg-work-feedback { border-top: 1px dashed var(--aaic-border); padding: 0.6rem 1rem; background: var(--aaic-ltorange); font-size: 0.9rem; }
+  .fg-work p:last-child { margin-bottom: 0; }
+
+  /* Capstone question */
+  .fg-capstone {
+    border: 2px solid var(--aaic-globe); border-radius: var(--fg-radius);
+    padding: 1rem 1.25rem; text-align: center;
+  }
+  .fg-capstone .fg-capstone-q { font-family: var(--fg-heading-font); font-weight: 700; font-size: 1.1rem; color: var(--aaic-globe); }
+  .fg-capstone p:last-child { margin-bottom: 0; }
+
+  .fg-ef-refs { font-size: 0.85rem; color: var(--aaic-smokey); }
+  .fg-ef-refs p { padding-left: 1.5rem; text-indent: -1.5rem; }
+
+  .fg-ef-hint { font-size: 0.9rem; color: var(--aaic-smokey); font-style: italic; margin: 0 0 0.75rem; }
+
+
+  /* ---------- Simplified blocks (no nesting needed) ---------- */
+  .fg-grid-2, .fg-grid-3, .fg-grid-4 { display: grid; gap: 1rem; margin: 1rem 0 1.5rem; }
+  .fg-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fg-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fg-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 767px) {
+    .fg-grid-2, .fg-grid-3 { grid-template-columns: 1fr; }
+    .fg-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .fg-hero + .fg-grid-4 { margin-bottom: 2rem; }
+  .fg-card { background: #fff; padding: 1rem 1.25rem; display: flex; flex-direction: column; }
+  .fg-card > p:last-child { margin-top: auto; margin-bottom: 0; }
+  .fg-card > ul:last-child { margin-bottom: 0; }
+  .fg-card > p:first-child { margin-bottom: 0.25rem; }
+  .fg-card, .fg-stat { overflow-wrap: anywhere; }
+  .fg-stat { padding: 1rem 0.75rem; }
+  .fg-stat p { margin-bottom: 0.25rem; }
+  .fg-card-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; color: var(--aaic-globe);
+  }
+  .fg-card-header {
+    display: block; margin: -1rem -1.25rem 0.5rem; padding: 0.6rem 1.25rem;
+    background: var(--aaic-ltblue); border-bottom: 1px solid var(--aaic-border);
+    border-radius: var(--fg-radius) var(--fg-radius) 0 0;
+    font-family: var(--fg-heading-font); font-weight: 700; color: var(--aaic-globe);
+  }
+  .fg-edge-globe, .fg-edge-valley, .fg-edge-torch, .fg-edge-river {
+    border-left: 5px solid var(--fg-edge-color) !important;
+  }
+
+  .fg-linklist ul { list-style: none; padding: 0; margin: 0; }
+  .fg-linklist li {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 0.15rem 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--aaic-border);
+  }
+  .fg-linklist li:last-child { border-bottom: none; }
+  .fg-linklist li a { font-weight: 600; }
+  .fg-link-note { flex-basis: 100%; font-size: 0.85rem; color: var(--aaic-smokey); }
+
+  .fg-accordion { margin: 1rem 0 1.5rem; }
+  .fg-steps { counter-reset: fgstep; }
+  .fg-step { counter-increment: fgstep; }
+  .fg-checklist ul { list-style: none; padding-left: 0; margin: 0; }
+  .fg-checklist li { margin: 0.15rem 0; }
+  .fg-checklist input { margin-right: 0.5rem; }
+
+  .fg-timeline > .fg-segment {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 0.75rem 0; border-bottom: 1px dashed var(--aaic-border);
+  }
+  .fg-timeline > .fg-segment:last-child { border-bottom: none; }
+  .fg-segment-body p { margin: 0; }
+  .fg-segment-body strong:first-child { display: block; font-family: var(--fg-heading-font); margin-bottom: 0.15rem; }
+
+  .fg-carousel .fg-caption p { margin: 0; }
+  .fg-slide-num {
+    display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-smokey); margin-bottom: 0.25rem;
+  }
+
+  .fg-flow .fg-flow-step { position: relative; }
+  .fg-flow .fg-flow-step p { margin: 0; }
+  .fg-flow .fg-flow-step:not(:last-child)::after {
+    content: "→"; position: absolute; right: -1.45rem; top: 50%; transform: translateY(-50%);
+    color: var(--aaic-globe); font-size: 1.25rem;
+  }
+  @media (max-width: 640px) {
+    .fg-flow .fg-flow-step:not(:last-child)::after {
+      content: "↓"; right: auto; left: 50%; top: auto; bottom: -1.75rem; transform: translateX(-50%);
+    }
+  }
+
+  .fg-reminder p, .fg-reminder-step p { margin: 0; }
+  .fg-dialogue ul { list-style: none; padding: 0; margin: 0; }
+  .fg-dialogue li { margin-bottom: 0.25rem; }
+  .fg-dialogue strong { color: var(--aaic-globe); }
+
+  .fg-defbox > p:first-child, .fg-work > p:first-child { margin: 0; }
+  .fg-defbox .fg-defbox-label, .fg-work .fg-work-label { display: block; }
+  .fg-work .fg-work-sample .fg-work-prompt { display: block; }
+  .fg-whyhow-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.9rem; margin-bottom: 0.35rem;
+  }
+  .fg-overview-title {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 1.1rem; margin: 0.25rem 0 0.5rem;
+  }
+  .fg-overview-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.85rem; color: var(--aaic-globe); margin-bottom: 0.25rem;
+  }
+  .fg-overview p { margin-bottom: 0.25rem; }
+
+
+  /* Learning objectives: subject tags */
+  .fg-tag-ct        { background: var(--aaic-globe); }
+  .fg-tag-ds        { background: var(--aaic-valley); }
+  .fg-tag-math      { background: var(--aaic-torch); }
+  .fg-tag-science   { background: var(--aaic-river); }
+  .fg-tag-agscience { background: #ABC178; color: #2f3a12; }  /* Switchgrass */
+  .fg-objectives > ul { margin: 0.75rem 0 1.5rem; padding-left: 1.25rem; }
+  .fg-objectives > ul > li { margin-bottom: 0.4rem; }
+  .fg-objectives .fg-tag { min-width: 5.25rem; text-align: center; margin-right: 0.35rem; }
+  .fg-objectives ul ul { margin-top: 0.25rem; }
+
+
+  /* Educative features pasted into the page */
+  .fg-feature { margin: 1rem 0 1.25rem; }
+  .fg-feature-label {
+    display: block; font-family: var(--fg-heading-font); font-weight: 700;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--aaic-globe); border-bottom: 2px solid var(--aaic-summit);
+    padding-bottom: 0.25rem; margin-bottom: 0.6rem;
+  }
+  .fg-feature > p:first-child { margin-bottom: 0; }
+  .fg-callout, .fg-whyhow, .fg-defbox, .fg-capstone, .fg-reminder-row { margin-top: 0.75rem; margin-bottom: 0.75rem; }
+
+  /* Print: expand collapsed content, hide interactive chrome */
+  @media print {
+    .collapse { display: block !important; height: auto !important; }
+    .carousel-item { display: block !important; float: none !important; }
+    .carousel-control-prev, .carousel-control-next, .carousel-indicators, .fg-btn, .fg-btn-outline { display: none !important; }
+    .fg-hero { color: #000; background: none; border: 2px solid var(--aaic-globe); }
+  }
+</style>
+<script>
+/* Turns the simple blocks in the content above into interactive parts:
+   expandable panels, the timeline and the prep checklist. */
+document.addEventListener("DOMContentLoaded", () => {
+  const attr = (el, name) => el.getAttribute("data-" + name) ?? el.getAttribute(name);
+
+  // Expandable panels (.fg-accordion > .fg-panel)
+  document.querySelectorAll(".fg-accordion").forEach((acc, a) => {
+    acc.id = acc.id || `fg-accordion-${a + 1}`;
+    acc.classList.add("accordion");
+    acc.querySelectorAll(":scope > .fg-panel").forEach((panel, i) => {
+      const id = `${acc.id}-panel-${i + 1}`;
+      const open = attr(panel, "open") === "true";
+      const item = document.createElement("div");
+      item.className = "accordion-item";
+      const header = document.createElement("h3");
+      header.className = "accordion-header";
+      const button = document.createElement("button");
+      button.className = "accordion-button" + (open ? "" : " collapsed");
+      button.type = "button";
+      button.setAttribute("data-bs-toggle", "collapse");
+      button.setAttribute("data-bs-target", "#" + id);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-controls", id);
+      button.textContent = attr(panel, "label") || "Untitled panel";
+      header.appendChild(button);
+      const collapse = document.createElement("div");
+      collapse.id = id;
+      collapse.className = "accordion-collapse collapse" + (open ? " show" : "");
+      collapse.setAttribute("data-bs-parent", "#" + acc.id);
+      const body = document.createElement("div");
+      body.className = "accordion-body";
+      body.append(...panel.childNodes);
+      collapse.appendChild(body);
+      item.append(header, collapse);
+      panel.replaceWith(item);
+    });
+  });
+
+  // Timeline (.fg-timeline > .fg-segment)
+  const groupColors = {
+    "whole class": "globe", "direct instruction": "river",
+    "groups": "valley", "coding": "torch", "individual": ""
+  };
+  document.querySelectorAll(".fg-timeline > .fg-segment").forEach((seg) => {
+    const time = document.createElement("div");
+    time.className = "fg-time";
+    time.textContent = attr(seg, "time") || "";
+    const length = attr(seg, "length");
+    if (length) {
+      const small = document.createElement("small");
+      small.textContent = length;
+      time.appendChild(small);
+    }
+    const body = document.createElement("div");
+    body.className = "fg-segment-body";
+    body.append(...seg.childNodes);
+    const group = attr(seg, "group");
+    if (group) {
+      const tag = document.createElement("span");
+      const color = groupColors[group.trim().toLowerCase()];
+      tag.className = "fg-tag" + (color ? " fg-tag-" + color : "");
+      tag.textContent = group;
+      const target = body.querySelector(":scope > p") || body;
+      target.append(" ", tag);
+    }
+    seg.replaceChildren(time, body);
+  });
+
+  // Prep checklist built from the step titles (.fg-checklist)
+  document.querySelectorAll(".fg-checklist").forEach((list) => {
+    const steps = [...document.querySelectorAll(".fg-steps .fg-step")];
+    if (!steps.length) return;
+    const ul = document.createElement("ul");
+    steps.forEach((step, i) => {
+      step.id = step.id || `prep-step-${i + 1}`;
+      const title = step.querySelector("h1, h2, h3, h4, h5, h6");
+      const li = document.createElement("li");
+      const label = document.createElement("label");
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      const link = document.createElement("a");
+      link.href = "#" + step.id;
+      link.textContent = `Step ${i + 1}: ${title ? title.textContent.trim() : ""}`;
+      label.append(box, link);
+      li.appendChild(label);
+      ul.appendChild(li);
+    });
+    list.replaceChildren(ul);
+  });
+});
+</script>
+```

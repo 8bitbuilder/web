@@ -1,0 +1,97 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+```{=html}
+{{< include _navbar.html >}}
+
+<!-- ── Page content ───────────────────────────────────────── -->
+<div class="auth-page">
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Teacher Sign Up</h2>
+    <p class="auth-subtitle">Create your teacher account</p>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+    <form id="signupForm" onsubmit="return false;">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Choose a username" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Create a password (min 6 characters)" required minlength="6">
+      <button type="submit" class="auth-btn" id="signupBtn">Sign Up</button>
+    </form>
+    <div class="auth-links">
+      Already have an account? <a href="login-teacher.html">Log In</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Popup overlay for success ──────────────────────────── -->
+<div id="signupPopup" class="popup-overlay" style="display:none;">
+  <div class="popup-card">
+    <h3>Account Created</h3>
+    <p>A verification email has been sent to <strong id="popupEmail"></strong>.</p>
+    <p>Please check your inbox and click the verification link before logging in.</p>
+    <button class="auth-btn" onclick="document.getElementById('signupPopup').style.display='none'; window.location.href='login-teacher.html';">Got it</button>
+  </div>
+</div>
+
+<script>
+document.getElementById('signupForm').addEventListener('submit', async function () {
+  var btn = document.getElementById('signupBtn');
+  var errorMsg = document.getElementById('errorMsg');
+  var username = document.getElementById('username').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var password = document.getElementById('password').value;
+
+  if (!username || !email || !password) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Creating account...';
+  errorMsg.style.display = 'none';
+
+  try {
+    // Check if username is already taken
+    var existCheck = await _supabase
+      .from('profiles')
+      .select('id')
+      .eq('username', username)
+      .maybeSingle();
+
+    if (existCheck.data) throw new Error('That username is already taken. Please choose another.');
+
+    // Sign up via Supabase Auth
+    // The database trigger automatically creates the profile row
+    var signUpResult = await _supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: { username: username, role: 'teacher' }
+      }
+    });
+    if (signUpResult.error) throw signUpResult.error;
+
+    // Sign out immediately (they need to verify email first)
+    await _supabase.auth.signOut();
+
+    // Show success popup
+    document.getElementById('popupEmail').textContent = email;
+    document.getElementById('signupPopup').style.display = 'flex';
+
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Sign Up';
+  }
+});
+</script>
+```

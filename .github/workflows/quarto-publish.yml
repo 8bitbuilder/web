@@ -12,14 +12,15 @@ permissions:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
     steps:
       - uses: actions/checkout@v4.2.2
       
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           tinytex: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
 
       - name: Install handoutWithNotes
         run: |
@@ -47,18 +48,21 @@ jobs:
       
       - name: Render Quarto Project
         run: |
+
+          set -euxo pipefail
+
           # Render the main site
-          quarto render
+          quarto render --verbose
           
           # Create the modules directory in the output
           mkdir -p _site/modules/water-quality
 
           # Render the water-quality module separately with its own config
           cd modules/water-quality
-          quarto render
+          quarto render --verbose
 
           # ALSO RENDER SLIDES EXPLICITLY (new addition)
-          find . -name "slides.qmd" -exec quarto render {} --to revealjs \;
+          find . -name "slides.qmd" -exec quarto render {} --to revealjs --verbose \;
           
           # Copy the rendered module output to the main site output
           cp -r _site/* ../../_site/modules/water-quality/

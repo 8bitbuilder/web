@@ -7,16 +7,8 @@ format:
     theme: none
 ---
 
-::: {.custom-navbar}
-<div class="navbar-brand">
-  <a href="/"><img src="assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
-  <h1>Appalachian A.I. Corps</h1>
-</div>
-<button class="navbar-toggle" onclick="toggleMenu()">☰</button>
-<nav class="navbar-links" id="navbarLinks">
-  [Home](/) | [Modules](modules) | [Team](team) | [Contact](contact)
-</nav>
-:::
+```{=html}
+{{< include _navbar.html >}}
 
 <script>
 function toggleMenu() {
@@ -24,6 +16,7 @@ function toggleMenu() {
   nav.classList.toggle('show');
 }
 </script>
+```
 
 ::: {.hero .hero-small}
 ::: {.hero-content}

@@ -1,0 +1,104 @@
+---
+title: ""
+format:
+  html:
+    css:
+      - styles-main.css
+      - styles-auth.css
+    toc: false
+    theme: none
+---
+
+```{=html}
+<!-- Navbar -->
+{{< include _navbar.html >}}
+
+<!-- Page content -->
+<div class="auth-page">
+  <div class="auth-card">
+    <img src="assets/logo.png" alt="AAIC Logo" class="auth-logo">
+    <h2>Student Log In</h2>
+    <p class="auth-subtitle">Enter your username to continue</p>
+    <div id="errorMsg" class="auth-error" style="display:none;"></div>
+    <form id="studentLoginForm" onsubmit="return false;">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username" required>
+      <button type="submit" class="auth-btn" id="loginBtn">Log In</button>
+    </form>
+
+    <!-- Forgot username link -->
+    <div class="auth-links" style="margin-top: 1rem;">
+      <a href="#" id="forgotUsernameLink" style="color: #006C93; font-weight: 600;">Forgot your username?</a>
+    </div>
+  </div>
+</div>
+
+<!-- Forgot username popup -->
+<div id="forgotUsernamePopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; align-items:center; justify-content:center;">
+  <div style="position:relative; background:#fff; border-radius:16px; padding:2.5rem 2rem 2rem 2rem; max-width:420px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center;">
+    <button id="closeForgotPopup" style="position:absolute; top:0.6rem; right:0.8rem; background:none; border:2px solid #006C93; border-radius:50%; width:32px; height:32px; font-size:1.2rem; color:#006C93; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; padding:0; transition:all 0.25s ease;"
+      onmouseover="this.style.background='linear-gradient(135deg, #00746F 0%, #006C93 100%)'; this.style.color='#fff'; this.style.borderColor='#00746F';"
+      onmouseout="this.style.background='none'; this.style.color='#006C93'; this.style.borderColor='#006C93';"
+    >&times;</button>
+    <h3 style="color:#006C93; font-size:1.3rem; margin:0 0 0.75rem 0;">Forgot Your Username?</h3>
+    <p style="color:#58595B; font-size:1rem; line-height:1.6; margin:0;">Ask your teacher for your credentials.</p>
+  </div>
+</div>
+
+<script>
+// Student login handler
+document.getElementById('studentLoginForm').addEventListener('submit', async function () {
+  var btn = document.getElementById('loginBtn');
+  var errorMsg = document.getElementById('errorMsg');
+  var username = document.getElementById('username').value.trim();
+
+  if (!username) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+  errorMsg.style.display = 'none';
+
+  try {
+    var response = await _supabase.functions.invoke('student-login', {
+      body: { username: username }
+    });
+
+    if (response.error) throw new Error(response.error.message || 'Login failed');
+    if (response.data && response.data.error) throw new Error(response.data.error);
+
+    var session = response.data.session;
+    if (!session) throw new Error('Login failed. Please try again.');
+
+    var setResult = await _supabase.auth.setSession({
+      access_token: session.access_token,
+      refresh_token: session.refresh_token
+    });
+    if (setResult.error) throw setResult.error;
+
+    window.location.href = 'student-hub.html';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Log In';
+  }
+});
+
+// Forgot username popup handlers
+document.getElementById('forgotUsernameLink').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('forgotUsernamePopup').style.display = 'flex';
+});
+
+document.getElementById('closeForgotPopup').addEventListener('click', function() {
+  document.getElementById('forgotUsernamePopup').style.display = 'none';
+});
+
+// Close popup when clicking the dark overlay background
+document.getElementById('forgotUsernamePopup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.style.display = 'none';
+  }
+});
+</script>
+```
