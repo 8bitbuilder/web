@@ -748,6 +748,11 @@ body {
   transform: none;
 }
 
+.lesson-item.student-notice:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .lesson-item h3 {
   color: var(--globe);
   font-size: 1.5rem;
@@ -773,6 +778,20 @@ body {
 
 .guest-notice {
   margin-bottom: 1.5rem;
+}
+
+.student-notice {
+  background-color: #DCEEF5;
+  color: #005475;
+  border-left: none;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.student-notice p {
+  color: #005475;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .teacher-notice {

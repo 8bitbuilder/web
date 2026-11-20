@@ -35,14 +35,17 @@ A series of lessons using AI to explore and monitor Appalachian water resources.
 ::: {.lesson-outline}
 
 ::: {.guest-notice .hidden}
-Click each **lesson title** (e.g., *Lesson 1: Statistics Fundamentals*) to access the corresponding learning module. Below each lesson, you'll also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
+Click each **lesson title** to access the corresponding learning module. Below each lesson, you'll also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
 :::
 
 
 ::: {.lesson-item .teacher-notice .hidden}
-**TEACHERS:** Click each **lesson title** (e.g., *Lesson 1: Statistics Fundamentals*) to access the corresponding learning module. Underneath each lesson, you will also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
+**TEACHERS:** Click each **lesson title** to access the corresponding learning module. Underneath each lesson, you will also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
 :::
 
+::: {.lesson-item .student-notice .hidden}
+**STUDENTS:** Click each **lesson title** to access the corresponding learning module.
+:::
 
 ::: {.lesson-item}
 ### [Lesson 1: Statistics Fundamentals](1-statistics/)
@@ -120,6 +123,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const facilitatorLinks = document.querySelectorAll('a.facilitator');
   const teacherNotice = document.querySelector('.teacher-notice');
   const guestNotice = document.querySelector('.guest-notice');
+  const studentNotice = document.querySelector('.student-notice');
 
   if (sessionStorage.getItem('aaic_guest') === 'true') {
   guestNotice?.classList.remove('hidden');
@@ -146,6 +150,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       facilitatorLinks.forEach(link => link.classList.remove('hidden'));
       teacherNotice?.classList.remove('hidden');
     }
+
+    if (profile?.role === 'student') {
+      studentNotice?.classList.remove('hidden');
+    }
+
   } catch (error) {
     console.error('Could not check teacher access for facilitator links:', error);
   }

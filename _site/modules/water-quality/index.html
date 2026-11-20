@@ -53,19 +53,19 @@ ul.task-list li input[type="checkbox"] {
 <!-- ── Navbar ─────────────────────────────────────────────── -->
 <div class="custom-navbar">
   <div class="navbar-brand">
-    <a href="../../"><img src="../../assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
+    <a href="../../"><img data-site-src="/assets/logo.png" alt="AAIC Logo" class="navbar-logo"></a>
     <h1>Appalachian A.I. Corps</h1>
   </div>
   <button class="navbar-toggle" id="navToggleBtn">☰</button>
   <nav class="navbar-links" id="navbarLinks">
-    <a href="../../">Home</a> | <a href="../../modules.html" id="navModulesLink" style="display:none;">Modules</a><span id="navModulesSep" style="display:none;"> | </span><a href="../../team.html">Team</a> | <a href="../../contact.html">Contact</a>
+    <a data-site-href="/" href="../../">Home</a> | <a data-site-href="/modules.html" href="../../modules.html" id="navModulesLink" style="display:none;">Modules</a><span id="navModulesSep" style="display:none;"> | </span><a data-site-href="/team.html" href="../../team.html">Team</a> | <a data-site-href="/contact.html" href="../../contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
 
     <!-- Logged-out state -->
     <div id="authDropdownLoggedOut">
       <div class="nav-auth-btn" id="authBtnOut">
-        <img src="../../assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
+        <img data-site-src="/assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
         <span class="nav-auth-label">Log In</span>
         <span class="nav-auth-chevron" id="chevronOut">▾</span>
       </div>
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
     <!-- Logged-in state (hidden by default) -->
     <div id="authDropdownLoggedIn" class="hidden">
       <div class="nav-auth-btn logged-in" id="authBtnIn">
-        <img src="../../assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
+        <img data-site-src="/assets/profile-placeholder.png" alt="" class="nav-auth-avatar">
         <span class="nav-auth-label" id="navUsername">Username</span>
         <span class="nav-auth-chevron" id="chevronIn">▾</span>
       </div>
@@ -95,6 +95,21 @@ ul.task-list li input[type="checkbox"] {
 <!-- ── Dropdown toggle script (no dependencies) ──────────── -->
 <script>
 (function() {
+
+  document.querySelectorAll('[data-site-href]').forEach(function (element) {
+    element.setAttribute(
+      'href',
+      new URL(element.getAttribute('data-site-href'), window.location.origin).href
+    );
+  });
+
+  document.querySelectorAll('[data-site-src]').forEach(function (element) {
+    element.setAttribute(
+      'src',
+      new URL(element.getAttribute('data-site-src'), window.location.origin).href
+    );
+  });
+
   // Hamburger menu toggle
   var navToggle = document.getElementById('navToggleBtn');
   if (navToggle) {
@@ -147,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
     navGuestLink.addEventListener('click', function(e) {
       e.preventDefault();
       sessionStorage.setItem('aaic_guest', 'true');
-      window.location.href = 'guest-hub.html';
+      window.location.href = new URL('/guest-hub.html', window.location.origin).href;
     });
   }
 
@@ -259,10 +274,13 @@ function toggleMenu() {
 <div class="lesson-outline-section">
 <div class="lesson-outline">
 <div class="guest-notice hidden">
-<p>Click each <strong>lesson title</strong> (e.g., <em>Lesson 1: Statistics Fundamentals</em>) to access the corresponding learning module. Below each lesson, you’ll also find links to the <strong>Slides &amp; Facilitator Guide</strong>, which include slide decks, handouts, and other resources to support classroom instruction.</p>
+<p>Click each <strong>lesson title</strong> to access the corresponding learning module. Below each lesson, you’ll also find links to the <strong>Slides &amp; Facilitator Guide</strong>, which include slide decks, handouts, and other resources to support classroom instruction.</p>
 </div>
 <div class="lesson-item teacher-notice hidden">
-<p><strong>TEACHERS:</strong> Click each <strong>lesson title</strong> (e.g., <em>Lesson 1: Statistics Fundamentals</em>) to access the corresponding learning module. Underneath each lesson, you will also find links to the <strong>Slides &amp; Facilitator Guide</strong>, which include slide decks, handouts, and other resources to support classroom instruction.</p>
+<p><strong>TEACHERS:</strong> Click each <strong>lesson title</strong> to access the corresponding learning module. Underneath each lesson, you will also find links to the <strong>Slides &amp; Facilitator Guide</strong>, which include slide decks, handouts, and other resources to support classroom instruction.</p>
+</div>
+<div class="lesson-item student-notice hidden">
+<p><strong>STUDENTS:</strong> Click each <strong>lesson title</strong> to access the corresponding learning module.</p>
 </div>
 <section id="lesson-1-statistics-fundamentals" class="lesson-item">
 <h3><a href="1-statistics/">Lesson 1: Statistics Fundamentals</a></h3>
@@ -310,6 +328,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const facilitatorLinks = document.querySelectorAll('a.facilitator');
   const teacherNotice = document.querySelector('.teacher-notice');
   const guestNotice = document.querySelector('.guest-notice');
+  const studentNotice = document.querySelector('.student-notice');
 
   if (sessionStorage.getItem('aaic_guest') === 'true') {
   guestNotice?.classList.remove('hidden');
@@ -336,6 +355,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       facilitatorLinks.forEach(link => link.classList.remove('hidden'));
       teacherNotice?.classList.remove('hidden');
     }
+
+    if (profile?.role === 'student') {
+      studentNotice?.classList.remove('hidden');
+    }
+
   } catch (error) {
     console.error('Could not check teacher access for facilitator links:', error);
   }
