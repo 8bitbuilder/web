@@ -59,7 +59,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
   <button class="navbar-toggle" id="navToggleBtn">☰</button>
   <nav class="navbar-links" id="navbarLinks">
-    <a href="./">Home</a> | <a href="modules.html" id="navModulesLink" style="display:none;">Modules</a><span id="navModulesSep" style="display:none;"> | </span><a href="team.html">Team</a> | <a href="contact.html">Contact</a>
+    <a href="./">Home</a> | <a href="./modules.html" id="navModulesLink" style="display:none;">Modules</a><span id="navModulesSep" style="display:none;"> | </span><a href="./team.html">Team</a> | <a href="./contact.html">Contact</a>
   </nav>
   <div class="nav-auth-wrapper">
 
@@ -71,8 +71,8 @@ ul.task-list li input[type="checkbox"] {
         <span class="nav-auth-chevron" id="chevronOut">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuOut">
-        <a href="login-student.html">Student</a>
-        <a href="login-teacher.html">Teacher</a>
+        <a href="./login-student.html">Student</a>
+        <a href="./login-teacher.html">Teacher</a>
         <a href="#" id="navGuestLoginLink">Guest</a>
       </div>
     </div>
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
         <span class="nav-auth-chevron" id="chevronIn">▾</span>
       </div>
       <div class="nav-auth-dropdown" id="dropdownMenuIn">
-        <a href="dashboard.html" id="navDashboardLink" style="display:none;">Teacher Dashboard</a>
+        <a href="./dashboard.html" id="navDashboardLink" ...="">Teacher Dashboard</a>
         <a href="#" id="navLogOutLink">Log Out</a>
       </div>
     </div>
@@ -174,8 +174,8 @@ ul.task-list li input[type="checkbox"] {
 
 <!-- ── Supabase + Auth (loads after dropdown is already working) ── -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/auth.js"></script>
+<script src="./js/supabase-config.js"></script>
+<script src="./js/auth.js"></script>
 
 <!-- ── Auth state check (handles Supabase users AND guests) ────── -->
 <script>

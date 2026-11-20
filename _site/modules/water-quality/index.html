@@ -258,8 +258,11 @@ function toggleMenu() {
 </div>
 <div class="lesson-outline-section">
 <div class="lesson-outline">
+<div class="guest-notice hidden">
+<p>Click each <strong>lesson title</strong> (e.g., <em>Lesson 1: Statistics Fundamentals</em>) to access the corresponding learning module. Below each lesson, you’ll also find links to the <strong>Slides &amp; Facilitator Guide</strong>, which include slide decks, handouts, and other resources to support classroom instruction.</p>
+</div>
 <div class="lesson-item teacher-notice hidden">
-<p><strong>TEACHERS:</strong> Please click on the Slides &amp; Facilitator Guide links located under each lesson to find slide decks, handouts, and other resources to help conduct these lessons in the classroom.</p>
+<p><strong>TEACHERS:</strong> Click each <strong>lesson title</strong> (e.g., <em>Lesson 1: Statistics Fundamentals</em>) to access the corresponding learning module. Underneath each lesson, you will also find links to the <strong>Slides &amp; Facilitator Guide</strong>, which include slide decks, handouts, and other resources to support classroom instruction.</p>
 </div>
 <section id="lesson-1-statistics-fundamentals" class="lesson-item">
 <h3><a href="1-statistics/">Lesson 1: Statistics Fundamentals</a></h3>
@@ -306,6 +309,13 @@ function toggleMenu() {
 document.addEventListener('DOMContentLoaded', async function () {
   const facilitatorLinks = document.querySelectorAll('a.facilitator');
   const teacherNotice = document.querySelector('.teacher-notice');
+  const guestNotice = document.querySelector('.guest-notice');
+
+  if (sessionStorage.getItem('aaic_guest') === 'true') {
+  guestNotice?.classList.remove('hidden');
+  facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+  return;
+  }
 
   try {
     const { data: { session }, error: sessionError } =

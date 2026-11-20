@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>What Computers See</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; margin: 12px; color: #222; padding-bottom: 60px; }
+    h1 { font-size: 18px; margin: 6px 0 10px; }
+    #controls { width: 740px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+    .radio-row { display: flex; justify-content: space-between; align-items: center; width: 740px; }
+    .left-label, .right-label { width: 48%; }
+    .left-label { text-align: left; }
+    .right-label { text-align: right; }
+    #channelRow { display: flex; justify-content: flex-end; width: 740px; }
+    #channelSelect { margin-left: 8px; }
+    canvas { border: 1px solid #ddd; display: block; }
+    .hint { font-size: 13px; color: #666; margin-top: 8px; max-width: 740px; }
+    #buttonBar { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    #buttonBar button { padding: 6px 14px; font-size: 14px; cursor: pointer; }
+    #calibrateHint { font-size: 18px; color: #888; margin-top: 4px; max-width: 480px; }
+
+    #nitrateResult {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f0f0f0;
+      border-radius: 6px;
+      max-width: 480px;
+      min-height: 20px;
+      font-size: 14px;
+    }
+    #swatchRow {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      align-items: center;
+    }
+    .swatch-item { text-align: center; font-size: 12px; color: #555; }
+    .swatch-box {
+      width: 48px;
+      height: 28px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    #ppmDisplay {
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 4px;
+      color: #111;
+    }
+    #confidenceBar {
+      height: 6px;
+      border-radius: 3px;
+      background: #ddd;
+      max-width: 480px;
+      margin-top: 6px;
+    }
+    #confidenceFill {
+      height: 6px;
+      border-radius: 3px;
+      background: #4caf50;
+      transition: width 0.3s;
+    }
+    #acknowledgements {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+      padding: 8px 12px;
+      text-align: center;
+      z-index: 999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>What Computers Actually See</h1>
+
+  <div id="controls">
+    <div class="radio-row">
+      <label class="left-label"><input type="radio" name="view" id="viewHumans" value="humans" checked> What humans see</label>
+      <label class="right-label"><input type="radio" name="view" id="viewComputers" value="computers"> What computers see</label>
+    </div>
+    <div id="channelRow">
+      <label>Channel:
+        <select id="channelSelect">
+          <option value="red" selected>Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div id="buttonBar">
+    <button type="button" onclick="calibrateWhite()">Calibrate (point at white)</button>
+    <button type="button" onclick="freeze()">Freeze / Unfreeze</button>
+    <button type="button" onclick="compute()">Compute Nitrate</button>
+  </div>
+  <p id="calibrateHint">Point camera at a white reference (paper, card) then click Calibrate to correct for your lighting.</p>
+
+  <div id="nitrateResult" style="display:none;">
+    <div id="ppmDisplay"></div>
+    <div id="confidenceBar"><div id="confidenceFill" style="width:0%"></div></div>
+    <div id="swatchRow">
+      <div class="swatch-item">
+        <div class="swatch-box" id="readSwatch"></div><br>Read
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-box" id="matchedSwatch"></div><br>Matched
+      </div>
+      <div id="swatchDetail" style="font-size:12px; color:#555;"></div>
+    </div>
+  </div>
+
+<script>
+  const CAPTURE_W = Math.round(320 / 3);
+  const CAPTURE_H = Math.round(240 / 3);
+  const GRID       = 5;
+  const sw = 25, sh = 25;
+  const sx = Math.round(CAPTURE_W / 2 - sw / 2);
+  const sy = Math.round(CAPTURE_H / 2 - sh / 2);
+  const BIG_X_OFFSET = 120;
+  const BIG_Y        = 50;
+  const MIN_BOX = 6, MAX_BOX = 40;
+  let instructionStep = 1;
+
+
+  const COLOR_CHART = [
+    { ppm:   0, r: 255, g: 240, b:   0 },
+    { ppm:   5, r: 255, g: 195, b:   0 },
+    { ppm:  10, r: 255, g: 155, b:   0 },
+    { ppm:  20, r: 255, g: 110, b:   0 },
+    { ppm:  40, r: 235, g:  55, b:  30 },
+    { ppm:  80, r: 190, g:  20, b:  30 },
+    { ppm: 160, r: 115, g:  15, b:  30 },
+  ];
+
+  COLOR_CHART.forEach(e => { e.lab = rgbToLab(e.r, e.g, e.b); });
+
+  let capture, overlay;
+  let boxSize = 20, fontSize = 10;
+  let isPaused = false;
+  let gain_R = 1, gain_G = 1, gain_B = 1;
+
+  function instructions() {
+    const instructions = [
+      "Now center your other card and hit \"Compute Nitrate\" to see your result!"
+    ]
+    document.getElementById('calibrateHint').textContent = instructions[instructionStep - 1];
+  }
+
+  function preload() {
+    capture = createCapture(VIDEO);
+    capture.size(CAPTURE_W, CAPTURE_H);
+    capture.hide();
+  }
+
+  function setup() {
+    createCanvas(windowWidth, windowHeight);
+    pixelDensity(1);
+
+    overlay = createGraphics(1, 1);
+    overlay.pixelDensity(1);
+    Object.assign(overlay.elt.style, {
+      position: 'fixed', top: '12px', right: '12px',
+      border: '1px solid rgba(0,0,0,0.12)',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+      zIndex: 1001, background: '#fff'
+    });
+
+    computeLayout();
+  }
+
+  function draw() {
+    background(255);
+    if (capture) capture.loadPixels();
+
+    const viewSelected = document.querySelector('input[name="view"]:checked')?.value || 'humans';
+    const channel      = document.getElementById('channelSelect')?.value || 'red';
+    const bigW = sw * boxSize;
+    const bigH = sh * boxSize;
+
+    if (capture) {
+      image(capture, BIG_X_OFFSET, BIG_Y, bigW, bigH);
+    } else {
+      noFill(); stroke(200);
+      rect(BIG_X_OFFSET, BIG_Y, bigW, bigH);
+    }
+
+    if (viewSelected === 'computers') {
+      drawComputerView(capture, BIG_X_OFFSET, BIG_Y, boxSize, channel);
+    }
+
+    drawOverlay(capture, channel);
+  }
+
+  function windowResized() { computeLayout(); }
+
+  function keyPressed() {
+    if (key === 'p') freeze();
+  }
+
+
+  function computeLayout() {
+    const controlsH = document.getElementById('controls')?.getBoundingClientRect().height || 0;
+    const ackH      = document.getElementById('acknowledgements')?.getBoundingClientRect().height || 0;
+    const avW = Math.max(200, window.innerWidth  - 32);
+    const avH = Math.max(100, window.innerHeight - controlsH - ackH - 60);
+
+    boxSize = Math.max(MIN_BOX, Math.min(MAX_BOX,
+      Math.floor((avH - BIG_Y) / sh),
+      Math.floor((avW - BIG_X_OFFSET) / sw)
+    ));
+    fontSize = Math.max(6, Math.floor(boxSize / 2.8));
+
+    resizeCanvas(Math.min(1100, avW), Math.max(BIG_Y + sh * boxSize + 24, avH));
+
+    const ow = Math.max(80, Math.min(180, Math.floor(sw * boxSize * 0.4)));
+    const oh = Math.floor((sh / sw) * ow);
+    overlay.resizeCanvas(ow, oh);
+    overlay.elt.style.width  = ow + 'px';
+    overlay.elt.style.height = oh + 'px';
+  }
+
+
+  function rgbToLab(r, g, b) {
+    let R = r / 255, G = g / 255, B = b / 255;
+    R = R > 0.04045 ? Math.pow((R + 0.055) / 1.055, 2.4) : R / 12.92;
+    G = G > 0.04045 ? Math.pow((G + 0.055) / 1.055, 2.4) : G / 12.92;
+    B = B > 0.04045 ? Math.pow((B + 0.055) / 1.055, 2.4) : B / 12.92;
+    let X = (R * 0.4124 + G * 0.3576 + B * 0.1805) / 0.95047;
+    let Y = (R * 0.2126 + G * 0.7152 + B * 0.0722) / 1.00000;
+    let Z = (R * 0.0193 + G * 0.1192 + B * 0.9505) / 1.08883;
+    const f = t => t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116;
+    const L  =  116 * f(Y) - 16;
+    const a  =  500 * (f(X) - f(Y));
+    const bv =  200 * (f(Y) - f(Z));
+    return [L, a, bv];
+  }
+
+  function labDistance(l1, l2) {
+    const dL = l1[0] - l2[0], da = l1[1] - l2[1], db = l1[2] - l2[2];
+    return Math.sqrt(dL * dL + da * da + db * db);
+  }
+
+  function applyGain(r, g, b) {
+    return [
+      Math.min(255, Math.max(0, Math.round(r * gain_R))),
+      Math.min(255, Math.max(0, Math.round(g * gain_G))),
+      Math.min(255, Math.max(0, Math.round(b * gain_B))),
+    ];
+  }
+
+  const MAX_LAB_DIST = 80;
+
+  function estimateNitrate(r, g, b) {
+    const inputLab = rgbToLab(r, g, b);
+
+    const ranked = COLOR_CHART
+      .map(e => ({ ...e, dist: labDistance(inputLab, e.lab) }))
+      .sort((a, b) => a.dist - b.dist);
+
+    const best = ranked[0];
+
+    if (best.dist > MAX_LAB_DIST) {
+      return { error: 'Color does not match nitrate scale.', dist: Math.round(best.dist) };
+    }
+
+    const c1 = ranked[0];
+    const c2 = ranked[1] || ranked[0]; 
+    const w1 = 1 / (c1.dist + 0.001);
+    const w2 = 1 / (c2.dist + 0.001);
+    const ppm = (c1.ppm * w1 + c2.ppm * w2) / (w1 + w2);
+
+    const confidence = Math.max(0, Math.round(100 * (1 - best.dist / MAX_LAB_DIST)));
+
+    return {
+      ppm:        Math.round(ppm),
+      ppmExact:   ppm.toFixed(1),
+      confidence,
+      labDist:    Math.round(best.dist),
+      nearestPpm: best.ppm,
+      matchR: best.r, matchG: best.g, matchB: best.b,
+    };
+  }
+
+  function sampleCenter() {
+    if (!capture || !capture.pixels) return null;
+    capture.loadPixels();
+
+    const blockW = sw / GRID, blockH = sh / GRID;
+    let rSum = 0, gSum = 0, bSum = 0, count = 0;
+
+    for (let gx = 1; gx <= 3; gx++) {
+      for (let gy = 1; gy <= 3; gy++) {
+        const x0 = Math.floor(sx + gx * blockW);
+        const y0 = Math.floor(sy + gy * blockH);
+        const w  = (gx === GRID - 1) ? (sx + sw) - x0 : Math.floor(blockW);
+        const h  = (gy === GRID - 1) ? (sy + sh) - y0 : Math.floor(blockH);
+
+        for (let px = 0; px < w; px++) {
+          for (let py = 0; py < h; py++) {
+            const ix = x0 + px, iy = y0 + py;
+            if (ix < 0 || iy < 0 || ix >= capture.width || iy >= capture.height) continue;
+            const i = (ix + iy * capture.width) * 4;
+            rSum += capture.pixels[i];
+            gSum += capture.pixels[i + 1];
+            bSum += capture.pixels[i + 2];
+            count++;
+          }
+        }
+      }
+    }
+    if (!count) return null;
+    return [Math.round(rSum / count), Math.round(gSum / count), Math.round(bSum / count)];
+  }
+
+  function calibrateWhite() {
+    const rgb = sampleCenter();
+    if (!rgb) { alert('No camera image yet.'); return; }
+    const [r, g, b] = rgb;
+    if (r < 10 || g < 10 || b < 10) {
+      alert('Sample is too dark — make sure the white reference is well-lit.');
+      return;
+    }
+    gain_R = 255 / r;
+    gain_G = 255 / g;
+    gain_B = 255 / b;
+    instructions()
+  }
+
+  function freeze() {
+    if (isPaused) {
+      capture?.elt?.play?.();
+      isPaused = false;
+    } else {
+      capture?.elt?.pause?.();
+      isPaused = true;
+    }
+  }
+
+  function compute() {
+    const raw = sampleCenter();
+    if (!raw) { alert('No camera image yet.'); return; }
+
+    const [rawR, rawG, rawB] = raw;
+    const [r, g, b] = applyGain(rawR, rawG, rawB);
+
+    console.log(`Raw: ${rawR}, ${rawG}, ${rawB}  →  Calibrated: ${r}, ${g}, ${b}`);
+
+    const result = estimateNitrate(r, g, b);
+
+    const panel = document.getElementById('nitrateResult');
+    panel.style.display = 'block';
+
+    const readSwatchEl    = document.getElementById('readSwatch');
+    const matchedSwatchEl = document.getElementById('matchedSwatch');
+    const ppmEl           = document.getElementById('ppmDisplay');
+    const fillEl          = document.getElementById('confidenceFill');
+    const detailEl        = document.getElementById('swatchDetail');
+
+    readSwatchEl.style.background = `rgb(${r}, ${g}, ${b})`;
+
+    if (result.error) {
+      ppmEl.textContent = 'Could not estimate — color out of range.';
+      ppmEl.style.color = '#c00';
+      fillEl.style.width = '0%';
+      fillEl.style.background = '#f44';
+      matchedSwatchEl.style.background = '#eee';
+      
+    } else {
+      ppmEl.textContent = `~${result.ppmExact} ppm nitrate`;
+      ppmEl.style.color = '#111';
+      fillEl.style.width  = result.confidence + '%';
+      fillEl.style.background = result.confidence > 60 ? '#4caf50' : result.confidence > 30 ? '#ff9800' : '#f44';
+      matchedSwatchEl.style.background = `rgb(${result.matchR}, ${result.matchG}, ${result.matchB})`;
+
+        detailEl.innerHTML =
+        `Nearest chart entry: ${result.nearestPpm} ppm<br>` +
+        `LAB Δ: ${result.labDist}`;
+    }
+  }
+
+
+  function drawComputerView(img, tx, ty, bSize, channel) {
+    if (!img || !img.pixels) return;
+    img.loadPixels();
+
+    const totalW = sw * bSize, totalH = sh * bSize;
+    const cellW  = totalW / GRID, cellH = totalH / GRID;
+    const blockW = sw / GRID, blockH = sh / GRID;
+
+    textSize(Math.max(6, Math.floor(Math.min(cellW, cellH) / 2.5)));
+    textAlign(CENTER, CENTER);
+
+    for (let gx = 0; gx < GRID; gx++) {
+      for (let gy = 0; gy < GRID; gy++) {
+        const x0 = Math.floor(sx + gx * blockW);
+        const y0 = Math.floor(sy + gy * blockH);
+        const w  = (gx === GRID - 1) ? (sx + sw) - x0 : Math.floor(blockW);
+        const h  = (gy === GRID - 1) ? (sy + sh) - y0 : Math.floor(blockH);
+
+        let rS = 0, gS = 0, bS = 0, n = 0;
+        for (let px = 0; px < w; px++) {
+          for (let py = 0; py < h; py++) {
+            const ix = x0 + px, iy = y0 + py;
+            if (ix < 0 || iy < 0 || ix >= img.width || iy >= img.height) continue;
+            const i = (ix + iy * img.width) * 4;
+            rS += img.pixels[i]; gS += img.pixels[i + 1]; bS += img.pixels[i + 2];
+            n++;
+          }
+        }
+        const ar = n ? rS / n : 0, ag = n ? gS / n : 0, ab = n ? bS / n : 0;
+
+        let dR = 0, dG = 0, dB = 0;
+        if (channel === 'red')   dR = ar;
+        else if (channel === 'green') dG = ag;
+        else                     dB = ab;
+
+        const dx = tx + gx * cellW, dy = ty + gy * cellH;
+        noStroke(); fill(dR, dG, dB);
+        rect(dx, dy, cellW, cellH);
+
+        const val = Math.round(channel === 'red' ? ar : channel === 'green' ? ag : ab);
+        const lum = 0.299 * dR + 0.587 * dG + 0.114 * dB;
+        fill(lum > 128 ? 0 : 255);
+        text(val, dx + cellW / 2, dy + cellH / 2);
+      }
+    }
+
+    noFill(); stroke(0, 0, 0, 50);
+    rect(tx - 2, ty - 2, totalW + 4, totalH + 4);
+    noStroke(); fill(0);
+    textSize(12); textAlign(LEFT, CENTER);
+  }
+
+  function drawOverlay(img, channel) {
+    const gfx = overlay;
+    if (!gfx) return;
+    gfx.clear(); gfx.noStroke(); gfx.fill(255); gfx.rect(0, 0, gfx.width, gfx.height);
+    if (!img || !img.pixels) return;
+    img.loadPixels();
+
+    const cellW  = gfx.width / GRID, cellH = gfx.height / GRID;
+    const blockW = sw / GRID, blockH = sh / GRID;
+    const pt = Math.max(6, Math.floor(Math.min(cellW, cellH) / 2.5));
+    gfx.textSize(pt); gfx.textAlign(CENTER, CENTER);
+
+    for (let gx = 0; gx < GRID; gx++) {
+      for (let gy = 0; gy < GRID; gy++) {
+        const x0 = Math.floor(sx + gx * blockW), y0 = Math.floor(sy + gy * blockH);
+        const w  = (gx === GRID - 1) ? (sx + sw) - x0 : Math.floor(blockW);
+        const h  = (gy === GRID - 1) ? (sy + sh) - y0 : Math.floor(blockH);
+
+        let rS = 0, gS = 0, bS = 0, n = 0;
+        for (let px = 0; px < w; px++) {
+          for (let py = 0; py < h; py++) {
+            const ix = x0 + px, iy = y0 + py;
+            if (ix < 0 || iy < 0 || ix >= img.width || iy >= img.height) continue;
+            const i = (ix + iy * img.width) * 4;
+            rS += img.pixels[i]; gS += img.pixels[i + 1]; bS += img.pixels[i + 2];
+            n++;
+          }
+        }
+        const ar = n ? rS / n : 0, ag = n ? gS / n : 0, ab = n ? bS / n : 0;
+
+        let dR = 0, dG = 0, dB = 0;
+        if (channel === 'red')   dR = ar;
+        else if (channel === 'green') dG = ag;
+        else                     dB = ab;
+
+        const dx = gx * cellW, dy = gy * cellH;
+        gfx.noStroke(); gfx.fill(dR, dG, dB);
+        gfx.rect(dx, dy, cellW, cellH);
+
+        const val = Math.round(channel === 'red' ? ar : channel === 'green' ? ag : ab);
+        const lum = 0.299 * dR + 0.587 * dG + 0.114 * dB;
+        gfx.fill(lum > 128 ? 0 : 255);
+        gfx.text(val, dx + cellW / 2, dy + cellH / 2);
+      }
+    }
+
+    gfx.noStroke(); gfx.fill(0);
+    gfx.textSize(Math.max(8, Math.floor(gfx.width / 12)));
+    gfx.textAlign(LEFT, BOTTOM);
+    gfx.text(`${channel.toUpperCase()} (5×5)`, 6, gfx.height - 6);
+  }
+</script>
+</body>
+<div id="acknowledgements">
+  <p>Thank you to <a href="https://craft.stanford.edu/">Stanford Craft</a> for the inspiration.</p>
+</div>
+</html>

@@ -34,8 +34,13 @@ A series of lessons using AI to explore and monitor Appalachian water resources.
 ::: {.lesson-outline-section}
 ::: {.lesson-outline}
 
+::: {.guest-notice .hidden}
+Click each **lesson title** (e.g., *Lesson 1: Statistics Fundamentals*) to access the corresponding learning module. Below each lesson, you'll also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
+:::
+
+
 ::: {.lesson-item .teacher-notice .hidden}
-**TEACHERS:** Please click on the Slides & Facilitator Guide links located under each lesson to find slide decks, handouts, and other resources to help conduct these lessons in the classroom.
+**TEACHERS:** Click each **lesson title** (e.g., *Lesson 1: Statistics Fundamentals*) to access the corresponding learning module. Underneath each lesson, you will also find links to the **Slides & Facilitator Guide**, which include slide decks, handouts, and other resources to support classroom instruction.
 :::
 
 
@@ -114,6 +119,13 @@ How will AI shape current and future careers?
 document.addEventListener('DOMContentLoaded', async function () {
   const facilitatorLinks = document.querySelectorAll('a.facilitator');
   const teacherNotice = document.querySelector('.teacher-notice');
+  const guestNotice = document.querySelector('.guest-notice');
+
+  if (sessionStorage.getItem('aaic_guest') === 'true') {
+  guestNotice?.classList.remove('hidden');
+  facilitatorLinks.forEach(link => link.classList.remove('hidden'));
+  return;
+  }
 
   try {
     const { data: { session }, error: sessionError } =
