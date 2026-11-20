@@ -444,9 +444,19 @@ body {
   height: auto;
   flex: 0 0 auto;
   margin: 0 2.5rem;
+  align-self: flex-start;
 }
 
 .partner-logo-eecs {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  flex: 0 0 auto;
+  margin: 0 2.5rem;
+  align-self: flex-start;
+}
+
+.partner-logo-etsu-cbat {
   max-width: 250px;
   width: 100%;
   height: auto;
